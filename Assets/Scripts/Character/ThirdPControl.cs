@@ -12,6 +12,9 @@ public class ThirdPControl : MonoBehaviour {
 
     public GameObject myCarmera;
 
+    [SerializeField]
+    private float mouseRotationFactor;
+
     private ThirdPCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
 
     private Vector3 m_Move;              // the world-relative desired move direction, calculated from the camForward and user input.
@@ -32,6 +35,7 @@ public class ThirdPControl : MonoBehaviour {
     private float v = 0;
     private float h = 0;
     private float rotationY = 0;
+    private float rotationX = 0;
     private float charRotationX = 0;
     private float zoom = 0;
 
@@ -76,11 +80,30 @@ public class ThirdPControl : MonoBehaviour {
         v = 0;
         h = 0;
         rotationY = 0;
+        rotationX = 0;
         charRotationX = 0;
         running = false;
 
         //left mouse button
         if (Input.GetMouseButton(0))
+        {
+            //rotate camera
+            rotationY = Input.GetAxis(mouseVerticalAxisName) * mouseRotationFactor;
+            rotationX = Input.GetAxis(mouseHorizontalAxisName) * mouseRotationFactor;
+            Debug.Log(rotationY);
+
+            //character movement (forward/backward motion) (rotate left/right)
+            v = CrossPlatformInputManager.GetAxis("Vertical");
+            h = CrossPlatformInputManager.GetAxis("Horizontal");
+
+            //charRotationX = Input.GetAxis(mouseHorizontalAxisName) * mouseRotationFactor;
+
+            //need to freeze the character body rotation
+            m_Character.freezeChar();
+        }//end if mouse 0
+
+        //right mouse button
+        else if (Input.GetMouseButton(1))
         {
             //rotate camera
             rotationY = Input.GetAxis(mouseVerticalAxisName) * 10f;
@@ -91,37 +114,26 @@ public class ThirdPControl : MonoBehaviour {
 
             charRotationX = Input.GetAxis(mouseHorizontalAxisName) * 10f;
 
-            //need to freeze the character body rotation
-            m_Character.freezeChar();
-        }//end if mouse 0
+            //unfreeze the char body so it rotates with the camera
+            m_Character.unFreezeChar();
 
-        //right mouse button
-        else if (Input.GetMouseButton(1))
-        {
-            ////rotate camera
-            //rotationY = Input.GetAxis(mouseVerticalAxisName) * 10f;
-
-            ////character movement (forward/backward motion) (rotate left/right)
-            //v = CrossPlatformInputManager.GetAxis("Vertical");
-            //h = CrossPlatformInputManager.GetAxis("Horizontal");
-
-            //charRotationX = Input.GetAxis(mouseHorizontalAxisName) * 10f;
-
-            ////unfreeze the char body so it rotates with the camera
-            //m_Character.unFreezeChar();
-
-            ////qstandingTurn = true;
+            //qstandingTurn = true;
         }//end if mouse 1
 
         //neither left/right mouse button
         else
         {
             //camera rotation
-            charRotationX = CrossPlatformInputManager.GetAxis("Horizontal");
+            //charRotationX = CrossPlatformInputManager.GetAxis("Horizontal");
+            if(charRotationX != 0)
+            {
+                Debug.Log(charRotationX);
+            }
 
             //character movement (forward/backward motion)
             v = CrossPlatformInputManager.GetAxis("Vertical");
-            if(v == 0)
+            h = CrossPlatformInputManager.GetAxis("Horizontal");
+            if (v == 0)
             {
                 m_Character.freezeChar();
             }
@@ -206,7 +218,7 @@ public class ThirdPControl : MonoBehaviour {
         charAnimation();
 
         // pass all parameters to the controling scripts
-        myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationY, zoom);
+        myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
         m_Character.Move(v, h, charRotationX, crouch, m_Jump, running);
         m_Jump = false;
     }
