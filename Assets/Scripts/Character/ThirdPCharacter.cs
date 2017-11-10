@@ -17,6 +17,7 @@ public class ThirdPCharacter : MonoBehaviour
     [SerializeField] float m_GroundCheckDistance = 0.175f;
 
     public GameObject charBody;
+    public GameObject camera;
 
     Rigidbody m_Rigidbody;
 
@@ -31,6 +32,7 @@ public class ThirdPCharacter : MonoBehaviour
     
     Quaternion charBodyRotation;
     Quaternion m_Rotation;
+    Quaternion camRotation;
     
 	// Use this for initialization
 	void Start () 
@@ -52,7 +54,7 @@ public class ThirdPCharacter : MonoBehaviour
     /// <param name="crouch">is player crouched</param>
     /// <param name="jump">should player jump</param>
     /// <param name="running">is the characte running</param>
-    public void Move(float vert, float hori, float charRotation, bool crouch, bool jump, bool running)
+    public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running)
     {
         //calculate initial movement direction and force
         move = (vert * m_Rigidbody.transform.forward) + (hori * m_Rigidbody.transform.right);
@@ -79,6 +81,7 @@ public class ThirdPCharacter : MonoBehaviour
         //keep the rotation holders updated
         charBodyRotation = charBody.transform.rotation;
         m_Rotation = m_Rigidbody.transform.rotation;
+        camRotation = camera.transform.rotation;
 
         if (move.magnitude > 1f)
         {
@@ -88,9 +91,50 @@ public class ThirdPCharacter : MonoBehaviour
         CheckGroundStatus();
         move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 
-        //rotate the character
-        m_Rigidbody.transform.RotateAround(m_Rigidbody.transform.position, m_Rigidbody.transform.up, charRotation);
-        
+        if(vert != 0)
+        {
+            //rotate the character
+            Quaternion r;
+            Vector3 temp, temp2;
+            temp = camRot.eulerAngles;
+            temp2 = charBodyRotation.eulerAngles;
+            temp.x = temp2.x;
+            temp.z = temp2.z;
+
+            if (vert < 0)
+            {
+                temp.y = temp.y + 180f;
+                move *= -1;
+            }
+
+            r = Quaternion.Euler(temp);
+            charBody.transform.rotation = r;
+            m_Rigidbody.transform.rotation = r;
+        }
+
+        if (hori != 0)
+        {
+            //rotate the character
+            Quaternion r;
+            Vector3 temp, temp2;
+            temp = camRot.eulerAngles;
+            temp2 = charBodyRotation.eulerAngles;
+            temp.x = temp2.x;
+            temp.z = temp2.z;
+            temp.y = temp.y + 90f;
+
+            if (hori < 0)
+            {
+                temp.y = temp.y + 180f;
+            }
+
+            r = Quaternion.Euler(temp);
+            charBody.transform.rotation = r;
+            //m_Rigidbody.transform.rotation = r;
+        }
+
+        //m_Rigidbody.transform.RotateAround(m_Rigidbody.transform.position, m_Rigidbody.transform.up, charRotation);
+
         // control and velocity handling is different when grounded and airborne:
         if (m_IsGrounded)
         {
@@ -120,16 +164,8 @@ public class ThirdPCharacter : MonoBehaviour
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Debug lines for character movement
         //Blue is m_Rigidbody forward, Red is velocity, just backwards
-        /*
-        Vector3 charPos = m_Rigidbody.transform.position;
-        Vector3 charPosFwd = m_Rigidbody.transform.position + (m_Rigidbody.transform.forward *2);
-        charPos = charPos + new Vector3(0, 1, 0);
-        charPosFwd = charPosFwd + new Vector3(0, 1, 0);
-
-        Vector3 charVel = (m_Rigidbody.transform.position - m_Rigidbody.velocity);
-
-        Debug.DrawLine(charPos, charPosFwd, Color.blue);
-        Debug.DrawLine(charPos, charVel, Color.red);    */
+        //Debug.DrawLine(charPos, charPosFwd, Color.blue);
+        //Debug.DrawLine(charPos, charVel, Color.red);
 
     }//end move
 
@@ -144,7 +180,9 @@ public class ThirdPCharacter : MonoBehaviour
         frozen = true;
     }
 
-    //unfreeze the character rotation
+    /// <summary>
+    /// unfreeze the character body rotation
+    /// </summary>
     public void unFreezeChar()
     {
         if (frozen)

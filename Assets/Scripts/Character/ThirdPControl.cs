@@ -12,8 +12,13 @@ public class ThirdPControl : MonoBehaviour {
 
     public GameObject myCarmera;
 
-    [SerializeField]
-    private float mouseRotationFactor;
+    [SerializeField] private float mouseRotationFactor; //Set mouse rotation sensitivity
+    [SerializeField] private float scrollFactor;        //Set scroll zoom sensitivity
+
+    // Default unity names for mouse axes
+    public string mouseHorizontalAxisName = "Mouse X";
+    public string mouseVerticalAxisName = "Mouse Y";
+    public string scrollAxisName = "Mouse ScrollWheel";
 
     private ThirdPCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
 
@@ -41,11 +46,6 @@ public class ThirdPControl : MonoBehaviour {
 
     //animation controller
     private Animator anim;
-
-    // Default unity names for mouse axes
-    public string mouseHorizontalAxisName = "Mouse X";
-    public string mouseVerticalAxisName = "Mouse Y";
-    public string scrollAxisName = "Mouse ScrollWheel";
 
 
 
@@ -84,92 +84,39 @@ public class ThirdPControl : MonoBehaviour {
         charRotationX = 0;
         running = false;
 
-        //left mouse button
-        if (Input.GetMouseButton(0))
-        {
-            //rotate camera
-            rotationY = Input.GetAxis(mouseVerticalAxisName) * mouseRotationFactor;
-            rotationX = Input.GetAxis(mouseHorizontalAxisName) * mouseRotationFactor;
-            Debug.Log(rotationY);
+        // Need to start working on adding multiple types of input devices
+        //rotate camera
+        rotationY = Input.GetAxis(mouseVerticalAxisName) * mouseRotationFactor;
+        rotationX = Input.GetAxis(mouseHorizontalAxisName) * mouseRotationFactor;
 
-            //character movement (forward/backward motion) (rotate left/right)
-            v = CrossPlatformInputManager.GetAxis("Vertical");
-            h = CrossPlatformInputManager.GetAxis("Horizontal");
+        //character movement (forward/backward motion) (rotate left/right)
+        v = CrossPlatformInputManager.GetAxis("Vertical");
+        h = CrossPlatformInputManager.GetAxis("Horizontal");
 
-            //charRotationX = Input.GetAxis(mouseHorizontalAxisName) * mouseRotationFactor;
+        //scroll for zoom
+        zoom = Input.GetAxis(scrollAxisName) * scrollFactor;
 
-            //need to freeze the character body rotation
-            m_Character.freezeChar();
-        }//end if mouse 0
+        #region Specific Mouse Input
+        /*//left mouse button
+        if (Input.GetMouseButton(0)) {}//end if mouse 0
 
         //right mouse button
-        else if (Input.GetMouseButton(1))
-        {
-            //rotate camera
-            rotationY = Input.GetAxis(mouseVerticalAxisName) * 10f;
+        if (Input.GetMouseButton(1)){}//end if mouse 0
 
-            //character movement (forward/backward motion) (rotate left/right)
-            v = CrossPlatformInputManager.GetAxis("Vertical");
-            h = CrossPlatformInputManager.GetAxis("Horizontal");
-
-            charRotationX = Input.GetAxis(mouseHorizontalAxisName) * 10f;
-
-            //unfreeze the char body so it rotates with the camera
-            m_Character.unFreezeChar();
-
-            //qstandingTurn = true;
-        }//end if mouse 1
-
-        //neither left/right mouse button
-        else
-        {
-            //camera rotation
-            //charRotationX = CrossPlatformInputManager.GetAxis("Horizontal");
-            if(charRotationX != 0)
-            {
-                Debug.Log(charRotationX);
-            }
-
-            //character movement (forward/backward motion)
-            v = CrossPlatformInputManager.GetAxis("Vertical");
-            h = CrossPlatformInputManager.GetAxis("Horizontal");
-            if (v == 0)
-            {
-                m_Character.freezeChar();
-            }
-            else if(v !=0)
-            {
-                m_Character.unFreezeChar();
-            }
-        }//end else
-        
-        /*
         //middle mouse button
-        if (Input.GetMouseButton(2))
-        {
-            Debug.Log("I am mouse button 2");
-        }
+        if (Input.GetMouseButton(2)) { Debug.Log("I am mouse button 2"); }
 
         //back mouse button
-        if (Input.GetMouseButton(3))
-        {
-            //possibly other features here, but unlikely
-            Debug.Log("I am mouse button 3");
-        }
+        if (Input.GetMouseButton(3)) { Debug.Log("I am mouse button 3"); }
 
         //foward mouse button
-        if (Input.GetMouseButton(4))
-        {
-            //possibly other features here, but unlikely
-            Debug.Log("I am mouse button 4");
-        }
-        */
+        if (Input.GetMouseButton(4)) { Debug.Log("I am mouse button 4"); } */
+        #endregion
 
-        //mouseScroll for zoom
-        zoom = Input.GetAxis(scrollAxisName) * 10f;
+
 
         //if character is moving forward or backward, unfreeze any rotation
-        if(v != 0)
+        if (v != 0)
         {
             m_Character.unFreezeChar();
         }
@@ -219,7 +166,7 @@ public class ThirdPControl : MonoBehaviour {
 
         // pass all parameters to the controling scripts
         myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
-        m_Character.Move(v, h, charRotationX, crouch, m_Jump, running);
+        m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation, crouch, m_Jump, running);
         m_Jump = false;
     }
 

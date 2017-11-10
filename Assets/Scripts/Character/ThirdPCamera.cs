@@ -23,7 +23,12 @@ public class ThirdPCamera : MonoBehaviour
     [SerializeField] private float bumperDistanceCheck = 2.0f;  // length of bumper ray
     [SerializeField] private float bumperCameraHeight = 0.5f;   // adjust camera height while bumping
     [SerializeField] private Vector3 bumperRayOffset;           // allows offset of the bumper ray from target origin
-    [SerializeField] private float damping = 5.0f;
+    [SerializeField] private float damping = 5.0f;              // damping
+    [SerializeField] private float lowerTiltAngle = 45f;        // lower limit of camera Y tilt
+    [SerializeField] private float upperTiltAngle = 110f;       // upper limit of camera Y tilt
+    [SerializeField] private float distance = 3f;
+
+    private Vector3 targetLastPos;
 
     //Start, setup the initial camera position with the character
     void Start()
@@ -34,7 +39,7 @@ public class ThirdPCamera : MonoBehaviour
             Debug.Log("Camera has no target at Start.");
             return;
         }
-
+        targetLastPos = target.transform.position;
     }//end start
 
     /// <summary>
@@ -43,7 +48,8 @@ public class ThirdPCamera : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        Vector3 wantedPosition = transform.position;
+        Vector3 wantedPosition;
+        float dt = Time.deltaTime;
 
         // check to see if there is anything behind the target
         RaycastHit hit;
@@ -53,13 +59,23 @@ public class ThirdPCamera : MonoBehaviour
         if (Physics.Raycast(target.TransformPoint(bumperRayOffset), back, out hit, bumperDistanceCheck)
             && hit.transform != target) // ignore ray-casts that hit the user. DR
         {
+            wantedPosition = transform.position;
             // clamp wanted position to hit position
             wantedPosition.x = hit.point.x;
             wantedPosition.z = hit.point.z;
-            wantedPosition.y = Mathf.Lerp(hit.point.y + bumperCameraHeight, wantedPosition.y, Time.deltaTime * damping);
+            wantedPosition.y = Mathf.Lerp(hit.point.y + bumperCameraHeight, wantedPosition.y, dt * damping);
 
-            transform.position = Vector3.Lerp(transform.position, wantedPosition, Time.deltaTime * damping);
+            transform.position = Vector3.Lerp(transform.position, wantedPosition, dt * damping);
         }
+
+        // Set the position of the camera 
+        Vector3 dir = target.transform.position - targetLastPos;
+        //dir.Normalize();
+        //wantedPosition = transform.position + dir;
+        //transform.position = Vector3.Lerp(transform.position, wantedPosition, 4f * dt);
+        transform.position = transform.position + dir;
+
+        targetLastPos = target.position;
 
         //keep the camera looking at the character
         transform.LookAt(target);
@@ -91,17 +107,24 @@ public class ThirdPCamera : MonoBehaviour
         //get a vector between camera and target
         moveAlong = transform.position - target.transform.position;
         
-        //bind the angle between 8 and 160 with a range attribute
+        //bind the angle between a lower and upper range
         //keep the camera bounded between alomst straight overhead and near to underneath
         float angle = Vector3.Angle(moveAlong, Vector3.up);
-        //Debug.Log("Camera Angle: " + angle);
-        if (angle > 10 && -rotationY > 0)
+
+        if (angle > lowerTiltAngle && -rotationY > 0)
         {
             transform.RotateAround(target.transform.position, this.transform.right, -rotationY);
         }
-        else if (angle < 160 && -rotationY < 0)
+        else if (angle < upperTiltAngle && -rotationY < 0)
         {
             transform.RotateAround(target.transform.position, this.transform.right, -rotationY);
+        }
+
+        // Rotate around the target
+        if(rotationX != 0)
+        {
+            angle = Vector3.Angle(moveAlong, Vector3.forward);
+            transform.RotateAround(target.transform.position, this.transform.up, rotationX);
         }
 
         //zoom the camera in or out
