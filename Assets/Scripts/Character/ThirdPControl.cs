@@ -14,6 +14,7 @@ public class ThirdPControl : MonoBehaviour {
 
     [SerializeField] private float mouseRotationFactor; //Set mouse rotation sensitivity
     [SerializeField] private float scrollFactor;        //Set scroll zoom sensitivity
+    [SerializeField] private int dashMod = 60;
 
     // Default unity names for mouse axes
     public string mouseHorizontalAxisName = "Mouse X";
@@ -26,15 +27,19 @@ public class ThirdPControl : MonoBehaviour {
     private Vector3 myCamFwd;
 
     private bool m_Jump;
-    private bool running;
-    private bool playing = false;
+    private bool m_running;
+    private bool m_dashing;
+    private bool m_useDash;
+    private bool m_playing = false;
 
-    private bool crouch = false;
-    private bool attacking = false;
-    private bool rolling = false;
+    private bool m_crouch = false;
+    private bool m_attacking = false;
+    private bool m_rolling = false;
 
     private int combatCounter = 0;
+    private int dashCounter = 0;
     private int rollCounter = 0;
+    private int jumpCount = 0;
     private int waitTime = 45;
 
     private float v = 0;
@@ -61,15 +66,8 @@ public class ThirdPControl : MonoBehaviour {
         //check to see if the character should jump
         if (!m_Jump)
         {
-            //m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                m_Jump = true;
-            }
-            /*else if (Input.GetMouseButtonDown(4))   //foward mouse button
-            {
-                m_Jump = true;
-            }*/
+            m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            //jumpCount++;
         }
     }//end update
 
@@ -82,19 +80,80 @@ public class ThirdPControl : MonoBehaviour {
         rotationY = 0;
         rotationX = 0;
         charRotationX = 0;
-        running = false;
+        m_running = false;
 
-        // Need to start working on adding multiple types of input devices
-        //rotate camera
-        rotationY = Input.GetAxis(mouseVerticalAxisName) * mouseRotationFactor;
-        rotationX = Input.GetAxis(mouseHorizontalAxisName) * mouseRotationFactor;
+        // Axis Input
 
-        //character movement (forward/backward motion) (rotate left/right)
+        // Rotate camera
+        rotationX = CrossPlatformInputManager.GetAxis("HorizontalJoystick");
+        rotationY = CrossPlatformInputManager.GetAxis("VerticalJoystick") * -1;
+        if (rotationX == 0) { rotationX = Input.GetAxis(mouseHorizontalAxisName) * mouseRotationFactor; }
+        if (rotationY == 0) { rotationY = Input.GetAxis(mouseVerticalAxisName) * mouseRotationFactor; }
+
+        // Character movement (forward/backward motion) (rotate left/right)
         v = CrossPlatformInputManager.GetAxis("Vertical");
         h = CrossPlatformInputManager.GetAxis("Horizontal");
 
+        // Triggers
+        float rt = CrossPlatformInputManager.GetAxis("Dash");
+        if (!m_useDash && rt != 0)
+        {
+            m_useDash = true;
+            m_dashing = true;
+            dashCounter = dashMod;
+            Debug.Log("Dash");
+            
+        }
+        float lt = CrossPlatformInputManager.GetAxis("Aim");
+        if (lt != 0)
+        { Debug.Log("Aim"); }
+
+        // D-Pad goes here
+        if (CrossPlatformInputManager.GetAxis("dpX") > 0)
+        { Debug.Log("D-Pad Right"); }
+        if (CrossPlatformInputManager.GetAxis("dpX") < 0)
+        { Debug.Log("D-Pad Left"); }
+        if (CrossPlatformInputManager.GetAxis("dpY") > 0)
+        { Debug.Log("D-Pad Up"); }
+        if (CrossPlatformInputManager.GetAxis("dpY") < 0)
+        { Debug.Log("D-Pad Down"); }
+
+        // Face Buttons
+        if (CrossPlatformInputManager.GetButton("Dodge")) //Button 1
+        {
+            Debug.Log("Dodge");
+        }
+        if (CrossPlatformInputManager.GetButton("Attack")) //Button 2
+        {
+            Debug.Log("Attack");
+        }
+        if (CrossPlatformInputManager.GetButton("Sword")) //Button 3
+        {
+            Debug.Log("Sword");
+        }
+        if (CrossPlatformInputManager.GetButton("Hack")) //Button 4
+        {
+            Debug.Log("Vision Hack");
+        }
+        if (CrossPlatformInputManager.GetButton("Interact")) //Button 5
+        {
+            Debug.Log("Interact");
+        }
+        if (CrossPlatformInputManager.GetButton("Pause")) //Button 7
+        {
+            Debug.Log("Pause");
+        }
+        if (CrossPlatformInputManager.GetButton("Submit")) //Button 0
+        {
+            //Debug.Log("Submit");
+        }
+        if (CrossPlatformInputManager.GetButton("Cancel")) //Button 1 or 6
+        {
+            //Debug.Log("Cancel");
+        }
+
         //scroll for zoom
-        zoom = Input.GetAxis(scrollAxisName) * scrollFactor;
+        //zoom = Input.GetAxis(scrollAxisName) * scrollFactor;
 
         #region Specific Mouse Input
         /*//left mouse button
@@ -124,7 +183,7 @@ public class ThirdPControl : MonoBehaviour {
         //character crouch
         if(Input.GetKeyDown(KeyCode.C))
         {
-            crouch = !crouch;
+            m_crouch = !m_crouch;
         }
 
 
@@ -144,11 +203,11 @@ public class ThirdPControl : MonoBehaviour {
 
         //----------------------------------------------------------------------------------------
         // walk speed multiplier
-        if (Input.GetKey(KeyCode.LeftShift) && v > 0 && !crouch)
+        if (Input.GetKey(KeyCode.LeftShift) && !m_crouch)
         {
             //if (gameObject.GetComponent<BaseCharacter>().StaminaPoints > 0)
             //{
-            running = true;
+            m_running = true;
             //    gameObject.GetComponent<BaseCharacter>().useStamina(0.5f);
             //    gameObject.GetComponent<BaseCharacter>().RegenStamina = false;
             //}
@@ -166,8 +225,17 @@ public class ThirdPControl : MonoBehaviour {
 
         // pass all parameters to the controling scripts
         myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
-        m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation, crouch, m_Jump, running);
+        m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation, 
+            m_crouch, m_Jump, m_running, m_dashing);
         m_Jump = false;
+        if(m_useDash)
+        {
+            dashCounter--;
+            if(dashCounter <= (dashMod / 4) * 3)
+            { m_dashing = false; }
+            if(dashCounter <= 0)
+            { m_useDash = false; }
+        }
     }
 
    /// <summary>
@@ -177,26 +245,26 @@ public class ThirdPControl : MonoBehaviour {
     {
         if (m_Character.m_IsGrounded)
         {
-            playing = false;
+            m_playing = false;
 
             
         }//end check if grounded
 
         //jump animation
-        if (m_Jump && !playing)
+        if (m_Jump && !m_playing)
         {
-            playing = true;
+            m_playing = true;
             
         }
 
         if(combatCounter > waitTime)
         {
-            attacking = false;
+            m_attacking = false;
             combatCounter = 0;
         }
         if(rollCounter > 45)
         {
-            rolling = false;
+            m_rolling = false;
             rollCounter = 0;
         }
     }

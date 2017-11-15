@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 
 /*This is a thrid person character script based on unity's built in script. It has been overhauled to work
- * with the third person control script. The built in animation control has been taken out and may be replaced
- * later or added as another script once the project moves that far along. This script is required by the third
- * person control script.
- * Darren Farr 09/12/2015 */
+ * with a new version of th third person control script. The built in animation control has been taken out 
+ * and is being done differently. This script is required by the third person control script.
+ * Darren Farr 11/08/2017 */
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
@@ -22,10 +21,11 @@ public class ThirdPCharacter : MonoBehaviour
     Rigidbody m_Rigidbody;
 
     public bool m_IsGrounded;
-    bool m_Crouching;
-    bool frozen = false;
+    private bool m_Crouching;
+    private bool frozen = false;
 
-    float m_OrigGroundCheckDistance;
+    private float turnMod;
+    private float m_OrigGroundCheckDistance;
     
     Vector3 m_GroundNormal;
     Vector3 move;
@@ -42,8 +42,9 @@ public class ThirdPCharacter : MonoBehaviour
         m_OrigGroundCheckDistance = m_GroundCheckDistance;
         charBodyRotation = charBody.transform.rotation;
         m_Rotation = m_Rigidbody.transform.rotation;
+        turnMod = 90.0f / 200.0f;
 
-	}
+    }
 
     /// <summary>
     /// Move the player character.
@@ -53,14 +54,71 @@ public class ThirdPCharacter : MonoBehaviour
     /// <param name="charRotation">rotation of player</param>
     /// <param name="crouch">is player crouched</param>
     /// <param name="jump">should player jump</param>
-    /// <param name="running">is the characte running</param>
-    public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running)
+    /// <param name="running">is the player running</param>
+    /// <param name="dash">is the player dashing</param>
+    public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash)
     {
+        if (vert != 0 || hori != 0)
+        {
+            Quaternion r;
+            Vector3 temp, temp2;
+            temp = camRot.eulerAngles;
+            temp2 = charBodyRotation.eulerAngles;
+            if(temp2.y > 360)
+            { temp2.y -= 360; }
+            temp.x = temp2.x;
+            temp.z = temp2.z;
+            
+            if (vert < 0)
+            {
+                temp.y = temp.y + 180f;
+                vert *= -1;
+                hori *= -1;
+            }
+
+            r = Quaternion.Euler(temp);
+            charBody.transform.rotation = r;
+            m_Rigidbody.transform.rotation = r;
+            
+            if(vert != 0 && hori != 0)
+            {
+                if (vert > 0 && hori >= 0)
+                {
+                    temp.y += (((hori - vert) + 1) * 100) * turnMod;
+                }
+
+                else if (vert > 0 && hori < 0)
+                {
+                    temp.y += (((((-hori - vert) + 1) * 100) * turnMod)) * - 1;
+                }
+
+                r = Quaternion.Euler(temp);
+                charBody.transform.rotation = r;
+            }
+
+            else if (hori != 0)
+            {
+                temp.y = temp.y + 90f;
+
+                if (hori < 0)
+                {
+                    temp.y = temp.y + 180f;
+                }
+                
+                r = Quaternion.Euler(temp);
+                charBody.transform.rotation = r;
+            }
+        }
+
         //calculate initial movement direction and force
         move = (vert * m_Rigidbody.transform.forward) + (hori * m_Rigidbody.transform.right);
 
-        //check to see if the character is running and adjust modifier
-        if (running && !crouch && vert > 0f)
+        //check to see if the character is running or dashing and adjust modifier
+        if(dash)
+        {
+            m_MoveSpeedMultiplier = 0.2f;
+        }
+        else if (running && !crouch)
         {
             m_MoveSpeedMultiplier = 0.16f;
         }
@@ -91,47 +149,7 @@ public class ThirdPCharacter : MonoBehaviour
         CheckGroundStatus();
         move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 
-        if(vert != 0)
-        {
-            //rotate the character
-            Quaternion r;
-            Vector3 temp, temp2;
-            temp = camRot.eulerAngles;
-            temp2 = charBodyRotation.eulerAngles;
-            temp.x = temp2.x;
-            temp.z = temp2.z;
-
-            if (vert < 0)
-            {
-                temp.y = temp.y + 180f;
-                move *= -1;
-            }
-
-            r = Quaternion.Euler(temp);
-            charBody.transform.rotation = r;
-            m_Rigidbody.transform.rotation = r;
-        }
-
-        if (hori != 0)
-        {
-            //rotate the character
-            Quaternion r;
-            Vector3 temp, temp2;
-            temp = camRot.eulerAngles;
-            temp2 = charBodyRotation.eulerAngles;
-            temp.x = temp2.x;
-            temp.z = temp2.z;
-            temp.y = temp.y + 90f;
-
-            if (hori < 0)
-            {
-                temp.y = temp.y + 180f;
-            }
-
-            r = Quaternion.Euler(temp);
-            charBody.transform.rotation = r;
-            //m_Rigidbody.transform.rotation = r;
-        }
+        
 
         //m_Rigidbody.transform.RotateAround(m_Rigidbody.transform.position, m_Rigidbody.transform.up, charRotation);
 

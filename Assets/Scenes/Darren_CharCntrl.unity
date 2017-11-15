@@ -1306,7 +1306,7 @@ GameObject:
   - component: {fileID: 77582022}
   - component: {fileID: 77582021}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1326,6 +1326,7 @@ MonoBehaviour:
   myCarmera: {fileID: 737285128}
   mouseRotationFactor: 2
   scrollFactor: 2
+  dashMod: 120
   mouseHorizontalAxisName: Mouse X
   mouseVerticalAxisName: Mouse Y
   scrollAxisName: Mouse ScrollWheel
@@ -1343,7 +1344,7 @@ MonoBehaviour:
   m_JumpPower: 7
   m_GravityMultiplier: 2
   m_MoveSpeedMultiplier: 0.08
-  m_GroundCheckDistance: 0.175
+  m_GroundCheckDistance: 0.2
   charBody: {fileID: 1727714287}
   camera: {fileID: 737285128}
   m_IsGrounded: 0
@@ -1371,10 +1372,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.15
-  m_Height: 1.76
+  m_Radius: 0.17248344
+  m_Height: 0.3449669
   m_Direction: 1
-  m_Center: {x: 0, y: 0.88, z: -0.05}
+  m_Center: {x: -0.0099, y: 0.165, z: -0.049999997}
 --- !u!4 &77582025
 Transform:
   m_ObjectHideFlags: 0
@@ -1382,7 +1383,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 77582020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.710693, y: -0.100000255, z: -6.1459584}
+  m_LocalPosition: {x: -35.710693, y: -0.09, z: -6.1459584}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1882342586}
