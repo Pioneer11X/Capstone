@@ -35,15 +35,15 @@ public class CapstoneAnimation : MonoBehaviour
         {
             case ThirdPCharacter.CharacterState.idle_OutCombat:
                 //animator.Play("Idle_OutCombat");
-                animator.CrossFade("Idle_OutCombat", 0.3f);
+                animator.CrossFade("Idle_OutCombat", 0.2f);
                 break;
             case ThirdPCharacter.CharacterState.idle_InCombat:
-                animator.CrossFade("Idle_InCombat",0.3f);
+                animator.CrossFade("Idle_InCombat",0.2f);
                 break;
             case ThirdPCharacter.CharacterState.run:
                 if (parameter == 0)
                 {
-                    animator.CrossFade("Run",0.3f);                    
+                    animator.CrossFade("Run",0.1f);                    
                 }
                 else {
                     animator.Play("Dash");
