@@ -152,7 +152,7 @@ public class ThirdPCharacter : MonoBehaviour
     {
         get
         {
-            return !(isRolling || isAimming || isAttacking || isDodging);
+            return !(isRolling || isAimming || isAttacking || isDodging || isAdjusting);
         }
     }
 
@@ -160,7 +160,7 @@ public class ThirdPCharacter : MonoBehaviour
     {
         get
         {
-            return !(isRolling || isJumping || isAimming || isAttacking || isDodging);
+            return !(isRolling || isJumping || isAimming || isAttacking || isDodging || isAdjusting);
         }
     }
 
@@ -168,7 +168,7 @@ public class ThirdPCharacter : MonoBehaviour
     {
         get
         {
-            return !(isRolling || isJumping || isAttacking || isDodging);
+            return !(isRolling || isJumping || isAttacking || isDodging || isAdjusting);
         }
     }
 
@@ -176,7 +176,7 @@ public class ThirdPCharacter : MonoBehaviour
     {
         get
         {
-            return !(isRolling || isJumping || isAimming || isAttacking || isDodging);
+            return !(isRolling || isJumping || isAimming || isAttacking || isDodging || isAdjusting);
         }
     }
 
@@ -184,7 +184,7 @@ public class ThirdPCharacter : MonoBehaviour
     {
         get
         {
-            return !(isRolling || isJumping || isAimming || isAttacking || isDodging);
+            return !(isRolling || isJumping || isAimming || isAttacking || isDodging || isAdjusting);
         }
     }
 
@@ -575,6 +575,7 @@ public class ThirdPCharacter : MonoBehaviour
             if (stateTimer < hitTime)
             {
                 currentState = CharacterState.hit;
+                animationParameter = hitDirection;
                 if (hitDirection >= 2)
                 {
                     ForceMove(hitMaxWalkSpeed * 0.5f, hitDirection);

@@ -184,8 +184,8 @@ ModelImporter:
     7400034: KB_Hit_m_LowLeft_Weak
     7400036: KB_Hit_m_LowRight_Weak
     7400038: A_Hit_Front
-    7400040: A_Hit_Right
-    7400042: A_Hit_Left
+    7400040: A_Hit_Left
+    7400042: A_Hit_Right
     7400044: KB_Hit_m_MidFront_Med
     7400046: KB_Hit_m_MidLeft_Med
     7400048: KB_Hit_m_MidRight_Med
@@ -3827,7 +3827,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_Hit_Right
+      name: A_Hit_Left
       takeName: KB_Hit_m_HighRight_Med
       firstFrame: 0
       lastFrame: 93
@@ -4007,7 +4007,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_Hit_Left
+      name: A_Hit_Right
       takeName: KB_Hit_m_HighLeft_Med
       firstFrame: 0
       lastFrame: 90

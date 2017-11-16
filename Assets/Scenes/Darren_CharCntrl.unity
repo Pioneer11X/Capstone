@@ -1508,7 +1508,7 @@ MonoBehaviour:
   jumpAirTime: 0.3
   jumpDownTime: 0.35
   attackTime: 1
-  effectTime: 0.4
+  effectTime: 0.35
   effetDistance: 0.9
   adjustSpeed: 2
   adjustMinDistance: 0.75
@@ -8092,7 +8092,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 0.30941823, g: 0.51271933, b: 0.71323526, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30

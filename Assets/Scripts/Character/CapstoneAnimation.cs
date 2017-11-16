@@ -81,18 +81,22 @@ public class CapstoneAnimation : MonoBehaviour
             case ThirdPCharacter.CharacterState.hit:
                 if (parameter == 0) {
                     animator.Play("HitForward");
+
                 }
                 if (parameter == 1)
                 {
                     animator.Play("HitBackward");
+
                 }
                 if (parameter == 2)
                 {
                     animator.Play("HitLeft");
+
                 }
                 if (parameter == 3)
                 {
                     animator.Play("HitRight");
+
                 }
                 break;
         }
