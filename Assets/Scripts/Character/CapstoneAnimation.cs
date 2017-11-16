@@ -43,7 +43,7 @@ public class CapstoneAnimation : MonoBehaviour
             case ThirdPCharacter.CharacterState.run:
                 if (parameter == 0)
                 {
-                    animator.Play("Run");                    
+                    animator.CrossFade("Run",0.3f);                    
                 }
                 else {
                     animator.Play("Dash");
