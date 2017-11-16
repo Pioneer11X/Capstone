@@ -66,6 +66,16 @@ public class ThirdPCharacter : MonoBehaviour
     public enum Combat
     {
         punch,
+        none,
+        punch_Jab_L,
+        punch_Jab_R,
+        punch_Hook_L,
+        punch_Hook_R,
+        punch_UpperCut_L,
+        punch_UpperCut_R,
+        kick_Straight_Mid_R,
+        kick_AxeKick,
+        kick_HorseKick
 
     }
     //target parameters
@@ -107,6 +117,11 @@ public class ThirdPCharacter : MonoBehaviour
     private bool hasEffect;
     [SerializeField]
     private float effetDistance;
+    private Combat currentCombat;
+    private Combat nextCombat;
+    private bool nextCombatLock;
+    private float comboTimer;
+
 
     //adjust parameters
     private bool isAdjusting;
@@ -251,6 +266,7 @@ public class ThirdPCharacter : MonoBehaviour
 
     }
 
+#region Movement
     /// <summary>
     /// Move the player character.
     /// </summary>
@@ -470,6 +486,7 @@ public class ThirdPCharacter : MonoBehaviour
             m_GroundNormal = Vector3.up;
         }
     }//end CheckGroundStatus
+#endregion
 
     void UpdateState()
     {
@@ -571,7 +588,8 @@ public class ThirdPCharacter : MonoBehaviour
                 ForceMove(adjustSpeed, 1);
             }
         }
-        else if (isHit) {
+        else if (isHit)
+        {
             if (stateTimer < hitTime)
             {
                 currentState = CharacterState.hit;
@@ -580,12 +598,14 @@ public class ThirdPCharacter : MonoBehaviour
                 {
                     ForceMove(hitMaxWalkSpeed * 0.5f, hitDirection);
                 }
-                else {
+                else
+                {
                     ForceMove(hitMaxWalkSpeed, hitDirection);
                 }
-                
+
             }
-            else {
+            else
+            {
                 stateTimer = -1;
                 isHit = false;
             }
@@ -676,6 +696,17 @@ public class ThirdPCharacter : MonoBehaviour
         }
     }
 
+    public void BasicCombo() {
+        //if can attack
+        //if with in combat timer
+        //NextCombat()
+
+    }
+
+    public void SpecialCombat() {
+
+    }
+
     public void Attack(Combat combat)
     {
         inCombat = true;
@@ -699,21 +730,24 @@ public class ThirdPCharacter : MonoBehaviour
                 {
                     dir = HitDirection.backward;
                 }
-                else if (angleFB >= 135) {
+                else if (angleFB >= 135)
+                {
                     dir = HitDirection.forward;
                 }
                 else
                 {
-                    if (angleLR <= 45) {
+                    if (angleLR <= 45)
+                    {
                         dir = HitDirection.left;
                     }
-                    else if (angleLR >= 135) {
+                    else if (angleLR >= 135)
+                    {
                         dir = HitDirection.right;
                     }
                 }
                 currentTarget.Hit(HitPosition.high, dir, HitPower.powerful);
             }
-            
+
         }
     }
 
@@ -766,6 +800,37 @@ public class ThirdPCharacter : MonoBehaviour
         }
         stateTimer = 0;
         isRolling = true;
+    }
+
+    void NextCombat()
+    {
+        if (!nextCombatLock)
+        {
+            if (currentCombat == Combat.none) {
+                nextCombat = Combat.punch_Jab_L;
+            }
+            else if (currentCombat == Combat.punch_Jab_L)
+            {
+                nextCombat = Combat.punch_Jab_R;
+            }
+            else if (currentCombat == Combat.punch_Jab_R)
+            {
+                nextCombat = Combat.punch_Hook_L;
+            }
+            else if (currentCombat == Combat.punch_Hook_L)
+            {
+                nextCombat = Combat.punch_Hook_R;
+            }
+            else if (currentCombat == Combat.punch_Hook_R)
+            {
+                nextCombat = Combat.kick_Straight_Mid_R;
+            }
+            else if (currentCombat == Combat.kick_Straight_Mid_R)
+            {
+                nextCombat = Combat.punch_Jab_L;
+            }
+            nextCombatLock = true;
+        }
     }
     /*
     void ScaleCapsuleForCrouching(bool crouch)

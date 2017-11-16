@@ -15,6 +15,10 @@ public class ThirdPControl : MonoBehaviour
 
     [SerializeField]
     private float mouseRotationFactor; //Set mouse rotation sensitivity
+
+    [SerializeField]
+    private float crossRotationFactor; //Set mouse rotation sensitivity
+
     [SerializeField]
     private float scrollFactor;        //Set scroll zoom sensitivity
     [SerializeField]
@@ -138,8 +142,8 @@ public class ThirdPControl : MonoBehaviour
         // Axis Input
 
         // Rotate camera
-        rotationX = CrossPlatformInputManager.GetAxis("HorizontalJoystick");
-        rotationY = CrossPlatformInputManager.GetAxis("VerticalJoystick") * -1;
+        rotationX = CrossPlatformInputManager.GetAxis("HorizontalJoystick") * crossRotationFactor;
+        rotationY = (CrossPlatformInputManager.GetAxis("VerticalJoystick") * -1) * crossRotationFactor;
         if (rotationX == 0) { rotationX = Input.GetAxis(mouseHorizontalAxisName) * mouseRotationFactor; }
         if (rotationY == 0) { rotationY = Input.GetAxis(mouseVerticalAxisName) * mouseRotationFactor; }
 
