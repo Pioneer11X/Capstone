@@ -69,7 +69,7 @@ public class ThirdPControl : MonoBehaviour
     {
         if (CrossPlatformInputManager.GetButtonDown("Attack")) //Button 2
         {
-            m_Character.Attack(ThirdPCharacter.Combat.punch);
+            m_Character.PrepareAttack(ThirdPCharacter.Combat.punch);
         }
 
         if (CrossPlatformInputManager.GetButtonDown("Dodge")) //Button 1

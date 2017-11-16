@@ -173,7 +173,7 @@ ModelImporter:
     7400012: KB_Idle_5
     7400014: KB_Idle_6
     7400016: KB_WalkFwd1
-    7400018: KB_WalkFwd2
+    7400018: A_Adjust
     7400020: KB_WalkBwd
     7400022: KB_WalkRight45
     7400024: KB_WalkRight135
@@ -1837,7 +1837,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_WalkFwd2
+      name: A_Adjust
       takeName: KB_WalkFwd2
       firstFrame: 0
       lastFrame: 46

@@ -68,13 +68,19 @@ public class ThirdPCharacter : MonoBehaviour
         punch,
 
     }
+    //target parameters
+    [SerializeField]
+    private ThirdPCharacter currentTarget;
+
 
     //in combat parameters
     private bool inCombat;
     private float inCombatTimer;
+    [SerializeField]
+    private float inCombatDuration;
 
 
-
+    //aimming parameters
     private bool isAimming;
 
 
@@ -96,6 +102,23 @@ public class ThirdPCharacter : MonoBehaviour
     private bool isAttacking;
     [SerializeField]
     private float attackTime;
+    [SerializeField]
+    private float effectTime;
+    private bool hasEffect;
+    [SerializeField]
+    private float effetDistance;
+
+    //adjust parameters
+    private bool isAdjusting;
+    [SerializeField]
+    private float adjustSpeed;
+    [SerializeField]
+    private float adjustMinDistance;
+    [SerializeField]
+    private float adjustMaxDistance;
+    [SerializeField]
+    private float adjustAgle;
+
 
 
     //dodge parameters
@@ -111,6 +134,14 @@ public class ThirdPCharacter : MonoBehaviour
     private float rollTime;
     [SerializeField]
     private float rollSpeed;
+
+    //hit parameters
+    private bool isHit;
+    [SerializeField]
+    private float hitTime;
+    [SerializeField]
+    private float hitMaxWalkSpeed;
+    private int hitDirection;
 
 
 
@@ -499,7 +530,7 @@ public class ThirdPCharacter : MonoBehaviour
             if (stateTimer < rollTime)
             {
                 currentState = CharacterState.roll;
-                ForceMove(rollSpeed, 0);
+                ForceMove(rollSpeed, 1);
             }
             else
             {
@@ -512,15 +543,55 @@ public class ThirdPCharacter : MonoBehaviour
             if (stateTimer < attackTime)
             {
                 currentState = CharacterState.attack;
+                if (stateTimer >= effectTime && !hasEffect)
+                {
+                    hasEffect = true;
+                    Effect();
+                }
             }
             else
             {
                 stateTimer = -1;
                 isAttacking = false;
+                hasEffect = false;
+            }
+        }
+        else if (isAdjusting)
+        {
+            if (CheckTarget())
+            {
+                isAdjusting = false;
+                Attack(Combat.punch);
+            }
+            else
+            {
+                //look at target
+                charBody.transform.forward = currentTarget.transform.position - transform.position;
+                currentState = CharacterState.adjustPosition;
+                ForceMove(adjustSpeed, 1);
+            }
+        }
+        else if (isHit) {
+            if (stateTimer < hitTime)
+            {
+                currentState = CharacterState.hit;
+                if (hitDirection >= 2)
+                {
+                    ForceMove(hitMaxWalkSpeed * 0.5f, hitDirection);
+                }
+                else {
+                    ForceMove(hitMaxWalkSpeed, hitDirection);
+                }
+                
+            }
+            else {
+                stateTimer = -1;
+                isHit = false;
             }
         }
         else
         {
+
             if (isMoving)
             {
                 currentState = CharacterState.run;
@@ -531,13 +602,15 @@ public class ThirdPCharacter : MonoBehaviour
             }
             else
             {
-                if (inCombat) {
+                if (inCombat)
+                {
                     currentState = CharacterState.idle_InCombat;
                 }
-                else{
+                else
+                {
                     currentState = CharacterState.idle_OutCombat;
                 }
-                
+
             }
         }
 
@@ -555,11 +628,11 @@ public class ThirdPCharacter : MonoBehaviour
     {
         if (direction == 0)
         {
-            transform.position += charBody.transform.forward * speed * Time.deltaTime;
+            transform.position -= charBody.transform.forward * speed * Time.deltaTime;
         }
         else if (direction == 1)
         {
-            transform.position -= charBody.transform.forward * speed * Time.deltaTime;
+            transform.position += charBody.transform.forward * speed * Time.deltaTime;
         }
         else if (direction == 2)
         {
@@ -567,40 +640,112 @@ public class ThirdPCharacter : MonoBehaviour
         }
         else if (direction == 3)
         {
-            transform.position -= charBody.transform.forward * speed * Time.deltaTime;
+            transform.position -= charBody.transform.right * speed * Time.deltaTime;
         }
     }
 
+    void ForceMove(float speed, Vector3 direction)
+    {
+        transform.position += direction * speed * Time.deltaTime;
+    }
     public void Hit(HitPosition pos, HitDirection dir, HitPower power)
     {
         //
+        isHit = true;
+        stateTimer = 0;
+        inCombat = true;
+        inCombatTimer = inCombatDuration;
+        hitDirection = (int)dir;
         //
     }
 
-    public void Attack(Combat combat)
+    public void PrepareAttack(Combat combat)
     {
         if (!canAttack)
         {
             return;
         }
+        if (CheckTarget())
+        {
+            Attack(combat);
+        }
+        else
+        {
+            Adjust();
+        }
+    }
+
+    public void Attack(Combat combat)
+    {
         inCombat = true;
-        inCombatTimer = 3;
+        inCombatTimer = inCombatDuration;
         isAttacking = true;
         stateTimer = 0;
-        //if single target
-        //check locked-on target
-        //if(yes) adjust position
-        //animate
-        //other.hit()
-        //else
-        //animate
-        //else
-        //animate
-        //check is target?
-        //if(yes)
-        //other.hit()
-        //else
-        //:(
+    }
+
+    void Effect()
+    {
+        if (currentTarget != null)
+        {
+            float distance = Vector3.Distance(charBody.transform.position, currentTarget.charBody.transform.position);
+            HitDirection dir = HitDirection.forward;
+
+            if (distance <= effetDistance)
+            {
+                float angleFB = Vector3.Angle(currentTarget.charBody.transform.position - charBody.transform.position, currentTarget.charBody.transform.forward);
+                float angleLR = Vector3.Angle(currentTarget.charBody.transform.position - charBody.transform.position, currentTarget.charBody.transform.right);
+                if (angleFB <= 45)
+                {
+                    dir = HitDirection.backward;
+                }
+                else if (angleFB >= 135) {
+                    dir = HitDirection.forward;
+                }
+                else
+                {
+                    if (angleLR <= 45) {
+                        dir = HitDirection.left;
+                    }
+                    else if (angleLR >= 135) {
+                        dir = HitDirection.right;
+                    }
+                }
+                currentTarget.Hit(HitPosition.high, dir, HitPower.powerful);
+            }
+            
+        }
+    }
+
+    bool CheckTarget()
+    {
+        if (currentTarget == null)
+        {
+            return true;
+        }
+        else
+        {
+            float distance = Vector3.Distance(charBody.transform.position, currentTarget.charBody.transform.position);
+            float angle = Vector3.Angle(currentTarget.charBody.transform.position - charBody.transform.position, charBody.transform.forward);
+
+            if (distance < adjustMinDistance && angle < adjustAgle)
+            {
+                return true;
+            }
+            else if (distance > adjustMaxDistance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+    }
+
+    void Adjust()
+    {
+        isAdjusting = true;
     }
 
     public void Dodge(int dir)
