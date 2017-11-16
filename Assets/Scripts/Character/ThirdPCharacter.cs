@@ -8,12 +8,17 @@
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 
-public class ThirdPCharacter : MonoBehaviour 
+public class ThirdPCharacter : MonoBehaviour
 {
-    [SerializeField] float m_JumpPower = 10f;
-    [Range(1f, 20f)][SerializeField] float m_GravityMultiplier = 2f;
-    [SerializeField] float m_MoveSpeedMultiplier = 0.08f;
-    [SerializeField] float m_GroundCheckDistance = 0.175f;
+    [SerializeField]
+    float m_JumpPower = 10f;
+    [Range(1f, 20f)]
+    [SerializeField]
+    float m_GravityMultiplier = 2f;
+    [SerializeField]
+    float m_MoveSpeedMultiplier = 0.08f;
+    [SerializeField]
+    float m_GroundCheckDistance = 0.175f;
 
     public GameObject charBody;
     public GameObject camera;
@@ -26,16 +31,175 @@ public class ThirdPCharacter : MonoBehaviour
 
     private float turnMod;
     private float m_OrigGroundCheckDistance;
-    
+
     Vector3 m_GroundNormal;
     Vector3 move;
-    
+
     Quaternion charBodyRotation;
     Quaternion m_Rotation;
     Quaternion camRotation;
-    
-	// Use this for initialization
-	void Start () 
+
+    //
+    private CapstoneAnimation animator;
+
+    public enum HitPosition
+    {
+        high,
+        mid,
+        low
+    }
+
+    public enum HitDirection
+    {
+        forward,
+        backward,
+        left,
+        right
+    }
+
+    public enum HitPower
+    {
+        weak,
+        powerful
+    }
+
+    public enum Combat
+    {
+        punch,
+
+    }
+
+    //in combat parameters
+    private bool inCombat;
+    private float inCombatTimer;
+
+
+
+    private bool isAimming;
+
+
+    //move parameters
+    private bool isMoving;
+    private bool isDashing;
+
+
+    //jump parameters
+    private bool isJumping;
+    [SerializeField]
+    private float jumpUpTime;
+    [SerializeField]
+    private float jumpAirTime;
+    [SerializeField]
+    private float jumpDownTime;
+
+    //attack parameters
+    private bool isAttacking;
+    [SerializeField]
+    private float attackTime;
+
+
+    //dodge parameters
+    private bool isDodging;
+    [SerializeField]
+    private float dodgeTime;
+    private int dodgeDirection;
+
+
+    //roll parameters
+    private bool isRolling;
+    [SerializeField]
+    private float rollTime;
+    [SerializeField]
+    private float rollSpeed;
+
+
+
+
+    //
+    #region Bools
+    private bool canMove
+    {
+        get
+        {
+            return !(isRolling || isAimming || isAttacking || isDodging);
+        }
+    }
+
+    private bool canJump
+    {
+        get
+        {
+            return !(isRolling || isJumping || isAimming || isAttacking || isDodging);
+        }
+    }
+
+    private bool canAttack
+    {
+        get
+        {
+            return !(isRolling || isJumping || isAttacking || isDodging);
+        }
+    }
+
+    private bool canDodge
+    {
+        get
+        {
+            return !(isRolling || isJumping || isAimming || isAttacking || isDodging);
+        }
+    }
+
+    private bool canRoll
+    {
+        get
+        {
+            return !(isRolling || isJumping || isAimming || isAttacking || isDodging);
+        }
+    }
+
+    private bool canAim;
+
+    private bool canShoot;
+    #endregion
+
+
+
+    [SerializeField]
+    private CharacterState currentState;
+
+    private CharacterState lastState;
+
+    private float stateTimer;
+
+
+    public CharacterState CurrentState
+    {
+        get
+        {
+            return currentState;
+        }
+    }
+
+    public enum CharacterState
+    {
+        idle_OutCombat,
+        idle_InCombat,
+        run,
+        jump_up,
+        jump_air,
+        jump_down,
+        aim,
+        shoot,
+        attack,
+        adjustPosition,
+        hit,
+        dodge,
+        roll,
+
+    }
+
+    // Use this for initialization
+    void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
@@ -43,6 +207,16 @@ public class ThirdPCharacter : MonoBehaviour
         charBodyRotation = charBody.transform.rotation;
         m_Rotation = m_Rigidbody.transform.rotation;
         turnMod = 90.0f / 200.0f;
+
+        //
+        animator = GetComponentInChildren<CapstoneAnimation>();
+        inCombatTimer = 0;
+
+    }
+
+    void Update()
+    {
+        UpdateState();
 
     }
 
@@ -58,17 +232,24 @@ public class ThirdPCharacter : MonoBehaviour
     /// <param name="dash">is the player dashing</param>
     public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash)
     {
+        isMoving = false;
+        isDashing = false;
+        if (!canMove)
+        {
+            return;
+        }
         if (vert != 0 || hori != 0)
         {
+            isMoving = true;
             Quaternion r;
             Vector3 temp, temp2;
             temp = camRot.eulerAngles;
             temp2 = charBodyRotation.eulerAngles;
-            if(temp2.y > 360)
+            if (temp2.y > 360)
             { temp2.y -= 360; }
             temp.x = temp2.x;
             temp.z = temp2.z;
-            
+
             if (vert < 0)
             {
                 temp.y = temp.y + 180f;
@@ -79,8 +260,8 @@ public class ThirdPCharacter : MonoBehaviour
             r = Quaternion.Euler(temp);
             charBody.transform.rotation = r;
             m_Rigidbody.transform.rotation = r;
-            
-            if(vert != 0 && hori != 0)
+
+            if (vert != 0 && hori != 0)
             {
                 if (vert > 0 && hori >= 0)
                 {
@@ -89,7 +270,7 @@ public class ThirdPCharacter : MonoBehaviour
 
                 else if (vert > 0 && hori < 0)
                 {
-                    temp.y += (((((-hori - vert) + 1) * 100) * turnMod)) * - 1;
+                    temp.y += (((((-hori - vert) + 1) * 100) * turnMod)) * -1;
                 }
 
                 r = Quaternion.Euler(temp);
@@ -104,25 +285,27 @@ public class ThirdPCharacter : MonoBehaviour
                 {
                     temp.y = temp.y + 180f;
                 }
-                
+
                 r = Quaternion.Euler(temp);
                 charBody.transform.rotation = r;
             }
         }
 
+
         //calculate initial movement direction and force
         move = (vert * m_Rigidbody.transform.forward) + (hori * m_Rigidbody.transform.right);
 
         //check to see if the character is running or dashing and adjust modifier
-        if(dash)
+        if (dash)
         {
             m_MoveSpeedMultiplier = 0.2f;
+            isDashing = true;
         }
         else if (running && !crouch)
         {
             m_MoveSpeedMultiplier = 0.16f;
         }
-        else if(crouch)
+        else if (crouch)
         {
             m_MoveSpeedMultiplier = 0.04f;
         }
@@ -131,11 +314,11 @@ public class ThirdPCharacter : MonoBehaviour
             m_MoveSpeedMultiplier = 0.08f;
         }
 
-        Vector3 customRight = new Vector3(0,0,0);
+        Vector3 customRight = new Vector3(0, 0, 0);
         customRight.x = m_Rigidbody.transform.forward.z;
         customRight.z = -m_Rigidbody.transform.forward.x;
         //Debug.Log(m_Rigidbody.transform.forward + " " + m_Rigidbody.transform.right + " " + customRight);
-        
+
         //keep the rotation holders updated
         charBodyRotation = charBody.transform.rotation;
         m_Rotation = m_Rigidbody.transform.rotation;
@@ -145,11 +328,11 @@ public class ThirdPCharacter : MonoBehaviour
         {
             move.Normalize();
         }
-        
+
         CheckGroundStatus();
         move = Vector3.ProjectOnPlane(move, m_GroundNormal);
 
-        
+
 
         //m_Rigidbody.transform.RotateAround(m_Rigidbody.transform.position, m_Rigidbody.transform.up, charRotation);
 
@@ -187,7 +370,7 @@ public class ThirdPCharacter : MonoBehaviour
 
     }//end move
 
-    
+
 
     /// <summary>
     /// freeze the character body rotation
@@ -223,6 +406,10 @@ public class ThirdPCharacter : MonoBehaviour
             // jump!
             m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
             m_IsGrounded = false;
+
+            //jump state
+            isJumping = true;
+            stateTimer = 0;
         }
     }//end ground movement
 
@@ -253,6 +440,187 @@ public class ThirdPCharacter : MonoBehaviour
         }
     }//end CheckGroundStatus
 
+    void UpdateState()
+    {
+        int animationParameter = 0;
+        if (inCombatTimer > 0)
+        {
+            inCombatTimer -= Time.deltaTime;
+            if (inCombatTimer <= 0)
+            {
+                inCombat = false;
+            }
+        }
+        if (stateTimer >= 0)
+        {
+            stateTimer += Time.deltaTime;
+        }
+        lastState = currentState;
+
+
+        //is in combat
+
+        if (isJumping)
+        {
+            if (stateTimer < jumpUpTime)
+            {
+                currentState = CharacterState.jump_up;
+            }
+            else if (stateTimer >= jumpUpTime && stateTimer < jumpUpTime + jumpAirTime)
+            {
+                currentState = CharacterState.jump_air;
+            }
+            else if (stateTimer >= jumpUpTime + jumpAirTime && stateTimer < jumpUpTime + jumpAirTime + jumpDownTime)
+            {
+                currentState = CharacterState.jump_down;
+            }
+            else
+            {
+                stateTimer = -1;
+                isJumping = false;
+            }
+
+        }
+        else if (isDodging)
+        {
+            if (stateTimer < dodgeTime)
+            {
+                currentState = CharacterState.dodge;
+                animationParameter = dodgeDirection;
+            }
+            else
+            {
+                stateTimer = -1;
+                isDodging = false;
+            }
+        }
+        else if (isRolling)
+        {
+            if (stateTimer < rollTime)
+            {
+                currentState = CharacterState.roll;
+                ForceMove(rollSpeed, 0);
+            }
+            else
+            {
+                stateTimer = -1;
+                isRolling = false;
+            }
+        }
+        else if (isAttacking)
+        {
+            if (stateTimer < attackTime)
+            {
+                currentState = CharacterState.attack;
+            }
+            else
+            {
+                stateTimer = -1;
+                isAttacking = false;
+            }
+        }
+        else
+        {
+            if (isMoving)
+            {
+                currentState = CharacterState.run;
+                if (isDashing)
+                {
+                    animationParameter = 1;
+                }
+            }
+            else
+            {
+                if (inCombat) {
+                    currentState = CharacterState.idle_InCombat;
+                }
+                else{
+                    currentState = CharacterState.idle_OutCombat;
+                }
+                
+            }
+        }
+
+
+
+        if (lastState != currentState)
+        {
+            animator.Play(currentState, animationParameter);
+        }
+
+
+    }
+
+    void ForceMove(float speed, int direction)
+    {
+        if (direction == 0)
+        {
+            transform.position += charBody.transform.forward * speed * Time.deltaTime;
+        }
+        else if (direction == 1)
+        {
+            transform.position -= charBody.transform.forward * speed * Time.deltaTime;
+        }
+        else if (direction == 2)
+        {
+            transform.position += charBody.transform.right * speed * Time.deltaTime;
+        }
+        else if (direction == 3)
+        {
+            transform.position -= charBody.transform.forward * speed * Time.deltaTime;
+        }
+    }
+
+    public void Hit(HitPosition pos, HitDirection dir, HitPower power)
+    {
+        //
+        //
+    }
+
+    public void Attack(Combat combat)
+    {
+        if (!canAttack)
+        {
+            return;
+        }
+        inCombat = true;
+        inCombatTimer = 3;
+        isAttacking = true;
+        stateTimer = 0;
+        //if single target
+        //check locked-on target
+        //if(yes) adjust position
+        //animate
+        //other.hit()
+        //else
+        //animate
+        //else
+        //animate
+        //check is target?
+        //if(yes)
+        //other.hit()
+        //else
+        //:(
+    }
+
+    public void Dodge(int dir)
+    {
+        if (!canDodge)
+        {
+            return;
+        }
+        dodgeDirection = dir;
+    }
+
+    public void Roll()
+    {
+        if (!canRoll)
+        {
+            return;
+        }
+        stateTimer = 0;
+        isRolling = true;
+    }
     /*
     void ScaleCapsuleForCrouching(bool crouch)
 		{

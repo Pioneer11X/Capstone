@@ -8,13 +8,17 @@ using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(ThirdPCharacter))]
 
-public class ThirdPControl : MonoBehaviour {
+public class ThirdPControl : MonoBehaviour
+{
 
     public GameObject myCarmera;
 
-    [SerializeField] private float mouseRotationFactor; //Set mouse rotation sensitivity
-    [SerializeField] private float scrollFactor;        //Set scroll zoom sensitivity
-    [SerializeField] private int dashMod = 60;
+    [SerializeField]
+    private float mouseRotationFactor; //Set mouse rotation sensitivity
+    [SerializeField]
+    private float scrollFactor;        //Set scroll zoom sensitivity
+    [SerializeField]
+    private int dashMod = 60;
 
     // Default unity names for mouse axes
     public string mouseHorizontalAxisName = "Mouse X";
@@ -60,9 +64,58 @@ public class ThirdPControl : MonoBehaviour {
         m_Character = GetComponent<ThirdPCharacter>();
         anim = GetComponent<ThirdPCharacter>().charBody.GetComponent<Animator>();
     }//end start
-    
+
     private void Update()
     {
+        if (CrossPlatformInputManager.GetButtonDown("Attack")) //Button 2
+        {
+            m_Character.Attack(ThirdPCharacter.Combat.punch);
+        }
+
+        if (CrossPlatformInputManager.GetButtonDown("Dodge")) //Button 1
+        {
+            if (m_Character.CurrentState == ThirdPCharacter.CharacterState.aim)
+            {
+                if (h < 0)
+                {
+                    m_Character.Dodge(0);
+                }
+                else if (h > 0)
+                {
+                    m_Character.Dodge(1);
+                }
+            }
+            else
+            {
+                m_Character.Roll();
+            }
+        }
+
+        if (CrossPlatformInputManager.GetButtonDown("Sword")) //Button 3
+        {
+            Debug.Log("Sword");
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Hack")) //Button 4
+        {
+            Debug.Log("Vision Hack");
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Interact")) //Button 5
+        {
+            Debug.Log("Interact");
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Pause")) //Button 7
+        {
+            Debug.Log("Pause");
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Submit")) //Button 0
+        {
+            //Debug.Log("Submit");
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Cancel")) //Button 1 or 6
+        {
+            //Debug.Log("Cancel");
+        }
+
         //check to see if the character should jump
         if (!m_Jump)
         {
@@ -101,8 +154,7 @@ public class ThirdPControl : MonoBehaviour {
             m_useDash = true;
             m_dashing = true;
             dashCounter = dashMod;
-            Debug.Log("Dash");
-            
+
         }
         float lt = CrossPlatformInputManager.GetAxis("Aim");
         if (lt != 0)
@@ -119,38 +171,7 @@ public class ThirdPControl : MonoBehaviour {
         { Debug.Log("D-Pad Down"); }
 
         // Face Buttons
-        if (CrossPlatformInputManager.GetButton("Dodge")) //Button 1
-        {
-            Debug.Log("Dodge");
-        }
-        if (CrossPlatformInputManager.GetButton("Attack")) //Button 2
-        {
-            Debug.Log("Attack");
-        }
-        if (CrossPlatformInputManager.GetButton("Sword")) //Button 3
-        {
-            Debug.Log("Sword");
-        }
-        if (CrossPlatformInputManager.GetButton("Hack")) //Button 4
-        {
-            Debug.Log("Vision Hack");
-        }
-        if (CrossPlatformInputManager.GetButton("Interact")) //Button 5
-        {
-            Debug.Log("Interact");
-        }
-        if (CrossPlatformInputManager.GetButton("Pause")) //Button 7
-        {
-            Debug.Log("Pause");
-        }
-        if (CrossPlatformInputManager.GetButton("Submit")) //Button 0
-        {
-            //Debug.Log("Submit");
-        }
-        if (CrossPlatformInputManager.GetButton("Cancel")) //Button 1 or 6
-        {
-            //Debug.Log("Cancel");
-        }
+
 
         //scroll for zoom
         //zoom = Input.GetAxis(scrollAxisName) * scrollFactor;
@@ -181,7 +202,7 @@ public class ThirdPControl : MonoBehaviour {
         }
 
         //character crouch
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             m_crouch = !m_crouch;
         }
@@ -225,44 +246,44 @@ public class ThirdPControl : MonoBehaviour {
 
         // pass all parameters to the controling scripts
         myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
-        m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation, 
+        m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,
             m_crouch, m_Jump, m_running, m_dashing);
         m_Jump = false;
-        if(m_useDash)
+        if (m_useDash)
         {
             dashCounter--;
-            if(dashCounter <= (dashMod / 4) * 3)
+            if (dashCounter <= (dashMod / 4) * 3)
             { m_dashing = false; }
-            if(dashCounter <= 0)
+            if (dashCounter <= 0)
             { m_useDash = false; }
         }
     }
 
-   /// <summary>
-   /// Chooses which animation should be played based on how the character is moving.
-   /// </summary>
+    /// <summary>
+    /// Chooses which animation should be played based on how the character is moving.
+    /// </summary>
     private void charAnimation()
     {
         if (m_Character.m_IsGrounded)
         {
             m_playing = false;
 
-            
+
         }//end check if grounded
 
         //jump animation
         if (m_Jump && !m_playing)
         {
             m_playing = true;
-            
+
         }
 
-        if(combatCounter > waitTime)
+        if (combatCounter > waitTime)
         {
             m_attacking = false;
             combatCounter = 0;
         }
-        if(rollCounter > 45)
+        if (rollCounter > 45)
         {
             m_rolling = false;
             rollCounter = 0;

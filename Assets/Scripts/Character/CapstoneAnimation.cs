@@ -2,15 +2,82 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CapstoneAnimation : MonoBehaviour {
+public class CapstoneAnimation : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private Animator animator;
+    private Animation a;
+    public enum AnimationName
+    {
+        run,
+        idle_OutCombat,
+        idle_InCombat,
+
+    }
+
+
+
+    // Use this for initialization
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void Play(ThirdPCharacter.CharacterState state, int parameter)
+    {
+        switch (state)
+        {
+            case ThirdPCharacter.CharacterState.idle_OutCombat:
+                //animator.Play("Idle_OutCombat");
+                animator.CrossFade("Idle_OutCombat", 0.3f);
+                break;
+            case ThirdPCharacter.CharacterState.idle_InCombat:
+                animator.CrossFade("Idle_InCombat",0.3f);
+                break;
+            case ThirdPCharacter.CharacterState.run:
+                if (parameter == 0)
+                {
+                    animator.Play("Run");                    
+                }
+                else {
+                    animator.Play("Dash");
+                }
+                
+                break;
+            case ThirdPCharacter.CharacterState.jump_up:
+                animator.Play("Jump_Up");
+                break;
+            case ThirdPCharacter.CharacterState.jump_air:
+                animator.Play("Jump_Air");
+                break;
+            case ThirdPCharacter.CharacterState.jump_down:
+                animator.Play("Jump_Down");
+                break;
+            case ThirdPCharacter.CharacterState.dodge:
+                if (parameter == 0)
+                {
+                    animator.Play("Dodge_Left");
+                }
+                else if (parameter == 1)
+                {
+                    animator.Play("Dodge_Right");
+                }
+                break;
+            case ThirdPCharacter.CharacterState.roll:
+                animator.Play("Roll");
+                break;
+            case ThirdPCharacter.CharacterState.attack:
+                animator.Play("TestAttack");
+                break;
+
+        }
+    }
+
+
 }

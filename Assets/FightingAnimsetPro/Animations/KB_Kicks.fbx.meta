@@ -182,7 +182,7 @@ ModelImporter:
     7400030: KB_m_MidKickRoud_R_1
     7400032: KB_m_HighKickRound_L_1
     7400034: KB_m_MidKickRoud_L_1
-    7400036: KB_m_RoundhouseKickRight
+    7400036: A_TestAttack
     7400038: KB_m_KneeLeft
     7400040: KB_m_SideKickLeft
     7400042: KB_m_HighKick_R
@@ -3469,7 +3469,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_m_RoundhouseKickRight
+      name: A_TestAttack
       takeName: KB_m_RoundhouseKickRight
       firstFrame: 0
       lastFrame: 96

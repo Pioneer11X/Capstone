@@ -221,7 +221,7 @@ ModelImporter:
     4300006: knife
     4300008: goggles
     4300010: mesh
-    7400000: Amanda_idle
+    7400000: A_Idle_OutCombat
     9500000: //RootNode
     13700000: mesh
   materials:
@@ -248,7 +248,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Amanda_idle
+      name: A_Idle_OutCombat
       takeName: C4D Animation Take
       firstFrame: 0
       lastFrame: 90
