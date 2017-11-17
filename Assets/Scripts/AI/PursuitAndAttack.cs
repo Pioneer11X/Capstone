@@ -43,7 +43,7 @@ public class PursuitAndAttack : MonoBehaviour {
 
         if ( Vector3.Distance(transform.position, target.position) <= _characterController.GetAdjustMaxDistance())
         {
-            _characterController.Attack(ThirdPCharacter.Combat.kick_Straight_Mid_R);
+            _characterController.BasicCombo();
         }
         else
         {

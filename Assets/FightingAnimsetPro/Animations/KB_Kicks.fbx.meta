@@ -183,7 +183,7 @@ ModelImporter:
     7400032: KB_m_HighKickRound_L_1
     7400034: KB_m_MidKickRoud_L_1
     7400036: A_HorseKick
-    7400038: KB_m_KneeLeft
+    7400038: A_kick_knee_left
     7400040: KB_m_SideKickLeft
     7400042: KB_m_HighKick_R
     7400044: KB_m_MidKick_L
@@ -3649,7 +3649,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_m_KneeLeft
+      name: A_kick_knee_left
       takeName: KB_m_KneeLeft
       firstFrame: 0
       lastFrame: 98
