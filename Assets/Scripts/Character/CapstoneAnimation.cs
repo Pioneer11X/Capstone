@@ -29,18 +29,18 @@ public class CapstoneAnimation : MonoBehaviour
 
     }
 
-    public void Play(ThirdPCharacter.CharacterState state, int parameter)
+    public void Play(Character.CharacterState state, int parameter)
     {
         switch (state)
         {
-            case ThirdPCharacter.CharacterState.idle_OutCombat:
+            case Character.CharacterState.idle_OutCombat:
                 //animator.Play("Idle_OutCombat");
                 animator.CrossFade("Idle_OutCombat", 0.2f);
                 break;
-            case ThirdPCharacter.CharacterState.idle_InCombat:
+            case Character.CharacterState.idle_InCombat:
                 animator.CrossFade("Idle_InCombat",0.2f);
                 break;
-            case ThirdPCharacter.CharacterState.run:
+            case Character.CharacterState.run:
                 if (parameter == 0)
                 {
                     animator.CrossFade("Run",0.1f);                    
@@ -50,16 +50,16 @@ public class CapstoneAnimation : MonoBehaviour
                 }
                 
                 break;
-            case ThirdPCharacter.CharacterState.jump_up:
+            case Character.CharacterState.jump_up:
                 animator.Play("Jump_Up");
                 break;
-            case ThirdPCharacter.CharacterState.jump_air:
+            case Character.CharacterState.jump_air:
                 animator.Play("Jump_Air");
                 break;
-            case ThirdPCharacter.CharacterState.jump_down:
+            case Character.CharacterState.jump_down:
                 animator.Play("Jump_Down");
                 break;
-            case ThirdPCharacter.CharacterState.dodge:
+            case Character.CharacterState.dodge:
                 if (parameter == 0)
                 {
                     animator.Play("Dodge_Left");
@@ -69,17 +69,17 @@ public class CapstoneAnimation : MonoBehaviour
                     animator.Play("Dodge_Right");
                 }
                 break;
-            case ThirdPCharacter.CharacterState.roll:
+            case Character.CharacterState.roll:
                 animator.Play("Roll");
                 break;
-            case ThirdPCharacter.CharacterState.attack:
+            case Character.CharacterState.attack:
                 ThirdPCharacter.Combat combat = (ThirdPCharacter.Combat)parameter;
                 animator.Play(combat.ToString(), -1, 0);
                 break;
-            case ThirdPCharacter.CharacterState.adjustPosition:
+            case Character.CharacterState.adjustPosition:
                 animator.Play("Adjust");
                 break;
-            case ThirdPCharacter.CharacterState.hit:
+            case Character.CharacterState.hit:
                 ThirdPCharacter.HitPosition pos = (ThirdPCharacter.HitPosition)((parameter / 100) % 10);
                 ThirdPCharacter.HitDirection dir = (ThirdPCharacter.HitDirection)((parameter / 10) % 10);
                 ThirdPCharacter.HitPower power = (ThirdPCharacter.HitPower)((parameter / 1) % 10);

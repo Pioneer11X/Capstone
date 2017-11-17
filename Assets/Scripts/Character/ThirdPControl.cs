@@ -6,7 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
  *third person camera control. 
  *Darren Farr 11/08/2017 */
 
-[RequireComponent(typeof(ThirdPCharacter))]
+[RequireComponent(typeof(Character))]
 
 public class ThirdPControl : MonoBehaviour
 {

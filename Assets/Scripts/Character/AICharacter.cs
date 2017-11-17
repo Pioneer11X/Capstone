@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 
-/*This is a thrid person character script based on unity's built in script. It has been overhauled to work
- * with a new version of th third person control script. The built in animation control has been taken out 
- * and is being done differently. This script is required by the third person control script.
- * Darren Farr 11/08/2017 */
-
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 
-public class ThirdPCharacter : Character
+/*This is an AI version of the third person character script. 
+ * This script is required by the third person control script.
+ * Darren Farr 11/08/2017 */
+
+public class AICharacter : Character
 {
     [SerializeField]
     float m_JumpPower = 10f;
@@ -102,7 +101,7 @@ public class ThirdPCharacter : Character
 
 
     //move parameters
-    private bool isMoving;
+    public bool isMoving;
     private bool isDashing;
 
 
@@ -123,7 +122,7 @@ public class ThirdPCharacter : Character
     private float currentEffetDistance;
     private CombatDirection currentDirection;
     private HitPower currentPower;
-    public HitPosition currentHitPos;
+    private HitPosition currentHitPos;
 
     [SerializeField]
     private float maxComboTime;
@@ -448,7 +447,7 @@ public class ThirdPCharacter : Character
             isMoving = true;
             if (true)
             {
-                
+
                 Quaternion r;
                 Vector3 temp, temp2;
                 temp = camRot.eulerAngles;
@@ -862,17 +861,17 @@ public class ThirdPCharacter : Character
     {
         transform.position += direction * speed * Time.deltaTime;
     }
-    public void Hit(HitPosition pos, HitDirection dir, HitPower power)
-    {
-        //
-        isHit = true;
-        stateTimer = 0;
-        inCombat = true;
-        inCombatTimer = inCombatDuration;
-        hitAnimationInfo = (int)pos * 100 + (int)dir * 10 + (int)power;
-        resetHit = true;
-        //
-    }
+    //public void Hit(HitPosition pos, HitDirection dir, HitPower power)
+    //{
+    //    //
+    //    isHit = true;
+    //    stateTimer = 0;
+    //    inCombat = true;
+    //    inCombatTimer = inCombatDuration;
+    //    hitAnimationInfo = (int)pos * 100 + (int)dir * 10 + (int)power;
+    //    resetHit = true;
+    //    //
+    //}
 
 
     public void BasicCombo()
@@ -990,7 +989,7 @@ public class ThirdPCharacter : Character
                         dir = HitDirection.backward;
                     }
                 }
-                currentTarget.Hit(currentHitPos, dir, currentPower);
+                currentTarget.Hit(currentTarget.currentHitPos, (ThirdPCharacter.HitDirection)dir, (ThirdPCharacter.HitPower)currentPower);
             }
 
         }
@@ -1023,7 +1022,7 @@ public class ThirdPCharacter : Character
 
     }
 
-    void Adjust()
+    public void Adjust()
     {
         isAdjusting = true;
     }
