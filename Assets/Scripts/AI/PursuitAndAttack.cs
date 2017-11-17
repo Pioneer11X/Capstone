@@ -17,6 +17,9 @@ public class PursuitAndAttack : MonoBehaviour {
 
     AICharacter _characterController;
 
+    float timer = 0.0f;
+    float timerLimit = 2.0f;
+
 	// Use this for initialization
 	void Start () {
 
@@ -44,6 +47,8 @@ public class PursuitAndAttack : MonoBehaviour {
          * 
          */
 
+        timer += Time.deltaTime;
+
         if ( Vector3.Distance(transform.position, target.position) <= maxSensoryRadius)
         {
             if (Vector3.Distance(transform.position, target.position) <= _characterController.GetAdjustMaxDistance())
@@ -61,7 +66,12 @@ public class PursuitAndAttack : MonoBehaviour {
                 //    _characterController.BasicCombo();
                 //}
 
-                _characterController.BasicCombo();
+                if ( timer > timerLimit)
+                {
+                    _characterController.BasicCombo();
+                    timer = 0;
+                }
+                
 
             }
             else

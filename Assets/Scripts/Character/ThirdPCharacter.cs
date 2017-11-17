@@ -87,7 +87,8 @@ public class ThirdPCharacter : Character
     }
     //target parameters
     [SerializeField]
-    private ThirdPCharacter currentTarget;
+    //private ThirdPCharacter currentTarget;
+    private AICharacter currentTarget;
 
 
     //in combat parameters
@@ -316,7 +317,7 @@ public class ThirdPCharacter : Character
     {
         get
         {
-            return !(isRolling || isAimming || isAttacking || isDodging || isAdjusting);
+            return !(isRolling || isHit || isAimming || isAttacking || isDodging || isAdjusting);
         }
     }
 
@@ -448,7 +449,7 @@ public class ThirdPCharacter : Character
             isMoving = true;
             if (true)
             {
-                
+
                 Quaternion r;
                 Vector3 temp, temp2;
                 temp = camRot.eulerAngles;
@@ -578,6 +579,9 @@ public class ThirdPCharacter : Character
 
     }//end move
 
+    public void Move(bool isMoving) {
+        this.isMoving = isMoving;
+    }
 
 
     /// <summary>
@@ -678,96 +682,7 @@ public class ThirdPCharacter : Character
 
 
         //is in combat
-
-        if (isJumping)
-        {
-            if (stateTimer < jumpUpTime)
-            {
-                currentState = CharacterState.jump_up;
-            }
-            else if (stateTimer >= jumpUpTime && stateTimer < jumpUpTime + jumpAirTime)
-            {
-                currentState = CharacterState.jump_air;
-            }
-            else if (stateTimer >= jumpUpTime + jumpAirTime && stateTimer < jumpUpTime + jumpAirTime + jumpDownTime)
-            {
-                currentState = CharacterState.jump_down;
-            }
-            else
-            {
-                stateTimer = -1;
-                isJumping = false;
-            }
-
-        }
-        else if (isDodging)
-        {
-            if (stateTimer < dodgeTime)
-            {
-                currentState = CharacterState.dodge;
-                animationParameter = dodgeDirection;
-            }
-            else
-            {
-                stateTimer = -1;
-                isDodging = false;
-            }
-        }
-        else if (isRolling)
-        {
-            if (stateTimer < rollTime)
-            {
-                currentState = CharacterState.roll;
-                ForceMove(rollSpeed, 1);
-            }
-            else
-            {
-                stateTimer = -1;
-                isRolling = false;
-            }
-        }
-        else if (isAttacking)
-        {
-            if (stateTimer < currentAttackTime)
-            {
-                currentState = CharacterState.attack;
-                animationParameter = (int)currentCombat;
-                if (stateTimer >= currentEffectTime && !hasEffect)
-                {
-                    hasEffect = true;
-                    Effect();
-                }
-                if (resetAttack)
-                {
-                    currentState = CharacterState.none;
-                    resetAttack = false;
-                }
-            }
-            else
-            {
-                stateTimer = -1;
-                isAttacking = false;
-                hasEffect = false;
-                comboTimer = 0;
-            }
-
-        }
-        else if (isAdjusting)
-        {
-            if (CheckTarget())
-            {
-                isAdjusting = false;
-                Attack();
-            }
-            else
-            {
-                //look at target
-                charBody.transform.forward = currentTarget.transform.position - transform.position;
-                currentState = CharacterState.adjustPosition;
-                ForceMove(adjustSpeed, 1);
-            }
-        }
-        else if (isHit)
+        if (isHit)
         {
             if (stateTimer < hitTime)
             {
@@ -799,32 +714,127 @@ public class ThirdPCharacter : Character
             }
             else
             {
-                stateTimer = -1;
                 isHit = false;
+                stateTimer = -1;
+
+                isAttacking = false;
+                hasEffect = false;
+                comboTimer = 0;
             }
         }
         else
         {
-
-            if (isMoving)
+            if (isJumping)
             {
-                currentState = CharacterState.run;
-                if (isDashing)
+                if (stateTimer < jumpUpTime)
                 {
-                    animationParameter = 1;
+                    currentState = CharacterState.jump_up;
+                }
+                else if (stateTimer >= jumpUpTime && stateTimer < jumpUpTime + jumpAirTime)
+                {
+                    currentState = CharacterState.jump_air;
+                }
+                else if (stateTimer >= jumpUpTime + jumpAirTime && stateTimer < jumpUpTime + jumpAirTime + jumpDownTime)
+                {
+                    currentState = CharacterState.jump_down;
+                }
+                else
+                {
+                    stateTimer = -1;
+                    isJumping = false;
+                }
+
+            }
+            else if (isDodging)
+            {
+                if (stateTimer < dodgeTime)
+                {
+                    currentState = CharacterState.dodge;
+                    animationParameter = dodgeDirection;
+                }
+                else
+                {
+                    stateTimer = -1;
+                    isDodging = false;
+                }
+            }
+            else if (isRolling)
+            {
+                if (stateTimer < rollTime)
+                {
+                    currentState = CharacterState.roll;
+                    ForceMove(rollSpeed, 1);
+                }
+                else
+                {
+                    stateTimer = -1;
+                    isRolling = false;
+                }
+            }
+            else if (isAttacking)
+            {
+                if (stateTimer < currentAttackTime)
+                {
+                    currentState = CharacterState.attack;
+                    animationParameter = (int)currentCombat;
+                    if (stateTimer >= currentEffectTime && !hasEffect)
+                    {
+                        hasEffect = true;
+                        Effect();
+                    }
+                    if (resetAttack)
+                    {
+                        currentState = CharacterState.none;
+                        resetAttack = false;
+                    }
+                }
+                else
+                {
+                    stateTimer = -1;
+                    isAttacking = false;
+                    hasEffect = false;
+                    comboTimer = 0;
+                }
+
+            }
+            else if (isAdjusting)
+            {
+                if (CheckTarget())
+                {
+                    isAdjusting = false;
+                    Attack();
+                }
+                else
+                {
+                    //look at target
+                    charBody.transform.forward = currentTarget.transform.position - transform.position;
+                    currentState = CharacterState.adjustPosition;
+                    ForceMove(adjustSpeed, 1);
                 }
             }
             else
             {
-                if (inCombat)
+
+                if (isMoving)
                 {
-                    currentState = CharacterState.idle_InCombat;
+                    currentState = CharacterState.run;
+                    if (isDashing)
+                    {
+                        animationParameter = 1;
+                    }
                 }
                 else
                 {
-                    currentState = CharacterState.idle_OutCombat;
-                }
+                    if (inCombat)
+                    {
+                        currentState = CharacterState.idle_InCombat;
+                    }
+                    else
+                    {
+                        currentState = CharacterState.idle_OutCombat;
+                    }
 
+                }
             }
         }
 
@@ -924,8 +934,10 @@ public class ThirdPCharacter : Character
 
     void Effect()
     {
+
         if (currentTarget != null)
         {
+
             float distance = Vector3.Distance(charBody.transform.position, currentTarget.charBody.transform.position);
             HitDirection dir = HitDirection.forward;
 
@@ -990,7 +1002,8 @@ public class ThirdPCharacter : Character
                         dir = HitDirection.backward;
                     }
                 }
-                currentTarget.Hit(currentHitPos, dir, currentPower);
+
+                currentTarget.Hit(currentTarget.currentHitPos, (AICharacter.HitDirection)dir, (AICharacter.HitPower)currentPower);
             }
 
         }

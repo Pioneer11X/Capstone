@@ -1790,12 +1790,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 154256d36e339f04293801b3001f0c0f, type: 2}
   m_PrefabInternal: {fileID: 1065164804}
---- !u!114 &171394590 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1462499164}
-  m_Script: {fileID: 11500000, guid: 5bd5caba93147e34db72bf1672df5500, type: 3}
 --- !u!4 &175395932 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: fafa909e8f523ef4d85e79ca36e20577, type: 2}
@@ -2667,6 +2661,11 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 4385516d7656f8240b8b30eafaf9d0b5, type: 2}
   m_PrefabInternal: {fileID: 103326024}
+--- !u!1 &295637571 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1359089739512094, guid: cb9e65a512285fe4c99a4ffa0421331a,
+    type: 2}
+  m_PrefabInternal: {fileID: 1204960805}
 --- !u!4 &298054030 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 96565bf63cc047c4fb4a92633070e87b, type: 2}
@@ -8533,6 +8532,10 @@ Prefab:
       propertyPath: m_Name
       value: Target (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1672053667143044, guid: 837907b9d5c13ed4cb01eb543f9f5b1d, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114655185793434772, guid: 837907b9d5c13ed4cb01eb543f9f5b1d, type: 2}
     - {fileID: 195791661640639452, guid: 837907b9d5c13ed4cb01eb543f9f5b1d, type: 2}
@@ -8541,11 +8544,6 @@ Prefab:
 --- !u!1 &760635355 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1672053667143044, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
-    type: 2}
-  m_PrefabInternal: {fileID: 760635354}
---- !u!1 &760635356 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1074166628654700, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
     type: 2}
   m_PrefabInternal: {fileID: 760635354}
 --- !u!114 &760635357
@@ -8563,70 +8561,71 @@ MonoBehaviour:
   m_GravityMultiplier: 2
   m_MoveSpeedMultiplier: 0.08
   m_GroundCheckDistance: 0.175
-  charBody: {fileID: 760635356}
+  charBody: {fileID: 627011409}
   camera: {fileID: 0}
   m_IsGrounded: 0
-  currentTarget: {fileID: 0}
+  currentTarget: {fileID: 77582022}
   inCombatDuration: 4
   isMoving: 0
   jumpUpTime: 0.5
   jumpAirTime: 0.3
   jumpDownTime: 0.35
-  maxComboTime: 3
-  punch_Jab_L_AT: 2
-  punch_Jab_L_ET: 1
+  currentHitPos: 0
+  maxComboTime: 2
+  punch_Jab_L_AT: 0.7
+  punch_Jab_L_ET: 0.2
   punch_Jab_L_ED: 1
   punch_Jab_L_Pos: 0
-  punch_Jab_L_Dir: 0
+  punch_Jab_L_Dir: 1
   punch_Jab_L_Power: 0
-  punch_Jab_R_AT: 2
-  punch_Jab_R_ET: 1
+  punch_Jab_R_AT: 0.5
+  punch_Jab_R_ET: 0.2
   punch_Jab_R_ED: 1
   punch_Jab_R_Pos: 0
-  punch_Jab_R_Dir: 0
+  punch_Jab_R_Dir: 2
   punch_Jab_R_Power: 0
-  punch_Hook_L_AT: 2
-  punch_Hook_L_ET: 1
+  punch_Hook_L_AT: 0.65
+  punch_Hook_L_ET: 0.2
   punch_Hook_L_ED: 1
   punch_Hook_L_Pos: 0
-  punch_Hook_L_Dir: 0
+  punch_Hook_L_Dir: 1
   punch_Hook_L_Power: 0
-  punch_Hook_R_AT: 0
-  punch_Hook_R_ET: 2
+  punch_Hook_R_AT: 0.6
+  punch_Hook_R_ET: 0.2
   punch_Hook_R_ED: 1
   punch_Hook_R_Pos: 0
-  punch_Hook_R_Dir: 0
+  punch_Hook_R_Dir: 2
   punch_Hook_R_Power: 0
-  punch_UpperCut_L_AT: 2
-  punch_UpperCut_L_ET: 1
+  punch_UpperCut_L_AT: 0.7
+  punch_UpperCut_L_ET: 0.2
   punch_UpperCut_L_ED: 1
   punch_UpperCut_L_Pos: 0
   punch_UpperCut_L_Dir: 0
   punch_UpperCut_L_Power: 0
-  punch_UpperCut_R_AT: 2
-  punch_UpperCut_R_ET: 1
+  punch_UpperCut_R_AT: 1
+  punch_UpperCut_R_ET: 0.6
   punch_UpperCut_R_ED: 1
   punch_UpperCut_R_Pos: 0
   punch_UpperCut_R_Dir: 0
   punch_UpperCut_R_Power: 0
-  kick_Straight_Mid_R_AT: 2
-  kick_Straight_Mid_R_ET: 1
+  kick_Straight_Mid_R_AT: 1.2
+  kick_Straight_Mid_R_ET: 0.5
   kick_Straight_Mid_R_ED: 1
-  kick_Straight_Mid_R_Pos: 0
+  kick_Straight_Mid_R_Pos: 1
   kick_Straight_Mid_R_Dir: 0
-  kick_Straight_Mid_R_Power: 0
-  kick_AxeKick_AT: 2
-  kick_AxeKick_ET: 1
+  kick_Straight_Mid_R_Power: 1
+  kick_AxeKick_AT: 1
+  kick_AxeKick_ET: 0.4
   kick_AxeKick_ED: 1
   kick_AxeKick_Pos: 0
   kick_AxeKick_Dir: 0
-  kick_AxeKick_Power: 0
-  kick_HorseKick_AT: 2
-  kick_HorseKick_ET: 1
+  kick_AxeKick_Power: 1
+  kick_HorseKick_AT: 1
+  kick_HorseKick_ET: 0.4
   kick_HorseKick_ED: 1
   kick_HorseKick_Pos: 0
   kick_HorseKick_Dir: 0
-  kick_HorseKick_Power: 0
+  kick_HorseKick_Power: 1
   currentCombat: 0
   comboTimer: 0
   adjustSpeed: 2
@@ -13301,7 +13300,7 @@ Prefab:
         type: 2}
       propertyPath: currentTarget
       value: 
-      objectReference: {fileID: 171394590}
+      objectReference: {fileID: 1585964414}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb9e65a512285fe4c99a4ffa0421331a, type: 2}
   m_IsPrefabParent: 0
@@ -15684,11 +15683,146 @@ Prefab:
         type: 2}
       propertyPath: currentTarget
       value: 
-      objectReference: {fileID: 77582022}
+      objectReference: {fileID: 1585964414}
     - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: charBody
+      value: 
+      objectReference: {fileID: 295637571}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: maxComboTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Jab_L_AT
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Jab_L_ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Jab_R_AT
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Jab_R_ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Jab_R_ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Hook_L_AT
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Hook_L_ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Hook_L_Dir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Hook_R_AT
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Hook_R_ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_Hook_R_Dir
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_UpperCut_L_AT
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_UpperCut_L_ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_UpperCut_R_AT
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: punch_UpperCut_R_ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_Straight_Mid_R_AT
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_Straight_Mid_R_ET
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_Straight_Mid_R_Pos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_Straight_Mid_R_Power
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_AxeKick_AT
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_AxeKick_ET
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_AxeKick_Power
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_HorseKick_AT
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_HorseKick_ET
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114835280197687178, guid: 837907b9d5c13ed4cb01eb543f9f5b1d,
+        type: 2}
+      propertyPath: kick_HorseKick_Power
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114655185793434772, guid: 837907b9d5c13ed4cb01eb543f9f5b1d, type: 2}
@@ -17062,67 +17196,68 @@ MonoBehaviour:
   charBody: {fileID: 627011409}
   camera: {fileID: 0}
   m_IsGrounded: 0
-  currentTarget: {fileID: 0}
+  currentTarget: {fileID: 77582022}
   inCombatDuration: 4
   isMoving: 0
   jumpUpTime: 0.5
   jumpAirTime: 0.3
   jumpDownTime: 0.35
-  maxComboTime: 3
-  punch_Jab_L_AT: 2
-  punch_Jab_L_ET: 1
+  currentHitPos: 0
+  maxComboTime: 2
+  punch_Jab_L_AT: 0.7
+  punch_Jab_L_ET: 0.2
   punch_Jab_L_ED: 1
   punch_Jab_L_Pos: 0
-  punch_Jab_L_Dir: 0
+  punch_Jab_L_Dir: 1
   punch_Jab_L_Power: 0
-  punch_Jab_R_AT: 2
-  punch_Jab_R_ET: 1
+  punch_Jab_R_AT: 0.5
+  punch_Jab_R_ET: 0.2
   punch_Jab_R_ED: 1
   punch_Jab_R_Pos: 0
-  punch_Jab_R_Dir: 0
+  punch_Jab_R_Dir: 2
   punch_Jab_R_Power: 0
-  punch_Hook_L_AT: 2
-  punch_Hook_L_ET: 1
+  punch_Hook_L_AT: 0.65
+  punch_Hook_L_ET: 0.2
   punch_Hook_L_ED: 1
   punch_Hook_L_Pos: 0
-  punch_Hook_L_Dir: 0
+  punch_Hook_L_Dir: 1
   punch_Hook_L_Power: 0
-  punch_Hook_R_AT: 0
-  punch_Hook_R_ET: 2
+  punch_Hook_R_AT: 0.6
+  punch_Hook_R_ET: 0.2
   punch_Hook_R_ED: 1
   punch_Hook_R_Pos: 0
-  punch_Hook_R_Dir: 0
+  punch_Hook_R_Dir: 2
   punch_Hook_R_Power: 0
-  punch_UpperCut_L_AT: 2
-  punch_UpperCut_L_ET: 1
+  punch_UpperCut_L_AT: 0.7
+  punch_UpperCut_L_ET: 0.2
   punch_UpperCut_L_ED: 1
   punch_UpperCut_L_Pos: 0
   punch_UpperCut_L_Dir: 0
   punch_UpperCut_L_Power: 0
-  punch_UpperCut_R_AT: 2
-  punch_UpperCut_R_ET: 1
+  punch_UpperCut_R_AT: 1
+  punch_UpperCut_R_ET: 0.6
   punch_UpperCut_R_ED: 1
   punch_UpperCut_R_Pos: 0
   punch_UpperCut_R_Dir: 0
   punch_UpperCut_R_Power: 0
-  kick_Straight_Mid_R_AT: 2
-  kick_Straight_Mid_R_ET: 1
+  kick_Straight_Mid_R_AT: 1.2
+  kick_Straight_Mid_R_ET: 0.5
   kick_Straight_Mid_R_ED: 1
-  kick_Straight_Mid_R_Pos: 0
+  kick_Straight_Mid_R_Pos: 1
   kick_Straight_Mid_R_Dir: 0
-  kick_Straight_Mid_R_Power: 0
-  kick_AxeKick_AT: 2
-  kick_AxeKick_ET: 1
+  kick_Straight_Mid_R_Power: 1
+  kick_AxeKick_AT: 1
+  kick_AxeKick_ET: 0.4
   kick_AxeKick_ED: 1
   kick_AxeKick_Pos: 0
   kick_AxeKick_Dir: 0
-  kick_AxeKick_Power: 0
-  kick_HorseKick_AT: 2
-  kick_HorseKick_ET: 1
+  kick_AxeKick_Power: 1
+  kick_HorseKick_AT: 1
+  kick_HorseKick_ET: 0.4
   kick_HorseKick_ED: 1
   kick_HorseKick_Pos: 0
   kick_HorseKick_Dir: 0
-  kick_HorseKick_Power: 0
+  kick_HorseKick_Power: 1
   currentCombat: 0
   comboTimer: 0
   adjustSpeed: 2
