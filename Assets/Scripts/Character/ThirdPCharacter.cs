@@ -129,11 +129,26 @@ public class ThirdPCharacter : MonoBehaviour
     private float adjustSpeed;
     [SerializeField]
     private float adjustMinDistance;
+
+    public float GetAdjustMinDistance()
+    {
+        return adjustMinDistance;
+    }
+
     [SerializeField]
     private float adjustMaxDistance;
+
+    public float GetAdjustMaxDistance()
+    {
+        return adjustMaxDistance;
+    }
+
     [SerializeField]
     private float adjustAgle;
-
+    public float GetAdjustAngle()
+    {
+        return adjustAgle;
+    }
 
 
     //dodge parameters
