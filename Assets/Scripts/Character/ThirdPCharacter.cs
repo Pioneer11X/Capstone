@@ -435,7 +435,7 @@ public class ThirdPCharacter : MonoBehaviour
     /// <param name="jump">should player jump</param>
     /// <param name="running">is the player running</param>
     /// <param name="dash">is the player dashing</param>
-    public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash)
+    public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash, bool isAI = false)
     {
         isMoving = false;
         isDashing = false;
@@ -446,56 +446,59 @@ public class ThirdPCharacter : MonoBehaviour
         if (vert != 0 || hori != 0)
         {
             isMoving = true;
-            Quaternion r;
-            Vector3 temp, temp2;
-            temp = camRot.eulerAngles;
-            temp2 = charBodyRotation.eulerAngles;
-            if (temp2.y > 360)
-            { temp2.y -= 360; }
-            temp.x = temp2.x;
-            temp.z = temp2.z;
-
-            if (vert < 0)
+            if (true)
             {
-                temp.y = temp.y + 180f;
-                vert *= -1;
-                hori *= -1;
-            }
+                
+                Quaternion r;
+                Vector3 temp, temp2;
+                temp = camRot.eulerAngles;
+                temp2 = charBodyRotation.eulerAngles;
+                if (temp2.y > 360)
+                { temp2.y -= 360; }
+                temp.x = temp2.x;
+                temp.z = temp2.z;
 
-            r = Quaternion.Euler(temp);
-            charBody.transform.rotation = r;
-            m_Rigidbody.transform.rotation = r;
-
-            if (vert != 0 && hori != 0)
-            {
-                if (vert > 0 && hori >= 0)
-                {
-                    temp.y += (((hori - vert) + 1) * 100) * turnMod;
-                }
-
-                else if (vert > 0 && hori < 0)
-                {
-                    temp.y += (((((-hori - vert) + 1) * 100) * turnMod)) * -1;
-                }
-
-                r = Quaternion.Euler(temp);
-                charBody.transform.rotation = r;
-            }
-
-            else if (hori != 0)
-            {
-                temp.y = temp.y + 90f;
-
-                if (hori < 0)
+                if (vert < 0)
                 {
                     temp.y = temp.y + 180f;
+                    vert *= -1;
+                    hori *= -1;
                 }
 
                 r = Quaternion.Euler(temp);
                 charBody.transform.rotation = r;
+                m_Rigidbody.transform.rotation = r;
+
+                if (vert != 0 && hori != 0)
+                {
+                    if (vert > 0 && hori >= 0)
+                    {
+                        temp.y += (((hori - vert) + 1) * 100) * turnMod;
+                    }
+
+                    else if (vert > 0 && hori < 0)
+                    {
+                        temp.y += (((((-hori - vert) + 1) * 100) * turnMod)) * -1;
+                    }
+
+                    r = Quaternion.Euler(temp);
+                    charBody.transform.rotation = r;
+                }
+
+                else if (hori != 0)
+                {
+                    temp.y = temp.y + 90f;
+
+                    if (hori < 0)
+                    {
+                        temp.y = temp.y + 180f;
+                    }
+
+                    r = Quaternion.Euler(temp);
+                    charBody.transform.rotation = r;
+                }
             }
         }
-
 
         //calculate initial movement direction and force
         move = (vert * m_Rigidbody.transform.forward) + (hori * m_Rigidbody.transform.right);
@@ -527,7 +530,7 @@ public class ThirdPCharacter : MonoBehaviour
         //keep the rotation holders updated
         charBodyRotation = charBody.transform.rotation;
         m_Rotation = m_Rigidbody.transform.rotation;
-        camRotation = camera.transform.rotation;
+        if (!isAI) { camRotation = camera.transform.rotation; }
 
         if (move.magnitude > 1f)
         {

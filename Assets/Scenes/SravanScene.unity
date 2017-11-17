@@ -95,18 +95,18 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.2
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.16666666
+    manualCellSize: 1
+    cellSize: 0.016
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    accuratePlacement: 1
   m_NavMeshData: {fileID: 23800000, guid: 93213048184b37743ba49456f87c9d10, type: 2}
 --- !u!4 &12138750 stripped
 Transform:
@@ -1332,6 +1332,8 @@ MonoBehaviour:
   mouseHorizontalAxisName: Mouse X
   mouseVerticalAxisName: Mouse Y
   scrollAxisName: Mouse ScrollWheel
+  minHoldTime: 0
+  maxHoldTime: 0
 --- !u!114 &77582022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1355,9 +1357,63 @@ MonoBehaviour:
   jumpUpTime: 0.5
   jumpAirTime: 0.3
   jumpDownTime: 0.35
-  attackTime: 1
-  effectTime: 0.35
-  effetDistance: 0.9
+  maxComboTime: 0
+  punch_Jab_L_AT: 0
+  punch_Jab_L_ET: 0
+  punch_Jab_L_ED: 0
+  punch_Jab_L_Pos: 0
+  punch_Jab_L_Dir: 0
+  punch_Jab_L_Power: 0
+  punch_Jab_R_AT: 0
+  punch_Jab_R_ET: 0
+  punch_Jab_R_ED: 0
+  punch_Jab_R_Pos: 0
+  punch_Jab_R_Dir: 0
+  punch_Jab_R_Power: 0
+  punch_Hook_L_AT: 0
+  punch_Hook_L_ET: 0
+  punch_Hook_L_ED: 0
+  punch_Hook_L_Pos: 0
+  punch_Hook_L_Dir: 0
+  punch_Hook_L_Power: 0
+  punch_Hook_R_AT: 0
+  punch_Hook_R_ET: 0
+  punch_Hook_R_ED: 0
+  punch_Hook_R_Pos: 0
+  punch_Hook_R_Dir: 0
+  punch_Hook_R_Power: 0
+  punch_UpperCut_L_AT: 0
+  punch_UpperCut_L_ET: 0
+  punch_UpperCut_L_ED: 0
+  punch_UpperCut_L_Pos: 0
+  punch_UpperCut_L_Dir: 0
+  punch_UpperCut_L_Power: 0
+  punch_UpperCut_R_AT: 0
+  punch_UpperCut_R_ET: 0
+  punch_UpperCut_R_ED: 0
+  punch_UpperCut_R_Pos: 0
+  punch_UpperCut_R_Dir: 0
+  punch_UpperCut_R_Power: 0
+  kick_Straight_Mid_R_AT: 0
+  kick_Straight_Mid_R_ET: 0
+  kick_Straight_Mid_R_ED: 0
+  kick_Straight_Mid_R_Pos: 0
+  kick_Straight_Mid_R_Dir: 0
+  kick_Straight_Mid_R_Power: 0
+  kick_AxeKick_AT: 0
+  kick_AxeKick_ET: 0
+  kick_AxeKick_ED: 0
+  kick_AxeKick_Pos: 0
+  kick_AxeKick_Dir: 0
+  kick_AxeKick_Power: 0
+  kick_HorseKick_AT: 0
+  kick_HorseKick_ET: 0
+  kick_HorseKick_ED: 0
+  kick_HorseKick_Pos: 0
+  kick_HorseKick_Dir: 0
+  kick_HorseKick_Power: 0
+  currentCombat: 0
+  comboTimer: 0
   adjustSpeed: 2
   adjustMinDistance: 0.75
   adjustMaxDistance: 2.5
@@ -1403,7 +1459,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 77582020}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.462, y: -0.09, z: -11.58}
+  m_LocalPosition: {x: -34.462, y: -0.09, z: -16.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1882342586}
@@ -1571,7 +1627,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4585084487526062, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.04
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 4585084487526062, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1583,7 +1639,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4585084487526062, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4585084487526062, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalRotation.z
@@ -1591,7 +1647,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4585084487526062, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4585084487526062, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_RootOrder
@@ -1611,6 +1667,20 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54729500933781452, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114559773958482962, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: m_IsGrounded
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585084487526062, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
@@ -2256,7 +2326,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 171394588}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
@@ -2605,7 +2675,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 193063394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -5.97}
+  m_LocalPosition: {x: -0, y: 0, z: -10.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1727714289}

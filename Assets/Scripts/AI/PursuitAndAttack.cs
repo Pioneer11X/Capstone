@@ -56,10 +56,12 @@ public class PursuitAndAttack : MonoBehaviour {
             }
 
             float h = _navMeshAgent.desiredVelocity.normalized.x;
-            float v = _navMeshAgent.desiredVelocity.normalized.z;
+            float v = _navMeshAgent.desiredVelocity.normalized.z * -1.0f;
 
-            Vector3 rotatDirection = Vector3.RotateTowards(transform.forward, _navMeshAgent.desiredVelocity, _navMeshAgent.speed * Time.deltaTime, 0.0f);
-            _characterController.Move(h, v, Quaternion.LookRotation(rotatDirection), false, false, true, false);
+            
+
+            // Vector3 rotatDirection = Vector3.RotateTowards(transform.forward, _navMeshAgent.desiredVelocity, _navMeshAgent.speed * Time.deltaTime, 0.0f);
+            // _characterController.Move(h, v, Quaternion.identity, false, false, true, false, true);
         }
 
         
