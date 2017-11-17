@@ -168,7 +168,7 @@ ModelImporter:
     7400002: tpose
     7400004: KB_m_MidKickStraight_R
     7400006: KB_m_KickUppercut_R
-    7400008: KB_p_MidKickStraight_R
+    7400008: A_Kick_Straight_Mid_R
     7400010: KB_p_MidKickFront_R
     7400012: KB_p_MidKickFront_L
     7400014: KB_p_HighKickStraight_R
@@ -182,7 +182,7 @@ ModelImporter:
     7400030: KB_m_MidKickRoud_R_1
     7400032: KB_m_HighKickRound_L_1
     7400034: KB_m_MidKickRoud_L_1
-    7400036: A_TestAttack
+    7400036: A_HorseKick
     7400038: KB_m_KneeLeft
     7400040: KB_m_SideKickLeft
     7400042: KB_m_HighKick_R
@@ -202,7 +202,7 @@ ModelImporter:
     7400070: KB_m_MidKickBack_R
     7400072: KB_m_MidKickBack_L
     7400074: KB_m_BackKick_R
-    7400076: KB_AxeKick
+    7400076: A_Kick_AxeKick
     9500000: //RootNode
     13700000: DummyMESH
   materials:
@@ -949,7 +949,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_p_MidKickStraight_R
+      name: A_Kick_Straight_Mid_R
       takeName: KB_p_MidKickStraight_R
       firstFrame: 0
       lastFrame: 90
@@ -3469,7 +3469,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_TestAttack
+      name: A_HorseKick
       takeName: KB_m_RoundhouseKickRight
       firstFrame: 0
       lastFrame: 96
@@ -7069,7 +7069,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_AxeKick
+      name: A_Kick_AxeKick
       takeName: KB_AxeKick
       firstFrame: 0
       lastFrame: 120

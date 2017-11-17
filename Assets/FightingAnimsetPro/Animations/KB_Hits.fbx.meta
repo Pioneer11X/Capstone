@@ -166,9 +166,9 @@ ModelImporter:
     4300000: DummyMESH
     7400000: BindPose
     7400002: tpose
-    7400004: KB_Hit_p_HighFront_Weak
-    7400006: KB_Hit_p_HighRight_Weak
-    7400008: KB_Hit_p_HighLeft_Weak
+    7400004: A_Hit_high_forward_weak
+    7400006: A_Hit_high_right_weak
+    7400008: A_Hit_high_left_weak
     7400010: KB_Hit_p_HighUpper_Weak
     7400012: KB_Hit_m_HighFront_Weak
     7400014: KB_Hit_m_HighRight_Weak
@@ -183,22 +183,22 @@ ModelImporter:
     7400032: KB_Hit_p_LowRight_Weak
     7400034: KB_Hit_m_LowLeft_Weak
     7400036: KB_Hit_m_LowRight_Weak
-    7400038: A_Hit_Front
-    7400040: A_Hit_Left
-    7400042: A_Hit_Right
+    7400038: KB_Hit_m_HighFront_Stagger
+    7400040: A_Hit_high_right_powerful
+    7400042: A_Hit_high_left_powerful
     7400044: KB_Hit_m_MidFront_Med
     7400046: KB_Hit_m_MidLeft_Med
     7400048: KB_Hit_m_MidRight_Med
     7400050: KB_Hit_m_LowLeft_Med
     7400052: KB_Hit_m_LowRight_Med
     7400054: KB_Hit_m_MidTop_Med
-    7400056: KB_Hit_m_HighBack_Weak
+    7400056: A_Hit_high_backward_weak
     7400058: KB_Hit_m_MidBack_Med
-    7400060: A_Hit_Back
-    7400062: KB_Hit_m_HighFront_Stagger
-    7400064: KB_Hit_m_MidFront_Stagger
-    7400066: KB_Hit_m_MidLeft_Stagger
-    7400068: KB_Hit_m_MidRight_Stagger
+    7400060: A_Hit_high_backward_powerful
+    7400062: A_Hit_high_forward_powerful
+    7400064: A_Hit_mid_forward_powerful
+    7400066: A_Hit_mid_left_powerful
+    7400068: A_Hit_mid_right_powerful
     7400070: KB_HitOnGroundBack
     7400072: KB_HitOnGroundFront
     9500000: //RootNode
@@ -587,7 +587,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_Hit_p_HighFront_Weak
+      name: A_Hit_high_forward_weak
       takeName: KB_Hit_p_HighFront_Weak
       firstFrame: 0
       lastFrame: 50
@@ -767,7 +767,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_Hit_p_HighRight_Weak
+      name: A_Hit_high_right_weak
       takeName: KB_Hit_p_HighRight_Weak
       firstFrame: 0
       lastFrame: 50
@@ -947,7 +947,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_Hit_p_HighLeft_Weak
+      name: A_Hit_high_left_weak
       takeName: KB_Hit_p_HighLeft_Weak
       firstFrame: 0
       lastFrame: 50
@@ -3647,7 +3647,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_Hit_Front
+      name: A_Hit_high_forward_powerful
       takeName: KB_Hit_m_HighFront_Med
       firstFrame: 0
       lastFrame: 90
@@ -3827,7 +3827,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_Hit_Left
+      name: A_Hit_high_right_powerful
       takeName: KB_Hit_m_HighRight_Med
       firstFrame: 0
       lastFrame: 93
@@ -4007,7 +4007,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_Hit_Right
+      name: A_Hit_high_left_powerful
       takeName: KB_Hit_m_HighLeft_Med
       firstFrame: 0
       lastFrame: 90
@@ -5267,7 +5267,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_Hit_m_HighBack_Weak
+      name: A_Hit_high_backward_weak
       takeName: KB_Hit_m_HighBack_Weak
       firstFrame: 0
       lastFrame: 70
@@ -5627,7 +5627,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: A_Hit_Back
+      name: A_Hit_high_backward_powerful
       takeName: KB_Hit_m_HighBack_Stagger
       firstFrame: 0
       lastFrame: 120
@@ -5987,7 +5987,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_Hit_m_MidFront_Stagger
+      name: A_Hit_mid_forward_powerful
       takeName: KB_Hit_m_MidFront_Stagger
       firstFrame: 0
       lastFrame: 160
@@ -6167,7 +6167,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_Hit_m_MidLeft_Stagger
+      name: A_Hit_mid_left_powerful
       takeName: KB_Hit_m_MidLeft_Stagger
       firstFrame: 0
       lastFrame: 160
@@ -6347,7 +6347,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: KB_Hit_m_MidRight_Stagger
+      name: A_Hit_mid_right_powerful
       takeName: KB_Hit_m_MidRight_Stagger
       firstFrame: 0
       lastFrame: 160

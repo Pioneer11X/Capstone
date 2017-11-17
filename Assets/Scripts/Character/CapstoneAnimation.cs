@@ -73,31 +73,18 @@ public class CapstoneAnimation : MonoBehaviour
                 animator.Play("Roll");
                 break;
             case ThirdPCharacter.CharacterState.attack:
-                animator.Play("TestAttack");
+                ThirdPCharacter.Combat combat = (ThirdPCharacter.Combat)parameter;
+                animator.Play(combat.ToString(), -1, 0);
                 break;
             case ThirdPCharacter.CharacterState.adjustPosition:
                 animator.Play("Adjust");
                 break;
             case ThirdPCharacter.CharacterState.hit:
-                if (parameter == 0) {
-                    animator.Play("HitForward");
-
-                }
-                if (parameter == 1)
-                {
-                    animator.Play("HitBackward");
-
-                }
-                if (parameter == 2)
-                {
-                    animator.Play("HitLeft");
-
-                }
-                if (parameter == 3)
-                {
-                    animator.Play("HitRight");
-
-                }
+                ThirdPCharacter.HitPosition pos = (ThirdPCharacter.HitPosition)((parameter / 100) % 10);
+                ThirdPCharacter.HitDirection dir = (ThirdPCharacter.HitDirection)((parameter / 10) % 10);
+                ThirdPCharacter.HitPower power = (ThirdPCharacter.HitPower)((parameter / 1) % 10);
+                string animationName = "A_Hit_" + pos.ToString() + "_" + dir.ToString() + "_" + power.ToString();
+                animator.Play(animationName,-1,0);
                 break;
         }
     }

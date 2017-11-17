@@ -57,6 +57,14 @@ public class ThirdPControl : MonoBehaviour
     private float charRotationX = 0;
     private float zoom = 0;
 
+    private float attackButtonTimer = 0;
+    private bool attackButtonDown;
+    [SerializeField]
+    private float minHoldTime;
+
+    [SerializeField]
+    private float maxHoldTime;
+
     //animation controller
     private Animator anim;
 
@@ -71,10 +79,24 @@ public class ThirdPControl : MonoBehaviour
 
     private void Update()
     {
+        if (attackButtonDown) {
+            attackButtonTimer += Time.deltaTime;
+        }
         if (CrossPlatformInputManager.GetButtonDown("Attack")) //Button 2
         {
-            m_Character.PrepareAttack(ThirdPCharacter.Combat.punch);
+            attackButtonDown = true;
+            attackButtonTimer = 0;            
         }
+        if (CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonTimer<= minHoldTime) {
+            m_Character.BasicCombo();
+            attackButtonDown = false;
+        }
+        if ((CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonDown && attackButtonTimer > minHoldTime) ||(attackButtonTimer>=maxHoldTime && attackButtonDown))
+        {
+            m_Character.SpecialCombat();
+            attackButtonDown = false;
+        }
+
 
         if (CrossPlatformInputManager.GetButtonDown("Dodge")) //Button 1
         {

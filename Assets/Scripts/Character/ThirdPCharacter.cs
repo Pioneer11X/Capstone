@@ -57,15 +57,22 @@ public class ThirdPCharacter : MonoBehaviour
         right
     }
 
+    public enum CombatDirection
+    {
+        forward,
+        left,
+        right
+    }
+
     public enum HitPower
     {
         weak,
-        powerful
+        powerful,
+        ko
     }
 
     public enum Combat
     {
-        punch,
         none,
         punch_Jab_L,
         punch_Jab_R,
@@ -110,16 +117,144 @@ public class ThirdPCharacter : MonoBehaviour
 
     //attack parameters
     private bool isAttacking;
+    private bool resetAttack;
+    private float currentAttackTime;
+    private float currentEffectTime;
+    private float currentEffetDistance;
+    private CombatDirection currentDirection;
+    private HitPower currentPower;
+    private HitPosition currentHitPos;
+
     [SerializeField]
-    private float attackTime;
-    [SerializeField]
-    private float effectTime;
+    private float maxComboTime;
+
     private bool hasEffect;
+
     [SerializeField]
-    private float effetDistance;
+    private float punch_Jab_L_AT;
+    [SerializeField]
+    private float punch_Jab_L_ET;
+    [SerializeField]
+    private float punch_Jab_L_ED;
+    [SerializeField]
+    private HitPosition punch_Jab_L_Pos;
+    [SerializeField]
+    private CombatDirection punch_Jab_L_Dir;
+    [SerializeField]
+    private HitPower punch_Jab_L_Power;
+
+    [SerializeField]
+    private float punch_Jab_R_AT;
+    [SerializeField]
+    private float punch_Jab_R_ET;
+    [SerializeField]
+    private float punch_Jab_R_ED;
+    [SerializeField]
+    private HitPosition punch_Jab_R_Pos;
+    [SerializeField]
+    private CombatDirection punch_Jab_R_Dir;
+    [SerializeField]
+    private HitPower punch_Jab_R_Power;
+
+    [SerializeField]
+    private float punch_Hook_L_AT;
+    [SerializeField]
+    private float punch_Hook_L_ET;
+    [SerializeField]
+    private float punch_Hook_L_ED;
+    [SerializeField]
+    private HitPosition punch_Hook_L_Pos;
+    [SerializeField]
+    private CombatDirection punch_Hook_L_Dir;
+    [SerializeField]
+    private HitPower punch_Hook_L_Power;
+
+    [SerializeField]
+    private float punch_Hook_R_AT;
+    [SerializeField]
+    private float punch_Hook_R_ET;
+    [SerializeField]
+    private float punch_Hook_R_ED;
+    [SerializeField]
+    private HitPosition punch_Hook_R_Pos;
+    [SerializeField]
+    private CombatDirection punch_Hook_R_Dir;
+    [SerializeField]
+    private HitPower punch_Hook_R_Power;
+
+    [SerializeField]
+    private float punch_UpperCut_L_AT;
+    [SerializeField]
+    private float punch_UpperCut_L_ET;
+    [SerializeField]
+    private float punch_UpperCut_L_ED;
+    [SerializeField]
+    private HitPosition punch_UpperCut_L_Pos;
+    [SerializeField]
+    private CombatDirection punch_UpperCut_L_Dir;
+    [SerializeField]
+    private HitPower punch_UpperCut_L_Power;
+
+    [SerializeField]
+    private float punch_UpperCut_R_AT;
+    [SerializeField]
+    private float punch_UpperCut_R_ET;
+    [SerializeField]
+    private float punch_UpperCut_R_ED;
+    [SerializeField]
+    private HitPosition punch_UpperCut_R_Pos;
+    [SerializeField]
+    private CombatDirection punch_UpperCut_R_Dir;
+    [SerializeField]
+    private HitPower punch_UpperCut_R_Power;
+
+    [SerializeField]
+    private float kick_Straight_Mid_R_AT;
+    [SerializeField]
+    private float kick_Straight_Mid_R_ET;
+    [SerializeField]
+    private float kick_Straight_Mid_R_ED;
+    [SerializeField]
+    private HitPosition kick_Straight_Mid_R_Pos;
+    [SerializeField]
+    private CombatDirection kick_Straight_Mid_R_Dir;
+    [SerializeField]
+    private HitPower kick_Straight_Mid_R_Power;
+
+    [SerializeField]
+    private float kick_AxeKick_AT;
+    [SerializeField]
+    private float kick_AxeKick_ET;
+    [SerializeField]
+    private float kick_AxeKick_ED;
+    [SerializeField]
+    private HitPosition kick_AxeKick_Pos;
+    [SerializeField]
+    private CombatDirection kick_AxeKick_Dir;
+    [SerializeField]
+    private HitPower kick_AxeKick_Power;
+
+    [SerializeField]
+    private float kick_HorseKick_AT;
+    [SerializeField]
+    private float kick_HorseKick_ET;
+    [SerializeField]
+    private float kick_HorseKick_ED;
+    [SerializeField]
+    private HitPosition kick_HorseKick_Pos;
+    [SerializeField]
+    private CombatDirection kick_HorseKick_Dir;
+    [SerializeField]
+    private HitPower kick_HorseKick_Power;
+
+
+
+
+
+    [SerializeField]
     private Combat currentCombat;
-    private Combat nextCombat;
-    private bool nextCombatLock;
+
+    [SerializeField]
     private float comboTimer;
 
 
@@ -167,13 +302,12 @@ public class ThirdPCharacter : MonoBehaviour
 
     //hit parameters
     private bool isHit;
+    private bool resetHit;
     [SerializeField]
     private float hitTime;
     [SerializeField]
     private float hitMaxWalkSpeed;
-    private int hitDirection;
-
-
+    private int hitAnimationInfo;
 
 
     //
@@ -199,6 +333,14 @@ public class ThirdPCharacter : MonoBehaviour
         get
         {
             return !(isRolling || isJumping || isAttacking || isDodging || isAdjusting);
+        }
+    }
+
+    private bool canSetNextAttack
+    {
+        get
+        {
+            return isAttacking;
         }
     }
 
@@ -243,6 +385,7 @@ public class ThirdPCharacter : MonoBehaviour
 
     public enum CharacterState
     {
+        none,
         idle_OutCombat,
         idle_InCombat,
         run,
@@ -281,7 +424,7 @@ public class ThirdPCharacter : MonoBehaviour
 
     }
 
-#region Movement
+    #region Movement
     /// <summary>
     /// Move the player character.
     /// </summary>
@@ -501,7 +644,7 @@ public class ThirdPCharacter : MonoBehaviour
             m_GroundNormal = Vector3.up;
         }
     }//end CheckGroundStatus
-#endregion
+    #endregion
 
     void UpdateState()
     {
@@ -517,6 +660,16 @@ public class ThirdPCharacter : MonoBehaviour
         if (stateTimer >= 0)
         {
             stateTimer += Time.deltaTime;
+        }
+
+        if (comboTimer >= 0 && !(isAttacking || isAdjusting))
+        {
+            comboTimer += Time.deltaTime;
+            if (comboTimer > maxComboTime)
+            {
+                comboTimer = -1;
+                currentCombat = Combat.none;
+            }
         }
         lastState = currentState;
 
@@ -572,13 +725,19 @@ public class ThirdPCharacter : MonoBehaviour
         }
         else if (isAttacking)
         {
-            if (stateTimer < attackTime)
+            if (stateTimer < currentAttackTime)
             {
                 currentState = CharacterState.attack;
-                if (stateTimer >= effectTime && !hasEffect)
+                animationParameter = (int)currentCombat;
+                if (stateTimer >= currentEffectTime && !hasEffect)
                 {
                     hasEffect = true;
                     Effect();
+                }
+                if (resetAttack)
+                {
+                    currentState = CharacterState.none;
+                    resetAttack = false;
                 }
             }
             else
@@ -586,14 +745,16 @@ public class ThirdPCharacter : MonoBehaviour
                 stateTimer = -1;
                 isAttacking = false;
                 hasEffect = false;
+                comboTimer = 0;
             }
+
         }
         else if (isAdjusting)
         {
             if (CheckTarget())
             {
                 isAdjusting = false;
-                Attack(Combat.punch);
+                Attack();
             }
             else
             {
@@ -608,14 +769,28 @@ public class ThirdPCharacter : MonoBehaviour
             if (stateTimer < hitTime)
             {
                 currentState = CharacterState.hit;
-                animationParameter = hitDirection;
-                if (hitDirection >= 2)
+                animationParameter = hitAnimationInfo;
+                int power = hitAnimationInfo % 10;
+                if ((HitPower)power == HitPower.powerful)
                 {
-                    ForceMove(hitMaxWalkSpeed * 0.5f, hitDirection);
+                    int hitDirection = (hitAnimationInfo / 10) % 10;
+                    if (hitDirection >= 2)
+                    {
+                        ForceMove(hitMaxWalkSpeed * 0.5f, hitDirection);
+                    }
+                    else
+                    {
+                        ForceMove(hitMaxWalkSpeed, hitDirection);
+                    }
                 }
-                else
+                else if ((HitPower)power == HitPower.ko)
                 {
-                    ForceMove(hitMaxWalkSpeed, hitDirection);
+
+                }
+                if (resetHit)
+                {
+                    lastState = CharacterState.none;
+                    resetHit = false;
                 }
 
             }
@@ -691,19 +866,25 @@ public class ThirdPCharacter : MonoBehaviour
         stateTimer = 0;
         inCombat = true;
         inCombatTimer = inCombatDuration;
-        hitDirection = (int)dir;
+        hitAnimationInfo = (int)pos * 100 + (int)dir * 10 + (int)power;
+        resetHit = true;
         //
     }
 
-    public void PrepareAttack(Combat combat)
+
+    public void BasicCombo()
     {
+        //if can attack
+        //if with in combat timer
+        //NextCombat()
         if (!canAttack)
         {
             return;
         }
+        NextCombat();
         if (CheckTarget())
         {
-            Attack(combat);
+            Attack();
         }
         else
         {
@@ -711,23 +892,31 @@ public class ThirdPCharacter : MonoBehaviour
         }
     }
 
-    public void BasicCombo() {
-        //if can attack
-        //if with in combat timer
-        //NextCombat()
+    public void SpecialCombat()
+    {
+        if (!canAttack)
+        {
+            return;
+        }
+        NextSpecial();
+        if (CheckTarget())
+        {
+            Attack();
+        }
+        else
+        {
+            Adjust();
+        }
 
     }
 
-    public void SpecialCombat() {
-
-    }
-
-    public void Attack(Combat combat)
+    public void Attack()
     {
         inCombat = true;
         inCombatTimer = inCombatDuration;
         isAttacking = true;
         stateTimer = 0;
+        resetAttack = true;
     }
 
     void Effect()
@@ -737,7 +926,7 @@ public class ThirdPCharacter : MonoBehaviour
             float distance = Vector3.Distance(charBody.transform.position, currentTarget.charBody.transform.position);
             HitDirection dir = HitDirection.forward;
 
-            if (distance <= effetDistance)
+            if (distance <= currentEffetDistance)
             {
                 float angleFB = Vector3.Angle(currentTarget.charBody.transform.position - charBody.transform.position, currentTarget.charBody.transform.forward);
                 float angleLR = Vector3.Angle(currentTarget.charBody.transform.position - charBody.transform.position, currentTarget.charBody.transform.right);
@@ -760,7 +949,45 @@ public class ThirdPCharacter : MonoBehaviour
                         dir = HitDirection.right;
                     }
                 }
-                currentTarget.Hit(HitPosition.high, dir, HitPower.powerful);
+                if (currentDirection == CombatDirection.right)
+                {
+                    if (dir == HitDirection.forward)
+                    {
+                        dir = HitDirection.left;
+                    }
+                    else if (dir == HitDirection.backward)
+                    {
+                        dir = HitDirection.right;
+                    }
+                    else if (dir == HitDirection.left)
+                    {
+                        dir = HitDirection.backward;
+                    }
+                    else if (dir == HitDirection.right)
+                    {
+                        dir = HitDirection.forward;
+                    }
+                }
+                else if (currentDirection == CombatDirection.left)
+                {
+                    if (dir == HitDirection.forward)
+                    {
+                        dir = HitDirection.right;
+                    }
+                    else if (dir == HitDirection.backward)
+                    {
+                        dir = HitDirection.left;
+                    }
+                    else if (dir == HitDirection.left)
+                    {
+                        dir = HitDirection.forward;
+                    }
+                    else if (dir == HitDirection.right)
+                    {
+                        dir = HitDirection.backward;
+                    }
+                }
+                currentTarget.Hit(currentHitPos, dir, currentPower);
             }
 
         }
@@ -819,32 +1046,150 @@ public class ThirdPCharacter : MonoBehaviour
 
     void NextCombat()
     {
-        if (!nextCombatLock)
+        if (currentCombat == Combat.none)
         {
-            if (currentCombat == Combat.none) {
-                nextCombat = Combat.punch_Jab_L;
-            }
-            else if (currentCombat == Combat.punch_Jab_L)
-            {
-                nextCombat = Combat.punch_Jab_R;
-            }
-            else if (currentCombat == Combat.punch_Jab_R)
-            {
-                nextCombat = Combat.punch_Hook_L;
-            }
-            else if (currentCombat == Combat.punch_Hook_L)
-            {
-                nextCombat = Combat.punch_Hook_R;
-            }
-            else if (currentCombat == Combat.punch_Hook_R)
-            {
-                nextCombat = Combat.kick_Straight_Mid_R;
-            }
-            else if (currentCombat == Combat.kick_Straight_Mid_R)
-            {
-                nextCombat = Combat.punch_Jab_L;
-            }
-            nextCombatLock = true;
+            currentCombat = Combat.punch_Jab_L;
+            currentAttackTime = punch_Jab_L_AT;
+            currentEffectTime = punch_Jab_L_ET;
+            currentEffetDistance = punch_Jab_L_ED;
+            currentDirection = punch_Jab_L_Dir;
+            currentPower = punch_Jab_L_Power;
+            currentHitPos = punch_Jab_L_Pos;
+        }
+        else if (currentCombat == Combat.punch_Jab_L)
+        {
+            currentCombat = Combat.punch_Jab_R;
+            currentAttackTime = punch_Jab_R_AT;
+            currentEffectTime = punch_Jab_R_ET;
+            currentEffetDistance = punch_Jab_R_ED;
+            currentDirection = punch_Jab_R_Dir;
+            currentPower = punch_Jab_R_Power;
+            currentHitPos = punch_Jab_R_Pos;
+        }
+        else if (currentCombat == Combat.punch_Jab_R)
+        {
+            currentCombat = Combat.punch_Hook_L;
+            currentAttackTime = punch_Hook_L_AT;
+            currentEffectTime = punch_Hook_L_ET;
+            currentEffetDistance = punch_Hook_L_ED;
+            currentDirection = punch_Hook_L_Dir;
+            currentPower = punch_Hook_L_Power;
+            currentHitPos = punch_Hook_L_Pos;
+        }
+        else if (currentCombat == Combat.punch_Hook_L)
+        {
+            currentCombat = Combat.punch_Hook_R;
+            currentAttackTime = punch_Hook_R_AT;
+            currentEffectTime = punch_Hook_R_ET;
+            currentEffetDistance = punch_Hook_R_ED;
+            currentDirection = punch_Hook_R_Dir;
+            currentPower = punch_Hook_R_Power;
+            currentHitPos = punch_Hook_R_Pos;
+        }
+        else if (currentCombat == Combat.punch_Hook_R)
+        {
+            currentCombat = Combat.kick_Straight_Mid_R;
+            currentAttackTime = kick_Straight_Mid_R_AT;
+            currentEffectTime = kick_Straight_Mid_R_ET;
+            currentEffetDistance = kick_Straight_Mid_R_ED;
+            currentDirection = kick_Straight_Mid_R_Dir;
+            currentPower = kick_Straight_Mid_R_Power;
+            currentHitPos = kick_Straight_Mid_R_Pos;
+        }
+        else if (currentCombat == Combat.kick_Straight_Mid_R)
+        {
+            currentCombat = Combat.punch_Jab_L;
+            currentAttackTime = punch_Jab_L_AT;
+            currentEffectTime = punch_Jab_L_ET;
+            currentEffetDistance = punch_Jab_L_ED;
+            currentDirection = punch_Jab_L_Dir;
+            currentPower = punch_Jab_L_Power;
+            currentHitPos = punch_Jab_L_Pos;
+        }
+        else
+        {
+            currentCombat = Combat.punch_Jab_L;
+            currentAttackTime = punch_Jab_L_AT;
+            currentEffectTime = punch_Jab_L_ET;
+            currentEffetDistance = punch_Jab_L_ED;
+            currentDirection = punch_Jab_L_Dir;
+            currentPower = punch_Jab_L_Power;
+            currentHitPos = punch_Jab_L_Pos;
+        }
+
+    }
+
+    void NextSpecial()
+    {
+        if (currentCombat == Combat.none)
+        {
+            currentCombat = Combat.kick_AxeKick;
+            currentAttackTime = kick_AxeKick_AT;
+            currentEffectTime = kick_AxeKick_ET;
+            currentEffetDistance = kick_AxeKick_ED;
+            currentDirection = kick_AxeKick_Dir;
+            currentPower = kick_AxeKick_Power;
+            currentHitPos = kick_AxeKick_Pos;
+        }
+        else if (currentCombat == Combat.punch_Jab_L)
+        {
+            currentCombat = Combat.kick_AxeKick;
+            currentAttackTime = kick_AxeKick_AT;
+            currentEffectTime = kick_AxeKick_ET;
+            currentEffetDistance = kick_AxeKick_ED;
+            currentDirection = kick_AxeKick_Dir;
+            currentPower = kick_AxeKick_Power;
+            currentHitPos = kick_AxeKick_Pos;
+        }
+        else if (currentCombat == Combat.punch_Jab_R)
+        {
+            currentCombat = Combat.kick_AxeKick;
+            currentAttackTime = kick_AxeKick_AT;
+            currentEffectTime = kick_AxeKick_ET;
+            currentEffetDistance = kick_AxeKick_ED;
+            currentDirection = kick_AxeKick_Dir;
+            currentPower = kick_AxeKick_Power;
+            currentHitPos = kick_AxeKick_Pos;
+        }
+        else if (currentCombat == Combat.punch_Hook_L)
+        {
+            currentCombat = Combat.kick_AxeKick;
+            currentAttackTime = kick_AxeKick_AT;
+            currentEffectTime = kick_AxeKick_ET;
+            currentEffetDistance = kick_AxeKick_ED;
+            currentDirection = kick_AxeKick_Dir;
+            currentPower = kick_AxeKick_Power;
+            currentHitPos = kick_AxeKick_Pos;
+        }
+        else if (currentCombat == Combat.punch_Hook_R)
+        {
+            currentCombat = Combat.kick_AxeKick;
+            currentAttackTime = kick_AxeKick_AT;
+            currentEffectTime = kick_AxeKick_ET;
+            currentEffetDistance = kick_AxeKick_ED;
+            currentDirection = kick_AxeKick_Dir;
+            currentPower = kick_AxeKick_Power;
+            currentHitPos = kick_AxeKick_Pos;
+        }
+        else if (currentCombat == Combat.kick_Straight_Mid_R)
+        {
+            currentCombat = Combat.kick_HorseKick;
+            currentAttackTime = kick_HorseKick_AT;
+            currentEffectTime = kick_HorseKick_ET;
+            currentEffetDistance = kick_HorseKick_ED;
+            currentDirection = kick_HorseKick_Dir;
+            currentPower = kick_HorseKick_Power;
+            currentHitPos = kick_AxeKick_Pos;
+        }
+        else
+        {
+            currentCombat = Combat.kick_AxeKick;
+            currentAttackTime = kick_AxeKick_AT;
+            currentEffectTime = kick_AxeKick_ET;
+            currentEffetDistance = kick_AxeKick_ED;
+            currentDirection = kick_AxeKick_Dir;
+            currentPower = kick_AxeKick_Power;
+            currentHitPos = kick_AxeKick_Pos;
         }
     }
     /*
