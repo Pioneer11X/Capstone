@@ -876,6 +876,7 @@ public class AICharacter : Character
         inCombatTimer = inCombatDuration;
         hitAnimationInfo = (int)pos * 100 + (int)dir * 10 + (int)power;
         resetHit = true;
+        this.GetComponent<PCharacter>().TakeDamag(10);
     }
 
 
