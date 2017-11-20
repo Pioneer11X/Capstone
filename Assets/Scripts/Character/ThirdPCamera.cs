@@ -26,9 +26,16 @@ public class ThirdPCamera : MonoBehaviour
     [SerializeField] private float damping = 5.0f;              // damping
     [SerializeField] private float lowerTiltAngle = 45f;        // lower limit of camera Y tilt
     [SerializeField] private float upperTiltAngle = 110f;       // upper limit of camera Y tilt
-    [SerializeField] private float distance = 3f;
+    [SerializeField] private float minDistance = 3f;            // closet camera should get
+    [SerializeField] private float maxDistance = 6f;            // furthest camera should get
+
+    // test variables
+    // Do not change these in the inspector
+    public int tooClose;
+    public int tooFar;
 
     private Vector3 targetLastPos;
+    private float distance;
 
     //Start, setup the initial camera position with the character
     void Start()
@@ -40,6 +47,8 @@ public class ThirdPCamera : MonoBehaviour
             return;
         }
         targetLastPos = target.transform.position;
+        tooClose = 0;
+        tooFar = 0;
     }//end start
 
     /// <summary>
@@ -70,9 +79,21 @@ public class ThirdPCamera : MonoBehaviour
 
         // Set the position of the camera 
         Vector3 dir = target.transform.position - targetLastPos;
-        //dir.Normalize();
-        //wantedPosition = transform.position + dir;
-        //transform.position = Vector3.Lerp(transform.position, wantedPosition, 4f * dt);
+
+        // Adjust if the camera is too close or too far away
+        distance = (transform.position - target.transform.position).magnitude;
+        if (distance > maxDistance)
+        {
+            tooFar++;
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 0.1f);
+        }
+        else if(distance < minDistance)
+        {
+            tooClose++;
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, -0.1f);
+        }
+
+
         transform.position = transform.position + dir;
 
         targetLastPos = target.position;
@@ -144,4 +165,14 @@ public class ThirdPCamera : MonoBehaviour
             transform.position += moveAlong / 2;
         }
     }//end move camera
+
+    /// <summary>
+    /// Testing
+    /// </summary>
+    void OnApplicationQuit()
+    {
+        Debug.Log("Too close: " + tooClose);
+        Debug.Log("Too far: " + tooFar);
+    }
+
 }//end ThirdPCamera Script

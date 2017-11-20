@@ -88,12 +88,12 @@ public class ThirdPControl : MonoBehaviour
             attackButtonTimer = 0;            
         }
         if (CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonTimer<= minHoldTime) {
-            m_Character.BasicCombo();
+            m_Character.m_combat.BasicCombo();
             attackButtonDown = false;
         }
         if ((CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonDown && attackButtonTimer > minHoldTime) ||(attackButtonTimer>=maxHoldTime && attackButtonDown))
         {
-            m_Character.SpecialCombat();
+            m_Character.m_combat.SpecialCombat();
             attackButtonDown = false;
         }
 
@@ -104,16 +104,16 @@ public class ThirdPControl : MonoBehaviour
             {
                 if (h < 0)
                 {
-                    m_Character.Dodge(0);
+                    m_Character.m_combat.Dodge(0);
                 }
                 else if (h > 0)
                 {
-                    m_Character.Dodge(1);
+                    m_Character.m_combat.Dodge(1);
                 }
             }
             else
             {
-                m_Character.Roll();
+                m_Character.m_combat.Roll();
             }
         }
 

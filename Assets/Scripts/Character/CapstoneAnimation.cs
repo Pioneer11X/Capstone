@@ -73,16 +73,16 @@ public class CapstoneAnimation : MonoBehaviour
                 animator.Play("Roll");
                 break;
             case Character.CharacterState.attack:
-                ThirdPCharacter.Combat combat = (ThirdPCharacter.Combat)parameter;
+                CombatManager.Combat combat = (CombatManager.Combat)parameter;
                 animator.Play(combat.ToString(), -1, 0);
                 break;
             case Character.CharacterState.adjustPosition:
                 animator.Play("Adjust");
                 break;
             case Character.CharacterState.hit:
-                ThirdPCharacter.HitPosition pos = (ThirdPCharacter.HitPosition)((parameter / 100) % 10);
-                ThirdPCharacter.HitDirection dir = (ThirdPCharacter.HitDirection)((parameter / 10) % 10);
-                ThirdPCharacter.HitPower power = (ThirdPCharacter.HitPower)((parameter / 1) % 10);
+                CombatManager.HitPosition pos = (CombatManager.HitPosition)((parameter / 100) % 10);
+                CombatManager.HitDirection dir = (CombatManager.HitDirection)((parameter / 10) % 10);
+                CombatManager.HitPower power = (CombatManager.HitPower)((parameter / 1) % 10);
                 string animationName = "A_Hit_" + pos.ToString() + "_" + dir.ToString() + "_" + power.ToString();
                 animator.Play(animationName,-1,0);
                 break;
