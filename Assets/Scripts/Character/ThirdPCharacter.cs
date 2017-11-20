@@ -18,7 +18,11 @@ public class ThirdPCharacter : Character
     [SerializeField]
     float m_MoveSpeedMultiplier = 0.08f;
     [SerializeField]
-    float m_GroundCheckDistance = 0.175f;
+    float m_SlopeSpeedMultiplier = 0.18f;
+    [SerializeField]
+    float m_GroundCheckDistance;
+    [SerializeField]
+    float m_GroundCheckRadius;
 
     public GameObject charBody;
     public GameObject camera;
@@ -384,25 +388,6 @@ public class ThirdPCharacter : Character
         }
     }
 
-    //public enum CharacterState
-    //{
-    //    none,
-    //    idle_OutCombat,
-    //    idle_InCombat,
-    //    run,
-    //    jump_up,
-    //    jump_air,
-    //    jump_down,
-    //    aim,
-    //    shoot,
-    //    attack,
-    //    adjustPosition,
-    //    hit,
-    //    dodge,
-    //    roll,
-
-    //}
-
     // Use this for initialization
     void Start()
     {
@@ -625,7 +610,9 @@ public class ThirdPCharacter : Character
         }
     }//end ground movement
 
-    //handle airborne movement
+    /// <summary>
+    /// handle airborne movement
+    /// </summary>
     void HandleAirborneMovement()
     {
         // apply extra gravity from multiplier:
@@ -635,13 +622,32 @@ public class ThirdPCharacter : Character
         m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
     }//end airborne movement
 
-    //check to see if player is on the ground and its status
+    /// <summary>
+    /// check to see if player is on the ground and its status
+    /// </summary>
     void CheckGroundStatus()
     {
         RaycastHit hitInfo;
-        //Debug.Log(Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance));
-        if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance))
+
+        // Check to see if player is hiting a curb or collidier directly on and would have trouble navigating over it.
+        if(Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(0, 0, 1f), 0.3f) ||
+            Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(0, 0, -1f), 0.3f) ||
+            Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(1, 0, 0f), 0.3f) ||
+            Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(-1, 0, 0f), 0.3f) )
         {
+            // Bump character up a bit to overcome curb slopes
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.08f, transform.position.z);
+        }
+
+        if (Physics.SphereCast(transform.position + (Vector3.up * 0.1f), m_GroundCheckRadius, Vector3.down, out hitInfo, m_GroundCheckDistance))
+        //if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance))
+        {
+            //Debug.Log(hitInfo.normal.x + "  " + hitInfo.normal.y + "  " + hitInfo.normal.z);
+            Debug.DrawLine(transform.position + (Vector3.up * 0.1f), hitInfo.point);
+            if (hitInfo.normal.y < 1.0f)
+            {
+                m_MoveSpeedMultiplier = m_SlopeSpeedMultiplier;
+            }
             m_GroundNormal = hitInfo.normal;
             m_IsGrounded = true;
         }

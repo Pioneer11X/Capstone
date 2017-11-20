@@ -639,6 +639,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4023370292060740}
+  - component: {fileID: 65200308768225508}
   m_Layer: 0
   m_Name: chest
   m_TagString: Untagged
@@ -1121,6 +1122,7 @@ GameObject:
   - component: {fileID: 114134014511445044}
   - component: {fileID: 114802117432634516}
   - component: {fileID: 114663079835420174}
+  - component: {fileID: 114973634230754590}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1494,7 +1496,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870170771485162}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.710693, y: -0.09, z: -6.1459584}
+  m_LocalPosition: {x: -37.989, y: 0.05, z: -9.325}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4478597033524322}
@@ -2667,8 +2669,20 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!65 &65200308768225508
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1470307551803734}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.26034614, y: 0.21313676, z: 0.6958154}
+  m_Center: {x: -0.0033949905, y: -0.007010098, z: -0.112825066}
 --- !u!95 &95847637262734172
 Animator:
   serializedVersion: 3
@@ -2697,10 +2711,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bd5caba93147e34db72bf1672df5500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpPower: 9
+  m_JumpPower: 9.5
   m_GravityMultiplier: 2
   m_MoveSpeedMultiplier: 0.08
-  m_GroundCheckDistance: 0.2
+  m_GroundCheckDistance: 0.21
   charBody: {fileID: 1359089739512094}
   camera: {fileID: 0}
   m_IsGrounded: 0
@@ -2709,6 +2723,7 @@ MonoBehaviour:
   jumpUpTime: 0.5
   jumpAirTime: 0.3
   jumpDownTime: 0.35
+  currentHitPos: 0
   maxComboTime: 2
   punch_Jab_L_AT: 0.7
   punch_Jab_L_ET: 0.2
@@ -2822,6 +2837,19 @@ MonoBehaviour:
   scrollAxisName: Mouse ScrollWheel
   minHoldTime: 0.4
   maxHoldTime: 0.6
+--- !u!114 &114973634230754590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870170771485162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a36bbb210c930f41810313b0690f7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  isPlayer: 1
 --- !u!136 &136304036867196626
 CapsuleCollider:
   m_ObjectHideFlags: 1
