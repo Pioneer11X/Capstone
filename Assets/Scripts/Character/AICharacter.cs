@@ -995,7 +995,7 @@ public class AICharacter : Character
                         dir = HitDirection.backward;
                     }
                 }
-                currentTarget.Hit(currentTarget.currentHitPos, (ThirdPCharacter.HitDirection)dir, (ThirdPCharacter.HitPower)currentPower);
+                currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, (CombatManager.HitDirection)dir, (CombatManager.HitPower)currentPower);
             }
 
         }
