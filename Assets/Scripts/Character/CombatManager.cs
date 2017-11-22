@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class CombatManager : MonoBehaviour
 {
-    private ThirdPCharacter m_char;
+    private Character m_char;
 
     public enum HitPosition
     {
@@ -51,14 +51,12 @@ public class CombatManager : MonoBehaviour
         kick_Straight_Mid_R,
         kick_AxeKick,
         kick_HorseKick
-
     }
 
     //target parameters
     [SerializeField]
-    //private ThirdPCharacter currentTarget;
-    private AICharacter currentTarget;
-    public AICharacter CurrentTarget
+    private Character currentTarget;
+    public Character CurrentTarget
     { get { return currentTarget; } }
 
 
@@ -409,13 +407,18 @@ public class CombatManager : MonoBehaviour
     void Start ()
     {
         inCombatTimer = 0;
-        m_char = gameObject.GetComponent<ThirdPCharacter>();
+        //m_char = gameObject.GetComponent<Character>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
 
+    }
+
+    public void SetChar(Character _char)
+    {
+        m_char = _char;
     }
 
     public bool UpdateState(float stateTimer)
@@ -498,7 +501,7 @@ public class CombatManager : MonoBehaviour
         inCombatTimer = inCombatDuration;
         hitAnimationInfo = (int)pos * 100 + (int)dir * 10 + (int)power;
         resetHit = true;
-        this.GetComponent<PCharacter>().TakeDamag(10);
+        this.GetComponent<Humanoid>().TakeDamag(10);
         //
     }
 
@@ -620,7 +623,7 @@ public class CombatManager : MonoBehaviour
                     }
                 }
 
-                currentTarget.Hit(currentTarget.currentHitPos, (AICharacter.HitDirection)dir, (AICharacter.HitPower)currentPower);
+                currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower);
             }
 
         }

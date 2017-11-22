@@ -66,7 +66,7 @@ public class ThirdPControl : MonoBehaviour
     private float maxHoldTime;
 
     //animation controller
-    private Animator anim;
+    //private Animator anim;
 
 
 
@@ -74,7 +74,7 @@ public class ThirdPControl : MonoBehaviour
     {
         // get the third person character ( this should never be null due to require component )
         m_Character = GetComponent<ThirdPCharacter>();
-        anim = GetComponent<ThirdPCharacter>().charBody.GetComponent<Animator>();
+        //anim = GetComponent<ThirdPCharacter>().charBody.GetComponent<Animator>();
     }//end start
 
     private void Update()
@@ -222,10 +222,10 @@ public class ThirdPControl : MonoBehaviour
 
 
         //if character is moving forward or backward, unfreeze any rotation
-        if (v != 0)
-        {
-            m_Character.unFreezeChar();
-        }
+        //if (v != 0)
+        //{
+        //    m_Character.unFreezeChar();
+        //}
 
         //character crouch
         if (Input.GetKeyDown(KeyCode.C))

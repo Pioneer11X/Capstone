@@ -277,12 +277,12 @@ GameObject:
   - component: {fileID: 4819192567159232}
   - component: {fileID: 136224232533067956}
   - component: {fileID: 54046796445764010}
-  - component: {fileID: 114091116712462268}
   - component: {fileID: 114539140516276404}
   - component: {fileID: 195292706730197916}
   - component: {fileID: 114412517232609772}
   - component: {fileID: 114153668705709184}
   - component: {fileID: 114605629287013638}
+  - component: {fileID: 114757465634177106}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -1559,7 +1559,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378835262746324}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -11.1, y: -0.09000003, z: 28.82}
+  m_LocalPosition: {x: -38.898075, y: -0.100000404, z: -5.085344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203143637384952}
@@ -1681,99 +1681,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114091116712462268
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1378835262746324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bd5caba93147e34db72bf1672df5500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_JumpPower: 9
-  m_GravityMultiplier: 2
-  m_MoveSpeedMultiplier: 0.08
-  m_SlopeSpeedMultiplier: 0.18
-  m_GroundCheckDistance: 0.2
-  m_GroundCheckRadius: 0
-  charBody: {fileID: 0}
-  camera: {fileID: 0}
-  m_IsGrounded: 0
-  currentTarget: {fileID: 114153668705709184}
-  inCombatDuration: 4
-  jumpUpTime: 0.5
-  jumpAirTime: 0.3
-  jumpDownTime: 0.35
-  currentHitPos: 0
-  maxComboTime: 2
-  punch_Jab_L_AT: 0.7
-  punch_Jab_L_ET: 0.2
-  punch_Jab_L_ED: 1
-  punch_Jab_L_Pos: 0
-  punch_Jab_L_Dir: 0
-  punch_Jab_L_Power: 0
-  punch_Jab_R_AT: 0.5
-  punch_Jab_R_ET: 0.2
-  punch_Jab_R_ED: 1
-  punch_Jab_R_Pos: 0
-  punch_Jab_R_Dir: 0
-  punch_Jab_R_Power: 0
-  punch_Hook_L_AT: 0.65
-  punch_Hook_L_ET: 0.2
-  punch_Hook_L_ED: 1
-  punch_Hook_L_Pos: 0
-  punch_Hook_L_Dir: 1
-  punch_Hook_L_Power: 0
-  punch_Hook_R_AT: 0.65
-  punch_Hook_R_ET: 0.2
-  punch_Hook_R_ED: 1
-  punch_Hook_R_Pos: 0
-  punch_Hook_R_Dir: 2
-  punch_Hook_R_Power: 0
-  punch_UpperCut_L_AT: 0.6
-  punch_UpperCut_L_ET: 0.2
-  punch_UpperCut_L_ED: 1
-  punch_UpperCut_L_Pos: 0
-  punch_UpperCut_L_Dir: 0
-  punch_UpperCut_L_Power: 0
-  punch_UpperCut_R_AT: 0.7
-  punch_UpperCut_R_ET: 0.2
-  punch_UpperCut_R_ED: 1
-  punch_UpperCut_R_Pos: 0
-  punch_UpperCut_R_Dir: 0
-  punch_UpperCut_R_Power: 0
-  kick_Straight_Mid_R_AT: 1
-  kick_Straight_Mid_R_ET: 0.6
-  kick_Straight_Mid_R_ED: 1
-  kick_Straight_Mid_R_Pos: 1
-  kick_Straight_Mid_R_Dir: 0
-  kick_Straight_Mid_R_Power: 1
-  kick_AxeKick_AT: 1.2
-  kick_AxeKick_ET: 0.5
-  kick_AxeKick_ED: 1
-  kick_AxeKick_Pos: 0
-  kick_AxeKick_Dir: 0
-  kick_AxeKick_Power: 1
-  kick_HorseKick_AT: 1
-  kick_HorseKick_ET: 0.4
-  kick_HorseKick_ED: 1
-  kick_HorseKick_Pos: 0
-  kick_HorseKick_Dir: 0
-  kick_HorseKick_Power: 1
-  currentCombat: 0
-  comboTimer: 0
-  adjustSpeed: 2
-  adjustMinDistance: 0.75
-  adjustMaxDistance: 2.5
-  adjustAgle: 5
-  dodgeTime: 0
-  rollTime: 0.5
-  rollSpeed: 3
-  hitTime: 1
-  hitMaxWalkSpeed: 1
-  currentState: 0
 --- !u!114 &114153668705709184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1788,83 +1695,13 @@ MonoBehaviour:
   m_JumpPower: 10
   m_GravityMultiplier: 2
   m_MoveSpeedMultiplier: 0.08
+  m_SlopeSpeedMultiplier: 0.18
   m_GroundCheckDistance: 0.175
+  m_GroundCheckRadius: 0
   charBody: {fileID: 1081017911599592}
   camera: {fileID: 0}
+  m_combat: {fileID: 0}
   m_IsGrounded: 0
-  currentTarget: {fileID: 0}
-  inCombatDuration: 4
-  isMoving: 0
-  jumpUpTime: 0.5
-  jumpAirTime: 0.3
-  jumpDownTime: 0.35
-  currentHitPos: 0
-  maxComboTime: 2
-  punch_Jab_L_AT: 0.7
-  punch_Jab_L_ET: 0.2
-  punch_Jab_L_ED: 1
-  punch_Jab_L_Pos: 0
-  punch_Jab_L_Dir: 1
-  punch_Jab_L_Power: 0
-  punch_Jab_R_AT: 0.5
-  punch_Jab_R_ET: 0.2
-  punch_Jab_R_ED: 1
-  punch_Jab_R_Pos: 0
-  punch_Jab_R_Dir: 2
-  punch_Jab_R_Power: 0
-  punch_Hook_L_AT: 0.65
-  punch_Hook_L_ET: 0.2
-  punch_Hook_L_ED: 1
-  punch_Hook_L_Pos: 0
-  punch_Hook_L_Dir: 1
-  punch_Hook_L_Power: 0
-  punch_Hook_R_AT: 0.6
-  punch_Hook_R_ET: 0.2
-  punch_Hook_R_ED: 1
-  punch_Hook_R_Pos: 0
-  punch_Hook_R_Dir: 2
-  punch_Hook_R_Power: 0
-  punch_UpperCut_L_AT: 0.7
-  punch_UpperCut_L_ET: 0.2
-  punch_UpperCut_L_ED: 1
-  punch_UpperCut_L_Pos: 0
-  punch_UpperCut_L_Dir: 0
-  punch_UpperCut_L_Power: 0
-  punch_UpperCut_R_AT: 1
-  punch_UpperCut_R_ET: 0.6
-  punch_UpperCut_R_ED: 1
-  punch_UpperCut_R_Pos: 0
-  punch_UpperCut_R_Dir: 0
-  punch_UpperCut_R_Power: 0
-  kick_Straight_Mid_R_AT: 1.2
-  kick_Straight_Mid_R_ET: 0.5
-  kick_Straight_Mid_R_ED: 1
-  kick_Straight_Mid_R_Pos: 1
-  kick_Straight_Mid_R_Dir: 0
-  kick_Straight_Mid_R_Power: 1
-  kick_AxeKick_AT: 1
-  kick_AxeKick_ET: 0.4
-  kick_AxeKick_ED: 1
-  kick_AxeKick_Pos: 0
-  kick_AxeKick_Dir: 0
-  kick_AxeKick_Power: 1
-  kick_HorseKick_AT: 1
-  kick_HorseKick_ET: 0.4
-  kick_HorseKick_ED: 1
-  kick_HorseKick_Pos: 0
-  kick_HorseKick_Dir: 0
-  kick_HorseKick_Power: 1
-  currentCombat: 0
-  comboTimer: 0
-  adjustSpeed: 2
-  adjustMinDistance: 0.75
-  adjustMaxDistance: 1.5
-  adjustAgle: 5
-  dodgeTime: 0
-  rollTime: 0.5
-  rollSpeed: 3
-  hitTime: 1
-  hitMaxWalkSpeed: 1
   currentState: 0
 --- !u!114 &114412517232609772
 MonoBehaviour:
@@ -1903,6 +1740,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   isPlayer: 0
+--- !u!114 &114757465634177106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378835262746324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a15ea0861f71c3b4fb8cf60efaabd754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
+  inCombatDuration: 4
+  jumpUpTime: 0.5
+  jumpAirTime: 0.3
+  jumpDownTime: 0.35
+  currentHitPos: 0
+  dodgeTime: 0
+  rollTime: 0.5
+  rollSpeed: 3
+  hitTime: 1
+  hitMaxWalkSpeed: 1
+  adjustSpeed: 2
+  adjustMinDistance: 0.75
+  adjustMaxDistance: 2.5
+  adjustAgle: 5
+  currentCombat: 0
+  comboTimer: 0
+  maxComboTime: 2
+  punch_Jab_L_AT: 0.7
+  punch_Jab_L_ET: 0.2
+  punch_Jab_L_ED: 1
+  punch_Jab_L_Pos: 0
+  punch_Jab_L_Dir: 0
+  punch_Jab_L_Power: 0
+  punch_Jab_R_AT: 0.5
+  punch_Jab_R_ET: 0.2
+  punch_Jab_R_ED: 1
+  punch_Jab_R_Pos: 0
+  punch_Jab_R_Dir: 0
+  punch_Jab_R_Power: 0
+  punch_Hook_L_AT: 0.65
+  punch_Hook_L_ET: 0.2
+  punch_Hook_L_ED: 1
+  punch_Hook_L_Pos: 0
+  punch_Hook_L_Dir: 0
+  punch_Hook_L_Power: 0
+  punch_Hook_R_AT: 0.65
+  punch_Hook_R_ET: 0.2
+  punch_Hook_R_ED: 1
+  punch_Hook_R_Pos: 0
+  punch_Hook_R_Dir: 0
+  punch_Hook_R_Power: 0
+  punch_UpperCut_L_AT: 0.8
+  punch_UpperCut_L_ET: 0.5
+  punch_UpperCut_L_ED: 1
+  punch_UpperCut_L_Pos: 0
+  punch_UpperCut_L_Dir: 0
+  punch_UpperCut_L_Power: 0
+  punch_UpperCut_R_AT: 0.8
+  punch_UpperCut_R_ET: 0.5
+  punch_UpperCut_R_ED: 1
+  punch_UpperCut_R_Pos: 0
+  punch_UpperCut_R_Dir: 0
+  punch_UpperCut_R_Power: 0
+  kick_Straight_Mid_R_AT: 1
+  kick_Straight_Mid_R_ET: 0.6
+  kick_Straight_Mid_R_ED: 1
+  kick_Straight_Mid_R_Pos: 0
+  kick_Straight_Mid_R_Dir: 0
+  kick_Straight_Mid_R_Power: 0
+  kick_AxeKick_AT: 1.2
+  kick_AxeKick_ET: 0.5
+  kick_AxeKick_ED: 1
+  kick_AxeKick_Pos: 0
+  kick_AxeKick_Dir: 0
+  kick_AxeKick_Power: 0
+  kick_HorseKick_AT: 1
+  kick_HorseKick_ET: 0.4
+  kick_HorseKick_ED: 1
+  kick_HorseKick_Pos: 0
+  kick_HorseKick_Dir: 0
+  kick_HorseKick_Power: 0
 --- !u!136 &136224232533067956
 CapsuleCollider:
   m_ObjectHideFlags: 1
