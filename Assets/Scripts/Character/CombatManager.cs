@@ -8,6 +8,13 @@ using UnityEngine;
 /// </summary>
 public class CombatManager : MonoBehaviour
 {
+    //*******************************************************************
+    //Temporary
+    private List<GameObject> enemyList;
+    private GameObject[] enemyArray;
+    public bool isPlayer;
+    //*******************************************************************
+
     private Character m_char;
 
     public enum HitPosition
@@ -407,13 +414,40 @@ public class CombatManager : MonoBehaviour
     void Start ()
     {
         inCombatTimer = 0;
-        //m_char = gameObject.GetComponent<Character>();
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
 
+        //*******************************************************************
+        //temp code
+        enemyList = new List<GameObject>();
+        enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+        for(int i = 0; i < enemyArray.Length; i++)
+        {
+            enemyList.Add(enemyArray[i]);
+        }
+        //*******************************************************************
+    }
+
+    // Update is called once per frame
+    void Update ()
+    {
+        //*******************************************************************
+        if (isPlayer)
+        {
+            float dist = float.MaxValue;
+            foreach (GameObject obj in enemyList)
+            {
+                
+                if (obj != null)
+                {
+                    float distTo = (transform.position - obj.transform.position).magnitude;
+                    if (distTo < dist)
+                    {
+                        dist = distTo;
+                        currentTarget = obj.GetComponentInChildren<Character>();
+                    }
+                }
+            }
+        }
+        //*******************************************************************
     }
 
     public void SetChar(Character _char)

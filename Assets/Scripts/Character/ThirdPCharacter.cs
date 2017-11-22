@@ -17,7 +17,8 @@ public class ThirdPCharacter : Character
     {
         base.Start();
 
-        m_combat.SetChar(this); 
+        m_combat.SetChar(this);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -57,8 +58,10 @@ public class ThirdPCharacter : Character
                 temp2 = charBodyRotation.eulerAngles;
                 if (temp2.y > 360)
                 { temp2.y -= 360; }
-                temp.x = temp2.x;
-                temp.z = temp2.z;
+                //temp.x = temp2.x;
+                //temp.z = temp2.z;
+                temp.x = 0.0f;
+                temp.z = 0.0f;
 
                 if (vert < 0)
                 {
