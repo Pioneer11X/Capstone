@@ -281,11 +281,11 @@ GameObject:
   - component: {fileID: 195292706730197916}
   - component: {fileID: 114412517232609772}
   - component: {fileID: 114153668705709184}
-  - component: {fileID: 114605629287013638}
   - component: {fileID: 114757465634177106}
+  - component: {fileID: 114228248886608912}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1559,7 +1559,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378835262746324}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -38.898075, y: -0.100000404, z: -5.085344}
+  m_LocalPosition: {x: -24.88, y: -0.100000404, z: -45.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203143637384952}
@@ -1694,7 +1694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_JumpPower: 10
   m_GravityMultiplier: 2
-  m_MoveSpeedMultiplier: 0.08
+  m_BaseSpeedMultiplier: 0
   m_SlopeSpeedMultiplier: 0.18
   m_GroundCheckDistance: 0.175
   m_GroundCheckRadius: 0
@@ -1703,6 +1703,27 @@ MonoBehaviour:
   m_combat: {fileID: 0}
   m_IsGrounded: 0
   currentState: 0
+--- !u!114 &114228248886608912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378835262746324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d555734aa6f0d44196c07f5abb1fc8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  energy: 0
+  baseAttackPower: 0
+  speedMove: 0.08
+  speedDash: 0.2
+  speedRun: 0.16
+  speedCrouch: 0.04
+  jumpPower: 10
+  stamina: 0
+  senseRadius: 0
 --- !u!114 &114412517232609772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1715,7 +1736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  maxSensoryRadius: 30
+  maxSensoryRadius: 15
 --- !u!114 &114539140516276404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1727,19 +1748,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172b08f1f5862dd4c9550595c531b058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114605629287013638
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1378835262746324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a36bbb210c930f41810313b0690f7ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  isPlayer: 0
 --- !u!114 &114757465634177106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1751,6 +1759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15ea0861f71c3b4fb8cf60efaabd754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlayer: 0
   currentTarget: {fileID: 0}
   inCombatDuration: 4
   jumpUpTime: 0.5
