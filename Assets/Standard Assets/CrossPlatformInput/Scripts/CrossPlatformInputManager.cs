@@ -15,7 +15,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 
 		private static VirtualInput activeInput;
 
-		private static VirtualInput s_TouchInput;
+		//private static VirtualInput s_TouchInput;
 		private static VirtualInput s_HardwareInput;
 
 
@@ -37,9 +37,9 @@ namespace UnityStandardAssets.CrossPlatformInput
 					activeInput = s_HardwareInput;
 					break;
 
-				case ActiveInputMethod.Touch:
-					activeInput = s_TouchInput;
-					break;
+				//case ActiveInputMethod.Touch:
+				//	activeInput = s_TouchInput;
+				//	break;
 			}
 		}
 

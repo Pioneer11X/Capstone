@@ -51,11 +51,11 @@ public class PursuitAndAttack : MonoBehaviour {
 
         if ( Vector3.Distance(transform.position, target.position) <= maxSensoryRadius)
         {
-            if (Vector3.Distance(transform.position, target.position) <= _characterController.GetAdjustMaxDistance())
+            if (Vector3.Distance(transform.position, target.position) <= _characterController.m_combat.GetAdjustMaxDistance())
             {
 
                 _navMeshAgent.isStopped = true;
-                _characterController.isMoving = false;
+                _characterController.m_combat.IsMoving = false;
 
                 //if (Vector3.Distance(transform.position, target.position) > _characterController.GetAdjustMinDistance())
                 //{
@@ -68,7 +68,7 @@ public class PursuitAndAttack : MonoBehaviour {
 
                 if ( timer > timerLimit)
                 {
-                    _characterController.BasicCombo();
+                    _characterController.m_combat.BasicCombo();
                     timer = 0;
                 }
                 
@@ -80,13 +80,13 @@ public class PursuitAndAttack : MonoBehaviour {
                 _navMeshAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(_navMeshAgent.destination, targetPos) >= _characterController.GetAdjustMaxDistance())
+                if (Vector3.Distance(_navMeshAgent.destination, targetPos) >= _characterController.m_combat.GetAdjustMaxDistance())
                 {
                     _navMeshAgent.SetDestination(targetPos);
                 }
 
                 // TODO: Play the Animation here            
-                _characterController.isMoving = true;
+                _characterController.m_combat.IsMoving = true;
 
                 // Vector3 rotatDirection = Vector3.RotateTowards(transform.forward, _navMeshAgent.desiredVelocity, _navMeshAgent.speed * Time.deltaTime, 0.0f);
                 // _characterController.Move(h, v, Quaternion.identity, false, false, true, false, true);
@@ -96,7 +96,7 @@ public class PursuitAndAttack : MonoBehaviour {
         {
             // TODO: Play IDLE Animaiton Here.
             _navMeshAgent.isStopped = true;
-            _characterController.isMoving = false;
+            _characterController.m_combat.IsMoving = false;
         }
 
         
