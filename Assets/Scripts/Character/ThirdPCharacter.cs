@@ -37,7 +37,7 @@ public class ThirdPCharacter : Character
     /// <param name="jump">should player jump</param>
     /// <param name="running">is the player running</param>
     /// <param name="dash">is the player dashing</param>
-    override public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash)
+    override public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash, bool aiming)
     {
         m_combat.IsMoving = m_moving = false;
         m_combat.IsDashing = m_dashing  = false;
@@ -45,7 +45,7 @@ public class ThirdPCharacter : Character
         {
             return;
         }
-        if (vert != 0 || hori != 0)
+        if (!aiming && (vert != 0 || hori != 0) )
         {
             m_combat.IsMoving = true;
             m_moving = true;

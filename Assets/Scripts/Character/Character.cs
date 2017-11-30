@@ -145,7 +145,7 @@ abstract public class Character : MonoBehaviour
     /// <param name="jump">should player jump</param>
     /// <param name="running">is the player running</param>
     /// <param name="dash">is the player dashing</param>
-    abstract public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash);
+    abstract public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash, bool aiming);
 
     /// <summary>
     /// Move AI Character

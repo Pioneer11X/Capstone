@@ -17,8 +17,12 @@ using System.Collections.Generic;
 
 public class ThirdPCamera : MonoBehaviour 
 {
-    public Transform target;    //target for camera to interact with
-    private Vector3 moveAlong;  //vector for camera zoom
+    [SerializeField] private Transform target;        //target for camera to interact with
+    [SerializeField] private Transform aimTarget;    // target for aim mode
+    [SerializeField] private Transform aimTargetPos;    // target for aim mode
+
+    private Transform lookAtTarget; // target camera should look at
+    private Vector3 moveAlong;      //vector for camera zoom
 
     [SerializeField] private float bumperDistanceCheck = 2.0f;  // length of bumper ray
     [SerializeField] private float bumperCameraHeight = 0.5f;   // adjust camera height while bumping
@@ -28,6 +32,10 @@ public class ThirdPCamera : MonoBehaviour
     [SerializeField] private float upperTiltAngle = 110f;       // upper limit of camera Y tilt
     [SerializeField] private float minDistance = 3f;            // closet camera should get
     [SerializeField] private float maxDistance = 6f;            // furthest camera should get
+    [SerializeField] private float aimHorizontal = 1f;          // furthest camera should aim left/right
+    [SerializeField] private float aimVertical = 1f;            // furthest camera should aim up/down
+    [SerializeField] private float aimSpeed = 0.1f;            // aiming speed
+
 
     // test variables
     // Do not change these in the inspector
@@ -35,6 +43,7 @@ public class ThirdPCamera : MonoBehaviour
     public int tooFar;
 
     private Vector3 targetLastPos;
+    private Vector3 aimTargetDefault;
     private float distance;
 
     //Start, setup the initial camera position with the character
@@ -47,6 +56,9 @@ public class ThirdPCamera : MonoBehaviour
             return;
         }
         targetLastPos = target.transform.position;
+        lookAtTarget = target;
+        aimTargetDefault = aimTarget.transform.localPosition;
+
         tooClose = 0;
         tooFar = 0;
     }//end start
@@ -99,7 +111,7 @@ public class ThirdPCamera : MonoBehaviour
         targetLastPos = target.position;
 
         //keep the camera looking at the character
-        transform.LookAt(target);
+        transform.LookAt(lookAtTarget);
     }//end fixed update
 
     /// <summary>
@@ -165,6 +177,57 @@ public class ThirdPCamera : MonoBehaviour
             transform.position += moveAlong / 2;
         }
     }//end move camera
+
+    /// <summary>
+    /// Move camera to the aim state position.
+    /// </summary>
+    public void SetAimState(bool aiming)
+    {
+        if(aiming)
+        {
+            lookAtTarget = aimTarget;
+            transform.forward = target.transform.forward;
+            transform.position = aimTargetPos.transform.position;
+        }
+        else
+        {
+            lookAtTarget = target;
+        }
+    }
+
+    /// <summary>
+    /// Move camera in a gun aim fashion.
+    /// </summary>
+    /// <param name="v">Vertical Movement</param>
+    /// <param name="h">Horizontal Movement</param>
+    public void MoveForAiming(float v, float h)
+    {
+        if (v != 0 || h != 0)
+        {
+            if (v > 0 && (aimTarget.localPosition.y - aimTargetDefault.y < aimVertical + aimTargetDefault.y) )
+            {
+                aimTarget.localPosition = new Vector3(aimTarget.localPosition.x, aimTarget.localPosition.y + aimSpeed, aimTarget.localPosition.z);
+            }
+            else if (v < 0 && (aimTarget.localPosition.y - aimTargetDefault.y > aimTargetDefault.y - aimVertical))
+            {
+                aimTarget.localPosition = new Vector3(aimTarget.localPosition.x, aimTarget.localPosition.y - aimSpeed, aimTarget.localPosition.z);
+            }
+
+            if (h > 0 && (aimTarget.localPosition.x - aimTargetDefault.x < aimHorizontal + aimTargetDefault.x))
+            {
+                aimTarget.localPosition = new Vector3(aimTarget.localPosition.x + aimSpeed, aimTarget.localPosition.y, aimTarget.localPosition.z);
+            }
+            else if (h < 0 && (aimTarget.localPosition.x - aimTargetDefault.x > aimTargetDefault.x - aimHorizontal))
+            {
+                aimTarget.localPosition = new Vector3(aimTarget.localPosition.x - aimSpeed, aimTarget.localPosition.y, aimTarget.localPosition.z);
+            }
+        }
+        else
+        {
+            aimTarget.localPosition = aimTargetDefault;
+        }
+    }
+
 
     /// <summary>
     /// Testing
