@@ -43,6 +43,7 @@ public class ThirdPControl : MonoBehaviour
     private bool m_crouch = false;
     private bool m_attacking = false;
     private bool m_rolling = false;
+    private bool m_aiming = false;
 
     private int combatCounter = 0;
     private int dashCounter = 0;
@@ -50,6 +51,7 @@ public class ThirdPControl : MonoBehaviour
     private int jumpCount = 0;
     private int waitTime = 45;
 
+    private float lt;
     private float v = 0;
     private float h = 0;
     private float rotationY = 0;
@@ -110,6 +112,10 @@ public class ThirdPControl : MonoBehaviour
                 {
                     m_Character.m_combat.Dodge(1);
                 }
+                else
+                {
+                    // Add for block
+                }
             }
             else
             {
@@ -154,6 +160,7 @@ public class ThirdPControl : MonoBehaviour
     // This controls the character's and camera's movement
     private void FixedUpdate()
     {
+        lt = 0;
         v = 0;
         h = 0;
         rotationY = 0;
@@ -182,9 +189,19 @@ public class ThirdPControl : MonoBehaviour
             dashCounter = dashMod;
 
         }
-        float lt = CrossPlatformInputManager.GetAxis("Aim");
-        if (lt != 0)
-        { Debug.Log("Aim"); }
+
+        lt = CrossPlatformInputManager.GetAxis("Aim");
+        if (lt != 0)    // May need a threshold
+        {
+            m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
+            m_aiming = true;
+            myCarmera.GetComponent<ThirdPCamera>().SetAimState(true);
+        }
+        else
+        {
+            m_aiming = false;
+            myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
+        }
 
         // D-Pad goes here
         if (CrossPlatformInputManager.GetAxis("dpX") > 0)
@@ -271,9 +288,17 @@ public class ThirdPControl : MonoBehaviour
         charAnimation();
 
         // pass all parameters to the controling scripts
-        myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
+        if (!m_aiming)
+        {
+            myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
+        }
+        else
+        {
+            myCarmera.GetComponent<ThirdPCamera>().MoveForAiming(rotationY, rotationX);
+        }
+
         m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,
-            m_crouch, m_Jump, m_running, m_dashing);
+            m_crouch, m_Jump, m_running, m_dashing, m_aiming);
         m_Jump = false;
         if (m_useDash)
         {
