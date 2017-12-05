@@ -35,6 +35,8 @@ public class AICharacter : Character
         Debug.Assert(null != seekTarget);
 
         navMeshAgent = GetComponent<NavMeshAgent>();
+        // Assert that the scene has a player has a Nav Mesh Agent.
+        Debug.Assert(null != seekTarget);
 
         m_combat.SetChar(this);
 
@@ -81,7 +83,6 @@ public class AICharacter : Character
 
                 // TODO: Play the Animation here            
                 this.m_combat.IsMoving = true;
-
             }
         }
         else
@@ -91,7 +92,8 @@ public class AICharacter : Character
             this.m_combat.IsMoving = false;
         }
 
-
+        // Update the Moving State for animating..
+        this.m_moving = !(navMeshAgent.isStopped);
         UpdateState();
 
     }

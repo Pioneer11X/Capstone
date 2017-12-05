@@ -1559,7 +1559,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378835262746324}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -24.88, y: -0.100000404, z: -45.57}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203143637384952}
@@ -1703,6 +1703,8 @@ MonoBehaviour:
   m_combat: {fileID: 0}
   m_IsGrounded: 0
   currentState: 0
+  seekTarget: {fileID: 0}
+  maxSensoryRadius: 0
 --- !u!114 &114228248886608912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1730,7 +1732,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378835262746324}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c38689beed9c1bb4fb5170e6edfa362d, type: 3}
   m_Name: 
