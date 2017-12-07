@@ -64,6 +64,11 @@ public class AICharacter : Character
                 navMeshAgent.isStopped = true;
                 this.m_combat.IsMoving = false;
 
+                if ( null == this.m_combat.CurrentTarget)
+                {
+                    this.m_combat.CurrentTarget = seekTarget.gameObject.GetComponent<Character>();
+                }
+
                 if (timer > timerLimit)
                 {
                     this.m_combat.BasicCombo();
@@ -94,6 +99,7 @@ public class AICharacter : Character
 
         // Update the Moving State for animating..
         this.m_moving = !(navMeshAgent.isStopped);
+        timer += Time.deltaTime;
         UpdateState();
 
     }

@@ -64,8 +64,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField]
     private Character currentTarget;
     public Character CurrentTarget
-    { get { return currentTarget; } }
-
+    { get { return currentTarget; } set { currentTarget = value; } }
 
     //in combat parameters
     private bool inCombat;
