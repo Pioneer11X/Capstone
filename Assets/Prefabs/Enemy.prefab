@@ -1704,7 +1704,7 @@ MonoBehaviour:
   m_IsGrounded: 0
   currentState: 0
   seekTarget: {fileID: 0}
-  maxSensoryRadius: 0
+  maxSensoryRadius: 10
 --- !u!114 &114228248886608912
 MonoBehaviour:
   m_ObjectHideFlags: 1

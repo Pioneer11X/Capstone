@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4495934842741118}
   - component: {fileID: 114666864349689108}
   - component: {fileID: 23077817979933424}
+  - component: {fileID: 114450694328213682}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -73,6 +74,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &114450694328213682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1849000990045334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc10b1093a6d0049bd058b00a57eebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmoSize: 1
+  gizmoColor: {r: 1, g: 0.076781616, b: 0.015686274, a: 1}
+  isVisible: 1
 --- !u!114 &114666864349689108
 MonoBehaviour:
   m_ObjectHideFlags: 1
