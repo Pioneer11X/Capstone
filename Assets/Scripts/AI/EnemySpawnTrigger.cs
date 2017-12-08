@@ -7,12 +7,16 @@ public class EnemySpawnTrigger : MonoBehaviour {
     public List<Spawner> spawners;
 
     public float spawnRate;        // The number of enemies you are supposed to spawn per a minute.
+
     public int maximumEnemies = 5;
+
+    public int totalEnemiesForPlaytest = 15;    // The last enemy would be different.
 
     private bool spawn = false;
 
-    private bool didJustSpawn = true; // This is set to true when we spawn a character and have to wait for a period before we can spawn again.
+    private bool didJustSpawn = true;   // This is set to true when we spawn a character and have to wait for a period before we can spawn again.
     private float timer = 0.0f;         // A temporary timer used to go through the time to spawn.
+    private int enemiesSpawned = 0;     // Counter
 
     // Use this for initialization
     void Start () {
@@ -23,8 +27,8 @@ public class EnemySpawnTrigger : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        // Check to see if the timer allows you to spawn.
-        if (!didJustSpawn)
+        // Check to see if the timer allows you to spawn, and if you already spawned the boss.
+        if (!didJustSpawn && (enemiesSpawned < totalEnemiesForPlaytest))
         {
             // Check to see if the maximum limit allows you to spawn.
             if (canSpawn())
@@ -51,10 +55,24 @@ public class EnemySpawnTrigger : MonoBehaviour {
                 // One final check.
                 if ( null != bestSpawner && !bestSpawner.GetComponent<Renderer>().isVisible)
                 {
-                    bestSpawner.Spawn();
-                    bestSpawner.spawnWeight = 0.0f; // Reset the Weight. It just spawned.
-                    didJustSpawn = true;
-                    timer = 0.0f;
+                    Debug.Assert(enemiesSpawned <= totalEnemiesForPlaytest);
+                    if ( enemiesSpawned < totalEnemiesForPlaytest)
+                    {
+                        bestSpawner.Spawn();
+                        enemiesSpawned++;
+                        bestSpawner.spawnWeight = 0.0f; // Reset the Weight. It just spawned.
+                        didJustSpawn = true;
+                        timer = 0.0f;
+                    }
+                    else if ( enemiesSpawned == totalEnemiesForPlaytest)
+                    {
+                        bestSpawner.SpawnBoss();
+                        enemiesSpawned++;
+                        bestSpawner.spawnWeight = 0.0f; // Reset the Weight. It just spawned.
+                        didJustSpawn = true;
+                        timer = 0.0f;
+                    }
+                    
                 }
             }
         }
