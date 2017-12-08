@@ -282,6 +282,7 @@ abstract public class Character : MonoBehaviour
                 {
                     stateTimer = -1;
                     m_jump = false;
+                    m_combat.IsJumping = false;
                 }
 
             }

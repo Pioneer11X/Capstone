@@ -14,7 +14,10 @@ public class Spawner : MonoBehaviour {
     public void SpawnBoss()
     {
         // Spawn at this location.
-        Instantiate<GameObject>(finalBossPrefab, transform);
+        GameObject newEmeney = Instantiate<GameObject>(finalBossPrefab, transform);
+        ThirdPCharacter player = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPCharacter>();
+        Debug.Assert(null != player);
+        player.m_combat.enemyList.Add(newEmeney);
     }
 
     public void Spawn()

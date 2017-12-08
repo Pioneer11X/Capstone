@@ -90,7 +90,7 @@ public class CombatManager : MonoBehaviour
     }
 
     //jump parameters
-    private bool isJumping;
+    public bool isJumping;
     [SerializeField]
     private float jumpUpTime;
     [SerializeField]

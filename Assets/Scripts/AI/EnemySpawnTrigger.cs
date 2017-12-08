@@ -28,7 +28,7 @@ public class EnemySpawnTrigger : MonoBehaviour {
 	void Update () {
 
         // Check to see if the timer allows you to spawn, and if you already spawned the boss.
-        if (!didJustSpawn && (enemiesSpawned < totalEnemiesForPlaytest))
+        if (!didJustSpawn && (enemiesSpawned < totalEnemiesForPlaytest + 1))
         {
             // Check to see if the maximum limit allows you to spawn.
             if (canSpawn())

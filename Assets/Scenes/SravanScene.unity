@@ -11530,9 +11530,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15ea0861f71c3b4fb8cf60efaabd754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyList: []
   isPlayer: 1
   currentTarget: {fileID: 0}
   inCombatDuration: 4
+  isJumping: 0
   jumpUpTime: 0.5
   jumpAirTime: 0.3
   jumpDownTime: 0.35
@@ -12702,6 +12704,11 @@ Prefab:
         type: 2}
       propertyPath: maximumEnemies
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114190054403644906, guid: d5b4aa9fab845a148894d75139cb73b7,
+        type: 2}
+      propertyPath: totalEnemiesForPlaytest
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d5b4aa9fab845a148894d75139cb73b7, type: 2}
