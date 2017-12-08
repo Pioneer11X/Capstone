@@ -536,6 +536,13 @@ public class CombatManager : MonoBehaviour
         resetHit = true;
         this.GetComponent<Humanoid>().TakeDamag(10);
         //
+
+        isAttacking = false;
+        isRolling = false;
+        isAdjusting = false;
+        isJumping = false;
+        isMoving = false;
+
     }
 
     public void BasicCombo()
