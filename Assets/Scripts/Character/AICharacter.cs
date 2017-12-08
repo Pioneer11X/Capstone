@@ -22,7 +22,7 @@ public class AICharacter : Character
 
     // Temporary timer variables.
     float timer = 0.0f;
-    float timerLimit = 2.0f;
+    float timerLimit = 3.0f;
 
     // Use this for initialization
     override protected void Start()

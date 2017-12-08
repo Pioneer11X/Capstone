@@ -101,6 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnedObjectPrefab: {fileID: 1378835262746324, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
     type: 2}
-  finalBossPrefab: {fileID: 1279283573546030, guid: 1314bcc7fd6dace4eaacbfbc28dec4b2,
+  finalBossPrefab: {fileID: 1955892941977320, guid: 4a934b5e8858bdb40a7e2d7abd7ed8f0,
     type: 2}
   spawnWeight: 0
