@@ -10,7 +10,7 @@ public class CombatManager : MonoBehaviour
 {
     //*******************************************************************
     //Temporary
-    private List<GameObject> enemyList;
+    public List<GameObject> enemyList;
     private GameObject[] enemyArray;
     public bool isPlayer;
     //*******************************************************************

@@ -20,7 +20,10 @@ public class Spawner : MonoBehaviour {
     public void Spawn()
     {
         // Spawn at this location.
-        Instantiate<GameObject>(spawnedObjectPrefab, transform);
+        GameObject newEmeney = Instantiate<GameObject>(spawnedObjectPrefab, transform);
+        ThirdPCharacter player = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPCharacter>();
+        Debug.Assert(null != player);
+        player.m_combat.enemyList.Add(newEmeney);
     }
 
     public void Update()
