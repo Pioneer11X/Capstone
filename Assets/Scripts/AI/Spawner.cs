@@ -23,7 +23,12 @@ public class Spawner : MonoBehaviour {
     public void Spawn()
     {
         // Spawn at this location.
-        GameObject newEmeney = Instantiate<GameObject>(spawnedObjectPrefab, transform);
+
+        Vector3 pos = new Vector3(0, 0, 0);
+        Transform tempTrans = transform;
+        tempTrans.position = pos;
+
+        GameObject newEmeney = Instantiate<GameObject>(spawnedObjectPrefab, tempTrans);
         ThirdPCharacter player = GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPCharacter>();
         Debug.Assert(null != player);
         player.m_combat.enemyList.Add(newEmeney);

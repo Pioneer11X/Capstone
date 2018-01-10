@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4096420513458102}
   - component: {fileID: 114190054403644906}
+  - component: {fileID: 114441233068154440}
   m_Layer: 0
   m_Name: SpawnerController
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1478381560485660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -53.384033, y: 0.0000005755711, z: -39.82824}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,18 +49,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1478381560485660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a64238320613c42aaecab12b502414, type: 3}
+  m_Script: {fileID: 11500000, guid: cdd7dd1fb02be1741a2d3a1eb26ededd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawners:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  spawnRate: 10
-  maximumEnemies: 2
+  spawners: []
+  spawnRate: 0
+  maximumEnemies: 5
   totalEnemiesForPlaytest: 15
+--- !u!114 &114441233068154440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1478381560485660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc10b1093a6d0049bd058b00a57eebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmoSize: 0.25
+  gizmoColor: {r: 0.6911765, g: 0, b: 0, a: 1}
+  isVisible: 1

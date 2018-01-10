@@ -44,6 +44,7 @@ public class ThirdPControl : MonoBehaviour
     private bool m_attacking = false;
     private bool m_rolling = false;
     private bool m_aiming = false;
+    private bool m_usedConAim = false;
 
     private int combatCounter = 0;
     private int dashCounter = 0;
@@ -154,6 +155,21 @@ public class ThirdPControl : MonoBehaviour
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             //jumpCount++;
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !m_aiming)
+        {
+            Debug.Log("Aim Start");
+            m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
+            m_aiming = true;
+            myCarmera.GetComponent<ThirdPCamera>().SetAimState(true);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl) && m_aiming)
+        {
+            Debug.Log("Aim End");
+            m_aiming = false;
+            myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
+        }
+
     }//end update
 
     // Fixed update is called in sync with physics
@@ -196,9 +212,11 @@ public class ThirdPControl : MonoBehaviour
             m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
             m_aiming = true;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(true);
+            m_usedConAim = true;
         }
-        else
+        else if(m_aiming && m_usedConAim) // TODO change to work better with controller and some form of error range
         {
+            Debug.Log("Aim End");
             m_aiming = false;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
         }

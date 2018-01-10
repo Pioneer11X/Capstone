@@ -824,7 +824,6 @@ GameObject:
   - component: {fileID: 114171107550600046}
   - component: {fileID: 114883004895518268}
   - component: {fileID: 114084020847656818}
-  - component: {fileID: 114624458979635352}
   m_Layer: 0
   m_Name: Enemy_Red_Eye
   m_TagString: Enemy
@@ -1436,7 +1435,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955892941977320}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -52.76749, y: 0.0000004645259, z: -38.896725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4625380232448944}
@@ -1736,17 +1735,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172b08f1f5862dd4c9550595c531b058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114624458979635352
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1955892941977320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aafe7ea409d96e84d815b0cb09b03161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114883004895518268

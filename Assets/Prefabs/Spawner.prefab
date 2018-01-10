@@ -85,8 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc10b1093a6d0049bd058b00a57eebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gizmoSize: 1
-  gizmoColor: {r: 1, g: 0.076781616, b: 0.015686274, a: 1}
+  gizmoSize: 0.5
+  gizmoColor: {r: 1, g: 0.06206897, b: 0, a: 1}
   isVisible: 1
 --- !u!114 &114666864349689108
 MonoBehaviour:
@@ -101,6 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnedObjectPrefab: {fileID: 1378835262746324, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
     type: 2}
-  finalBossPrefab: {fileID: 1955892941977320, guid: 4a934b5e8858bdb40a7e2d7abd7ed8f0,
+  finalBossPrefab: {fileID: 1955892941977320, guid: be1babcf3f1dc3d48842ce8cbaef0116,
     type: 2}
   spawnWeight: 0
