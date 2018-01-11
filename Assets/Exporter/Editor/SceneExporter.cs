@@ -401,20 +401,26 @@ namespace FriedTofu
             ResourceMap.Material material = new ResourceMap.Material();
             material.Name = basename;
             material.GUID = guid;
+            material.AlbedoMap = null;
+            material.NormalMap = null;
 
-            string albedoMap = ExportTexture(mat.GetTexture("_MainTex"), context);
-            if (string.IsNullOrEmpty(albedoMap))
+            if (mat.HasProperty("_MainTex"))
             {
-                throw new Exception("cannot find main texture");
+                string albedoMap = ExportTexture(mat.GetTexture("_MainTex"), context);
+                if (!string.IsNullOrEmpty(albedoMap))
+                {
+                    material.AlbedoMap = albedoMap;
+                }
             }
-            material.AlbedoMap = albedoMap;
 
-            string normalMap = ExportTexture(mat.GetTexture("_BumpMap"), context);
-            if (string.IsNullOrEmpty(normalMap))
+            if (mat.HasProperty("_BumpMap"))
             {
-                throw new Exception("cannot find normal map");
+                string normalMap = ExportTexture(mat.GetTexture("_BumpMap"), context);
+                if (!string.IsNullOrEmpty(normalMap))
+                {
+                    material.NormalMap = normalMap;
+                }
             }
-            material.NormalMap = normalMap;
             
             context.MaterialTable.Add(basename, material);
 
