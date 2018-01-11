@@ -1,26 +1,28 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Load the main level, once.
+/// </summary>
 public class LoadLevel : MonoBehaviour
 {
 
-    bool loaded;
+    bool loading;
 
     // Use this for initialization
     void Start()
     {
-        loaded = false;
+        loading = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!loaded)
+        if (!loading)
         {
             SceneManager.LoadSceneAsync("MainLevel");
-            SceneManager.UnloadSceneAsync("LoadingM");
 
-            loaded = true;
+            loading = true;
         }
     }
 }

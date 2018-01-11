@@ -10,6 +10,5 @@ public class OptionsUI : MonoBehaviour
     public void BackButton()
     {
         SceneManager.LoadSceneAsync("Title");
-        SceneManager.UnloadSceneAsync("Options");
     }
 }

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Credits UI
+/// </summary>
 public class CreditsUI : MonoBehaviour
 {
 
@@ -10,6 +13,5 @@ public class CreditsUI : MonoBehaviour
     public void MenuButton()
     {
         SceneManager.LoadSceneAsync("Title");
-        SceneManager.UnloadSceneAsync("Credits");
     }
 }

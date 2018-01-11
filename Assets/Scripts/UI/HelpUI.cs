@@ -10,7 +10,6 @@ public class HelpUI : MonoBehaviour
     public void BackButton()
     {
         SceneManager.LoadSceneAsync("Title");
-        SceneManager.UnloadSceneAsync("Help");
     }
 
 }

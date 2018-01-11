@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
 
 /*This is a third person controller script built on the basis of unity's built in third person controller.
@@ -68,6 +69,8 @@ public class ThirdPControl : MonoBehaviour
     [SerializeField]
     private float maxHoldTime;
 
+    private Pause pause;
+
     //animation controller
     //private Animator anim;
 
@@ -78,10 +81,23 @@ public class ThirdPControl : MonoBehaviour
         // get the third person character ( this should never be null due to require component )
         m_Character = GetComponent<ThirdPCharacter>();
         //anim = GetComponent<ThirdPCharacter>().charBody.GetComponent<Animator>();
+
+        pause = Pause.Instance; 
     }//end start
 
     private void Update()
     {
+        if(!pause.isPaused)
+        {
+            Time.timeScale = 1;
+            myCarmera.SetActive(true);
+        }
+        else // Is Paused
+        {
+            Time.timeScale = 0;
+            myCarmera.SetActive(false);
+        }
+
         if (attackButtonDown) {
             attackButtonTimer += Time.deltaTime;
         }
@@ -136,9 +152,12 @@ public class ThirdPControl : MonoBehaviour
         {
             Debug.Log("Interact");
         }
-        if (CrossPlatformInputManager.GetButtonDown("Pause")) //Button 7
+        if (CrossPlatformInputManager.GetButtonDown("Pause") && !pause.isPaused) //Button 7
         {
             Debug.Log("Pause");
+            pause.isPaused = true;
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadSceneAsync("Pause", LoadSceneMode.Additive);
         }
         if (CrossPlatformInputManager.GetButtonDown("Submit")) //Button 0
         {

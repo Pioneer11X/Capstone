@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PC : Humanoid
 {
@@ -11,8 +9,10 @@ public class PC : Humanoid
     /// </summary>
     protected override void Die()
     {
+        SceneManager.LoadSceneAsync("Death");
+
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
 #else
         //Call game over screen here
 #endif

@@ -1,25 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Load the tutorial level, once.
+/// </summary>
 public class LoadTutorial : MonoBehaviour
 {
-    bool loaded;
+    bool loading;
 
 	// Use this for initialization
 	void Start ()
     {
-        loaded = false;
+        loading = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		if (!loaded)
+		if (!loading)
         {
             SceneManager.LoadSceneAsync("Tutorial");
-            SceneManager.UnloadSceneAsync("LoadingT");
 
-            loaded = true;
+            loading = true;
         }
 	}
 }

@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class EndLevelUI : MonoBehaviour {
+/// <summary>
+/// Level Complete, load credits
+/// </summary>
+public class EndLevelUI : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    /// <summary>
+    /// Go back to the Main Menu
+    /// </summary>
+    public void Credits()
+    {
+        SceneManager.LoadSceneAsync("Credits");
+    }
 }

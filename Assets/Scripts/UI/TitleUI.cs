@@ -37,7 +37,7 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void LoadTutorial()
     {
-        SceneManager.LoadSceneAsync("Loading");
+        SceneManager.LoadSceneAsync("LoadingT");
     }
 
     /// <summary>
@@ -45,7 +45,7 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void LoadMainLevel()
     {
-        SceneManager.LoadSceneAsync("Loading");
+        SceneManager.LoadSceneAsync("LoadingM");
     }
 
     /// <summary>
