@@ -8,6 +8,7 @@ TagManager:
   - MainButtons
   - LevelSelectButtons
   - PauseCamera
+  - BossBar
   layers:
   - Default
   - TransparentFX
