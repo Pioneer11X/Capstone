@@ -87,7 +87,7 @@ public class ThirdPControl : MonoBehaviour
 
     private void Update()
     {
-        if(!pause.isPaused)
+        if(!pause.IsPaused)
         {
             Time.timeScale = 1;
             myCarmera.SetActive(true);
@@ -152,10 +152,10 @@ public class ThirdPControl : MonoBehaviour
         {
             Debug.Log("Interact");
         }
-        if (CrossPlatformInputManager.GetButtonDown("Pause") && !pause.isPaused) //Button 7
+        if (CrossPlatformInputManager.GetButtonDown("Pause") && !pause.IsPaused) //Button 7
         {
             Debug.Log("Pause");
-            pause.isPaused = true;
+            pause.IsPaused = true;
             Cursor.lockState = CursorLockMode.None;
             SceneManager.LoadSceneAsync("Pause", LoadSceneMode.Additive);
         }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.CrossPlatformInput;
 
 /// <summary>
 /// Pause Screen, show/hide menu items
@@ -14,12 +15,24 @@ public class PauseUI : MonoBehaviour
     /// <summary>
     /// Hide the temporary sprites
     /// </summary>
-    void Start()
+    private void Start()
     {
         HelpSprite.SetActive(false);
         OptionsSprite.SetActive(false);
 
         pause = Pause.Instance;
+    }
+
+    /// <summary>
+    /// Update loop, listen for cancel input
+    /// </summary>
+    private void Update()
+    {
+        if (CrossPlatformInputManager.GetButtonDown("Cancel")) //Button 1 or 6
+        {
+            //Debug.Log("Unpause");
+            Unpause();
+        }
     }
 
     /// <summary>
@@ -48,7 +61,7 @@ public class PauseUI : MonoBehaviour
         HelpSprite.SetActive(false);
         OptionsSprite.SetActive(false);
 
-        pause.isPaused = false;
+        pause.IsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
         SceneManager.UnloadSceneAsync("Pause");
     }

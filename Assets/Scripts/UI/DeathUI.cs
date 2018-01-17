@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class DeathUI : MonoBehaviour
 {
-
     /// <summary>
     /// Go back to the Main Menu
     /// </summary>

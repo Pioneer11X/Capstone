@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.CrossPlatformInput;
 
 /// <summary>
 /// Handles the Title Screen UI Buttons
@@ -8,18 +10,39 @@ public class TitleUI : MonoBehaviour
 {
     [SerializeField] private GameObject MainButtons;
     [SerializeField] private GameObject SelectButtons;
+    [SerializeField] private Button FirstButton;
+    [SerializeField] private Button SubButtonOne;
+
+    private bool titleMenu; // Is the title screen on the title menu buttons or sub buttons.
 
 	// Use this for initialization
 	void Start ()
     {
         MainButtons.SetActive(true);
         SelectButtons.SetActive(false);
+        titleMenu = true;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	void Update ()
+    {
+        if (!titleMenu)
+        {
+            if (CrossPlatformInputManager.GetButtonDown("Cancel")) //Button 1 or 6
+            {
+                //Debug.Log("Cancel");
+                BackButton();
+            }
+        }
+        else
+        {
+            if (CrossPlatformInputManager.GetButtonDown("Cancel")) //Button 1 or 6
+            {
+                //Debug.Log("Exit Game");
+                ExitButton();
+            }
+        }
+    }
 
     /// <summary>
     /// Start Game Button
@@ -30,6 +53,8 @@ public class TitleUI : MonoBehaviour
         // Hide regular menu buttons and show option to load tutorial, game, or go back.
         MainButtons.SetActive(false);
         SelectButtons.SetActive(true);
+        SubButtonOne.Select();
+        titleMenu = false;
     }
 
     /// <summary>
@@ -79,6 +104,8 @@ public class TitleUI : MonoBehaviour
     {
         MainButtons.SetActive(true);
         SelectButtons.SetActive(false);
+        FirstButton.Select();
+        titleMenu = true;
     }
 
     /// <summary>
@@ -89,7 +116,7 @@ public class TitleUI : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-        // Call exit here
+        Application.Quit();
 #endif
     }
 }
