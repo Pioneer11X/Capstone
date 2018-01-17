@@ -10,8 +10,6 @@
 
 public class ThirdPCharacter : Character
 {
-    
-
     // Use this for initialization
     override protected void Start()
     {
@@ -49,7 +47,11 @@ public class ThirdPCharacter : Character
         {
             m_combat.IsMoving = true;
             m_moving = true;
-            if (true)
+            if (!charAudio.isPlaying && m_IsGrounded)
+            {
+                charAudio.PlayOneShot(footsteps4);
+            }
+            if (m_IsGrounded)
             {
 
                 Quaternion r;
@@ -58,8 +60,6 @@ public class ThirdPCharacter : Character
                 temp2 = charBodyRotation.eulerAngles;
                 if (temp2.y > 360)
                 { temp2.y -= 360; }
-                //temp.x = temp2.x;
-                //temp.z = temp2.z;
                 temp.x = 0.0f;
                 temp.z = 0.0f;
 

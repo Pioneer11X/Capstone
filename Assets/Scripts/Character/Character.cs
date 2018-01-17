@@ -23,6 +23,20 @@ abstract public class Character : MonoBehaviour
         roll,
     }
 
+    public AudioSource charAudio;
+    public AudioSource charCombatAudio;
+    [SerializeField] protected AudioClip footsteps1;
+    [SerializeField] protected AudioClip footsteps2;
+    [SerializeField] protected AudioClip footsteps3;
+    [SerializeField] protected AudioClip footsteps4;
+    [SerializeField] protected AudioClip jumpFX;
+    [SerializeField] protected AudioClip landFX;
+    [SerializeField] protected AudioClip punchFX;
+    [SerializeField] protected AudioClip kickFX;
+    [SerializeField] protected AudioClip swordFX;
+    [SerializeField] protected AudioClip gunShotFX;
+    [SerializeField] protected AudioClip hitFX;
+
     [SerializeField]
     protected float m_JumpPower;
     [Range(1f, 20f)]
@@ -60,6 +74,7 @@ abstract public class Character : MonoBehaviour
     protected bool m_dashing;
     protected bool m_moving;
     protected bool frozen = false;
+    private bool hasJumped = false;
 
     protected float turnMod;
     protected float m_OrigGroundCheckDistance;
@@ -187,6 +202,8 @@ abstract public class Character : MonoBehaviour
         // check whether conditions are right to allow a jump:
         if (jump && !crouch && m_IsGrounded)
         {
+            charAudio.Stop();
+            charAudio.PlayOneShot(jumpFX);
             // jump!
             m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
             m_IsGrounded = false;
@@ -237,6 +254,13 @@ abstract public class Character : MonoBehaviour
                 m_MoveSpeedMultiplier = m_SlopeSpeedMultiplier;
             }
             m_GroundNormal = hitInfo.normal;
+
+            if(!m_IsGrounded && hasJumped)
+            {
+                charAudio.Stop();
+                charAudio.PlayOneShot(landFX);
+                hasJumped = false;
+            }
             m_IsGrounded = true;
         }
         else
@@ -268,6 +292,7 @@ abstract public class Character : MonoBehaviour
             {
                 if (stateTimer < m_combat.JumpUpTime)
                 {
+                    hasJumped = true;
                     currentState = CharacterState.jump_up;
                 }
                 else if (stateTimer >= m_combat.JumpUpTime && stateTimer < m_combat.JumpUpTime + m_combat.JumpAirTime)
