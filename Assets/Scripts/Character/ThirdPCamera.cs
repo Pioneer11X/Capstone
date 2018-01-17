@@ -26,6 +26,7 @@ public class ThirdPCamera : MonoBehaviour
 
     [SerializeField] private float bumperDistanceCheck = 2.0f;  // length of bumper ray
     [SerializeField] private float bumperCameraHeight = 0.5f;   // adjust camera height while bumping
+    [SerializeField] private float bumperMaxDistance = 0.5f;
     [SerializeField] private Vector3 bumperRayOffset;           // allows offset of the bumper ray from target origin
     [SerializeField] private float damping = 5.0f;              // damping
     [SerializeField] private float lowerTiltAngle = 45f;        // lower limit of camera Y tilt
@@ -42,6 +43,7 @@ public class ThirdPCamera : MonoBehaviour
     public int tooClose;
     public int tooFar;
 
+    private Vector3 lastCamPos;
     private Vector3 targetLastPos;
     private Vector3 aimTargetDefault;
     private float distance;
@@ -55,6 +57,7 @@ public class ThirdPCamera : MonoBehaviour
             Debug.Log("Camera has no target at Start.");
             return;
         }
+        lastCamPos = transform.position;
         targetLastPos = target.transform.position;
         lookAtTarget = target;
         aimTargetDefault = aimTarget.transform.localPosition;
@@ -63,48 +66,103 @@ public class ThirdPCamera : MonoBehaviour
         tooFar = 0;
     }//end start
 
+    private void Update()
+    {
+        float dt = Time.deltaTime;
+
+        // check to see if there is anything behind the target
+        RaycastHit hit;
+        Vector3 back = transform.TransformDirection(-1 * Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+        Vector3 left = transform.TransformDirection(-1 * Vector3.right);
+
+        // cast the bumper ray out from rear and check to see if there is anything behind
+        //if (Physics.Raycast(target.TransformPoint(bumperRayOffset), back, out hit, bumperDistanceCheck)
+        //&& hit.transform != target && !hit.collider.CompareTag("Player")) // ignore ray-casts that hit the user. DR
+        //if (Physics.Raycast(transform.position, back, out hit, bumperDistanceCheck)
+        //&& hit.transform != target && !hit.collider.CompareTag("Player")) // ignore ray-casts that hit the user. DR
+        if (Physics.SphereCast(transform.position, bumperDistanceCheck, back, out hit, bumperMaxDistance)
+            && !hit.collider.CompareTag("Player"))
+        {
+            Debug.Log(hit.point);
+
+            //wantedPosition = transform.position;
+            //// clamp wanted position to hit position
+            //wantedPosition.x = hit.point.x;
+            //wantedPosition.z = hit.point.z;
+            //wantedPosition.y = Mathf.Lerp(hit.point.y, wantedPosition.y, dt * damping);
+
+            Vector3 temp = transform.position - hit.point;
+
+
+            transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
+
+            Debug.DrawLine(transform.position, hit.point, Color.blue);
+        }
+        else if (Physics.SphereCast(transform.position, bumperDistanceCheck/2, right, out hit, bumperMaxDistance)
+            && !hit.collider.CompareTag("Player"))
+        {
+            Debug.Log(hit.point);
+
+            //wantedPosition = transform.position;
+            //// clamp wanted position to hit position
+            //wantedPosition.x = hit.point.x;
+            //wantedPosition.z = hit.point.z;
+            //wantedPosition.y = Mathf.Lerp(hit.point.y, wantedPosition.y, dt * damping);
+
+            Vector3 temp = transform.position - hit.point;
+
+
+            transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
+
+            Debug.DrawLine(transform.position, hit.point, Color.blue);
+        }
+        else if (Physics.SphereCast(transform.position, bumperDistanceCheck/2, left, out hit, bumperMaxDistance)
+            && !hit.collider.CompareTag("Player"))
+        {
+            Debug.Log(hit.point);
+
+            //wantedPosition = transform.position;
+            //// clamp wanted position to hit position
+            //wantedPosition.x = hit.point.x;
+            //wantedPosition.z = hit.point.z;
+            //wantedPosition.y = Mathf.Lerp(hit.point.y, wantedPosition.y, dt * damping);
+
+            Vector3 temp = transform.position - hit.point;
+
+
+            transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
+
+            Debug.DrawLine(transform.position, hit.point, Color.blue);
+        }
+        else
+        {
+            // Adjust if the camera is too close or too far away
+            distance = (transform.position - target.transform.position).magnitude;
+            if (distance > maxDistance)
+            {
+                tooFar++;
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 0.1f);
+            }
+            else if (distance < minDistance)
+            {
+                tooClose++;
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, -0.1f);
+            }
+        }
+    }
+
+
     /// <summary>
     /// Called in sync with physics.
     /// Using to check if the camera will collide with an object.
     /// </summary>
     private void FixedUpdate()
     {
-        Vector3 wantedPosition;
-        float dt = Time.deltaTime;
-
-        // check to see if there is anything behind the target
-        RaycastHit hit;
-        Vector3 back = transform.TransformDirection(-1 * Vector3.forward);
-
-        // cast the bumper ray out from rear and check to see if there is anything behind
-        if (Physics.Raycast(target.TransformPoint(bumperRayOffset), back, out hit, bumperDistanceCheck)
-            && hit.transform != target) // ignore ray-casts that hit the user. DR
-        {
-            wantedPosition = transform.position;
-            // clamp wanted position to hit position
-            wantedPosition.x = hit.point.x;
-            wantedPosition.z = hit.point.z;
-            wantedPosition.y = Mathf.Lerp(hit.point.y + bumperCameraHeight, wantedPosition.y, dt * damping);
-
-            transform.position = Vector3.Lerp(transform.position, wantedPosition, dt * damping);
-        }
+        
 
         // Set the position of the camera 
         Vector3 dir = target.transform.position - targetLastPos;
-
-        // Adjust if the camera is too close or too far away
-        distance = (transform.position - target.transform.position).magnitude;
-        if (distance > maxDistance)
-        {
-            tooFar++;
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 0.1f);
-        }
-        else if(distance < minDistance)
-        {
-            tooClose++;
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, -0.1f);
-        }
-
 
         transform.position = transform.position + dir;
 
@@ -112,6 +170,8 @@ public class ThirdPCamera : MonoBehaviour
 
         //keep the camera looking at the character
         transform.LookAt(lookAtTarget);
+
+        lastCamPos = transform.position;
     }//end fixed update
 
     /// <summary>
