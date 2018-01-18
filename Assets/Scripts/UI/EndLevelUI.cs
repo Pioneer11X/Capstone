@@ -8,6 +8,14 @@ using UnityStandardAssets.CrossPlatformInput;
 public class EndLevelUI : MonoBehaviour
 {
     /// <summary>
+    /// Initial stuff
+    /// </summary>
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    /// <summary>
     /// Update loop, listen for continue input
     /// </summary>
     private void Update()

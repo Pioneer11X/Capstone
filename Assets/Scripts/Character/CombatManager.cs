@@ -57,7 +57,9 @@ public class CombatManager : MonoBehaviour
         punch_UpperCut_R,
         kick_Straight_Mid_R,
         kick_AxeKick,
-        kick_HorseKick
+        kick_HorseKick,
+        special_Sword_R,
+        special_Sword_W
     }
 
     //target parameters
@@ -534,6 +536,9 @@ public class CombatManager : MonoBehaviour
         inCombatTimer = inCombatDuration;
         hitAnimationInfo = (int)pos * 100 + (int)dir * 10 + (int)power;
         resetHit = true;
+
+        // TODO
+        // Needs to be redone for how much damage based on what attack
         this.GetComponent<Humanoid>().TakeDamag(10);
         //
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
+using System.Collections.Generic;
 
 /*This is a third person controller script built on the basis of unity's built in third person controller.
  *The script has been overhualed to work with a third person camera and act in a manner similar to most MMO
@@ -71,6 +72,11 @@ public class ThirdPControl : MonoBehaviour
 
     private Pause pause;
 
+    private List<GameObject> enemies;
+    public GameObject[] enemyArray;
+    private int aimTargetIndex;
+    private int aimCoolDown;
+
     //animation controller
     //private Animator anim;
 
@@ -82,7 +88,11 @@ public class ThirdPControl : MonoBehaviour
         m_Character = GetComponent<ThirdPCharacter>();
         //anim = GetComponent<ThirdPCharacter>().charBody.GetComponent<Animator>();
 
-        pause = Pause.Instance; 
+        pause = Pause.Instance;
+
+        enemies = new List<GameObject>();
+
+        aimCoolDown = 60;
     }//end start
 
     private void Update()
@@ -177,16 +187,15 @@ public class ThirdPControl : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && !m_aiming)
         {
-            Debug.Log("Aim Start");
             m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
             m_aiming = true;
-            myCarmera.GetComponent<ThirdPCamera>().SetAimState(true);
+            AimList();
         }
         if (Input.GetKeyUp(KeyCode.LeftControl) && m_aiming)
         {
-            Debug.Log("Aim End");
             m_aiming = false;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
+            enemies.Clear();
         }
 
     }//end update
@@ -228,16 +237,25 @@ public class ThirdPControl : MonoBehaviour
         lt = CrossPlatformInputManager.GetAxis("Aim");
         if (lt != 0)    // May need a threshold
         {
-            m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
-            m_aiming = true;
-            myCarmera.GetComponent<ThirdPCamera>().SetAimState(true);
-            m_usedConAim = true;
+            if (!m_aiming)
+            {
+                Debug.Log("Aim");
+                m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
+                m_aiming = true;
+
+                // TODO
+                // Find nearest enemy in front of the player and set as aim target
+                AimList();
+
+                m_usedConAim = true;
+            }
         }
         else if(m_aiming && m_usedConAim) // TODO change to work better with controller and some form of error range
         {
-            Debug.Log("Aim End");
+            Debug.Log("Stop Aim");
             m_aiming = false;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
+            enemies.Clear();
         }
 
         // D-Pad goes here
@@ -331,7 +349,30 @@ public class ThirdPControl : MonoBehaviour
         }
         else
         {
-            myCarmera.GetComponent<ThirdPCamera>().MoveForAiming(rotationY, rotationX);
+            // Change aim target if one is available based on joystick/mouse movement.
+            if(rotationX > 1 && aimCoolDown > 29)
+            {
+                aimTargetIndex++;
+                if(aimTargetIndex == enemyArray.Length)
+                {
+                    aimTargetIndex--;
+                }
+                myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, enemyArray[aimTargetIndex]);
+            }
+            else if(rotationX < -1 && aimCoolDown > 29)
+            {
+                aimTargetIndex--;
+                if (aimTargetIndex < 0)
+                {
+                    aimTargetIndex = 0;
+                }
+                myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, enemyArray[aimTargetIndex]);
+            }
+            aimCoolDown--;
+            if(aimCoolDown < 1)
+            {
+                aimCoolDown = 30;
+            }
         }
 
         m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,
@@ -376,6 +417,64 @@ public class ThirdPControl : MonoBehaviour
             m_rolling = false;
             rollCounter = 0;
         }
+    }
+
+    // Make a list of enemy targets for aiming
+    private void AimList()
+    {
+        enemies.Clear();
+        bool done = false;
+        enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject aimTarget = null;
+
+        // Get the enemies in front of me
+        for (int i = 0; i < enemyArray.Length; i++)
+        {
+            float fwdDot = Vector3.Dot((transform.position - enemyArray[i].transform.position), transform.forward);
+            if (fwdDot < -17)
+            {
+                enemies.Add(enemyArray[i]);
+                //Debug.Log(fwdDot);
+            }
+        }
+
+        enemyArray = enemies.ToArray();
+
+        // Sort enemies from left to right
+        while(!done)
+        {
+            done = true;
+            for (int i = 0; i < enemyArray.Length - 1; i++)
+            {
+                float distTo = Vector3.Dot((transform.position - enemyArray[i].transform.position), transform.right);
+                float distTo2 = Vector3.Dot((transform.position - enemyArray[i + 1].transform.position), transform.right);
+                
+                if (distTo2 > distTo)
+                {
+                    done = false;
+                    GameObject temp = enemyArray[i + 1];
+                    enemyArray[i + 1] = enemyArray[i];
+                    enemyArray[i] = temp;
+                }
+            }
+        }
+
+        float tempDot = 0;
+        // Set the aim target
+        // Use the enemy most centered in the view
+        for(int i = 0; i < enemyArray.Length; i++)
+        {
+            
+            float dot = Vector3.Dot((transform.position - enemyArray[i].transform.position), transform.forward);
+            if(dot < tempDot && dot > -25)
+            {
+                tempDot = dot;
+                aimTargetIndex = i;
+                aimTarget = enemyArray[i].transform.GetChild(0).gameObject;
+            }
+        }
+
+        myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
     }
 }//end ThirdPControl
 

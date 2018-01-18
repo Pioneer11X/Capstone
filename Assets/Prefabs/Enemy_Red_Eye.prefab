@@ -252,6 +252,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1259076548897684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4733549306556706}
+  - component: {fileID: 114154803378418912}
+  m_Layer: 0
+  m_Name: AimTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1265895511460562
 GameObject:
   m_ObjectHideFlags: 1
@@ -1435,10 +1451,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955892941977320}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -29.644121, y: -0.100000024, z: 17.114141}
+  m_LocalPosition: {x: -32.83, y: -0.100000024, z: -25.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4625380232448944}
+  - {fileID: 4733549306556706}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -1454,6 +1471,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4268410602316518}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4733549306556706
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259076548897684}
+  m_LocalRotation: {x: -0, y: 0.14665005, z: -0, w: 0.98918843}
+  m_LocalPosition: {x: -0.0006, y: 1.317, z: 0.1476}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4690764278100252}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4760615686993940
 Transform:
@@ -1705,6 +1735,20 @@ MonoBehaviour:
   isBoss: 1
   BossBar: {fileID: 0}
   LifeBar: {fileID: 0}
+--- !u!114 &114154803378418912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259076548897684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc10b1093a6d0049bd058b00a57eebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmoSize: 0.025
+  gizmoColor: {r: 1, g: 0, b: 0.76551723, a: 1}
+  isVisible: 1
 --- !u!114 &114171107550600046
 MonoBehaviour:
   m_ObjectHideFlags: 1

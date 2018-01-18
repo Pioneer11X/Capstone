@@ -8,6 +8,14 @@ using UnityEngine.SceneManagement;
 public class DeathUI : MonoBehaviour
 {
     /// <summary>
+    /// Initial stuff
+    /// </summary>
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    /// <summary>
     /// Go back to the Main Menu
     /// </summary>
     public void Credits()

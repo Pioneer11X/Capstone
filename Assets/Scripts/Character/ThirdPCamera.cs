@@ -18,7 +18,6 @@ using System.Collections.Generic;
 public class ThirdPCamera : MonoBehaviour 
 {
     [SerializeField] private Transform target;        //target for camera to interact with
-    [SerializeField] private Transform aimTarget;    // target for aim mode
     [SerializeField] private Transform aimTargetPos;    // target for aim mode
 
     private Transform lookAtTarget; // target camera should look at
@@ -37,6 +36,7 @@ public class ThirdPCamera : MonoBehaviour
     [SerializeField] private float aimVertical = 1f;            // furthest camera should aim up/down
     [SerializeField] private float aimSpeed = 0.1f;            // aiming speed
 
+    private bool isAiming;
 
     // test variables
     // Do not change these in the inspector
@@ -60,7 +60,9 @@ public class ThirdPCamera : MonoBehaviour
         lastCamPos = transform.position;
         targetLastPos = target.transform.position;
         lookAtTarget = target;
-        aimTargetDefault = aimTarget.transform.localPosition;
+        aimTargetDefault = transform.localPosition;
+
+        isAiming = false;
 
         tooClose = 0;
         tooFar = 0;
@@ -84,7 +86,7 @@ public class ThirdPCamera : MonoBehaviour
         if (Physics.SphereCast(transform.position, bumperDistanceCheck, back, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            Debug.Log(hit.point);
+            //Debug.Log(hit.point);
 
             //wantedPosition = transform.position;
             //// clamp wanted position to hit position
@@ -135,7 +137,7 @@ public class ThirdPCamera : MonoBehaviour
 
             Debug.DrawLine(transform.position, hit.point, Color.blue);
         }
-        else
+        else if(!isAiming)
         {
             // Adjust if the camera is too close or too far away
             distance = (transform.position - target.transform.position).magnitude;
@@ -241,11 +243,12 @@ public class ThirdPCamera : MonoBehaviour
     /// <summary>
     /// Move camera to the aim state position.
     /// </summary>
-    public void SetAimState(bool aiming)
+    public void SetAimState(bool aiming, GameObject obj = null)
     {
-        if(aiming)
+        isAiming = aiming;
+        if (aiming && obj != null)
         {
-            lookAtTarget = aimTarget;
+            lookAtTarget = obj.transform;
             transform.forward = target.transform.forward;
             transform.position = aimTargetPos.transform.position;
         }
@@ -260,33 +263,33 @@ public class ThirdPCamera : MonoBehaviour
     /// </summary>
     /// <param name="v">Vertical Movement</param>
     /// <param name="h">Horizontal Movement</param>
-    public void MoveForAiming(float v, float h)
-    {
-        if (v != 0 || h != 0)
-        {
-            if (v > 0 && (aimTarget.localPosition.y - aimTargetDefault.y < aimVertical + aimTargetDefault.y) )
-            {
-                aimTarget.localPosition = new Vector3(aimTarget.localPosition.x, aimTarget.localPosition.y + aimSpeed, aimTarget.localPosition.z);
-            }
-            else if (v < 0 && (aimTarget.localPosition.y - aimTargetDefault.y > aimTargetDefault.y - aimVertical))
-            {
-                aimTarget.localPosition = new Vector3(aimTarget.localPosition.x, aimTarget.localPosition.y - aimSpeed, aimTarget.localPosition.z);
-            }
+    //public void MoveForAiming(float v, float h)
+    //{
+    //    if (v != 0 || h != 0)
+    //    {
+    //        if (v > 0 && (aimTarget.localPosition.y - aimTargetDefault.y < aimVertical + aimTargetDefault.y) )
+    //        {
+    //            aimTarget.localPosition = new Vector3(aimTarget.localPosition.x, aimTarget.localPosition.y + aimSpeed, aimTarget.localPosition.z);
+    //        }
+    //        else if (v < 0 && (aimTarget.localPosition.y - aimTargetDefault.y > aimTargetDefault.y - aimVertical))
+    //        {
+    //            aimTarget.localPosition = new Vector3(aimTarget.localPosition.x, aimTarget.localPosition.y - aimSpeed, aimTarget.localPosition.z);
+    //        }
 
-            if (h > 0 && (aimTarget.localPosition.x - aimTargetDefault.x < aimHorizontal + aimTargetDefault.x))
-            {
-                aimTarget.localPosition = new Vector3(aimTarget.localPosition.x + aimSpeed, aimTarget.localPosition.y, aimTarget.localPosition.z);
-            }
-            else if (h < 0 && (aimTarget.localPosition.x - aimTargetDefault.x > aimTargetDefault.x - aimHorizontal))
-            {
-                aimTarget.localPosition = new Vector3(aimTarget.localPosition.x - aimSpeed, aimTarget.localPosition.y, aimTarget.localPosition.z);
-            }
-        }
-        else
-        {
-            aimTarget.localPosition = aimTargetDefault;
-        }
-    }
+    //        if (h > 0 && (aimTarget.localPosition.x - aimTargetDefault.x < aimHorizontal + aimTargetDefault.x))
+    //        {
+    //            aimTarget.localPosition = new Vector3(aimTarget.localPosition.x + aimSpeed, aimTarget.localPosition.y, aimTarget.localPosition.z);
+    //        }
+    //        else if (h < 0 && (aimTarget.localPosition.x - aimTargetDefault.x > aimTargetDefault.x - aimHorizontal))
+    //        {
+    //            aimTarget.localPosition = new Vector3(aimTarget.localPosition.x - aimSpeed, aimTarget.localPosition.y, aimTarget.localPosition.z);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        aimTarget.localPosition = aimTargetDefault;
+    //    }
+    //}
 
 
     /// <summary>
