@@ -142,6 +142,22 @@ namespace FriedTofu
             }
         }
 
+        [Serializable]
+        public class PhysicsComponent : Component
+        {
+            public string colliderType;
+            public Float3 center;
+            public Float3 size;
+            public string model;
+
+            public PhysicsComponent()
+            {
+                type = "physics";
+                size = new Float3(new Vector3(1, 1, 1));
+            }
+        }
+        
+
         public List<Entity> entities;
 
         public void Add(Entity entity)

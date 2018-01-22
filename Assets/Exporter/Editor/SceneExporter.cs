@@ -215,6 +215,32 @@ namespace FriedTofu
 
                 entity.Add(renderable);
             }
+            
+            Collider collider = obj.GetComponent<Collider>();
+            if (null != collider)
+            {
+                if (null != collider as BoxCollider)
+                {
+                    BoxCollider box = collider as BoxCollider;
+                    Scene.PhysicsComponent comp = new Scene.PhysicsComponent();
+                    comp.colliderType = "box";
+                    comp.center = new Scene.Float3(box.center);
+                    comp.size = new Scene.Float3(box.size);
+                    entity.Add(comp);
+                }
+                else if (null != collider as MeshCollider)
+                {
+                    MeshCollider meshCollider = collider as MeshCollider;
+                    Scene.PhysicsComponent comp = new Scene.PhysicsComponent();
+                    comp.colliderType = "mesh";
+                    comp.model = ExportMesh(meshCollider.sharedMesh, context);
+                    entity.Add(comp);
+                }
+                else
+                {
+                    Debug.LogError("Unsupported collider on [" + entity.name + "]");
+                }
+            }
 
             foreach (Transform child in obj.transform)
             {
