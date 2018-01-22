@@ -32,6 +32,7 @@ public class ThirdPControl : MonoBehaviour
     public string scrollAxisName = "Mouse ScrollWheel";
 
     private ThirdPCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
+    private PC playerCharacter;
 
     private Vector3 m_Move;              // the world-relative desired move direction, calculated from the camForward and user input.
     private Vector3 myCamFwd;
@@ -67,6 +68,7 @@ public class ThirdPControl : MonoBehaviour
 
     private float specialButtonTimer = 0;
     private bool specialButtonDown;
+    private bool canSpecial;
 
     [SerializeField]
     private float minHoldTime;
@@ -90,6 +92,7 @@ public class ThirdPControl : MonoBehaviour
     {
         // get the third person character ( this should never be null due to require component )
         m_Character = GetComponent<ThirdPCharacter>();
+        playerCharacter = GetComponent<PC>();
         //anim = GetComponent<ThirdPCharacter>().charBody.GetComponent<Animator>();
 
         pause = Pause.Instance;
@@ -97,6 +100,8 @@ public class ThirdPControl : MonoBehaviour
         enemies = new List<GameObject>();
 
         aimCoolDown = 60;
+
+        canSpecial = true;
     }//end start
 
     private void Update()
@@ -136,22 +141,25 @@ public class ThirdPControl : MonoBehaviour
         {
             specialButtonTimer += Time.deltaTime;
         }
-        if (CrossPlatformInputManager.GetButtonDown("Sword")) //Button 3
+        if (CrossPlatformInputManager.GetButtonDown("Sword") && playerCharacter.SpecialBar > 24.9999f) //Button 3
         {
             specialButtonDown = true;
             specialButtonTimer = 0;
         }
         // Button Press Attack
-        if (CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonTimer <= minHoldTime)
+        if (CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonTimer <= minHoldTime && playerCharacter.SpecialBar > 24.9999f)
         {
             m_Character.m_combat.SwordCombo();
             specialButtonDown = false;
+            playerCharacter.UseSpecial(25, true);
         }
         // Button Hold Attack
-        if ((CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonDown && specialButtonTimer > minHoldTime) || (specialButtonTimer >= maxHoldTime && specialButtonDown))
+        if (((CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonDown && specialButtonTimer > minHoldTime) 
+            || (specialButtonTimer >= maxHoldTime && specialButtonDown)) && playerCharacter.SpecialBar > 49.9999f)
         {
             m_Character.m_combat.SwordSpecialCombat();
             specialButtonDown = false;
+            playerCharacter.UseSpecial(50, false);
         }
 
 

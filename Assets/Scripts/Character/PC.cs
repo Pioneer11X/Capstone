@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class PC : Humanoid
 {
+    [SerializeField] private float specialRegenRate;
     [SerializeField] protected Slider lifeBar;
     [SerializeField] protected Slider visionBar;
     [SerializeField] protected Slider specialBar;
@@ -15,6 +16,12 @@ public class PC : Humanoid
 
     private int counter;
 
+    public float SpecialBar
+    { get { return specialBar.value; } }
+
+    /// <summary>
+    /// Initialize
+    /// </summary>
     protected override void Start()
     {
         base.Start();
@@ -23,11 +30,26 @@ public class PC : Humanoid
 
     }
 
+    /// <summary>
+    /// Update Loop
+    /// </summary>
     protected override void Update()
     {
         base.Update();
 
         lifeBar.value = this.health;
+    }
+
+    protected void FixedUpdate()
+    {
+        if (specialBar.value < 100)
+        {
+            specialBar.value += specialRegenRate;
+        }
+        if(specialBar.value > 100)
+        {
+            specialBar.value = 100;
+        }
     }
 
     /// <summary>
@@ -39,7 +61,28 @@ public class PC : Humanoid
         StartCoroutine(WaitToEnd());
         
     }
-  
+
+    /// <summary>
+    /// Subtract from Special UI Bar
+    /// </summary>
+    /// <param name="value">How much special to use (Light 25, Heavy 50)</param>
+    /// <param name="light">Light attack?</param>
+    public void UseSpecial(int value, bool light)
+    {
+        if (specialBar.value > 24.9999f && light)
+        {
+            specialBar.value -= value;
+        }
+        else if(specialBar.value > 49.9999f && !light)
+        {
+                specialBar.value -= value;
+        }
+        if(specialBar.value < 0)
+        {
+            specialBar.value = 0;
+        }
+    }
+
     /// <summary>
     /// Do some stuff before exiting to death scene
     /// </summary>

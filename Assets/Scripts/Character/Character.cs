@@ -31,11 +31,6 @@ abstract public class Character : MonoBehaviour
     [SerializeField] protected AudioClip footsteps4;
     [SerializeField] protected AudioClip jumpFX;
     [SerializeField] protected AudioClip landFX;
-    [SerializeField] protected AudioClip punchFX;
-    [SerializeField] protected AudioClip kickFX;
-    [SerializeField] protected AudioClip swordFX;
-    [SerializeField] protected AudioClip gunShotFX;
-    [SerializeField] protected AudioClip hitFX;
 
     [SerializeField]
     protected float m_JumpPower;

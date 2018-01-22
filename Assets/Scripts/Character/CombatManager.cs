@@ -16,6 +16,11 @@ public class CombatManager : MonoBehaviour
     //*******************************************************************
 
     private Character m_char;
+    public AudioSource combatAudio;
+    public AudioClip punchFX;
+    public AudioClip kickFX;
+    public AudioClip swordFX;
+    public AudioClip gunShootFX;
 
     //---------------------------------------------------------------------------------------------
     // Special Combat Variables
@@ -857,6 +862,7 @@ public class CombatManager : MonoBehaviour
     {
         if (currentCombat == Combat.none)
         {
+            combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
             currentAttackTime = punch_Jab_L_AT;
             currentEffectTime = punch_Jab_L_ET;
@@ -867,6 +873,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
+            combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_R;
             currentAttackTime = punch_Jab_R_AT;
             currentEffectTime = punch_Jab_R_ET;
@@ -877,6 +884,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
+            combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Hook_L;
             currentAttackTime = punch_Hook_L_AT;
             currentEffectTime = punch_Hook_L_ET;
@@ -887,6 +895,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
+            combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Hook_R;
             currentAttackTime = punch_Hook_R_AT;
             currentEffectTime = punch_Hook_R_ET;
@@ -897,6 +906,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
+            combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.kick_Straight_Mid_R;
             currentAttackTime = kick_Straight_Mid_R_AT;
             currentEffectTime = kick_Straight_Mid_R_ET;
@@ -907,6 +917,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.punch_Jab_L;
             currentAttackTime = punch_Jab_L_AT;
             currentEffectTime = punch_Jab_L_ET;
@@ -917,6 +928,7 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
+            combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
             currentAttackTime = punch_Jab_L_AT;
             currentEffectTime = punch_Jab_L_ET;
@@ -932,6 +944,7 @@ public class CombatManager : MonoBehaviour
     {
         if (currentCombat == Combat.none)
         {
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
             currentAttackTime = kick_AxeKick_AT;
             currentEffectTime = kick_AxeKick_ET;
@@ -942,6 +955,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
             currentAttackTime = kick_AxeKick_AT;
             currentEffectTime = kick_AxeKick_ET;
@@ -952,6 +966,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
             currentAttackTime = kick_AxeKick_AT;
             currentEffectTime = kick_AxeKick_ET;
@@ -962,6 +977,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
             currentAttackTime = kick_AxeKick_AT;
             currentEffectTime = kick_AxeKick_ET;
@@ -972,6 +988,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
             currentAttackTime = kick_AxeKick_AT;
             currentEffectTime = kick_AxeKick_ET;
@@ -982,6 +999,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_HorseKick;
             currentAttackTime = kick_HorseKick_AT;
             currentEffectTime = kick_HorseKick_ET;
@@ -992,6 +1010,7 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
             currentAttackTime = kick_AxeKick_AT;
             currentEffectTime = kick_AxeKick_ET;
@@ -1009,6 +1028,7 @@ public class CombatManager : MonoBehaviour
         Debug.Log(currentCombat);
         if (currentCombat == Combat.none)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_R;
             currentAttackTime = sword_Attack_R_AT;
             currentEffectTime = sword_Attack_R_ET;
@@ -1019,6 +1039,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.Sword_Attack_R)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_RL;
             currentAttackTime = sword_Attack_RL_AT;
             currentEffectTime = sword_Attack_RL_ET;
@@ -1029,6 +1050,7 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_R;
             currentAttackTime = sword_Attack_R_AT;
             currentEffectTime = sword_Attack_R_ET;
@@ -1047,6 +1069,7 @@ public class CombatManager : MonoBehaviour
     {
         if (currentCombat == Combat.none)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Combo_LL;
             currentAttackTime = Sword_Attack_Combo_LL_AT;
             currentEffectTime = Sword_Attack_Combo_LL_ET;
@@ -1057,6 +1080,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
             currentAttackTime = sword_Attack_Sp_U_AT;
             currentEffectTime = sword_Attack_Sp_U_ET;
@@ -1067,6 +1091,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
             currentAttackTime = sword_Attack_Sp_U_AT;
             currentEffectTime = sword_Attack_Sp_U_ET;
@@ -1077,6 +1102,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
             currentAttackTime = sword_Attack_Sp_U_AT;
             currentEffectTime = sword_Attack_Sp_U_ET;
@@ -1087,6 +1113,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
             currentAttackTime = sword_Attack_Sp_U_AT;
             currentEffectTime = sword_Attack_Sp_U_ET;
@@ -1097,6 +1124,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
             currentAttackTime = sword_Attack_Sp_U_AT;
             currentEffectTime = sword_Attack_Sp_U_ET;
@@ -1107,6 +1135,7 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.Sword_Attack_RL)
         {
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
             currentAttackTime = sword_Attack_Sp_U_AT;
             currentEffectTime = sword_Attack_Sp_U_ET;
@@ -1117,7 +1146,7 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Round Fast");
+            combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Combo_LL;
             currentAttackTime = Sword_Attack_Combo_LL_AT;
             currentEffectTime = Sword_Attack_Combo_LL_ET;
