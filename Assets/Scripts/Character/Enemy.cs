@@ -7,6 +7,7 @@ public class Enemy : Humanoid
     public bool isBoss;
     public GameObject BossBar;
     public Slider LifeBar;
+    private GameObject level_Manager;
 
     private int counter;
 
@@ -21,6 +22,7 @@ public class Enemy : Humanoid
             BossBar.transform.GetChild(0).gameObject.SetActive(true);
             BossBar.transform.GetChild(1).gameObject.SetActive(true);
             LifeBar = BossBar.GetComponentInChildren<Slider>();
+            level_Manager = GameObject.FindGameObjectWithTag("LevelManager");
         }        
     }
 
@@ -59,6 +61,10 @@ public class Enemy : Humanoid
         }
 
         BossBar.SetActive(false);
+        level_Manager.GetComponent<LevelManager>().End();
         Destroy(gameObject);
+        
     }
+
+    
 }

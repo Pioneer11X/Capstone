@@ -13456,9 +13456,10 @@ GameObject:
   m_Component:
   - component: {fileID: 785073980}
   - component: {fileID: 785073979}
+  - component: {fileID: 785073981}
   m_Layer: 0
-  m_Name: Manager
-  m_TagString: Untagged
+  m_Name: Level_Manager
+  m_TagString: LevelManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13487,6 +13488,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &785073981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 785073978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3c9fa53a87eee49b76e3b94110350e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &786192385
 GameObject:
   m_ObjectHideFlags: 0
@@ -30450,8 +30462,8 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1816702317}
-  m_LocalRotation: {x: 0.11765814, y: 0.74484664, z: -0.1364093, w: 0.6424582}
-  m_LocalPosition: {x: 0.019, y: -0.018, z: -0.096}
+  m_LocalRotation: {x: 0.034739673, y: 0.9959097, z: 0.07705477, w: 0.03193076}
+  m_LocalPosition: {x: 0.0237, y: -0.0049, z: -0.0723}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1920166897}
@@ -30459,7 +30471,7 @@ Transform:
   - {fileID: 346207264}
   m_Father: {fileID: 1218469923}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 20.756, y: 98.442, z: 0}
+  m_LocalEulerAnglesHint: {x: -8.7, y: 176, z: 4.3}
 --- !u!1001 &1817601680
 Prefab:
   m_ObjectHideFlags: 0
@@ -34674,6 +34686,11 @@ Prefab:
     - target: {fileID: 4690764278100252, guid: be1babcf3f1dc3d48842ce8cbaef0116, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114084020847656818, guid: be1babcf3f1dc3d48842ce8cbaef0116,
+        type: 2}
+      propertyPath: health
+      value: 150
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be1babcf3f1dc3d48842ce8cbaef0116, type: 2}

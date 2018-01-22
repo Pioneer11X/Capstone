@@ -11,6 +11,7 @@ TagManager:
   - BossBar
   - Sword
   - Companion
+  - LevelManager
   layers:
   - Default
   - TransparentFX

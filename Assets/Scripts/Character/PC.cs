@@ -59,15 +59,12 @@ public class PC : Humanoid
         // Bullet Regen
         if (bulletBar.value < 600)
         {
-            Debug.Log(bulletBar.value);
             bulletBar.value += bulletRegenRate;
-            Debug.Log(bulletBar.value);
         }
         if (bulletBar.value > 600)
         {
             bulletBar.value = 600;
         }
-        Debug.Log(bulletBar.value);
     }
 
     /// <summary>

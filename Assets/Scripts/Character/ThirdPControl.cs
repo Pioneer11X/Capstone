@@ -52,7 +52,7 @@ public class ThirdPControl : MonoBehaviour
     private int combatCounter = 0;
     private int dashCounter = 0;
     private int rollCounter = 0;
-    private int jumpCount = 0;
+    //private int jumpCount = 0;
     private int waitTime = 45;
 
     private float lt;
@@ -60,7 +60,6 @@ public class ThirdPControl : MonoBehaviour
     private float h = 0;
     private float rotationY = 0;
     private float rotationX = 0;
-    private float charRotationX = 0;
     private float zoom = 0;
 
     private float attackButtonTimer = 0;
@@ -68,7 +67,6 @@ public class ThirdPControl : MonoBehaviour
 
     private float specialButtonTimer = 0;
     private bool specialButtonDown;
-    private bool canSpecial;
 
     [SerializeField]
     private float minHoldTime;
@@ -100,8 +98,6 @@ public class ThirdPControl : MonoBehaviour
         enemies = new List<GameObject>();
 
         aimCoolDown = 60;
-
-        canSpecial = true;
     }//end start
 
     private void Update()
@@ -242,11 +238,13 @@ public class ThirdPControl : MonoBehaviour
         {
             m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
             m_aiming = true;
+            m_Character.m_combat.IsAimming = true;
             AimList();
         }
         if (Input.GetKeyUp(KeyCode.LeftControl) && m_aiming)
         {
             m_aiming = false;
+            m_Character.m_combat.IsAimming = false;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
             enemies.Clear();
         }
@@ -262,7 +260,6 @@ public class ThirdPControl : MonoBehaviour
         h = 0;
         rotationY = 0;
         rotationX = 0;
-        charRotationX = 0;
         m_running = false;
 
         // Axis Input
@@ -295,6 +292,7 @@ public class ThirdPControl : MonoBehaviour
                 Debug.Log("Aim");
                 m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
                 m_aiming = true;
+                m_Character.m_combat.IsAimming = true;
 
                 // TODO
                 // Find nearest enemy in front of the player and set as aim target
@@ -307,6 +305,7 @@ public class ThirdPControl : MonoBehaviour
         {
             Debug.Log("Stop Aim");
             m_aiming = false;
+            m_Character.m_combat.IsAimming = false;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
             enemies.Clear();
         }
@@ -460,12 +459,12 @@ public class ThirdPControl : MonoBehaviour
 
         }
 
-        if (combatCounter > waitTime)
+        if (combatCounter > waitTime && m_attacking)
         {
             m_attacking = false;
             combatCounter = 0;
         }
-        if (rollCounter > 45)
+        if (rollCounter > 45 && m_rolling)
         {
             m_rolling = false;
             rollCounter = 0;

@@ -100,6 +100,12 @@ public class CombatManager : MonoBehaviour
 
     //aimming parameters
     private bool isAimming;
+    public bool IsAimming
+    {
+        get { return isAimming;}
+        set { isAimming = value;}
+    }
+
     [SerializeField] private float maxShotDistance;
     [SerializeField] private float minShotDistance;
 
@@ -456,7 +462,7 @@ public class CombatManager : MonoBehaviour
     {
         get
         {
-            return !(isRolling || isHit || isAimming || isAttacking || isDodging || isAdjusting);
+            return !(isRolling || isHit || isAttacking || isDodging || isAdjusting);
         }
     }
 
@@ -488,7 +494,7 @@ public class CombatManager : MonoBehaviour
     {
         get
         {
-            return !(isRolling || isJumping || isAimming || isAttacking || isDodging || isAdjusting);
+            return !(isRolling || isJumping || isAttacking || isDodging || isAdjusting);
         }
     }
 
@@ -548,6 +554,7 @@ public class CombatManager : MonoBehaviour
                 sword.SetActive(false);
                 //gun.SetActive(false);
                 companion.SetActive(true);
+                companion.transform.position = compPos;
             }
 
             float dist = float.MaxValue;
@@ -563,6 +570,16 @@ public class CombatManager : MonoBehaviour
                         currentTarget = obj.GetComponentInChildren<Character>();
                     }
                 }
+            }
+
+            if(isAimming && companion.activeSelf)
+            {
+                compPos = companion.transform.position;
+                companion.SetActive(false);
+            }
+            else if(!isAimming && !companion.activeSelf)
+            {
+                companion.SetActive(true);
             }
         }
         //*******************************************************************
@@ -709,13 +726,15 @@ public class CombatManager : MonoBehaviour
     // Gun Shooting
     public void GunShot()
     {
-        if (!canAttack)
+        if (!canAttack || !isAimming)
         {
             return;
         }
 
         if (CheckRangeTarget())
         {
+            swordGunAttack = true;
+            gun.SetActive(true);
             combatAudio.clip = gunShotFX;
             combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.KB_Gun;
@@ -725,7 +744,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = KB_Gun_Dir;
             currentPower = KB_Gun_Power;
             currentHitPos = KB_Gun_Pos;
-
+            attackDuration = currentAttackTime;
             Shoot();
         }
     }
@@ -1123,7 +1142,6 @@ public class CombatManager : MonoBehaviour
     // Sword Attack
     void NextSwordCombat()
     {
-        Debug.Log(currentCombat);
         if (currentCombat == Combat.none)
         {
             combatAudio.PlayOneShot(swordFX);
@@ -1158,6 +1176,7 @@ public class CombatManager : MonoBehaviour
             currentHitPos = sword_Attack_R_Pos;
         }
         sword.SetActive(true);
+        compPos = companion.transform.position;
         companion.SetActive(false);
         swordGunAttack = true;
         attackDuration = currentAttackTime;
@@ -1254,6 +1273,7 @@ public class CombatManager : MonoBehaviour
             currentHitPos = Sword_Attack_Combo_LL_Pos;
         }
         sword.SetActive(true);
+        compPos = companion.transform.position;
         companion.SetActive(false);
         swordGunAttack = true;
         attackDuration = currentAttackTime;
