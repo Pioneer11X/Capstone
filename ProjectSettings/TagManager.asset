@@ -9,6 +9,8 @@ TagManager:
   - LevelSelectButtons
   - PauseCamera
   - BossBar
+  - Sword
+  - Companion
   layers:
   - Default
   - TransparentFX

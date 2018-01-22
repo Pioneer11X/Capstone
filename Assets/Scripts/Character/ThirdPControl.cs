@@ -64,6 +64,10 @@ public class ThirdPControl : MonoBehaviour
 
     private float attackButtonTimer = 0;
     private bool attackButtonDown;
+
+    private float specialButtonTimer = 0;
+    private bool specialButtonDown;
+
     [SerializeField]
     private float minHoldTime;
 
@@ -108,6 +112,7 @@ public class ThirdPControl : MonoBehaviour
             myCarmera.SetActive(false);
         }
 
+        // Primary Attack
         if (attackButtonDown) {
             attackButtonTimer += Time.deltaTime;
         }
@@ -124,6 +129,29 @@ public class ThirdPControl : MonoBehaviour
         {
             m_Character.m_combat.SpecialCombat();
             attackButtonDown = false;
+        }
+
+        // Special (Sword) Attack
+        if (specialButtonDown)
+        {
+            specialButtonTimer += Time.deltaTime;
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Sword")) //Button 3
+        {
+            specialButtonDown = true;
+            specialButtonTimer = 0;
+        }
+        // Button Press Attack
+        if (CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonTimer <= minHoldTime)
+        {
+            m_Character.m_combat.SwordCombo();
+            specialButtonDown = false;
+        }
+        // Button Hold Attack
+        if ((CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonDown && specialButtonTimer > minHoldTime) || (specialButtonTimer >= maxHoldTime && specialButtonDown))
+        {
+            m_Character.m_combat.SwordSpecialCombat();
+            specialButtonDown = false;
         }
 
 
@@ -150,10 +178,6 @@ public class ThirdPControl : MonoBehaviour
             }
         }
 
-        if (CrossPlatformInputManager.GetButtonDown("Sword")) //Button 3
-        {
-            Debug.Log("Sword");
-        }
         if (CrossPlatformInputManager.GetButtonDown("Hack")) //Button 4
         {
             Debug.Log("Vision Hack");

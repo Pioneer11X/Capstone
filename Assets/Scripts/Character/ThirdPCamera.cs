@@ -24,7 +24,7 @@ public class ThirdPCamera : MonoBehaviour
     private Vector3 moveAlong;      //vector for camera zoom
 
     [SerializeField] private float bumperDistanceCheck = 2.0f;  // length of bumper ray
-    [SerializeField] private float bumperCameraHeight = 0.5f;   // adjust camera height while bumping
+    //[SerializeField] private float bumperCameraHeight = 0.5f;   // adjust camera height while bumping
     [SerializeField] private float bumperMaxDistance = 0.5f;
     [SerializeField] private Vector3 bumperRayOffset;           // allows offset of the bumper ray from target origin
     [SerializeField] private float damping = 5.0f;              // damping
@@ -32,9 +32,9 @@ public class ThirdPCamera : MonoBehaviour
     [SerializeField] private float upperTiltAngle = 110f;       // upper limit of camera Y tilt
     [SerializeField] private float minDistance = 3f;            // closet camera should get
     [SerializeField] private float maxDistance = 6f;            // furthest camera should get
-    [SerializeField] private float aimHorizontal = 1f;          // furthest camera should aim left/right
-    [SerializeField] private float aimVertical = 1f;            // furthest camera should aim up/down
-    [SerializeField] private float aimSpeed = 0.1f;            // aiming speed
+    //[SerializeField] private float aimHorizontal = 1f;          // furthest camera should aim left/right
+    //[SerializeField] private float aimVertical = 1f;            // furthest camera should aim up/down
+    //[SerializeField] private float aimSpeed = 0.1f;            // aiming speed
 
     private bool isAiming;
 
@@ -43,9 +43,9 @@ public class ThirdPCamera : MonoBehaviour
     public int tooClose;
     public int tooFar;
 
-    private Vector3 lastCamPos;
+    //private Vector3 lastCamPos;
     private Vector3 targetLastPos;
-    private Vector3 aimTargetDefault;
+    //private Vector3 aimTargetDefault;
     private float distance;
 
     //Start, setup the initial camera position with the character
@@ -57,10 +57,10 @@ public class ThirdPCamera : MonoBehaviour
             Debug.Log("Camera has no target at Start.");
             return;
         }
-        lastCamPos = transform.position;
+        //lastCamPos = transform.position;
         targetLastPos = target.transform.position;
         lookAtTarget = target;
-        aimTargetDefault = transform.localPosition;
+        //aimTargetDefault = transform.localPosition;
 
         isAiming = false;
 
@@ -104,7 +104,7 @@ public class ThirdPCamera : MonoBehaviour
         else if (Physics.SphereCast(transform.position, bumperDistanceCheck/2, right, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            Debug.Log(hit.point);
+            //Debug.Log(hit.point);
 
             //wantedPosition = transform.position;
             //// clamp wanted position to hit position
@@ -122,7 +122,7 @@ public class ThirdPCamera : MonoBehaviour
         else if (Physics.SphereCast(transform.position, bumperDistanceCheck/2, left, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            Debug.Log(hit.point);
+            // Debug.Log(hit.point);
 
             //wantedPosition = transform.position;
             //// clamp wanted position to hit position
@@ -173,7 +173,7 @@ public class ThirdPCamera : MonoBehaviour
         //keep the camera looking at the character
         transform.LookAt(lookAtTarget);
 
-        lastCamPos = transform.position;
+        //lastCamPos = transform.position;
     }//end fixed update
 
     /// <summary>

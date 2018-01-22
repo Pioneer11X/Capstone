@@ -17,6 +17,15 @@ public class CombatManager : MonoBehaviour
 
     private Character m_char;
 
+    //---------------------------------------------------------------------------------------------
+    // Special Combat Variables
+    public GameObject gun;
+    public GameObject sword;
+    public GameObject wrist;
+    private GameObject companion;
+    private Vector3 compPos;
+    //---------------------------------------------------------------------------------------------
+
     public enum HitPosition
     {
         high,
@@ -58,8 +67,10 @@ public class CombatManager : MonoBehaviour
         kick_Straight_Mid_R,
         kick_AxeKick,
         kick_HorseKick,
-        special_Sword_R,
-        special_Sword_W
+        Sword_Attack_R,
+        Sword_Attack_RL,
+        Sword_Attack_Sp_U,
+        Sword_Attack_Combo_LL
     }
 
     //target parameters
@@ -114,6 +125,7 @@ public class CombatManager : MonoBehaviour
     //attack parameters
     private bool isAttacking;
     private bool resetAttack;
+    private float attackDuration;
     private float currentAttackTime;
     private float currentEffectTime;
     private float currentEffetDistance;
@@ -236,7 +248,10 @@ public class CombatManager : MonoBehaviour
     [SerializeField]
     private float maxComboTime;
 
-
+    // --------------------------------------------------------------------------------------------
+    // AT - Attack Time
+    // ET - Effect Time
+    // ED - Effect Distance
     [SerializeField]
     private float punch_Jab_L_AT;
     [SerializeField]
@@ -354,9 +369,63 @@ public class CombatManager : MonoBehaviour
     [SerializeField]
     private HitPower kick_HorseKick_Power;
 
+    [SerializeField]
+    private float sword_Attack_R_AT;
+    [SerializeField]
+    private float sword_Attack_R_ET;
+    [SerializeField]
+    private float sword_Attack_R_ED;
+    [SerializeField]
+    private HitPosition sword_Attack_R_Pos;
+    [SerializeField]
+    private CombatDirection sword_Attack_R_Dir;
+    [SerializeField]
+    private HitPower sword_Attack_R_Power;
+
+    [SerializeField]
+    private float sword_Attack_RL_AT;
+    [SerializeField]
+    private float sword_Attack_RL_ET;
+    [SerializeField]
+    private float sword_Attack_RL_ED;
+    [SerializeField]
+    private HitPosition sword_Attack_RL_Pos;
+    [SerializeField]
+    private CombatDirection sword_Attack_RL_Dir;
+    [SerializeField]
+    private HitPower sword_Attack_RL_Power;
+
+    [SerializeField]
+    private float sword_Attack_Sp_U_AT;
+    [SerializeField]
+    private float sword_Attack_Sp_U_ET;
+    [SerializeField]
+    private float sword_Attack_Sp_U_ED;
+    [SerializeField]
+    private HitPosition sword_Attack_Sp_U_Pos;
+    [SerializeField]
+    private CombatDirection sword_Attack_Sp_U_Dir;
+    [SerializeField]
+    private HitPower sword_Attack_Sp_U_Power;
+
+    [SerializeField]
+    private float Sword_Attack_Combo_LL_AT;
+    [SerializeField]
+    private float Sword_Attack_Combo_LL_ET;
+    [SerializeField]
+    private float Sword_Attack_Combo_LL_ED;
+    [SerializeField]
+    private HitPosition Sword_Attack_Combo_LL_Pos;
+    [SerializeField]
+    private CombatDirection Sword_Attack_Combo_LL_Dir;
+    [SerializeField]
+    private HitPower Sword_Attack_Combo_LL_Power;
+    // --------------------------------------------------------------------------------------------
 
     //
     #region Bools
+    private bool swordGunAttack;
+
     public bool canMove
     {
         get
@@ -415,6 +484,13 @@ public class CombatManager : MonoBehaviour
     void Start ()
     {
         inCombatTimer = 0;
+        swordGunAttack = false;
+
+        //sword = GameObject.FindGameObjectWithTag("Sword");
+        sword.SetActive(false);
+        gun.SetActive(false);
+
+        companion = GameObject.FindGameObjectWithTag("Companion");
 
         //*******************************************************************
         //temp code
@@ -433,6 +509,18 @@ public class CombatManager : MonoBehaviour
         //*******************************************************************
         if (isPlayer)
         {
+            if(attackDuration > 0)
+            {
+                attackDuration -= Time.deltaTime;
+            }
+            if(attackDuration <= 0 && swordGunAttack)
+            {
+                swordGunAttack = false;
+                sword.SetActive(false);
+                //gun.SetActive(false);
+                companion.SetActive(true);
+            }
+
             float dist = float.MaxValue;
             foreach (GameObject obj in enemyList)
             {
@@ -550,6 +638,7 @@ public class CombatManager : MonoBehaviour
 
     }
 
+    // Basic Attack Combos
     public void BasicCombo()
     {
         //if can attack
@@ -577,6 +666,45 @@ public class CombatManager : MonoBehaviour
             return;
         }
         NextSpecial();
+        if (CheckTarget())
+        {
+            Attack();
+        }
+        else
+        {
+            Adjust();
+        }
+
+    }
+
+    // Sword Attack Combos
+    public void SwordCombo()
+    {
+        //if can attack
+        //if with in combat timer
+        //NextCombat()
+        if (!canAttack)
+        {
+            return;
+        }
+        NextSwordCombat();
+        if (CheckTarget())
+        {
+            Attack();
+        }
+        else
+        {
+            Adjust();
+        }
+    }
+
+    public void SwordSpecialCombat()
+    {
+        if (!canAttack)
+        {
+            return;
+        }
+        NextSwordSpecial();
         if (CheckTarget())
         {
             Attack();
@@ -873,5 +1001,136 @@ public class CombatManager : MonoBehaviour
             currentHitPos = kick_AxeKick_Pos;
         }
     }
+
+    // --------------------------------------------------------------------------------------------
+    // Sword Attack
+    void NextSwordCombat()
+    {
+        Debug.Log(currentCombat);
+        if (currentCombat == Combat.none)
+        {
+            currentCombat = Combat.Sword_Attack_R;
+            currentAttackTime = sword_Attack_R_AT;
+            currentEffectTime = sword_Attack_R_ET;
+            currentEffetDistance = sword_Attack_R_ED;
+            currentDirection = sword_Attack_R_Dir;
+            currentPower = sword_Attack_R_Power;
+            currentHitPos = sword_Attack_R_Pos;
+        }
+        else if (currentCombat == Combat.Sword_Attack_R)
+        {
+            currentCombat = Combat.Sword_Attack_RL;
+            currentAttackTime = sword_Attack_RL_AT;
+            currentEffectTime = sword_Attack_RL_ET;
+            currentEffetDistance = sword_Attack_RL_ED;
+            currentDirection = sword_Attack_RL_Dir;
+            currentPower = sword_Attack_RL_Power;
+            currentHitPos = sword_Attack_RL_Pos;
+        }
+        else
+        {
+            currentCombat = Combat.Sword_Attack_R;
+            currentAttackTime = sword_Attack_R_AT;
+            currentEffectTime = sword_Attack_R_ET;
+            currentEffetDistance = sword_Attack_R_ED;
+            currentDirection = sword_Attack_R_Dir;
+            currentPower = sword_Attack_R_Power;
+            currentHitPos = sword_Attack_R_Pos;
+        }
+        sword.SetActive(true);
+        companion.SetActive(false);
+        swordGunAttack = true;
+        attackDuration = currentAttackTime;
+    }
+
+    void NextSwordSpecial()
+    {
+        if (currentCombat == Combat.none)
+        {
+            currentCombat = Combat.Sword_Attack_Combo_LL;
+            currentAttackTime = Sword_Attack_Combo_LL_AT;
+            currentEffectTime = Sword_Attack_Combo_LL_ET;
+            currentEffetDistance = Sword_Attack_Combo_LL_ED;
+            currentDirection = Sword_Attack_Combo_LL_Dir;
+            currentPower = Sword_Attack_Combo_LL_Power;
+            currentHitPos = Sword_Attack_Combo_LL_Pos;
+        }
+        else if (currentCombat == Combat.punch_Jab_L)
+        {
+            currentCombat = Combat.Sword_Attack_Sp_U;
+            currentAttackTime = sword_Attack_Sp_U_AT;
+            currentEffectTime = sword_Attack_Sp_U_ET;
+            currentEffetDistance = sword_Attack_Sp_U_ED;
+            currentDirection = sword_Attack_Sp_U_Dir;
+            currentPower = sword_Attack_Sp_U_Power;
+            currentHitPos = sword_Attack_Sp_U_Pos;
+        }
+        else if (currentCombat == Combat.punch_Jab_R)
+        {
+            currentCombat = Combat.Sword_Attack_Sp_U;
+            currentAttackTime = sword_Attack_Sp_U_AT;
+            currentEffectTime = sword_Attack_Sp_U_ET;
+            currentEffetDistance = sword_Attack_Sp_U_ED;
+            currentDirection = sword_Attack_Sp_U_Dir;
+            currentPower = sword_Attack_Sp_U_Power;
+            currentHitPos = sword_Attack_Sp_U_Pos;
+        }
+        else if (currentCombat == Combat.punch_Hook_L)
+        {
+            currentCombat = Combat.Sword_Attack_Sp_U;
+            currentAttackTime = sword_Attack_Sp_U_AT;
+            currentEffectTime = sword_Attack_Sp_U_ET;
+            currentEffetDistance = sword_Attack_Sp_U_ED;
+            currentDirection = sword_Attack_Sp_U_Dir;
+            currentPower = sword_Attack_Sp_U_Power;
+            currentHitPos = sword_Attack_Sp_U_Pos;
+        }
+        else if (currentCombat == Combat.punch_Hook_R)
+        {
+            currentCombat = Combat.Sword_Attack_Sp_U;
+            currentAttackTime = sword_Attack_Sp_U_AT;
+            currentEffectTime = sword_Attack_Sp_U_ET;
+            currentEffetDistance = sword_Attack_Sp_U_ED;
+            currentDirection = sword_Attack_Sp_U_Dir;
+            currentPower = sword_Attack_Sp_U_Power;
+            currentHitPos = sword_Attack_Sp_U_Pos;
+        }
+        else if (currentCombat == Combat.kick_Straight_Mid_R)
+        {
+            currentCombat = Combat.Sword_Attack_Sp_U;
+            currentAttackTime = sword_Attack_Sp_U_AT;
+            currentEffectTime = sword_Attack_Sp_U_ET;
+            currentEffetDistance = sword_Attack_Sp_U_ED;
+            currentDirection = sword_Attack_Sp_U_Dir;
+            currentPower = sword_Attack_Sp_U_Power;
+            currentHitPos = sword_Attack_Sp_U_Pos;
+        }
+        else if (currentCombat == Combat.Sword_Attack_RL)
+        {
+            currentCombat = Combat.Sword_Attack_Sp_U;
+            currentAttackTime = sword_Attack_Sp_U_AT;
+            currentEffectTime = sword_Attack_Sp_U_ET;
+            currentEffetDistance = sword_Attack_Sp_U_ED;
+            currentDirection = sword_Attack_Sp_U_Dir;
+            currentPower = sword_Attack_Sp_U_Power;
+            currentHitPos = sword_Attack_Sp_U_Pos;
+        }
+        else
+        {
+            Debug.Log("Round Fast");
+            currentCombat = Combat.Sword_Attack_Combo_LL;
+            currentAttackTime = Sword_Attack_Combo_LL_AT;
+            currentEffectTime = Sword_Attack_Combo_LL_ET;
+            currentEffetDistance = Sword_Attack_Combo_LL_ED;
+            currentDirection = Sword_Attack_Combo_LL_Dir;
+            currentPower = Sword_Attack_Combo_LL_Power;
+            currentHitPos = Sword_Attack_Combo_LL_Pos;
+        }
+        sword.SetActive(true);
+        companion.SetActive(false);
+        swordGunAttack = true;
+        attackDuration = currentAttackTime;
+    }
+    // --------------------------------------------------------------------------------------------
 
 }// End of Combat Manager
