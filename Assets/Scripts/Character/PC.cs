@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class PC : Humanoid
 {
     [SerializeField] private float specialRegenRate;
+    [SerializeField] private float bulletRegenRate;
     [SerializeField] protected Slider lifeBar;
     [SerializeField] protected Slider visionBar;
     [SerializeField] protected Slider specialBar;
@@ -18,6 +19,9 @@ public class PC : Humanoid
 
     public float SpecialBar
     { get { return specialBar.value; } }
+
+    public float BulletBar
+    { get { return bulletBar.value; } }
 
     /// <summary>
     /// Initialize
@@ -42,6 +46,7 @@ public class PC : Humanoid
 
     protected void FixedUpdate()
     {
+        // Special Rege
         if (specialBar.value < 100)
         {
             specialBar.value += specialRegenRate;
@@ -50,6 +55,19 @@ public class PC : Humanoid
         {
             specialBar.value = 100;
         }
+
+        // Bullet Regen
+        if (bulletBar.value < 600)
+        {
+            Debug.Log(bulletBar.value);
+            bulletBar.value += bulletRegenRate;
+            Debug.Log(bulletBar.value);
+        }
+        if (bulletBar.value > 600)
+        {
+            bulletBar.value = 600;
+        }
+        Debug.Log(bulletBar.value);
     }
 
     /// <summary>
@@ -80,6 +98,21 @@ public class PC : Humanoid
         if(specialBar.value < 0)
         {
             specialBar.value = 0;
+        }
+    }
+
+    /// <summary>
+    /// Reduce number of available bullets
+    /// </summary>
+    public void Shoot()
+    {
+        if(bulletBar.value > 99.9999f)
+        {
+            bulletBar.value -= 100;
+        }
+        if (bulletBar.value < 0)
+        {
+            bulletBar.value = 0;
         }
     }
 

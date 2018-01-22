@@ -117,49 +117,70 @@ public class ThirdPControl : MonoBehaviour
             myCarmera.SetActive(false);
         }
 
-        // Primary Attack
-        if (attackButtonDown) {
-            attackButtonTimer += Time.deltaTime;
-        }
-        if (CrossPlatformInputManager.GetButtonDown("Attack")) //Button 2
+        if (!m_aiming)
         {
-            attackButtonDown = true;
-            attackButtonTimer = 0;            
-        }
-        if (CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonTimer<= minHoldTime) {
-            m_Character.m_combat.BasicCombo();
-            attackButtonDown = false;
-        }
-        if ((CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonDown && attackButtonTimer > minHoldTime) ||(attackButtonTimer>=maxHoldTime && attackButtonDown))
-        {
-            m_Character.m_combat.SpecialCombat();
-            attackButtonDown = false;
-        }
+            // Primary Attack
+            if (attackButtonDown)
+            {
+                attackButtonTimer += Time.deltaTime;
+            }
+            if (CrossPlatformInputManager.GetButtonDown("Attack")) //Button 2
+            {
+                attackButtonDown = true;
+                attackButtonTimer = 0;
+            }
+            if (CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonTimer <= minHoldTime)
+            {
+                m_Character.m_combat.BasicCombo();
+                attackButtonDown = false;
+            }
+            if ((CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonDown && attackButtonTimer > minHoldTime) || (attackButtonTimer >= maxHoldTime && attackButtonDown))
+            {
+                m_Character.m_combat.SpecialCombat();
+                attackButtonDown = false;
+            }
 
-        // Special (Sword) Attack
-        if (specialButtonDown)
-        {
-            specialButtonTimer += Time.deltaTime;
+            // Special (Sword) Attack
+            if (specialButtonDown)
+            {
+                specialButtonTimer += Time.deltaTime;
+            }
+            if (CrossPlatformInputManager.GetButtonDown("Sword") && playerCharacter.SpecialBar > 24.9999f) //Button 3
+            {
+                specialButtonDown = true;
+                specialButtonTimer = 0;
+            }
+            // Button Press Attack
+            if (CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonTimer <= minHoldTime && playerCharacter.SpecialBar > 24.9999f)
+            {
+                m_Character.m_combat.SwordCombo();
+                specialButtonDown = false;
+            }
+            // Button Hold Attack
+            if (((CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonDown && specialButtonTimer > minHoldTime)
+                || (specialButtonTimer >= maxHoldTime && specialButtonDown)) && playerCharacter.SpecialBar > 49.9999f)
+            {
+                m_Character.m_combat.SwordSpecialCombat();
+                specialButtonDown = false;
+            }
         }
-        if (CrossPlatformInputManager.GetButtonDown("Sword") && playerCharacter.SpecialBar > 24.9999f) //Button 3
+        else if(m_aiming)
         {
-            specialButtonDown = true;
-            specialButtonTimer = 0;
-        }
-        // Button Press Attack
-        if (CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonTimer <= minHoldTime && playerCharacter.SpecialBar > 24.9999f)
-        {
-            m_Character.m_combat.SwordCombo();
-            specialButtonDown = false;
-            playerCharacter.UseSpecial(25, true);
-        }
-        // Button Hold Attack
-        if (((CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonDown && specialButtonTimer > minHoldTime) 
-            || (specialButtonTimer >= maxHoldTime && specialButtonDown)) && playerCharacter.SpecialBar > 49.9999f)
-        {
-            m_Character.m_combat.SwordSpecialCombat();
-            specialButtonDown = false;
-            playerCharacter.UseSpecial(50, false);
+            // Gun Attack
+            if (attackButtonDown)
+            {
+                attackButtonTimer += Time.deltaTime;
+            }
+            if (CrossPlatformInputManager.GetButtonDown("Attack")) //Button 2
+            {
+                attackButtonDown = true;
+                attackButtonTimer = 0;
+            }
+            if (CrossPlatformInputManager.GetButtonUp("Attack") && playerCharacter.BulletBar >99.9999f)
+            {
+                m_Character.m_combat.GunShot();
+                attackButtonDown = false;
+            }
         }
 
 
@@ -463,50 +484,55 @@ public class ThirdPControl : MonoBehaviour
         for (int i = 0; i < enemyArray.Length; i++)
         {
             float fwdDot = Vector3.Dot((transform.position - enemyArray[i].transform.position), transform.forward);
-            if (fwdDot < -17)
+            float distance = Vector3.Distance(transform.position, enemyArray[i].transform.position);
+            if (fwdDot < -1 && distance < 20)
             {
                 enemies.Add(enemyArray[i]);
-                //Debug.Log(fwdDot);
             }
         }
 
         enemyArray = enemies.ToArray();
 
-        // Sort enemies from left to right
-        while(!done)
+        if (enemyArray.Length > 0)
         {
-            done = true;
-            for (int i = 0; i < enemyArray.Length - 1; i++)
+            // Sort enemies from left to right
+            while (!done)
             {
-                float distTo = Vector3.Dot((transform.position - enemyArray[i].transform.position), transform.right);
-                float distTo2 = Vector3.Dot((transform.position - enemyArray[i + 1].transform.position), transform.right);
-                
-                if (distTo2 > distTo)
+                done = true;
+                for (int i = 0; i < enemyArray.Length - 1; i++)
                 {
-                    done = false;
-                    GameObject temp = enemyArray[i + 1];
-                    enemyArray[i + 1] = enemyArray[i];
-                    enemyArray[i] = temp;
+                    float distTo = Vector3.Dot((transform.position - enemyArray[i].transform.position), transform.right);
+                    float distTo2 = Vector3.Dot((transform.position - enemyArray[i + 1].transform.position), transform.right);
+                
+                    if (distTo2 > distTo)
+                    {
+                        done = false;
+                        GameObject temp = enemyArray[i + 1];
+                        enemyArray[i + 1] = enemyArray[i];
+                        enemyArray[i] = temp;
+                    }
                 }
             }
-        }
 
-        float tempDot = 0;
-        // Set the aim target
-        // Use the enemy most centered in the view
-        for(int i = 0; i < enemyArray.Length; i++)
-        {
-            
-            float dot = Vector3.Dot((transform.position - enemyArray[i].transform.position), transform.forward);
-            if(dot < tempDot && dot > -25)
+            float tempDot = 0;
+            // Set the aim target
+            // Use the enemy most centered in the view
+            for(int i = 0; i < enemyArray.Length; i++)
             {
-                tempDot = dot;
-                aimTargetIndex = i;
-                aimTarget = enemyArray[i].transform.GetChild(0).gameObject;
+            
+                float dot = Vector3.Dot((transform.position - enemyArray[i].transform.position), transform.forward);
+                if(dot < tempDot)
+                {
+                    tempDot = dot;
+                    aimTargetIndex = i;
+                    aimTarget = enemyArray[i].transform.GetChild(0).gameObject;
+                }
             }
-        }
 
-        myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
+        
+                myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
+                m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
+        }
     }
 }//end ThirdPControl
 

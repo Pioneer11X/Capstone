@@ -20,7 +20,7 @@ public class CombatManager : MonoBehaviour
     public AudioClip punchFX;
     public AudioClip kickFX;
     public AudioClip swordFX;
-    public AudioClip gunShootFX;
+    public AudioClip gunShotFX;
 
     //---------------------------------------------------------------------------------------------
     // Special Combat Variables
@@ -75,7 +75,8 @@ public class CombatManager : MonoBehaviour
         Sword_Attack_R,
         Sword_Attack_RL,
         Sword_Attack_Sp_U,
-        Sword_Attack_Combo_LL
+        Sword_Attack_Combo_LL,
+        KB_Gun
     }
 
     //target parameters
@@ -83,6 +84,11 @@ public class CombatManager : MonoBehaviour
     private Character currentTarget;
     public Character CurrentTarget
     { get { return currentTarget; } set { currentTarget = value; } }
+
+    [SerializeField]
+    private Character aimTarget;
+    public Character AimTarget
+    { get { return aimTarget; } set { aimTarget = value; } }
 
     //in combat parameters
     private bool inCombat;
@@ -94,6 +100,8 @@ public class CombatManager : MonoBehaviour
 
     //aimming parameters
     private bool isAimming;
+    [SerializeField] private float maxShotDistance;
+    [SerializeField] private float minShotDistance;
 
     //move parameters
     private bool isMoving;
@@ -425,6 +433,19 @@ public class CombatManager : MonoBehaviour
     private CombatDirection Sword_Attack_Combo_LL_Dir;
     [SerializeField]
     private HitPower Sword_Attack_Combo_LL_Power;
+
+    [SerializeField]
+    private float KB_Gun_AT;
+    [SerializeField]
+    private float KB_Gun_ET;
+    [SerializeField]
+    private float KB_Gun_ED;
+    [SerializeField]
+    private HitPosition KB_Gun_Pos;
+    [SerializeField]
+    private CombatDirection KB_Gun_Dir;
+    [SerializeField]
+    private HitPower KB_Gun_Power;
     // --------------------------------------------------------------------------------------------
 
     //
@@ -489,23 +510,26 @@ public class CombatManager : MonoBehaviour
     void Start ()
     {
         inCombatTimer = 0;
-        swordGunAttack = false;
 
-        //sword = GameObject.FindGameObjectWithTag("Sword");
-        sword.SetActive(false);
-        gun.SetActive(false);
-
-        companion = GameObject.FindGameObjectWithTag("Companion");
-
-        //*******************************************************************
-        //temp code
-        enemyList = new List<GameObject>();
-        enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
-        for(int i = 0; i < enemyArray.Length; i++)
+        if (isPlayer)
         {
-            enemyList.Add(enemyArray[i]);
+            swordGunAttack = false;
+            //sword = GameObject.FindGameObjectWithTag("Sword");
+            sword.SetActive(false);
+            gun.SetActive(false);
+
+            companion = GameObject.FindGameObjectWithTag("Companion");
+
+            //*******************************************************************
+            //temp code
+            enemyList = new List<GameObject>();
+            enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+            for (int i = 0; i < enemyArray.Length; i++)
+            {
+                enemyList.Add(enemyArray[i]);
+            }
+            //*******************************************************************
         }
-        //*******************************************************************
     }
 
     // Update is called once per frame
@@ -682,6 +706,30 @@ public class CombatManager : MonoBehaviour
 
     }
 
+    // Gun Shooting
+    public void GunShot()
+    {
+        if (!canAttack)
+        {
+            return;
+        }
+
+        if (CheckRangeTarget())
+        {
+            combatAudio.clip = gunShotFX;
+            combatAudio.PlayDelayed(0.5f);
+            currentCombat = Combat.KB_Gun;
+            currentAttackTime = KB_Gun_AT;
+            currentEffectTime = KB_Gun_ET;
+            currentEffetDistance = KB_Gun_ED;
+            currentDirection = KB_Gun_Dir;
+            currentPower = KB_Gun_Power;
+            currentHitPos = KB_Gun_Pos;
+
+            Shoot();
+        }
+    }
+
     // Sword Attack Combos
     public void SwordCombo()
     {
@@ -696,6 +744,7 @@ public class CombatManager : MonoBehaviour
         if (CheckTarget())
         {
             Attack();
+            m_char.GetComponent<PC>().UseSpecial(25, true);
         }
         else
         {
@@ -713,6 +762,7 @@ public class CombatManager : MonoBehaviour
         if (CheckTarget())
         {
             Attack();
+            m_char.GetComponent<PC>().UseSpecial(50, true);
         }
         else
         {
@@ -721,6 +771,9 @@ public class CombatManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Melee Attacks
+    /// </summary>
     public void Attack()
     {
         inCombat = true;
@@ -728,6 +781,21 @@ public class CombatManager : MonoBehaviour
         isAttacking = true;
         m_char.StateTimer = 0;
         resetAttack = true;
+    }
+
+    /// <summary>
+    /// Ranged Attack
+    /// </summary>
+    public void Shoot()
+    {
+        inCombat = true;
+        inCombatTimer = inCombatDuration;
+        isAttacking = true;
+        m_char.StateTimer = 0;
+        resetAttack = true;
+
+        // Update UI
+        m_char.GetComponent<PC>().Shoot();
     }
 
     public void Effect()
@@ -832,6 +900,36 @@ public class CombatManager : MonoBehaviour
             }
         }
 
+    }
+
+    /// <summary>
+    /// Check to see if the player has a valid ranged target
+    /// </summary>
+    /// <returns>If player should shoot</returns>
+    public bool CheckRangeTarget()
+    {
+        if (aimTarget == null)
+        {
+            return false;
+        }
+        else
+        {
+            float distance = Vector3.Distance(m_char.charBody.transform.position, aimTarget.charBody.transform.position);
+            //float angle = Vector3.Angle(currentTarget.charBody.transform.position - m_char.charBody.transform.position, m_char.charBody.transform.forward);
+
+            if (distance < minShotDistance)
+            {
+                return false;
+            }
+            else if (distance > maxShotDistance)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 
     void Adjust()
