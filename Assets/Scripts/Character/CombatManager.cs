@@ -105,6 +105,7 @@ public class CombatManager : MonoBehaviour
         set { isAimming = value;}
     }
 
+    public int moveDir;
     [SerializeField] private float maxShotDistance;
     [SerializeField] private float minShotDistance;
 
@@ -518,6 +519,7 @@ public class CombatManager : MonoBehaviour
 
         if (isPlayer)
         {
+            moveDir = -1;
             swordGunAttack = false;
             //sword = GameObject.FindGameObjectWithTag("Sword");
             sword.SetActive(false);
@@ -551,7 +553,7 @@ public class CombatManager : MonoBehaviour
             {
                 swordGunAttack = false;
                 sword.SetActive(false);
-                //gun.SetActive(false);
+                gun.SetActive(false);
                 companion.SetActive(true);
                 companion.transform.position = compPos;
             }
@@ -576,7 +578,7 @@ public class CombatManager : MonoBehaviour
                 compPos = companion.transform.position;
                 companion.SetActive(false);
             }
-            else if(!isAimming && !companion.activeSelf)
+            else if(!isAimming && !companion.activeSelf && !swordGunAttack)
             {
                 companion.SetActive(true);
             }
@@ -974,6 +976,15 @@ public class CombatManager : MonoBehaviour
         }
         m_char.StateTimer = 0;
         isRolling = true;
+    }
+
+    public void AimMove(int dir)
+    {
+        if(!canMove)
+        {
+            return;
+        }
+        moveDir = dir;
     }
 
     void NextCombat()

@@ -279,8 +279,8 @@ public class ThirdPCamera : MonoBehaviour
     /// </summary>
     void OnApplicationQuit()
     {
-        Debug.Log("Too close: " + tooClose);
-        Debug.Log("Too far: " + tooFar);
+        //Debug.Log("Too close: " + tooClose);
+        //Debug.Log("Too far: " + tooFar);
     }
 
 }//end ThirdPCamera Script

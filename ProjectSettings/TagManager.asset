@@ -12,6 +12,7 @@ TagManager:
   - Sword
   - Companion
   - LevelManager
+  - KillPlane
   layers:
   - Default
   - TransparentFX

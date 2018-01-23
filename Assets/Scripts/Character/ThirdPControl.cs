@@ -298,7 +298,6 @@ public class ThirdPControl : MonoBehaviour
         {
             if (!m_aiming)
             {
-                Debug.Log("Aim");
                 m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
                 m_aiming = true;
                 m_Character.m_combat.IsAimming = true;
@@ -312,7 +311,6 @@ public class ThirdPControl : MonoBehaviour
         }
         else if(m_aiming && m_usedConAim) // TODO change to work better with controller and some form of error range
         {
-            Debug.Log("Stop Aim");
             m_aiming = false;
             m_Character.m_combat.IsAimming = false;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
@@ -411,28 +409,54 @@ public class ThirdPControl : MonoBehaviour
         else
         {
             // Change aim target if one is available based on joystick/mouse movement.
-            if(rotationX > 1 && aimCoolDown > 29)
+            if (enemyArray.Length > 1)
             {
-                aimTargetIndex++;
-                if(aimTargetIndex == enemyArray.Length)
+                if (rotationX > 1 && aimCoolDown > 29)
+                {
+                    aimTargetIndex++;
+                    if (aimTargetIndex == enemyArray.Length)
+                    {
+                        aimTargetIndex--;
+                    }
+                    myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, enemyArray[aimTargetIndex]);
+                }
+                else if (rotationX < -1 && aimCoolDown > 29)
                 {
                     aimTargetIndex--;
+                    if (aimTargetIndex < 0)
+                    {
+                        aimTargetIndex = 0;
+                    }
+                    myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, enemyArray[aimTargetIndex]);
                 }
-                myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, enemyArray[aimTargetIndex]);
-            }
-            else if(rotationX < -1 && aimCoolDown > 29)
-            {
-                aimTargetIndex--;
-                if (aimTargetIndex < 0)
-                {
-                    aimTargetIndex = 0;
-                }
-                myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, enemyArray[aimTargetIndex]);
             }
             aimCoolDown--;
             if(aimCoolDown < 1)
             {
                 aimCoolDown = 30;
+            }
+
+
+            // Tell the animator which direction the character is moving in
+            if (h < 0)  // Left
+            {
+                m_Character.m_combat.AimMove(0);
+            }
+            else if (h > 0) // Right
+            {
+                m_Character.m_combat.AimMove(1);
+            }
+            else if (v < 0)  // Back
+            {
+                m_Character.m_combat.AimMove(2);
+            }
+            else if (v > 0)  // Foward
+            {
+                m_Character.m_combat.AimMove(3);
+            }
+            else
+            {
+                m_Character.m_combat.AimMove(-1);
             }
         }
 

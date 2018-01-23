@@ -21,6 +21,7 @@ abstract public class Character : MonoBehaviour
         hit,
         dodge,
         roll,
+        aimMove
     }
 
     public AudioSource charAudio;
@@ -373,6 +374,11 @@ abstract public class Character : MonoBehaviour
                     ForceMove(m_combat.AdjustSpeed, 1);
                 }
             }
+            else if (m_combat.IsAimming && m_combat.moveDir > -1)
+            {
+                animationParameter = m_combat.moveDir;
+                currentState = CharacterState.aimMove;
+            }
             else
             {
 
@@ -398,7 +404,6 @@ abstract public class Character : MonoBehaviour
                 }
             }
         }
-
 
 
         if (lastState != currentState)

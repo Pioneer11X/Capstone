@@ -59,6 +59,24 @@ public class CapstoneAnimation : MonoBehaviour
             case Character.CharacterState.jump_down:
                 animator.Play("Jump_Down");
                 break;
+            case Character.CharacterState.aimMove:
+                if (parameter == 0)
+                {
+                    animator.Play("Aim_Sidestep_L");
+                }
+                else if (parameter == 1)
+                {
+                    animator.Play("Aim_Sidestep_R");
+                }
+                else if (parameter == 2)
+                {
+                    animator.Play("Aim_WalkB");
+                }
+                else if (parameter == 3)
+                {
+                    animator.Play("Aim_WalkF");
+                }
+                break;
             case Character.CharacterState.dodge:
                 if (parameter == 0)
                 {
