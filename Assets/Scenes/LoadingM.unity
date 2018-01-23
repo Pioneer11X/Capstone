@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 311983411}
-  audio: {fileID: 144561361}
+  BGSound: {fileID: 144561361}
 --- !u!1 &450819901
 GameObject:
   m_ObjectHideFlags: 0

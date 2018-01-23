@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
+using System.Collections;
 
 /// <summary>
 /// Handles the Title Screen UI Buttons
@@ -12,6 +13,11 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private GameObject SelectButtons;
     [SerializeField] private Button FirstButton;
     [SerializeField] private Button SubButtonOne;
+    [SerializeField] private AudioSource SFX;
+    [SerializeField] private AudioClip Button_SFX1;
+    [SerializeField] private AudioClip Button_SFX2;
+
+    private float counter;
 
     private bool titleMenu; // Is the title screen on the title menu buttons or sub buttons.
 
@@ -21,6 +27,7 @@ public class TitleUI : MonoBehaviour
         MainButtons.SetActive(true);
         SelectButtons.SetActive(false);
         titleMenu = true;
+        counter = 0;
 	}
 	
 	// Update is called once per frame
@@ -31,6 +38,7 @@ public class TitleUI : MonoBehaviour
             if (CrossPlatformInputManager.GetButtonDown("Cancel")) //Button 1 or 6
             {
                 //Debug.Log("Cancel");
+                SFX.PlayOneShot(Button_SFX1);
                 BackButton();
             }
         }
@@ -55,6 +63,7 @@ public class TitleUI : MonoBehaviour
         SelectButtons.SetActive(true);
         SubButtonOne.Select();
         titleMenu = false;
+        SFX.PlayOneShot(Button_SFX1);
     }
 
     /// <summary>
@@ -62,7 +71,8 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void LoadTutorial()
     {
-        SceneManager.LoadSceneAsync("LoadingT");
+        SFX.PlayOneShot(Button_SFX2);
+        StartCoroutine(WaitForAudioBeforeScene(1, "LoadingT"));
     }
 
     /// <summary>
@@ -70,7 +80,8 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void LoadMainLevel()
     {
-        SceneManager.LoadSceneAsync("LoadingM");
+        SFX.PlayOneShot(Button_SFX2);
+        StartCoroutine(WaitForAudioBeforeScene(1, "LoadingT"));
     }
 
     /// <summary>
@@ -78,7 +89,8 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void OptionsButton()
     {
-        SceneManager.LoadSceneAsync("Options");
+        SFX.PlayOneShot(Button_SFX1);
+        StartCoroutine(WaitForAudioBeforeScene(1, "Options"));
     }
 
     /// <summary>
@@ -86,7 +98,8 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void HelpButton()
     {
-        SceneManager.LoadSceneAsync("Help");
+        SFX.PlayOneShot(Button_SFX1);
+        StartCoroutine(WaitForAudioBeforeScene(1, "Help"));
     }
 
     /// <summary>
@@ -94,7 +107,8 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void CreditsButton()
     {
-        SceneManager.LoadSceneAsync("Credits");
+        SFX.PlayOneShot(Button_SFX1);
+        StartCoroutine(WaitForAudioBeforeScene(1, "Credits"));
     }
 
     /// <summary>
@@ -102,6 +116,7 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void BackButton()
     {
+        SFX.PlayOneShot(Button_SFX1);
         MainButtons.SetActive(true);
         SelectButtons.SetActive(false);
         FirstButton.Select();
@@ -113,10 +128,35 @@ public class TitleUI : MonoBehaviour
     /// </summary>
     public void ExitButton()
     {
+        SFX.PlayOneShot(Button_SFX2);
+        StartCoroutine(WaitForAudioBeforeEnd(2));
+    }
+
+    /// <summary>
+    /// Delay the application close while audio plays
+    /// </summary>
+    /// <param name="delay">How long to wait before exiting program</param>
+    /// <returns></returns>
+    IEnumerator WaitForAudioBeforeEnd(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
+    }
+
+    /// <summary>
+    /// Delay the scene change to allow audio to play
+    /// </summary>
+    /// <param name="delay">How long to delay</param>
+    /// <returns></returns>
+    IEnumerator WaitForAudioBeforeScene(float delay, string scene)
+    {
+        yield return new WaitForSeconds(delay);
+
+        SceneManager.LoadSceneAsync(scene);
     }
 }

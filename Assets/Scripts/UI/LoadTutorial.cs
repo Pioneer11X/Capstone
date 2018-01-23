@@ -8,7 +8,7 @@ using System.Collections;
 public class LoadTutorial : MonoBehaviour
 {
     [SerializeField] private GameObject cam;
-    [SerializeField] private AudioSource audio;
+    [SerializeField] private AudioSource BGSound;
 
     private bool loading;
     private bool loaded;
@@ -38,7 +38,7 @@ public class LoadTutorial : MonoBehaviour
         if (loaded && !once)
         {
             once = true;
-            audio.Stop();
+            BGSound.Stop();
             cam.SetActive(false);
             SceneManager.UnloadSceneAsync("LoadingT");
         }

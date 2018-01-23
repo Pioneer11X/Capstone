@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 /// <summary>
 /// Death Scene
@@ -7,6 +8,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class DeathUI : MonoBehaviour
 {
+    [SerializeField] private AudioSource SFX;
+    [SerializeField] private AudioClip Button_SFX1;
+
     /// <summary>
     /// Initial stuff
     /// </summary>
@@ -20,7 +24,7 @@ public class DeathUI : MonoBehaviour
     /// </summary>
     public void Credits()
     {
-        SceneManager.LoadSceneAsync("Credits");
+        StartCoroutine(WaitForAudioBeforeScene(1.5f, "Credits"));
     }
 
     /// <summary>
@@ -28,7 +32,7 @@ public class DeathUI : MonoBehaviour
     /// </summary>
     public void LoadTutorial()
     {
-        SceneManager.LoadSceneAsync("LoadingT");
+        StartCoroutine(WaitForAudioBeforeScene(1.5f, "LoadingT"));
     }
 
     /// <summary>
@@ -36,6 +40,20 @@ public class DeathUI : MonoBehaviour
     /// </summary>
     public void LoadMainLevel()
     {
-        SceneManager.LoadSceneAsync("LoadingM");
+        StartCoroutine(WaitForAudioBeforeScene(1.5f, "LoadingM"));
+    }
+
+    /// <summary>
+    /// Delay the scene change to allow audio to play
+    /// </summary>
+    /// <param name="delay">How long to delay</param>
+    /// <returns></returns>
+    IEnumerator WaitForAudioBeforeScene(float delay, string scene)
+    {
+        SFX.PlayOneShot(Button_SFX1);
+
+        yield return new WaitForSeconds(delay);
+
+        SceneManager.LoadSceneAsync(scene);
     }
 }
