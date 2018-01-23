@@ -37,6 +37,7 @@ public class ThirdPCamera : MonoBehaviour
     //[SerializeField] private float aimSpeed = 0.1f;            // aiming speed
 
     private bool isAiming;
+    private bool adjustAimOnce;
 
     // test variables
     // Do not change these in the inspector
@@ -63,6 +64,7 @@ public class ThirdPCamera : MonoBehaviour
         //aimTargetDefault = transform.localPosition;
 
         isAiming = false;
+        adjustAimOnce = true;
 
         tooClose = 0;
         tooFar = 0;
@@ -161,7 +163,14 @@ public class ThirdPCamera : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        
+        // Maintain Aim Position if in Aim Mode
+        if(isAiming && adjustAimOnce)
+        {
+            adjustAimOnce = false;
+            transform.position = aimTargetPos.transform.position;
+            lookAtTarget = target;
+        }
+
 
         // Set the position of the camera 
         Vector3 dir = target.transform.position - targetLastPos;
@@ -255,41 +264,14 @@ public class ThirdPCamera : MonoBehaviour
         else
         {
             lookAtTarget = target;
+            adjustAimOnce = true;
         }
     }
 
-    /// <summary>
-    /// Move camera in a gun aim fashion.
-    /// </summary>
-    /// <param name="v">Vertical Movement</param>
-    /// <param name="h">Horizontal Movement</param>
-    //public void MoveForAiming(float v, float h)
-    //{
-    //    if (v != 0 || h != 0)
-    //    {
-    //        if (v > 0 && (aimTarget.localPosition.y - aimTargetDefault.y < aimVertical + aimTargetDefault.y) )
-    //        {
-    //            aimTarget.localPosition = new Vector3(aimTarget.localPosition.x, aimTarget.localPosition.y + aimSpeed, aimTarget.localPosition.z);
-    //        }
-    //        else if (v < 0 && (aimTarget.localPosition.y - aimTargetDefault.y > aimTargetDefault.y - aimVertical))
-    //        {
-    //            aimTarget.localPosition = new Vector3(aimTarget.localPosition.x, aimTarget.localPosition.y - aimSpeed, aimTarget.localPosition.z);
-    //        }
+    public void AimCameraPostion()
+    {
 
-    //        if (h > 0 && (aimTarget.localPosition.x - aimTargetDefault.x < aimHorizontal + aimTargetDefault.x))
-    //        {
-    //            aimTarget.localPosition = new Vector3(aimTarget.localPosition.x + aimSpeed, aimTarget.localPosition.y, aimTarget.localPosition.z);
-    //        }
-    //        else if (h < 0 && (aimTarget.localPosition.x - aimTargetDefault.x > aimTargetDefault.x - aimHorizontal))
-    //        {
-    //            aimTarget.localPosition = new Vector3(aimTarget.localPosition.x - aimSpeed, aimTarget.localPosition.y, aimTarget.localPosition.z);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        aimTarget.localPosition = aimTargetDefault;
-    //    }
-    //}
+    }
 
 
     /// <summary>

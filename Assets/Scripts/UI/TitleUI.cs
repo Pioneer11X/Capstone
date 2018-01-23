@@ -81,7 +81,7 @@ public class TitleUI : MonoBehaviour
     public void LoadMainLevel()
     {
         SFX.PlayOneShot(Button_SFX2);
-        StartCoroutine(WaitForAudioBeforeScene(1, "LoadingT"));
+        StartCoroutine(WaitForAudioBeforeScene(1, "LoadingM"));
     }
 
     /// <summary>

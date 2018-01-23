@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -963,6 +962,8 @@ public class CombatManager : MonoBehaviour
             return;
         }
         dodgeDirection = dir;
+        m_char.StateTimer = 0;
+        isDodging = true;
     }
 
     public void Roll()

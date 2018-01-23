@@ -62,11 +62,19 @@ public class CapstoneAnimation : MonoBehaviour
             case Character.CharacterState.dodge:
                 if (parameter == 0)
                 {
-                    animator.Play("Dodge_Left");
+                    animator.Play("Dodge_L");
                 }
                 else if (parameter == 1)
                 {
-                    animator.Play("Dodge_Right");
+                    animator.Play("Dodge_R");
+                }
+                else if (parameter == 2)
+                {
+                    animator.Play("Dodge_B");
+                }
+                else if (parameter == 3)
+                {
+                    animator.Play("Dodge_F");
                 }
                 break;
             case Character.CharacterState.roll:

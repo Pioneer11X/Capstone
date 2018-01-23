@@ -104,6 +104,24 @@ public class ThirdPCharacter : Character
                 }
             }
         }
+        else if(aiming) // Rotate Character to face camera direction
+        {
+            Quaternion r;
+            Vector3 temp, temp2;
+            temp = camRot.eulerAngles;
+            temp2 = charBodyRotation.eulerAngles;
+            if (temp2.y > 360)
+            { temp2.y -= 360; }
+            //temp.x = 0.0f;
+            //temp.z = 0.0f;
+            temp.x = temp2.x;
+            temp.z = temp2.z;
+
+
+            r = Quaternion.Euler(temp);
+            charBody.transform.rotation = r;
+            m_Rigidbody.transform.rotation = r;
+        }
 
         //calculate initial movement direction and force
         move = (vert * m_Rigidbody.transform.forward) + (hori * m_Rigidbody.transform.right);

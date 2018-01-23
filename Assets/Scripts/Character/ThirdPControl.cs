@@ -182,15 +182,24 @@ public class ThirdPControl : MonoBehaviour
 
         if (CrossPlatformInputManager.GetButtonDown("Dodge")) //Button 1
         {
-            if (m_Character.CurrentState == ThirdPCharacter.CharacterState.aim)
+            //if (m_Character.CurrentState == ThirdPCharacter.CharacterState.aim)
+            if(m_aiming)
             {
-                if (h < 0)
+                if (h < 0)  // Left
                 {
                     m_Character.m_combat.Dodge(0);
                 }
-                else if (h > 0)
+                else if (h > 0) // Right
                 {
                     m_Character.m_combat.Dodge(1);
+                }
+                else if(v < 0)  // Back
+                {
+                    m_Character.m_combat.Dodge(2);
+                }
+                else if (v > 0)  // Foward
+                {
+                    m_Character.m_combat.Dodge(3);
                 }
                 else
                 {
