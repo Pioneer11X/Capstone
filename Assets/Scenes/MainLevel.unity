@@ -26736,9 +26736,6 @@ MonoBehaviour:
   mouseHorizontalAxisName: Mouse X
   mouseVerticalAxisName: Mouse Y
   scrollAxisName: Mouse ScrollWheel
-  minHoldTime: 0.4
-  maxHoldTime: 0.6
-  enemyArray: []
 --- !u!114 &1752595210
 MonoBehaviour:
   m_ObjectHideFlags: 0
