@@ -40,30 +40,38 @@ public class PC : Humanoid
     protected override void Update()
     {
         base.Update();
-
-        lifeBar.value = this.health;
+        if (lifeBar != null)
+        {
+            lifeBar.value = this.health;
+        }
     }
 
     protected void FixedUpdate()
     {
         // Special Rege
-        if (specialBar.value < 100)
+        if (specialBar != null)
         {
-            specialBar.value += specialRegenRate;
-        }
-        if(specialBar.value > 100)
-        {
-            specialBar.value = 100;
+            if (specialBar.value < 100)
+            {
+                specialBar.value += specialRegenRate;
+            }
+            if (specialBar.value > 100)
+            {
+                specialBar.value = 100;
+            }
         }
 
         // Bullet Regen
-        if (bulletBar.value < 600)
+        if (bulletBar != null)
         {
-            bulletBar.value += bulletRegenRate;
-        }
-        if (bulletBar.value > 600)
-        {
-            bulletBar.value = 600;
+            if (bulletBar.value < 600)
+            {
+                bulletBar.value += bulletRegenRate;
+            }
+            if (bulletBar.value > 600)
+            {
+                bulletBar.value = 600;
+            }
         }
     }
 
@@ -74,7 +82,7 @@ public class PC : Humanoid
     {
         lifeBar.value = 0;
         StartCoroutine(WaitToEnd());
-        
+
     }
 
     /// <summary>
@@ -88,11 +96,11 @@ public class PC : Humanoid
         {
             specialBar.value -= value;
         }
-        else if(specialBar.value > 49.9999f && !light)
+        else if (specialBar.value > 49.9999f && !light)
         {
-                specialBar.value -= value;
+            specialBar.value -= value;
         }
-        if(specialBar.value < 0)
+        if (specialBar.value < 0)
         {
             specialBar.value = 0;
         }
@@ -103,7 +111,7 @@ public class PC : Humanoid
     /// </summary>
     public void Shoot()
     {
-        if(bulletBar.value > 99.9999f)
+        if (bulletBar.value > 99.9999f)
         {
             bulletBar.value -= 100;
         }
