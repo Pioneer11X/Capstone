@@ -283,4 +283,23 @@ public class ThirdPCamera : MonoBehaviour
         //Debug.Log("Too far: " + tooFar);
     }
 
+    public void ChangeTarget(Transform t,Transform at) {
+        target = t;
+        aimTargetPos = at;
+        if (!target)
+        {
+            Debug.Log("Camera has no target at Start.");
+            return;
+        }
+        //lastCamPos = transform.position;
+        targetLastPos = target.transform.position;
+        lookAtTarget = target;
+        //aimTargetDefault = transform.localPosition;
+
+        isAiming = false;
+        adjustAimOnce = true;
+
+        tooClose = 0;
+        tooFar = 0;
+    }
 }//end ThirdPCamera Script

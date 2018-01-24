@@ -44,6 +44,17 @@ public class GhostController : MonoBehaviour
 
     private Pause pause;
 
+    private float maxVisionHackTime;
+    private float visionHackTimer;
+
+    private ThirdPControl player;
+
+    public Transform target;
+    public Transform aimTarget;
+
+    private Vector3 camPos;
+    private Quaternion camRot;
+
 
     //animation controller
     //private Animator anim;
@@ -72,6 +83,8 @@ public class GhostController : MonoBehaviour
 
         pause = Pause.Instance;
 
+        m_Character.camera = myCarmera;
+
         oriPos = transform.position;
         oriRot = transform.rotation;
         //set the target of camera to this
@@ -79,14 +92,25 @@ public class GhostController : MonoBehaviour
         //
         isReplay = false;
         frameCount = 1;
+        visionHackTimer = 0;
     }//end start
+
+    public void Init(float time,ThirdPControl p,GameObject camera) {
+        maxVisionHackTime = time;
+        player = p;
+        myCarmera = camera;
+        camPos = myCarmera.transform.position;
+        camRot = myCarmera.transform.rotation;
+    }
 
     private void End()
     {
         //release the player gameobject
-
+        player.EndVisionHack();
         //set back the camera
-
+        myCarmera.transform.position = camPos;
+        myCarmera.transform.rotation = camRot;
+        myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(player.target, player.aimTarget);
         //return to the init pos
         transform.position = oriPos;
         transform.rotation = oriRot;
@@ -100,6 +124,12 @@ public class GhostController : MonoBehaviour
     {
         if (!isReplay)
         {
+            visionHackTimer += Time.deltaTime;
+
+            if (visionHackTimer >= maxVisionHackTime || !CrossPlatformInputManager.GetButton("Hack")) {
+                End();
+            }
+
             if (!pause.IsPaused)
             {
                 Time.timeScale = 1;
@@ -121,10 +151,7 @@ public class GhostController : MonoBehaviour
             MoveRecord mr = new MoveRecord() { frameCount = frameCount, h = h, v = v, jump = m_Jump, camRotation = myCarmera.GetComponent<ThirdPCamera>().transform.rotation };
             records.Add(mr);
             frameCount++;
-            if (frameCount == 500)
-            {
-                End();
-            }
+       
         }
         else
         {
