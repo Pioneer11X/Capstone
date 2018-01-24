@@ -225,7 +225,7 @@ namespace FriedTofu
                     Scene.PhysicsComponent comp = new Scene.PhysicsComponent();
                     comp.colliderType = "box";
                     comp.center = new Scene.Float3(box.center);
-                    comp.size = new Scene.Float3(box.size);
+                    comp.size = new Scene.Float3(box.size * 0.5f);
                     entity.Add(comp);
                 }
                 else if (null != collider as MeshCollider)
