@@ -837,9 +837,9 @@ GameObject:
   - component: {fileID: 114182788316099100}
   - component: {fileID: 195202188668675242}
   - component: {fileID: 114903148102091672}
-  - component: {fileID: 114171107550600046}
   - component: {fileID: 114883004895518268}
   - component: {fileID: 114084020847656818}
+  - component: {fileID: 114148400675291008}
   m_Layer: 8
   m_Name: Enemy_Red_Eye
   m_TagString: Enemy
@@ -1450,15 +1450,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1955892941977320}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -32.83, y: -0.100000024, z: -25.24}
+  m_LocalRotation: {x: -0, y: 0.1633705, z: -0, w: 0.9865648}
+  m_LocalPosition: {x: -50.1, y: 13.89, z: -28.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4625380232448944}
   - {fileID: 4733549306556706}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 18.805, z: 0}
 --- !u!4 &4717508883842784
 Transform:
   m_ObjectHideFlags: 1
@@ -1735,21 +1735,7 @@ MonoBehaviour:
   isBoss: 1
   BossBar: {fileID: 0}
   LifeBar: {fileID: 0}
---- !u!114 &114154803378418912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1259076548897684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc10b1093a6d0049bd058b00a57eebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gizmoSize: 0.025
-  gizmoColor: {r: 1, g: 0, b: 0.76551723, a: 1}
-  isVisible: 1
---- !u!114 &114171107550600046
+--- !u!114 &114148400675291008
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1757,7 +1743,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1955892941977320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91a56bc52885fe24ea0bd7ce74484581, type: 3}
+  m_Script: {fileID: 11500000, guid: 75ecc526bea3c0b43838c4c9eaf9a7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   charAudio: {fileID: 0}
@@ -1779,8 +1765,39 @@ MonoBehaviour:
   m_combat: {fileID: 0}
   m_IsGrounded: 0
   currentState: 0
-  seekTarget: {fileID: 0}
-  maxSensoryRadius: 10
+  playerTarg: {fileID: 0}
+  seekTarg: {fileID: 0}
+  nodes:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  flee: 1
+  maxBossSensoryRadius: 10
+--- !u!114 &114154803378418912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259076548897684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc10b1093a6d0049bd058b00a57eebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmoSize: 0.025
+  gizmoColor: {r: 1, g: 0, b: 0.76551723, a: 1}
+  isVisible: 1
 --- !u!114 &114182788316099100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1842,84 +1859,98 @@ MonoBehaviour:
   punch_Jab_L_Pos: 0
   punch_Jab_L_Dir: 0
   punch_Jab_L_Power: 0
+  punch_Jab_L_Dmg: 15
   punch_Jab_R_AT: 0.5
   punch_Jab_R_ET: 0.2
   punch_Jab_R_ED: 1
   punch_Jab_R_Pos: 0
   punch_Jab_R_Dir: 0
   punch_Jab_R_Power: 0
+  punch_Jab_R_Dmg: 15
   punch_Hook_L_AT: 0.65
   punch_Hook_L_ET: 0.2
   punch_Hook_L_ED: 1
   punch_Hook_L_Pos: 0
   punch_Hook_L_Dir: 0
   punch_Hook_L_Power: 0
+  punch_Hook_L_Dmg: 15
   punch_Hook_R_AT: 0.65
   punch_Hook_R_ET: 0.2
   punch_Hook_R_ED: 1
   punch_Hook_R_Pos: 0
   punch_Hook_R_Dir: 0
   punch_Hook_R_Power: 0
+  punch_Hook_R_Dmg: 15
   punch_UpperCut_L_AT: 0.8
   punch_UpperCut_L_ET: 0.5
   punch_UpperCut_L_ED: 1
   punch_UpperCut_L_Pos: 0
   punch_UpperCut_L_Dir: 0
   punch_UpperCut_L_Power: 0
+  punch_UpperCut_L_Dmg: 15
   punch_UpperCut_R_AT: 0.8
   punch_UpperCut_R_ET: 0.5
   punch_UpperCut_R_ED: 1
   punch_UpperCut_R_Pos: 0
   punch_UpperCut_R_Dir: 0
   punch_UpperCut_R_Power: 0
+  punch_UpperCut_R_Dmg: 15
   kick_Straight_Mid_R_AT: 1
   kick_Straight_Mid_R_ET: 0.6
   kick_Straight_Mid_R_ED: 1
   kick_Straight_Mid_R_Pos: 0
   kick_Straight_Mid_R_Dir: 0
   kick_Straight_Mid_R_Power: 0
+  kick_Straight_Mid_R_Dmg: 10
   kick_AxeKick_AT: 1.2
   kick_AxeKick_ET: 0.5
   kick_AxeKick_ED: 1
   kick_AxeKick_Pos: 0
   kick_AxeKick_Dir: 0
   kick_AxeKick_Power: 0
+  kick_AxeKick_Dmg: 10
   kick_HorseKick_AT: 1
   kick_HorseKick_ET: 0.4
   kick_HorseKick_ED: 1
   kick_HorseKick_Pos: 0
   kick_HorseKick_Dir: 0
   kick_HorseKick_Power: 0
+  kick_HorseKick_Dmg: 10
   sword_Attack_R_AT: 0
   sword_Attack_R_ET: 0
   sword_Attack_R_ED: 0
   sword_Attack_R_Pos: 0
   sword_Attack_R_Dir: 0
   sword_Attack_R_Power: 0
+  sword_Attack_R_Dmg: 0
   sword_Attack_RL_AT: 0
   sword_Attack_RL_ET: 0
   sword_Attack_RL_ED: 0
   sword_Attack_RL_Pos: 0
   sword_Attack_RL_Dir: 0
   sword_Attack_RL_Power: 0
+  sword_Attack_RL_Dmg: 0
   sword_Attack_Sp_U_AT: 0
   sword_Attack_Sp_U_ET: 0
   sword_Attack_Sp_U_ED: 0
   sword_Attack_Sp_U_Pos: 0
   sword_Attack_Sp_U_Dir: 0
   sword_Attack_Sp_U_Power: 0
+  sword_Attack_Sp_U_Dmg: 0
   Sword_Attack_Combo_LL_AT: 0
   Sword_Attack_Combo_LL_ET: 0
   Sword_Attack_Combo_LL_ED: 0
   Sword_Attack_Combo_LL_Pos: 0
   Sword_Attack_Combo_LL_Dir: 0
   Sword_Attack_Combo_LL_Power: 0
+  Sword_Attack_Combo_LL_Dmg: 0
   KB_Gun_AT: 0
   KB_Gun_ET: 0
   KB_Gun_ED: 0
   KB_Gun_Pos: 0
   KB_Gun_Dir: 0
   KB_Gun_Power: 0
+  KB_Gun_Dmg: 0
 --- !u!114 &114903148102091672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2051,7 +2082,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 3.5
+  m_Speed: 5.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

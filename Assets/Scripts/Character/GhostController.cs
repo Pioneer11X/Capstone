@@ -118,6 +118,7 @@ public class GhostController : MonoBehaviour
         isReplay = true;
         deadCount = frameCount;
         frameCount = 1;
+        gameObject.tag = "Ghost";
     }
 
     private void Update()

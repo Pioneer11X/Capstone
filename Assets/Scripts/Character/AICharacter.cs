@@ -13,6 +13,7 @@ public class AICharacter : Character
 {
 
     public Transform seekTarget;    // A variable to store the transform of the target to seek.
+    public Transform ghostTarget;
 
     [SerializeField]
     private float maxSensoryRadius; // A variable to store the maximum sensory radius of the AI.
@@ -50,14 +51,55 @@ public class AICharacter : Character
 
     void Update()
     {
-
+        if (GameObject.FindGameObjectWithTag("Ghost") != null)
+        {
+            ghostTarget = GameObject.FindGameObjectWithTag("Ghost").transform;
+            seekTarget = ghostTarget;
+        }
+        else
+        {
+            seekTarget = GameObject.FindGameObjectWithTag("Player").transform;
+        }
         if ( null == seekTarget)
         {
             // Play the Idle Animation.
             return;
         }
 
-        if (Vector3.Distance(transform.position, seekTarget.position) <= maxSensoryRadius)
+        if(ghostTarget != null && Vector3.Distance(transform.position, ghostTarget.position) <= maxSensoryRadius)
+        {
+            if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
+            {
+                navMeshAgent.isStopped = true;
+                this.m_combat.IsMoving = false;
+
+                if (null == this.m_combat.CurrentTarget)
+                {
+                    this.m_combat.CurrentTarget = seekTarget.gameObject.GetComponent<Character>();
+                }
+
+                if (timer > timerLimit)
+                {
+                    this.m_combat.BasicCombo();
+                    timer = 0;
+                }
+            }
+            else
+            {
+                Vector3 targetPos = seekTarget.position;
+                this.navMeshAgent.isStopped = false;
+
+                // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
+                if (Vector3.Distance(navMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
+                {
+                    navMeshAgent.SetDestination(targetPos);
+                }
+
+                // TODO: Play the Animation here            
+                this.m_combat.IsMoving = true;
+            }
+        }
+        else if (Vector3.Distance(transform.position, seekTarget.position) <= maxSensoryRadius)
         {
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {

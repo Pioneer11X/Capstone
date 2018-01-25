@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 114824204852392478}
   m_Layer: 9
   m_Name: Ghost
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2917,84 +2917,98 @@ MonoBehaviour:
   punch_Jab_L_Pos: 0
   punch_Jab_L_Dir: 0
   punch_Jab_L_Power: 0
+  punch_Jab_L_Dmg: 0
   punch_Jab_R_AT: 0.5
   punch_Jab_R_ET: 0.2
   punch_Jab_R_ED: 1
   punch_Jab_R_Pos: 0
   punch_Jab_R_Dir: 0
   punch_Jab_R_Power: 0
+  punch_Jab_R_Dmg: 0
   punch_Hook_L_AT: 0.65
   punch_Hook_L_ET: 0.2
   punch_Hook_L_ED: 1
   punch_Hook_L_Pos: 0
   punch_Hook_L_Dir: 0
   punch_Hook_L_Power: 0
+  punch_Hook_L_Dmg: 0
   punch_Hook_R_AT: 0.65
   punch_Hook_R_ET: 0.2
   punch_Hook_R_ED: 1
   punch_Hook_R_Pos: 0
   punch_Hook_R_Dir: 0
   punch_Hook_R_Power: 0
+  punch_Hook_R_Dmg: 0
   punch_UpperCut_L_AT: 0.8
   punch_UpperCut_L_ET: 0.5
   punch_UpperCut_L_ED: 1
   punch_UpperCut_L_Pos: 0
   punch_UpperCut_L_Dir: 0
   punch_UpperCut_L_Power: 0
+  punch_UpperCut_L_Dmg: 0
   punch_UpperCut_R_AT: 0.8
   punch_UpperCut_R_ET: 0.5
   punch_UpperCut_R_ED: 1
   punch_UpperCut_R_Pos: 0
   punch_UpperCut_R_Dir: 0
   punch_UpperCut_R_Power: 0
+  punch_UpperCut_R_Dmg: 0
   kick_Straight_Mid_R_AT: 1
   kick_Straight_Mid_R_ET: 0.6
   kick_Straight_Mid_R_ED: 1
   kick_Straight_Mid_R_Pos: 0
   kick_Straight_Mid_R_Dir: 0
   kick_Straight_Mid_R_Power: 0
+  kick_Straight_Mid_R_Dmg: 0
   kick_AxeKick_AT: 1.2
   kick_AxeKick_ET: 0.5
   kick_AxeKick_ED: 1
   kick_AxeKick_Pos: 0
   kick_AxeKick_Dir: 0
   kick_AxeKick_Power: 0
+  kick_AxeKick_Dmg: 0
   kick_HorseKick_AT: 1
   kick_HorseKick_ET: 0.4
   kick_HorseKick_ED: 1
   kick_HorseKick_Pos: 0
   kick_HorseKick_Dir: 0
   kick_HorseKick_Power: 0
+  kick_HorseKick_Dmg: 0
   sword_Attack_R_AT: 1
   sword_Attack_R_ET: 0.3
   sword_Attack_R_ED: 1.25
   sword_Attack_R_Pos: 1
   sword_Attack_R_Dir: 1
   sword_Attack_R_Power: 0
+  sword_Attack_R_Dmg: 0
   sword_Attack_RL_AT: 0.8
   sword_Attack_RL_ET: 0.3
   sword_Attack_RL_ED: 1.25
   sword_Attack_RL_Pos: 0
   sword_Attack_RL_Dir: 2
   sword_Attack_RL_Power: 0
+  sword_Attack_RL_Dmg: 0
   sword_Attack_Sp_U_AT: 1.5
   sword_Attack_Sp_U_ET: 0.5
   sword_Attack_Sp_U_ED: 1.25
   sword_Attack_Sp_U_Pos: 0
   sword_Attack_Sp_U_Dir: 0
   sword_Attack_Sp_U_Power: 1
+  sword_Attack_Sp_U_Dmg: 0
   Sword_Attack_Combo_LL_AT: 2
   Sword_Attack_Combo_LL_ET: 0.5
   Sword_Attack_Combo_LL_ED: 1.25
   Sword_Attack_Combo_LL_Pos: 0
   Sword_Attack_Combo_LL_Dir: 2
   Sword_Attack_Combo_LL_Power: 1
+  Sword_Attack_Combo_LL_Dmg: 0
   KB_Gun_AT: 2
   KB_Gun_ET: 0.5
   KB_Gun_ED: 1
   KB_Gun_Pos: 1
   KB_Gun_Dir: 0
   KB_Gun_Power: 1
+  KB_Gun_Dmg: 0
 --- !u!114 &114549724952198468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3064,7 +3078,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd877ebcd5795f949bd198170ef9a996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
+  health: 999999
   energy: 0
   baseAttackPower: 0
   speedMove: 0.08
