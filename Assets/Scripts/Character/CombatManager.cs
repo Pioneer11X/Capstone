@@ -148,6 +148,7 @@ public class CombatManager : MonoBehaviour
     private float currentAttackTime;
     private float currentEffectTime;
     private float currentEffetDistance;
+    private float currentDmgAmount;
     private CombatDirection currentDirection;
     private HitPower currentPower;
     public HitPosition currentHitPos;
@@ -271,6 +272,7 @@ public class CombatManager : MonoBehaviour
     // AT - Attack Time
     // ET - Effect Time
     // ED - Effect Distance
+    // Dmg = Damage Amount
     [SerializeField]
     private float punch_Jab_L_AT;
     [SerializeField]
@@ -283,6 +285,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection punch_Jab_L_Dir;
     [SerializeField]
     private HitPower punch_Jab_L_Power;
+    [SerializeField]
+    private float punch_Jab_L_Dmg;
 
     [SerializeField]
     private float punch_Jab_R_AT;
@@ -296,6 +300,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection punch_Jab_R_Dir;
     [SerializeField]
     private HitPower punch_Jab_R_Power;
+    [SerializeField]
+    private float punch_Jab_R_Dmg;
 
     [SerializeField]
     private float punch_Hook_L_AT;
@@ -309,6 +315,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection punch_Hook_L_Dir;
     [SerializeField]
     private HitPower punch_Hook_L_Power;
+    [SerializeField]
+    private float punch_Hook_L_Dmg;
 
     [SerializeField]
     private float punch_Hook_R_AT;
@@ -322,6 +330,9 @@ public class CombatManager : MonoBehaviour
     private CombatDirection punch_Hook_R_Dir;
     [SerializeField]
     private HitPower punch_Hook_R_Power;
+    [SerializeField]
+    private float punch_Hook_R_Dmg;
+
 
     [SerializeField]
     private float punch_UpperCut_L_AT;
@@ -335,6 +346,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection punch_UpperCut_L_Dir;
     [SerializeField]
     private HitPower punch_UpperCut_L_Power;
+    [SerializeField]
+    private float punch_UpperCut_L_Dmg;
 
     [SerializeField]
     private float punch_UpperCut_R_AT;
@@ -348,6 +361,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection punch_UpperCut_R_Dir;
     [SerializeField]
     private HitPower punch_UpperCut_R_Power;
+    [SerializeField]
+    private float punch_UpperCut_R_Dmg;
 
     [SerializeField]
     private float kick_Straight_Mid_R_AT;
@@ -361,6 +376,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection kick_Straight_Mid_R_Dir;
     [SerializeField]
     private HitPower kick_Straight_Mid_R_Power;
+    [SerializeField]
+    private float kick_Straight_Mid_R_Dmg;
 
     [SerializeField]
     private float kick_AxeKick_AT;
@@ -374,6 +391,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection kick_AxeKick_Dir;
     [SerializeField]
     private HitPower kick_AxeKick_Power;
+    [SerializeField]
+    private float kick_AxeKick_Dmg;
 
     [SerializeField]
     private float kick_HorseKick_AT;
@@ -387,6 +406,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection kick_HorseKick_Dir;
     [SerializeField]
     private HitPower kick_HorseKick_Power;
+    [SerializeField]
+    private float kick_HorseKick_Dmg;
 
     [SerializeField]
     private float sword_Attack_R_AT;
@@ -400,6 +421,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection sword_Attack_R_Dir;
     [SerializeField]
     private HitPower sword_Attack_R_Power;
+    [SerializeField]
+    private float sword_Attack_R_Dmg;
 
     [SerializeField]
     private float sword_Attack_RL_AT;
@@ -413,6 +436,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection sword_Attack_RL_Dir;
     [SerializeField]
     private HitPower sword_Attack_RL_Power;
+    [SerializeField]
+    private float sword_Attack_RL_Dmg;
 
     [SerializeField]
     private float sword_Attack_Sp_U_AT;
@@ -426,6 +451,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection sword_Attack_Sp_U_Dir;
     [SerializeField]
     private HitPower sword_Attack_Sp_U_Power;
+    [SerializeField]
+    private float sword_Attack_Sp_U_Dmg;
 
     [SerializeField]
     private float Sword_Attack_Combo_LL_AT;
@@ -439,6 +466,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection Sword_Attack_Combo_LL_Dir;
     [SerializeField]
     private HitPower Sword_Attack_Combo_LL_Power;
+    [SerializeField]
+    private float Sword_Attack_Combo_LL_Dmg;
 
     [SerializeField]
     private float KB_Gun_AT;
@@ -452,6 +481,8 @@ public class CombatManager : MonoBehaviour
     private CombatDirection KB_Gun_Dir;
     [SerializeField]
     private HitPower KB_Gun_Power;
+    [SerializeField]
+    private float KB_Gun_Dmg;
     // --------------------------------------------------------------------------------------------
 
     //
@@ -662,7 +693,7 @@ public class CombatManager : MonoBehaviour
     }
 
 
-    public void Hit(HitPosition pos, HitDirection dir, HitPower power)
+    public void Hit(HitPosition pos, HitDirection dir, HitPower power, float dmg)
     {
         //
         isHit = true;
@@ -672,10 +703,9 @@ public class CombatManager : MonoBehaviour
         hitAnimationInfo = (int)pos * 100 + (int)dir * 10 + (int)power;
         resetHit = true;
 
-        // TODO
-        // Needs to be redone for how much damage based on what attack
-        this.GetComponent<Humanoid>().TakeDamag(10);
-        //
+        // Does damage based on what attack
+        this.GetComponent<Humanoid>().TakeDamag(dmg);
+        Debug.Log(gameObject.name + ": Takes " + dmg + " damage");
 
         isAttacking = false;
         isRolling = false;
@@ -745,6 +775,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = KB_Gun_Dir;
             currentPower = KB_Gun_Power;
             currentHitPos = KB_Gun_Pos;
+            currentDmgAmount = KB_Gun_Dmg;
             attackDuration = currentAttackTime;
             Shoot();
         }
@@ -889,7 +920,7 @@ public class CombatManager : MonoBehaviour
                     }
                 }
 
-                currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower);
+                currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentDmgAmount);
             }
 
         }
@@ -999,6 +1030,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = punch_Jab_L_Dir;
             currentPower = punch_Jab_L_Power;
             currentHitPos = punch_Jab_L_Pos;
+            currentDmgAmount = punch_Jab_L_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
@@ -1010,6 +1042,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = punch_Jab_R_Dir;
             currentPower = punch_Jab_R_Power;
             currentHitPos = punch_Jab_R_Pos;
+            currentDmgAmount = punch_Jab_R_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
@@ -1021,6 +1054,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = punch_Hook_L_Dir;
             currentPower = punch_Hook_L_Power;
             currentHitPos = punch_Hook_L_Pos;
+            currentDmgAmount = punch_Hook_L_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
@@ -1032,6 +1066,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = punch_Hook_R_Dir;
             currentPower = punch_Hook_R_Power;
             currentHitPos = punch_Hook_R_Pos;
+            currentDmgAmount = punch_Hook_R_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
@@ -1043,6 +1078,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = kick_Straight_Mid_R_Dir;
             currentPower = kick_Straight_Mid_R_Power;
             currentHitPos = kick_Straight_Mid_R_Pos;
+            currentDmgAmount = kick_Straight_Mid_R_Dmg;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
@@ -1054,6 +1090,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = punch_Jab_L_Dir;
             currentPower = punch_Jab_L_Power;
             currentHitPos = punch_Jab_L_Pos;
+            currentDmgAmount = punch_Jab_L_Dmg;
         }
         else
         {
@@ -1065,6 +1102,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = punch_Jab_L_Dir;
             currentPower = punch_Jab_L_Power;
             currentHitPos = punch_Jab_L_Pos;
+            currentDmgAmount = punch_Jab_L_Dmg;
         }
 
     }
@@ -1081,6 +1119,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = kick_AxeKick_Dir;
             currentPower = kick_AxeKick_Power;
             currentHitPos = kick_AxeKick_Pos;
+            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
@@ -1092,6 +1131,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = kick_AxeKick_Dir;
             currentPower = kick_AxeKick_Power;
             currentHitPos = kick_AxeKick_Pos;
+            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
@@ -1103,6 +1143,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = kick_AxeKick_Dir;
             currentPower = kick_AxeKick_Power;
             currentHitPos = kick_AxeKick_Pos;
+            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
@@ -1114,6 +1155,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = kick_AxeKick_Dir;
             currentPower = kick_AxeKick_Power;
             currentHitPos = kick_AxeKick_Pos;
+            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
@@ -1125,6 +1167,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = kick_AxeKick_Dir;
             currentPower = kick_AxeKick_Power;
             currentHitPos = kick_AxeKick_Pos;
+            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
@@ -1135,7 +1178,8 @@ public class CombatManager : MonoBehaviour
             currentEffetDistance = kick_HorseKick_ED;
             currentDirection = kick_HorseKick_Dir;
             currentPower = kick_HorseKick_Power;
-            currentHitPos = kick_AxeKick_Pos;
+            currentHitPos = kick_HorseKick_Pos;
+            currentDmgAmount = kick_HorseKick_Dmg;
         }
         else
         {
@@ -1147,6 +1191,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = kick_AxeKick_Dir;
             currentPower = kick_AxeKick_Power;
             currentHitPos = kick_AxeKick_Pos;
+            currentDmgAmount = kick_AxeKick_Dmg;
         }
     }
 
@@ -1164,6 +1209,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_R_Dir;
             currentPower = sword_Attack_R_Power;
             currentHitPos = sword_Attack_R_Pos;
+            currentDmgAmount = sword_Attack_R_Dmg;
         }
         else if (currentCombat == Combat.Sword_Attack_R)
         {
@@ -1175,6 +1221,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_RL_Dir;
             currentPower = sword_Attack_RL_Power;
             currentHitPos = sword_Attack_RL_Pos;
+            currentDmgAmount = sword_Attack_RL_Dmg;
         }
         else
         {
@@ -1186,6 +1233,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_R_Dir;
             currentPower = sword_Attack_R_Power;
             currentHitPos = sword_Attack_R_Pos;
+            currentDmgAmount = sword_Attack_R_Dmg;
         }
         sword.SetActive(true);
         compPos = companion.transform.position;
@@ -1206,6 +1254,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = Sword_Attack_Combo_LL_Dir;
             currentPower = Sword_Attack_Combo_LL_Power;
             currentHitPos = Sword_Attack_Combo_LL_Pos;
+            currentDmgAmount = Sword_Attack_Combo_LL_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
@@ -1217,6 +1266,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_Sp_U_Dir;
             currentPower = sword_Attack_Sp_U_Power;
             currentHitPos = sword_Attack_Sp_U_Pos;
+            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
@@ -1228,6 +1278,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_Sp_U_Dir;
             currentPower = sword_Attack_Sp_U_Power;
             currentHitPos = sword_Attack_Sp_U_Pos;
+            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
@@ -1239,6 +1290,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_Sp_U_Dir;
             currentPower = sword_Attack_Sp_U_Power;
             currentHitPos = sword_Attack_Sp_U_Pos;
+            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
@@ -1250,6 +1302,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_Sp_U_Dir;
             currentPower = sword_Attack_Sp_U_Power;
             currentHitPos = sword_Attack_Sp_U_Pos;
+            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
@@ -1261,6 +1314,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_Sp_U_Dir;
             currentPower = sword_Attack_Sp_U_Power;
             currentHitPos = sword_Attack_Sp_U_Pos;
+            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.Sword_Attack_RL)
         {
@@ -1272,6 +1326,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = sword_Attack_Sp_U_Dir;
             currentPower = sword_Attack_Sp_U_Power;
             currentHitPos = sword_Attack_Sp_U_Pos;
+            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else
         {
@@ -1283,6 +1338,7 @@ public class CombatManager : MonoBehaviour
             currentDirection = Sword_Attack_Combo_LL_Dir;
             currentPower = Sword_Attack_Combo_LL_Power;
             currentHitPos = Sword_Attack_Combo_LL_Pos;
+            currentDmgAmount = Sword_Attack_Combo_LL_Dmg;
         }
         sword.SetActive(true);
         compPos = companion.transform.position;

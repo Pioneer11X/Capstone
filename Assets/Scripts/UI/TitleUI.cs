@@ -17,8 +17,6 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private AudioClip Button_SFX1;
     [SerializeField] private AudioClip Button_SFX2;
 
-    private float counter;
-
     private bool titleMenu; // Is the title screen on the title menu buttons or sub buttons.
 
 	// Use this for initialization
@@ -27,7 +25,6 @@ public class TitleUI : MonoBehaviour
         MainButtons.SetActive(true);
         SelectButtons.SetActive(false);
         titleMenu = true;
-        counter = 0;
 	}
 	
 	// Update is called once per frame

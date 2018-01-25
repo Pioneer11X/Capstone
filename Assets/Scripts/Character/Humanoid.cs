@@ -60,7 +60,7 @@ abstract public class Humanoid : MonoBehaviour
     /// Deal damage.
     /// </summary>
     /// <param name="dmg">Amount of damage dealt</param>
-    public void TakeDamag(int dmg)
+    public void TakeDamag(float dmg)
     {
         if (dmg > 0)
         {

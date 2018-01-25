@@ -17,12 +17,12 @@ public class AICharacter : Character
     [SerializeField]
     private float maxSensoryRadius; // A variable to store the maximum sensory radius of the AI.
 
-    NavMeshAgent navMeshAgent;      // A Reference to the NavMeshAgent Component attached to the GameObject.
+    protected NavMeshAgent navMeshAgent;      // A Reference to the NavMeshAgent Component attached to the GameObject.
 
 
     // Temporary timer variables.
-    float timer = 0.0f;
-    float timerLimit = 3.0f;
+    protected float timer = 0.0f;
+    protected float timerLimit = 3.0f;
 
     // Use this for initialization
     override protected void Start()

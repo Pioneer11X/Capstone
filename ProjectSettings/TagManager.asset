@@ -13,6 +13,7 @@ TagManager:
   - Companion
   - LevelManager
   - KillPlane
+  - LastNode
   layers:
   - Default
   - TransparentFX

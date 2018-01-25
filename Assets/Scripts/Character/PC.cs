@@ -44,6 +44,10 @@ public class PC : Humanoid
         lifeBar.value = this.health;
     }
 
+
+    /// <summary>
+    /// Runs with physics
+    /// </summary>
     protected void FixedUpdate()
     {
         // Special Rege
@@ -126,5 +130,13 @@ public class PC : Humanoid
         }
 
         SceneManager.LoadSceneAsync("Death");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "KillPlane")
+        {
+            Die();
+        }
     }
 }
