@@ -81,6 +81,20 @@ public class ThirdPControl : MonoBehaviour
     private int aimTargetIndex;
     private int aimCoolDown;
 
+
+    [SerializeField]
+    private float visionHackCD;
+    private float visionHackCDTimer;
+    [SerializeField]
+    private float visionHackTime;
+
+
+    public Transform target;
+    public Transform aimTarget;
+
+
+
+    public GameObject ghostPrefab;
     //animation controller
     //private Animator anim;
 
@@ -98,10 +112,20 @@ public class ThirdPControl : MonoBehaviour
         enemies = new List<GameObject>();
 
         aimCoolDown = 60;
+
+        visionHackCDTimer = visionHackCD;
     }//end start
 
     private void Update()
     {
+        if (visionHackCDTimer < visionHackCD)
+        {
+            visionHackCDTimer += Time.deltaTime;
+        }
+        else {
+            visionHackCDTimer = visionHackCD;
+        }
+
         if(!pause.IsPaused)
         {
             Time.timeScale = 1;
@@ -214,7 +238,15 @@ public class ThirdPControl : MonoBehaviour
 
         if (CrossPlatformInputManager.GetButtonDown("Hack")) //Button 4
         {
-            Debug.Log("Vision Hack");
+            if (visionHackCDTimer == visionHackCD)
+            {
+                Debug.Log("Vision Hack");
+                StartVisionHack();
+            }
+            else {
+                Debug.Log("Cooling Down");
+            }
+            
         }
         if (CrossPlatformInputManager.GetButtonDown("Interact")) //Button 5
         {
@@ -565,6 +597,25 @@ public class ThirdPControl : MonoBehaviour
                 myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
                 m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
         }
+    }
+
+    void StartVisionHack() {
+        //record cam pos
+
+        //create a ghost
+        GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation) as GameObject;
+        //init the ghost
+        GhostController gc = ghost.GetComponent<GhostController>();
+        gc.Init(visionHackTime, this, myCarmera);
+        //set cam
+        myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(gc.target, gc.aimTarget);
+        //disappear
+        gameObject.SetActive(false);
+    }
+    public void EndVisionHack() {
+        visionHackCDTimer = 0;
+        gameObject.SetActive(true);
+        m_Character.camera = myCarmera;
     }
 }//end ThirdPControl
 
