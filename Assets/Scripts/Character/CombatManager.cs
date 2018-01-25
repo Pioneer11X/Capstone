@@ -542,7 +542,7 @@ public class CombatManager : MonoBehaviour
     private bool canShoot;
     #endregion
 
-
+    private int listCounter;
     // Use this for initialization
     void Start ()
     {
@@ -550,6 +550,7 @@ public class CombatManager : MonoBehaviour
 
         if (isPlayer)
         {
+            listCounter = 0;
             moveDir = -1;
             swordGunAttack = false;
             //sword = GameObject.FindGameObjectWithTag("Sword");
@@ -576,6 +577,19 @@ public class CombatManager : MonoBehaviour
         //*******************************************************************
         if (isPlayer)
         {
+            listCounter++;
+            if(listCounter > 240)
+            {
+                enemyList = new List<GameObject>();
+                enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
+                for (int i = 0; i < enemyArray.Length; i++)
+                {
+                    enemyList.Add(enemyArray[i]);
+                }
+                listCounter = 0;
+            }
+
+
             if(attackDuration > 0)
             {
                 attackDuration -= Time.deltaTime;
@@ -592,7 +606,6 @@ public class CombatManager : MonoBehaviour
             float dist = float.MaxValue;
             foreach (GameObject obj in enemyList)
             {
-                
                 if (obj != null)
                 {
                     float distTo = (transform.position - obj.transform.position).magnitude;
@@ -852,7 +865,7 @@ public class CombatManager : MonoBehaviour
     public void Effect()
     {
 
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.tag!="Ghost")
         {
 
             float distance = Vector3.Distance(m_char.charBody.transform.position, currentTarget.charBody.transform.position);
