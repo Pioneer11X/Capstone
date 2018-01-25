@@ -38361,6 +38361,11 @@ Prefab:
       propertyPath: subordinates
       value: 
       objectReference: {fileID: 1322775102}
+    - target: {fileID: 195202188668675242, guid: be1babcf3f1dc3d48842ce8cbaef0116,
+        type: 2}
+      propertyPath: m_Speed
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be1babcf3f1dc3d48842ce8cbaef0116, type: 2}
   m_IsPrefabParent: 0
