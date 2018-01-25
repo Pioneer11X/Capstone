@@ -115,3 +115,6 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Ignoring this file that just won't go away
+Thumbs.db.meta
