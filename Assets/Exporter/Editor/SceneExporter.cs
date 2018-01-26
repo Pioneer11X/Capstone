@@ -12,7 +12,7 @@ namespace FriedTofu
 {
     public class SceneExporter
     {
-        [StructLayout(LayoutKind.Explicit, Pack = 1, Size = 40)]
+        [StructLayout(LayoutKind.Explicit, Pack = 1, Size = 44)]
         [Serializable]
         public struct ModelHeader
         {
@@ -29,6 +29,7 @@ namespace FriedTofu
             [FieldOffset(28)] public uint NumTotalTranslationFrames;
             [FieldOffset(32)] public uint NumTotalRotationFrames;
             [FieldOffset(36)] public uint NumTotalScaleFrames;
+            [FieldOffset(40)] public uint NumAnimationFrames;
 
             public void Initialize()
             {
@@ -52,6 +53,7 @@ namespace FriedTofu
                 writer.Write(NumTotalTranslationFrames);
                 writer.Write(NumTotalRotationFrames);
                 writer.Write(NumTotalScaleFrames);
+                writer.Write(NumAnimationFrames);
             }
         }
         

@@ -73,6 +73,6 @@ public class TexConverter
         if (!File.Exists(outDDS))
             throw new Exception("Cannot find output dds.");
 
-        File.Copy(outDDS, dst);
+        File.Copy(outDDS, dst, true);
     }
 }
