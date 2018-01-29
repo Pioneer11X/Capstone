@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 89d743378446f22448abb5af86470295
+timeCreated: 1517235072
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Conthrax Heavy Italic
+  fontNames:
+  - Conthrax Heavy Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

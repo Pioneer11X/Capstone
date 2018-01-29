@@ -179,6 +179,12 @@ public class ThirdPCamera : MonoBehaviour
 
         targetLastPos = target.position;
 
+        // If the camera is too far away, move it to the player
+        if(Vector3.Distance(transform.position, target.transform.position) > 20)
+        {
+            transform.position = target.position + new Vector3(1,0,1);
+        }
+
         //keep the camera looking at the character
         transform.LookAt(lookAtTarget);
 

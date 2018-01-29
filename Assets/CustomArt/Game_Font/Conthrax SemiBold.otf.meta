@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 5cd45f3bdca460d49998f8fdb63a81ab
+timeCreated: 1517235071
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Conthrax SemiBold
+  fontNames:
+  - Conthrax SemiBold
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

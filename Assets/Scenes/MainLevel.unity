@@ -1468,7 +1468,7 @@ MonoBehaviour:
   jumpPower: 10
   stamina: 0
   senseRadius: 0
-  specialRegenRate: 0.05
+  specialRegenRate: 0.1
   bulletRegenRate: 0.1
   lifeBar: {fileID: 1746906861}
   visionBar: {fileID: 54657357}

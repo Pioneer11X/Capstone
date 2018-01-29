@@ -319,10 +319,14 @@ public class ThirdPControl : MonoBehaviour
         float rt = CrossPlatformInputManager.GetAxis("Dash");
         if (!m_useDash && rt != 0)
         {
-            m_useDash = true;
+            //m_useDash = true;
             m_dashing = true;
             dashCounter = dashMod;
 
+        }
+        else
+        {
+            m_dashing = false;
         }
 
         lt = CrossPlatformInputManager.GetAxis("Aim");

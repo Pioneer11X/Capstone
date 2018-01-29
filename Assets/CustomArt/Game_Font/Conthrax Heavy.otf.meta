@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 77073de081891524c82df3c84b97e5ff
+timeCreated: 1517235072
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Conthrax Heavy
+  fontNames:
+  - Conthrax Heavy
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

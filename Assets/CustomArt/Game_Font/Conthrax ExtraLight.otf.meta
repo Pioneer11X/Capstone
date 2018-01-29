@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1f231d5829c9c8a4aa78bab260fe9817
+timeCreated: 1517235071
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Conthrax ExtraLight
+  fontNames:
+  - Conthrax ExtraLight
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

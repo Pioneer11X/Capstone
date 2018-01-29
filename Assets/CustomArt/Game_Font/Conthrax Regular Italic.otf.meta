@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: fdfc3fffd5eb29241be71c37e77f3830
+timeCreated: 1517235074
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Conthrax Regular Italic
+  fontNames:
+  - Conthrax Regular Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

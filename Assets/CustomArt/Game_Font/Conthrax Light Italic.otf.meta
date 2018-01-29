@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: b822ad56290f6fa4b98a6032afa061b3
+timeCreated: 1517235073
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Conthrax Light Italic
+  fontNames:
+  - Conthrax Light Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
