@@ -5,6 +5,7 @@ using System.Collections;
 public class Enemy : Humanoid
 {
     public bool isBoss;
+    public bool isTutorial;
     public GameObject BossBar;
     public Slider LifeBar;
     private GameObject level_Manager;
@@ -41,14 +42,24 @@ public class Enemy : Humanoid
     /// </summary>
     protected override void Die()
     {
-        if (isBoss)
+        if (!isBoss && !isTutorial)
+        {
+            Destroy(gameObject);
+            
+        }
+        else if (isBoss )
         {
             LifeBar.value = 0;
             StartCoroutine(WaitToDestroy());
         }
-        if (!isBoss)
+        else if(isTutorial)
         {
-            Destroy(gameObject);
+            health = 1000;
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Debug.Assert(false, "Invalid enemy type called Die function");
         }
     }
 

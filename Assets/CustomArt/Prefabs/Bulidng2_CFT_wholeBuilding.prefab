@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33860074149531624}
   - component: {fileID: 23409347854822636}
   - component: {fileID: 95359294700860062}
+  - component: {fileID: 65295076059028214}
   m_Layer: 0
   m_Name: Bulidng2_CFT_wholeBuilding
   m_TagString: Untagged
@@ -35,8 +36,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1487132999541160}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.078266, y: 18.859102, z: -30.169538}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -78.31, y: 105.04378, z: 33.65}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,6 +82,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1487132999541160}
   m_Mesh: {fileID: 4300000, guid: 7220ba33e003b174eb833b7d9f94b94e, type: 3}
+--- !u!65 &65295076059028214
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1487132999541160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.09671785, y: 0.14286397, z: 0.09379381}
+  m_Center: {x: -0.0048481463, y: -0.000000052452087, z: -0.0049246596}
 --- !u!95 &95359294700860062
 Animator:
   serializedVersion: 3
