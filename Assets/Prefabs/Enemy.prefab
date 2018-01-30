@@ -279,10 +279,11 @@ GameObject:
   - component: {fileID: 54046796445764010}
   - component: {fileID: 114539140516276404}
   - component: {fileID: 195292706730197916}
-  - component: {fileID: 114412517232609772}
   - component: {fileID: 114153668705709184}
   - component: {fileID: 114757465634177106}
   - component: {fileID: 114228248886608912}
+  - component: {fileID: 114767084971767682}
+  - component: {fileID: 114124007182536088}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -1588,7 +1589,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378835262746324}
   m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 24.18, y: 6.808, z: 59.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203143637384952}
@@ -1711,6 +1712,248 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114124007182536088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378835262746324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2162ae2402366db4cbc621f92e942090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initalActionsList:
+  - name: Punch_Jab_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 1
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.7
+    damage: 10
+  - name: Punch_Jab_R
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 1
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.5
+    damage: 10
+  - name: Punch_Hook_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 1
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.65
+    damage: 10
+  - name: Punch_Hook_R
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.65
+    damage: 10
+  - name: Punch_Upper_Cut_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 1
+      canIAttack: 1
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.8
+    damage: 10
+  - name: Punch_Hook_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.65
+    damage: 10
+  - name: Punch_Hook_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.65
+    damage: 10
+  - name: Punch_Hook_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.65
+    damage: 10
+  - name: Punch_Hook_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.65
+    damage: 10
+  - name: Punch_Hook_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 0
+      canTargetAttack: 0
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 0
+      isTargetFacingMe: 0
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    actionTime: 0.65
+    damage: 10
 --- !u!114 &114153668705709184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1742,6 +1985,7 @@ MonoBehaviour:
   m_IsGrounded: 0
   currentState: 0
   seekTarget: {fileID: 0}
+  ghostTarget: {fileID: 0}
   maxSensoryRadius: 10
 --- !u!114 &114228248886608912
 MonoBehaviour:
@@ -1754,7 +1998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d555734aa6f0d44196c07f5abb1fc8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 100
   energy: 0
   baseAttackPower: 0
   speedMove: 0.08
@@ -1767,19 +2011,6 @@ MonoBehaviour:
   isBoss: 0
   BossBar: {fileID: 0}
   LifeBar: {fileID: 0}
---- !u!114 &114412517232609772
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1378835262746324}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c38689beed9c1bb4fb5170e6edfa362d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  maxSensoryRadius: 15
 --- !u!114 &114539140516276404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1947,6 +2178,17 @@ MonoBehaviour:
   KB_Gun_Dir: 0
   KB_Gun_Power: 0
   KB_Gun_Dmg: 0
+--- !u!114 &114767084971767682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378835262746324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4480db29a9f46f844bad89b548e468b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136224232533067956
 CapsuleCollider:
   m_ObjectHideFlags: 1

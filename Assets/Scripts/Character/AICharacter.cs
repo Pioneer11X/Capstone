@@ -25,10 +25,15 @@ public class AICharacter : Character
     protected float timer = 0.0f;
     protected float timerLimit = 3.0f;
 
+
+    public ActionSelector s_action;
+
     // Use this for initialization
     override protected void Start()
     {
         base.Start();
+
+        s_action = GetComponent<ActionSelector>();
 
         seekTarget = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -80,7 +85,10 @@ public class AICharacter : Character
 
                 if (timer > timerLimit)
                 {
-                    this.m_combat.BasicCombo();
+                    // TODO: Use the Action Selector here. Select an Item and then, reduce the preference.
+                    // this.m_combat.BasicCombo();
+                    // this.m_combat.BasicCombo();
+                    this.s_action.selectNextOption();
                     timer = 0;
                 }
             }
@@ -113,7 +121,10 @@ public class AICharacter : Character
 
                 if (timer > timerLimit)
                 {
-                    this.m_combat.BasicCombo();
+                    // TODO: Use the Action Selector here. Select an Item and then, reduce the preference.
+                    // this.m_combat.BasicCombo();
+                    // this.m_combat.BasicCombo();
+                    this.s_action.selectNextOption();
                     timer = 0;
                 }
             }
