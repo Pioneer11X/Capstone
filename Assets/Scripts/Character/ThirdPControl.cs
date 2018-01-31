@@ -23,8 +23,6 @@ public class ThirdPControl : MonoBehaviour
 
     [SerializeField]
     private float scrollFactor;        //Set scroll zoom sensitivity
-    [SerializeField]
-    private int dashMod = 60;
 
     // Default unity names for mouse axes
     public string mouseHorizontalAxisName = "Mouse X";
@@ -40,20 +38,13 @@ public class ThirdPControl : MonoBehaviour
     private bool m_Jump;
     private bool m_running;
     private bool m_dashing;
-    private bool m_useDash;
-    private bool m_playing = false;
+    private bool m_hacking;
+    private bool sprintCoolDown;
 
-    private bool m_crouch = false;
-    private bool m_attacking = false;
-    private bool m_rolling = false;
     private bool m_aiming = false;
     private bool m_usedConAim = false;
 
-    private int combatCounter = 0;
-    private int dashCounter = 0;
-    private int rollCounter = 0;
     //private int jumpCount = 0;
-    private int waitTime = 45;
 
     private float lt;
     private float v = 0;
@@ -114,6 +105,9 @@ public class ThirdPControl : MonoBehaviour
         aimCoolDown = 60;
 
         visionHackCDTimer = visionHackCD;
+
+        sprintCoolDown = false;
+        m_hacking = false;
     }//end start
 
     private void Update()
@@ -196,7 +190,7 @@ public class ThirdPControl : MonoBehaviour
                 attackButtonDown = true;
                 attackButtonTimer = 0;
             }
-            if (CrossPlatformInputManager.GetButtonUp("Attack") && playerCharacter.BulletBar >99.9999f)
+            if (CrossPlatformInputManager.GetButtonUp("Attack") && playerCharacter.SpecialBar > 33.9999f)
             {
                 m_Character.m_combat.GunShot();
                 attackButtonDown = false;
@@ -204,10 +198,18 @@ public class ThirdPControl : MonoBehaviour
         }
 
 
-        if (CrossPlatformInputManager.GetButtonDown("Dodge")) //Button 1
+        if (CrossPlatformInputManager.GetButtonDown("Dodge") && playerCharacter.StaminaBar > 5) //Button 1
         {
-            //if (m_Character.CurrentState == ThirdPCharacter.CharacterState.aim)
-            if(m_aiming)
+            if (!m_aiming)
+            {
+                // TODO
+                // If can roll
+                m_Character.m_combat.Roll();
+
+                // Remove stamina
+                playerCharacter.StaminaBar = playerCharacter.StaminaBar - 33;
+            }
+            else
             {
                 if (h < 0)  // Left
                 {
@@ -217,7 +219,7 @@ public class ThirdPControl : MonoBehaviour
                 {
                     m_Character.m_combat.Dodge(1);
                 }
-                else if(v < 0)  // Back
+                else if (v < 0)  // Back
                 {
                     m_Character.m_combat.Dodge(2);
                 }
@@ -230,17 +232,15 @@ public class ThirdPControl : MonoBehaviour
                     // Add for block
                 }
             }
-            else
-            {
-                m_Character.m_combat.Roll();
-            }
         }
 
         if (CrossPlatformInputManager.GetButtonDown("Hack")) //Button 4
         {
-            if (visionHackCDTimer == visionHackCD)
+            //if (visionHackCDTimer == visionHackCD)
+            if (playerCharacter.StaminaBar > 20 && !m_hacking)
             {
                 Debug.Log("Vision Hack");
+                m_hacking = true;
                 StartVisionHack();
             }
             else {
@@ -248,6 +248,12 @@ public class ThirdPControl : MonoBehaviour
             }
             
         }
+        else
+        {
+            m_hacking = false;
+        }
+
+
         if (CrossPlatformInputManager.GetButtonDown("Interact")) //Button 5
         {
             Debug.Log("Interact");
@@ -316,17 +322,32 @@ public class ThirdPControl : MonoBehaviour
         h = CrossPlatformInputManager.GetAxis("Horizontal");
 
         // Triggers
-        float rt = CrossPlatformInputManager.GetAxis("Dash");
-        if (!m_useDash && rt != 0)
-        {
-            //m_useDash = true;
-            m_dashing = true;
-            dashCounter = dashMod;
 
-        }
-        else
+        // TODO Finish hooking up the sprint to an energy pool
+        float rt = CrossPlatformInputManager.GetAxis("Dash");
+        if ((rt != 0 || Input.GetKey(KeyCode.LeftShift)) && playerCharacter.StaminaBar > 0 && !sprintCoolDown)
         {
+            // check for energy
+            if(true)
+            {
+                // use energy here
+                playerCharacter.StaminaBar = playerCharacter.StaminaBar - 1f;
+                m_dashing = true;
+            }
+            
+        }
+        else if(!m_hacking && !m_Character.m_combat.IsRolling)
+        {
+            playerCharacter.StaminaBar = playerCharacter.StaminaBar + 0.2f;
             m_dashing = false;
+        }
+        if(playerCharacter.StaminaBar < 0.5)
+        {
+            sprintCoolDown = true;
+        }
+        else if (playerCharacter.StaminaBar > 10)
+        {
+            sprintCoolDown = false;
         }
 
         lt = CrossPlatformInputManager.GetAxis("Aim");
@@ -363,11 +384,6 @@ public class ThirdPControl : MonoBehaviour
         if (CrossPlatformInputManager.GetAxis("dpY") < 0)
         { Debug.Log("D-Pad Down"); }
 
-        // Face Buttons
-
-
-        //scroll for zoom
-        //zoom = Input.GetAxis(scrollAxisName) * scrollFactor;
 
         #region Specific Mouse Input
         /*//left mouse button
@@ -393,49 +409,6 @@ public class ThirdPControl : MonoBehaviour
         //{
         //    m_Character.unFreezeChar();
         //}
-
-        //character crouch
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            m_crouch = !m_crouch;
-        }
-
-
-        //----------------------------------------------------------------------------------------
-        //------------------------------COMBAT----------------------------------------------------
-        //----------------------------------------------------------------------------------------
-        //attack
-        //if (Input.GetKeyDown(KeyCode.Alpha1) && !gameObject.GetComponent<BaseCharacter>().a1OnCoolDown && !attacking)
-        //{
-        //    gameObject.GetComponent<BaseCharacter>().a1OnCoolDown = true;
-        //    attacking1 = true;
-        //    attacking = true;
-        //    waitTime = 40;
-        //    gameManager.playerAttacking = true;
-        //}
-
-
-        //----------------------------------------------------------------------------------------
-        // walk speed multiplier
-        if (Input.GetKey(KeyCode.LeftShift) && !m_crouch)
-        {
-            //if (gameObject.GetComponent<BaseCharacter>().StaminaPoints > 0)
-            //{
-            m_running = true;
-            //    gameObject.GetComponent<BaseCharacter>().useStamina(0.5f);
-            //    gameObject.GetComponent<BaseCharacter>().RegenStamina = false;
-            //}
-        }
-        //else if (Input.GetKeyUp(KeyCode.LeftShift))
-        //{
-        //    if(!gameObject.GetComponent<BaseCharacter>().InCombat)
-        //    {
-        //        gameObject.GetComponent<BaseCharacter>().RegenStamina = true;
-        //    }
-        //}
-
-        //charcter animation based on movement direction
-        charAnimation();
 
         // pass all parameters to the controling scripts
         if (!m_aiming)
@@ -497,47 +470,9 @@ public class ThirdPControl : MonoBehaviour
         }
 
         m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,
-            m_crouch, m_Jump, m_running, m_dashing, m_aiming);
+            m_Jump, m_running, m_dashing, m_aiming);
+
         m_Jump = false;
-        if (m_useDash)
-        {
-            dashCounter--;
-            if (dashCounter <= (dashMod / 4) * 3)
-            { m_dashing = false; }
-            if (dashCounter <= 0)
-            { m_useDash = false; }
-        }
-    }
-
-    /// <summary>
-    /// Chooses which animation should be played based on how the character is moving.
-    /// </summary>
-    private void charAnimation()
-    {
-        if (m_Character.m_IsGrounded)
-        {
-            m_playing = false;
-
-
-        }//end check if grounded
-
-        //jump animation
-        if (m_Jump && !m_playing)
-        {
-            m_playing = true;
-
-        }
-
-        if (combatCounter > waitTime && m_attacking)
-        {
-            m_attacking = false;
-            combatCounter = 0;
-        }
-        if (rollCounter > 45 && m_rolling)
-        {
-            m_rolling = false;
-            rollCounter = 0;
-        }
     }
 
     // Make a list of enemy targets for aiming
@@ -603,6 +538,10 @@ public class ThirdPControl : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Vision Hack Ability
+    /// Create a ghost of the player and let them move it while recording
+    /// </summary>
     void StartVisionHack() {
         //record cam pos
 
@@ -612,10 +551,14 @@ public class ThirdPControl : MonoBehaviour
         GhostController gc = ghost.GetComponent<GhostController>();
         gc.Init(visionHackTime, this, myCarmera);
         //set cam
-        myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(gc.target, gc.aimTarget);
+        //myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(gc.target, gc.aimTarget);
         //disappear
         gameObject.SetActive(false);
     }
+
+    /// <summary>
+    /// Stop vision hack and return to player
+    /// </summary>
     public void EndVisionHack() {
         visionHackCDTimer = 0;
         gameObject.SetActive(true);

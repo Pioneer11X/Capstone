@@ -31,11 +31,10 @@ public class ThirdPCharacter : Character
     /// <param name="vert">forward/backward motion</param>
     /// <param name="hori">side to side motion</param>
     /// <param name="charRotation">rotation of player</param>
-    /// <param name="crouch">is player crouched</param>
     /// <param name="jump">should player jump</param>
     /// <param name="running">is the player running</param>
     /// <param name="dash">is the player dashing</param>
-    override public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash, bool aiming)
+    override public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool dash, bool aiming)
     {
         m_combat.IsMoving = m_moving = false;
         m_combat.IsDashing = m_dashing  = false;
@@ -132,13 +131,9 @@ public class ThirdPCharacter : Character
             m_MoveSpeedMultiplier = m_DashSpeedMultiplier; //0.2
             m_combat.IsDashing = true;
         }
-        else if (running && !crouch)
+        else if (running)
         {
             m_MoveSpeedMultiplier = m_RunSpeedMultiplier; //0.16
-        }
-        else if (crouch)
-        {
-            m_MoveSpeedMultiplier = m_CrouchSpeedMultiplier; //0.04
         }
         else
         {
@@ -168,16 +163,12 @@ public class ThirdPCharacter : Character
         // control and velocity handling is different when grounded and airborne:
         if (m_IsGrounded)
         {
-            HandleGroundedMovement(crouch, jump);
+            HandleGroundedMovement(jump);
         }
         else
         {
-            HandleAirborneMovement();
+            HandleAirborneMovement(vert, hori);
         }
-        /*
-        ScaleCapsuleForCrouching(crouch);
-        PreventStandingInLowHeadroom();
-        */
 
         //move the character
         if (m_IsGrounded && Time.deltaTime > 0)

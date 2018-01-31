@@ -11,17 +11,19 @@ public class PC : Humanoid
     [SerializeField] private float specialRegenRate;
     [SerializeField] private float bulletRegenRate;
     [SerializeField] protected Slider lifeBar;
-    [SerializeField] protected Slider visionBar;
+    [SerializeField] protected Slider staminaBar;
     [SerializeField] protected Slider specialBar;
-    [SerializeField] protected Slider bulletBar;
 
     private int counter;
 
     public float SpecialBar
     { get { return specialBar.value; } }
 
-    public float BulletBar
-    { get { return bulletBar.value; } }
+    public float StaminaBar
+    {
+        get { return staminaBar.value; }
+        set { staminaBar.value = value; }
+    }
 
     /// <summary>
     /// Initialize
@@ -29,6 +31,10 @@ public class PC : Humanoid
     protected override void Start()
     {
         base.Start();
+
+        lifeBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
+        staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
+        specialBar = GameObject.FindGameObjectWithTag("SpecialBar").GetComponent<Slider>();
 
         counter = 0;
 
@@ -62,19 +68,6 @@ public class PC : Humanoid
             if (specialBar.value > 100)
             {
                 specialBar.value = 100;
-            }
-        }
-
-        // Bullet Regen
-        if (bulletBar != null)
-        {
-            if (bulletBar.value < 600)
-            {
-                bulletBar.value += bulletRegenRate;
-            }
-            if (bulletBar.value > 600)
-            {
-                bulletBar.value = 600;
             }
         }
     }
@@ -115,13 +108,13 @@ public class PC : Humanoid
     /// </summary>
     public void Shoot()
     {
-        if (bulletBar.value > 99.9999f)
+        if (specialBar.value > 33.9999f)
         {
-            bulletBar.value -= 100;
+            specialBar.value -= 33;
         }
-        if (bulletBar.value < 0)
+        if (specialBar.value < 0)
         {
-            bulletBar.value = 0;
+            specialBar.value = 0;
         }
     }
 

@@ -17,8 +17,6 @@ public class GhostController : MonoBehaviour
 
     [SerializeField]
     private float scrollFactor;        //Set scroll zoom sensitivity
-    [SerializeField]
-    private int dashMod = 60;
 
     // Default unity names for mouse axes
     public string mouseHorizontalAxisName = "Mouse X";
@@ -99,8 +97,8 @@ public class GhostController : MonoBehaviour
         maxVisionHackTime = time;
         player = p;
         myCarmera = camera;
-        camPos = myCarmera.transform.position;
-        camRot = myCarmera.transform.rotation;
+        //camPos = myCarmera.transform.position;
+        //camRot = myCarmera.transform.rotation;
     }
 
     private void End()
@@ -108,9 +106,9 @@ public class GhostController : MonoBehaviour
         //release the player gameobject
         player.EndVisionHack();
         //set back the camera
-        myCarmera.transform.position = camPos;
-        myCarmera.transform.rotation = camRot;
-        myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(player.target, player.aimTarget);
+        //myCarmera.transform.position = camPos;
+        //myCarmera.transform.rotation = camRot;
+        //myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(player.target, player.aimTarget);
         //return to the init pos
         transform.position = oriPos;
         transform.rotation = oriRot;
@@ -125,6 +123,7 @@ public class GhostController : MonoBehaviour
     {
         if (!isReplay)
         {
+            playerCharacter.StaminaBar = playerCharacter.StaminaBar - 0.1f;
             visionHackTimer += Time.deltaTime;
 
             if (visionHackTimer >= maxVisionHackTime || !CrossPlatformInputManager.GetButton("Hack")) {
@@ -134,12 +133,12 @@ public class GhostController : MonoBehaviour
             if (!pause.IsPaused)
             {
                 Time.timeScale = 1;
-                myCarmera.SetActive(true);
+                //myCarmera.SetActive(true);
             }
             else // Is Paused
             {
                 Time.timeScale = 0;
-                myCarmera.SetActive(false);
+                //myCarmera.SetActive(false);
             }
 
           
@@ -205,7 +204,7 @@ public class GhostController : MonoBehaviour
             { Debug.Log("D-Pad Down"); }
 
 
-            myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
+            //myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
 
             //charcter animation based on movement direction
             charAnimation();
@@ -233,7 +232,7 @@ public class GhostController : MonoBehaviour
                 m_Character.m_combat.AimMove(-1);
             }
             m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,
-                false, m_Jump, m_running, false, false);
+                m_Jump, m_running, false, false);
             //records[frameCount].jump = 
             m_Jump = false;
         }
@@ -265,7 +264,7 @@ public class GhostController : MonoBehaviour
                 m_Character.m_combat.AimMove(-1);
             }
 
-            m_Character.Move(v, h, r, false, m_Jump, m_running, false, false);
+            m_Character.Move(v, h, r, m_Jump, m_running, false, false);
             m_Jump = false;
         }
     }

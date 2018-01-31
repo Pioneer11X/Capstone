@@ -52,7 +52,6 @@ abstract public class Character : MonoBehaviour
     protected float m_MoveSpeedMultiplier;
     protected float m_DashSpeedMultiplier;
     protected float m_RunSpeedMultiplier;
-    protected float m_CrouchSpeedMultiplier;
 
 
     public GameObject charBody;
@@ -65,7 +64,6 @@ abstract public class Character : MonoBehaviour
     protected Rigidbody m_Rigidbody;
 
     public bool m_IsGrounded;
-    protected bool m_Crouching;
     protected bool m_jump;
     protected bool m_dashing;
     protected bool m_moving;
@@ -134,7 +132,6 @@ abstract public class Character : MonoBehaviour
         m_BaseSpeedMultiplier = humanoid.SpeedMove;
         m_DashSpeedMultiplier = humanoid.SpeedDash;
         m_RunSpeedMultiplier = humanoid.SpeedRun;
-        m_CrouchSpeedMultiplier = humanoid.SpeedCrouch;
 
         stateTimer = 0;
         m_MoveSpeedMultiplier = m_BaseSpeedMultiplier;
@@ -152,11 +149,10 @@ abstract public class Character : MonoBehaviour
     /// <param name="vert">forward/backward motion</param>
     /// <param name="hori">side to side motion</param>
     /// <param name="charRotation">rotation of player</param>
-    /// <param name="crouch">is player crouched</param>
     /// <param name="jump">should player jump</param>
     /// <param name="running">is the player running</param>
     /// <param name="dash">is the player dashing</param>
-    abstract public void Move(float vert, float hori, Quaternion camRot, bool crouch, bool jump, bool running, bool dash, bool aiming);
+    abstract public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool dash, bool aiming);
 
     /// <summary>
     /// Move AI Character
@@ -191,12 +187,11 @@ abstract public class Character : MonoBehaviour
     /// <summary>
     /// Handle movement on the ground
     /// </summary>
-    /// <param name="crouch">Is the character crouched</param>
     /// <param name="jump">Is the character jumping</param>
-    protected void HandleGroundedMovement(bool crouch, bool jump)
+    protected void HandleGroundedMovement(bool jump)
     {
         // check whether conditions are right to allow a jump:
-        if (jump && !crouch && m_IsGrounded)
+        if (jump && m_IsGrounded)
         {
             charAudio.Stop();
             charAudio.PlayOneShot(jumpFX);
@@ -214,13 +209,16 @@ abstract public class Character : MonoBehaviour
     /// <summary>
     /// handle airborne movement
     /// </summary>
-    protected void HandleAirborneMovement()
+    protected void HandleAirborneMovement(float v, float h)
     {
         // apply extra gravity from multiplier:
         Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
         m_Rigidbody.AddForce(extraGravityForce);
+        m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x - (v/10), m_Rigidbody.velocity.y, m_Rigidbody.velocity.z + (h / 10));
 
         m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
+
+
     }//end airborne movement
 
     /// <summary>
@@ -231,14 +229,14 @@ abstract public class Character : MonoBehaviour
         RaycastHit hitInfo;
 
         // Check to see if player is hiting a curb or collidier directly on and would have trouble navigating over it.
-        if (Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(0, 0, 1f), 0.3f) ||
-            Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(0, 0, -1f), 0.3f) ||
-            Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(1, 0, 0f), 0.3f) ||
-            Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(-1, 0, 0f), 0.3f))
-        {
-            // Bump character up a bit to overcome curb slopes
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.08f, transform.position.z);
-        }
+        //if (Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(0, 0, 1f), 0.3f) ||
+        //    Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(0, 0, -1f), 0.3f) ||
+        //    Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(1, 0, 0f), 0.3f) ||
+        //    Physics.Raycast(transform.position + (Vector3.up * 0.08f), new Vector3(-1, 0, 0f), 0.3f))
+        //{
+        //    // Bump character up a bit to overcome curb slopes
+        //    transform.position = new Vector3(transform.position.x, transform.position.y + 0.08f, transform.position.z);
+        //}
 
         if (Physics.SphereCast(transform.position + (Vector3.up * 0.1f), m_GroundCheckRadius, Vector3.down, out hitInfo, m_GroundCheckDistance))
         //if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance))
@@ -448,45 +446,5 @@ abstract public class Character : MonoBehaviour
     {
         transform.position += direction * speed * Time.deltaTime;
     }
-
-    /*
-    void ScaleCapsuleForCrouching(bool crouch)
-		{
-			if (m_IsGrounded && crouch)
-			{
-				if (m_Crouching) return;
-				m_Capsule.height = m_Capsule.height / 2f;
-				m_Capsule.center = m_Capsule.center / 2f;
-				m_Crouching = true;
-			}
-			else
-			{
-				Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
-				float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
-				if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength))
-				{
-					m_Crouching = true;
-					return;
-				}
-				m_Capsule.height = m_CapsuleHeight;
-				m_Capsule.center = m_CapsuleCenter;
-				m_Crouching = false;
-			}
-		}
-
-		void PreventStandingInLowHeadroom()
-		{
-			// prevent standing up in crouch-only zones
-			if (!m_Crouching)
-			{
-				Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
-				float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
-				if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength))
-				{
-					m_Crouching = true;
-				}
-			}
-		}
-     */
 
 }// End Character

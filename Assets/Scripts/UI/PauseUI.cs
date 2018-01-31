@@ -63,6 +63,7 @@ public class PauseUI : MonoBehaviour
 
         pause.IsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
         SceneManager.UnloadSceneAsync("Pause");
     }
 

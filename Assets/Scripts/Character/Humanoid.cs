@@ -14,7 +14,6 @@ abstract public class Humanoid : MonoBehaviour
     [SerializeField] protected float speedMove;
     [SerializeField] protected float speedDash;
     [SerializeField] protected float speedRun;
-    [SerializeField] protected float speedCrouch;
     [SerializeField] protected float jumpPower;
     [SerializeField] protected float stamina;
     [SerializeField] protected float senseRadius;
@@ -43,8 +42,6 @@ abstract public class Humanoid : MonoBehaviour
     { get { return speedDash; } }
     public float SpeedRun
     { get { return speedRun; } }
-    public float SpeedCrouch
-    { get { return speedCrouch; } }
     public float JumpPower
     { get { return jumpPower; } }
     public float SenseRadius

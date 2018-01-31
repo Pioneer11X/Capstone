@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 114824204852392478}
   m_Layer: 9
   m_Name: Ghost
-  m_TagString: Untagged
+  m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2325,7 +2325,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150824672077162}
   m_LocalRotation: {x: 0, y: 0.9989487, z: -0, w: -0.045842502}
-  m_LocalPosition: {x: -45.593853, y: 10.160001, z: 2.3809257}
+  m_LocalPosition: {x: 52.369034, y: 0.00000022894768, z: -41.92055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4635539162336416}
@@ -2872,7 +2872,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150824672077162}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a15ea0861f71c3b4fb8cf60efaabd754, type: 3}
   m_Name: 
@@ -2886,7 +2886,7 @@ MonoBehaviour:
   swordFX: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
   gunShotFX: {fileID: 8300000, guid: 82e8248742f82c249ab88ee97a9f2056, type: 3}
   gun: {fileID: 1843143527485728, guid: cb9e65a512285fe4c99a4ffa0421331a, type: 2}
-  sword: {fileID: 1316811096035826, guid: cb9e65a512285fe4c99a4ffa0421331a, type: 2}
+  sword: {fileID: 0}
   wrist: {fileID: 1090890770272610, guid: cb9e65a512285fe4c99a4ffa0421331a, type: 2}
   currentTarget: {fileID: 0}
   aimTarget: {fileID: 0}
@@ -3084,16 +3084,14 @@ MonoBehaviour:
   speedMove: 0.08
   speedDash: 0.2
   speedRun: 0.16
-  speedCrouch: 0.04
   jumpPower: 10
   stamina: 0
   senseRadius: 0
   specialRegenRate: 0.05
   bulletRegenRate: 0.1
   lifeBar: {fileID: 0}
-  visionBar: {fileID: 0}
+  staminaBar: {fileID: 0}
   specialBar: {fileID: 0}
-  bulletBar: {fileID: 0}
 --- !u!114 &114954465606760012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3109,7 +3107,6 @@ MonoBehaviour:
   mouseRotationFactor: 2
   crossRotationFactor: 2
   scrollFactor: 2
-  dashMod: 120
   mouseHorizontalAxisName: Mouse X
   mouseVerticalAxisName: Mouse Y
   scrollAxisName: Mouse ScrollWheel

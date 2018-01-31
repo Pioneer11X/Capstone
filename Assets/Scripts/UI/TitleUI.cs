@@ -22,6 +22,7 @@ public class TitleUI : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        Time.timeScale = 1;
         MainButtons.SetActive(true);
         SelectButtons.SetActive(false);
         titleMenu = true;

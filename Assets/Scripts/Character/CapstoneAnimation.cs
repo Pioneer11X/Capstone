@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CapstoneAnimation : MonoBehaviour
 {
-
     private Animator animator;
     private Animation a;
     public enum AnimationName
@@ -12,7 +11,6 @@ public class CapstoneAnimation : MonoBehaviour
         run,
         idle_OutCombat,
         idle_InCombat,
-
     }
 
 

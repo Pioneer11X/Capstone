@@ -17,6 +17,7 @@ public class LoadTutorial : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         loading = false;
         loaded = false;
