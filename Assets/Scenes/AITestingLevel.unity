@@ -1496,6 +1496,119 @@ MonoBehaviour:
   gun: {fileID: 1816702317}
   sword: {fileID: 363114450}
   wrist: {fileID: 1218469922}
+  allMoves:
+  - name: Punch_Jab_L
+    AT: 0.7
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Jab_R
+    AT: 0.5
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Hook_L
+    AT: 0.65
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Hook_R
+    AT: 0.65
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Upper_Cut_L
+    AT: 0.8
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Upper_Cut_R
+    AT: 0.8
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Straight_Mid_R
+    AT: 1
+    ET: 0.6
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Axe_Kick
+    AT: 1.2
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Horse_Kick
+    AT: 1
+    ET: 0.4
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_R
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_RL
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_Sp_U
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_Combo_LL
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: KB_Gun
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
   currentTarget: {fileID: 0}
   aimTarget: {fileID: 0}
   inCombatDuration: 4
@@ -1507,7 +1620,7 @@ MonoBehaviour:
   jumpAirTime: 0.3
   jumpDownTime: 0.35
   currentHitPos: 0
-  dodgeTime: 0.5
+  dodgeTime: 0
   rollTime: 0.5
   rollSpeed: 3
   hitTime: 1
@@ -1525,42 +1638,42 @@ MonoBehaviour:
   punch_Jab_L_Pos: 0
   punch_Jab_L_Dir: 0
   punch_Jab_L_Power: 0
-  punch_Jab_L_Dmg: 2
+  punch_Jab_L_Dmg: 10
   punch_Jab_R_AT: 0.5
   punch_Jab_R_ET: 0.2
   punch_Jab_R_ED: 1
   punch_Jab_R_Pos: 0
   punch_Jab_R_Dir: 0
   punch_Jab_R_Power: 0
-  punch_Jab_R_Dmg: 2
+  punch_Jab_R_Dmg: 10
   punch_Hook_L_AT: 0.65
   punch_Hook_L_ET: 0.2
   punch_Hook_L_ED: 1
   punch_Hook_L_Pos: 0
   punch_Hook_L_Dir: 0
   punch_Hook_L_Power: 0
-  punch_Hook_L_Dmg: 5
+  punch_Hook_L_Dmg: 10
   punch_Hook_R_AT: 0.65
   punch_Hook_R_ET: 0.2
   punch_Hook_R_ED: 1
   punch_Hook_R_Pos: 0
   punch_Hook_R_Dir: 0
   punch_Hook_R_Power: 0
-  punch_Hook_R_Dmg: 5
+  punch_Hook_R_Dmg: 10
   punch_UpperCut_L_AT: 0.8
   punch_UpperCut_L_ET: 0.5
   punch_UpperCut_L_ED: 1
   punch_UpperCut_L_Pos: 0
   punch_UpperCut_L_Dir: 0
   punch_UpperCut_L_Power: 0
-  punch_UpperCut_L_Dmg: 7
+  punch_UpperCut_L_Dmg: 10
   punch_UpperCut_R_AT: 0.8
   punch_UpperCut_R_ET: 0.5
   punch_UpperCut_R_ED: 1
   punch_UpperCut_R_Pos: 0
   punch_UpperCut_R_Dir: 0
   punch_UpperCut_R_Power: 0
-  punch_UpperCut_R_Dmg: 7
+  punch_UpperCut_R_Dmg: 10
   kick_Straight_Mid_R_AT: 1
   kick_Straight_Mid_R_ET: 0.6
   kick_Straight_Mid_R_ED: 1
@@ -1582,41 +1695,41 @@ MonoBehaviour:
   kick_HorseKick_Dir: 0
   kick_HorseKick_Power: 0
   kick_HorseKick_Dmg: 10
-  sword_Attack_R_AT: 1
-  sword_Attack_R_ET: 0.3
-  sword_Attack_R_ED: 1.25
-  sword_Attack_R_Pos: 1
-  sword_Attack_R_Dir: 1
+  sword_Attack_R_AT: 0
+  sword_Attack_R_ET: 0
+  sword_Attack_R_ED: 0
+  sword_Attack_R_Pos: 0
+  sword_Attack_R_Dir: 0
   sword_Attack_R_Power: 0
-  sword_Attack_R_Dmg: 10
-  sword_Attack_RL_AT: 0.8
-  sword_Attack_RL_ET: 0.3
-  sword_Attack_RL_ED: 1.25
+  sword_Attack_R_Dmg: 0
+  sword_Attack_RL_AT: 0
+  sword_Attack_RL_ET: 0
+  sword_Attack_RL_ED: 0
   sword_Attack_RL_Pos: 0
-  sword_Attack_RL_Dir: 2
+  sword_Attack_RL_Dir: 0
   sword_Attack_RL_Power: 0
-  sword_Attack_RL_Dmg: 10
-  sword_Attack_Sp_U_AT: 1.5
-  sword_Attack_Sp_U_ET: 0.5
-  sword_Attack_Sp_U_ED: 1.25
+  sword_Attack_RL_Dmg: 0
+  sword_Attack_Sp_U_AT: 0
+  sword_Attack_Sp_U_ET: 0
+  sword_Attack_Sp_U_ED: 0
   sword_Attack_Sp_U_Pos: 0
   sword_Attack_Sp_U_Dir: 0
-  sword_Attack_Sp_U_Power: 1
-  sword_Attack_Sp_U_Dmg: 15
-  Sword_Attack_Combo_LL_AT: 2
-  Sword_Attack_Combo_LL_ET: 0.5
-  Sword_Attack_Combo_LL_ED: 1.25
+  sword_Attack_Sp_U_Power: 0
+  sword_Attack_Sp_U_Dmg: 0
+  Sword_Attack_Combo_LL_AT: 0
+  Sword_Attack_Combo_LL_ET: 0
+  Sword_Attack_Combo_LL_ED: 0
   Sword_Attack_Combo_LL_Pos: 0
-  Sword_Attack_Combo_LL_Dir: 2
-  Sword_Attack_Combo_LL_Power: 1
-  Sword_Attack_Combo_LL_Dmg: 20
-  KB_Gun_AT: 2
-  KB_Gun_ET: 0.5
-  KB_Gun_ED: 1
-  KB_Gun_Pos: 1
+  Sword_Attack_Combo_LL_Dir: 0
+  Sword_Attack_Combo_LL_Power: 0
+  Sword_Attack_Combo_LL_Dmg: 0
+  KB_Gun_AT: 0
+  KB_Gun_ET: 0
+  KB_Gun_ED: 0
+  KB_Gun_Pos: 0
   KB_Gun_Dir: 0
-  KB_Gun_Power: 1
-  KB_Gun_Dmg: 20
+  KB_Gun_Power: 0
+  KB_Gun_Dmg: 0
 --- !u!114 &96340428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15844,6 +15957,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1322775103}
     m_Modifications:
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.size
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
         type: 2}
       propertyPath: initalActionsList.Array.size
@@ -15960,6 +16078,256 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[0].name
+      value: Punch_Jab_L
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[0].AT
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[0].ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[0].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[0].Dmg
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[1].name
+      value: Punch_Jab_R
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[1].AT
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[1].ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[1].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[1].Dmg
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[2].name
+      value: Punch_Hook_L
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[2].AT
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[2].ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[2].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[2].Dmg
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[3].name
+      value: Punch_Hook_R
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[3].AT
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[3].ET
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[3].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[3].Dmg
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[4].name
+      value: Punch_Upper_Cut_L
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[4].AT
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[4].ET
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[4].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[4].Dmg
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[5].name
+      value: Punch_Upper_Cut_R
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[5].AT
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[5].ET
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[5].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[5].Dmg
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[6].name
+      value: Kick_Straight_Mid_R
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[7].name
+      value: Kick_Axe_Kick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[8].name
+      value: Kick_Horse_Kick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[9].name
+      value: Sword_Attack_R
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[10].name
+      value: Sword_Attack_RL
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[11].name
+      value: Sword_Attack_Sp_U
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[12].name
+      value: Sword_Attack_Combo_LL
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[13].name
+      value: KB_Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[6].AT
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[6].ET
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[6].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[6].Dmg
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[7].AT
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[7].ET
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[7].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[7].Dmg
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[8].AT
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[8].ET
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[8].ED
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[8].Dmg
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}

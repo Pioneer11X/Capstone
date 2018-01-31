@@ -75,8 +75,45 @@ public class CombatManager : MonoBehaviour
         Sword_Attack_RL,
         Sword_Attack_Sp_U,
         Sword_Attack_Combo_LL,
-        KB_Gun
+        KB_Gun,
+        Number_Of_Items
     }
+
+    // A New Struct to store the details of each Combat move.
+    // దీనికి ఒక కొత్త Struct తయారుచెయ్యాలి.
+    // దీనిలో ఒక Combat Move కి సంబంధించిన వివరాలు వుంటాయి. 
+
+    [System.Serializable]
+    public struct CombatMove
+    {
+        // --------------------------------------------------------------------------------------------
+        // AT - Attack Time
+        // ET - Effect Time
+        // ED - Effect Distance
+        // Dmg = Damage Amount
+
+        // పేరు ఉత్తినే పెడతాము మనం గుర్తుపదతానికి.
+        // Name doesn't matter but is good for recognising.
+        public string name;
+        public float AT;
+        public float ET;
+        public float ED;
+        public float Dmg;
+        public HitPosition Pos;
+        public CombatDirection Dir;
+        public HitPower Power;
+        
+    }
+
+    // ఆటలో వున్నా అన్ని Actions కి ఇది ఒక నిఘంటువు. ఇందిలో వున్నా Actions మాత్రమే వాడాలి.
+    // ఈ నిఘంటువుని Serialize చెయ్యలేక మనం ఒక కొత్త లిస్టు తయరు చేసుకొంటున్నాము.
+
+    // A List with all the Actions and their parameters. ( Dictionary has to made serializable manually by writing a new class and stuff ).
+    // The index is the enum value of the combat. (The evaluated integer)  
+    [SerializeField]
+    // public List<CombatMove> allMoves = new List<CombatMove>((int)Combat.Number_Of_Items);
+    public List<CombatMove> allMoves;
+
 
     //target parameters
     [SerializeField]
@@ -1037,87 +1074,55 @@ public class CombatManager : MonoBehaviour
         {
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
-            currentAttackTime = punch_Jab_L_AT;
-            currentEffectTime = punch_Jab_L_ET;
-            currentEffetDistance = punch_Jab_L_ED;
-            currentDirection = punch_Jab_L_Dir;
-            currentPower = punch_Jab_L_Power;
-            currentHitPos = punch_Jab_L_Pos;
-            currentDmgAmount = punch_Jab_L_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_R;
-            currentAttackTime = punch_Jab_R_AT;
-            currentEffectTime = punch_Jab_R_ET;
-            currentEffetDistance = punch_Jab_R_ED;
-            currentDirection = punch_Jab_R_Dir;
-            currentPower = punch_Jab_R_Power;
-            currentHitPos = punch_Jab_R_Pos;
-            currentDmgAmount = punch_Jab_R_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Hook_L;
-            currentAttackTime = punch_Hook_L_AT;
-            currentEffectTime = punch_Hook_L_ET;
-            currentEffetDistance = punch_Hook_L_ED;
-            currentDirection = punch_Hook_L_Dir;
-            currentPower = punch_Hook_L_Power;
-            currentHitPos = punch_Hook_L_Pos;
-            currentDmgAmount = punch_Hook_L_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Hook_R;
-            currentAttackTime = punch_Hook_R_AT;
-            currentEffectTime = punch_Hook_R_ET;
-            currentEffetDistance = punch_Hook_R_ED;
-            currentDirection = punch_Hook_R_Dir;
-            currentPower = punch_Hook_R_Power;
-            currentHitPos = punch_Hook_R_Pos;
-            currentDmgAmount = punch_Hook_R_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.kick_Straight_Mid_R;
-            currentAttackTime = kick_Straight_Mid_R_AT;
-            currentEffectTime = kick_Straight_Mid_R_ET;
-            currentEffetDistance = kick_Straight_Mid_R_ED;
-            currentDirection = kick_Straight_Mid_R_Dir;
-            currentPower = kick_Straight_Mid_R_Power;
-            currentHitPos = kick_Straight_Mid_R_Pos;
-            currentDmgAmount = kick_Straight_Mid_R_Dmg;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.punch_Jab_L;
-            currentAttackTime = punch_Jab_L_AT;
-            currentEffectTime = punch_Jab_L_ET;
-            currentEffetDistance = punch_Jab_L_ED;
-            currentDirection = punch_Jab_L_Dir;
-            currentPower = punch_Jab_L_Power;
-            currentHitPos = punch_Jab_L_Pos;
-            currentDmgAmount = punch_Jab_L_Dmg;
         }
         else
         {
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
-            currentAttackTime = punch_Jab_L_AT;
-            currentEffectTime = punch_Jab_L_ET;
-            currentEffetDistance = punch_Jab_L_ED;
-            currentDirection = punch_Jab_L_Dir;
-            currentPower = punch_Jab_L_Power;
-            currentHitPos = punch_Jab_L_Pos;
-            currentDmgAmount = punch_Jab_L_Dmg;
         }
 
+        // ముందు all moves లో ఎన్ని వస్తువులు వున్నాయో చూడు.
+        // పనిచేస్తోంది.
+        // Debug.Log(allMoves.Count);
+
+        // ఇక్కడ ఎక్సెప్షన్ వస్తుంది. ఎందుకో చూసి, దానిని తీర్చు.
+
+        // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
+        CombatMove currentMoveDetails = allMoves[(int)currentCombat - 1];
+        Debug.Log(currentCombat + " " + currentMoveDetails.name);
+        currentAttackTime = currentMoveDetails.AT;
+        currentEffectTime = currentMoveDetails.ET;
+        currentEffetDistance = currentMoveDetails.ED;
+        currentDmgAmount = currentMoveDetails.Dmg;
+        currentDirection = currentMoveDetails.Dir;
+        currentPower = currentMoveDetails.Power;
+        currentHitPos = currentMoveDetails.Pos;
+        
     }
 
     void NextSpecial()
@@ -1126,86 +1131,48 @@ public class CombatManager : MonoBehaviour
         {
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
-            currentAttackTime = kick_AxeKick_AT;
-            currentEffectTime = kick_AxeKick_ET;
-            currentEffetDistance = kick_AxeKick_ED;
-            currentDirection = kick_AxeKick_Dir;
-            currentPower = kick_AxeKick_Power;
-            currentHitPos = kick_AxeKick_Pos;
-            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
-            currentAttackTime = kick_AxeKick_AT;
-            currentEffectTime = kick_AxeKick_ET;
-            currentEffetDistance = kick_AxeKick_ED;
-            currentDirection = kick_AxeKick_Dir;
-            currentPower = kick_AxeKick_Power;
-            currentHitPos = kick_AxeKick_Pos;
-            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
-            currentAttackTime = kick_AxeKick_AT;
-            currentEffectTime = kick_AxeKick_ET;
-            currentEffetDistance = kick_AxeKick_ED;
-            currentDirection = kick_AxeKick_Dir;
-            currentPower = kick_AxeKick_Power;
-            currentHitPos = kick_AxeKick_Pos;
-            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
-            currentAttackTime = kick_AxeKick_AT;
-            currentEffectTime = kick_AxeKick_ET;
-            currentEffetDistance = kick_AxeKick_ED;
-            currentDirection = kick_AxeKick_Dir;
-            currentPower = kick_AxeKick_Power;
-            currentHitPos = kick_AxeKick_Pos;
-            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
-            currentAttackTime = kick_AxeKick_AT;
-            currentEffectTime = kick_AxeKick_ET;
-            currentEffetDistance = kick_AxeKick_ED;
-            currentDirection = kick_AxeKick_Dir;
-            currentPower = kick_AxeKick_Power;
-            currentHitPos = kick_AxeKick_Pos;
-            currentDmgAmount = kick_AxeKick_Dmg;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_HorseKick;
-            currentAttackTime = kick_HorseKick_AT;
-            currentEffectTime = kick_HorseKick_ET;
-            currentEffetDistance = kick_HorseKick_ED;
-            currentDirection = kick_HorseKick_Dir;
-            currentPower = kick_HorseKick_Power;
-            currentHitPos = kick_HorseKick_Pos;
-            currentDmgAmount = kick_HorseKick_Dmg;
         }
         else
         {
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
-            currentAttackTime = kick_AxeKick_AT;
-            currentEffectTime = kick_AxeKick_ET;
-            currentEffetDistance = kick_AxeKick_ED;
-            currentDirection = kick_AxeKick_Dir;
-            currentPower = kick_AxeKick_Power;
-            currentHitPos = kick_AxeKick_Pos;
-            currentDmgAmount = kick_AxeKick_Dmg;
         }
+
+        // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
+        CombatMove currentMoveDetails = allMoves[(int)currentCombat - 1];
+
+        currentAttackTime = currentMoveDetails.AT;
+        currentEffectTime = currentMoveDetails.ET;
+        currentEffetDistance = currentMoveDetails.ED;
+        currentDmgAmount = currentMoveDetails.Dmg;
+        currentDirection = currentMoveDetails.Dir;
+        currentPower = currentMoveDetails.Power;
+        currentHitPos = currentMoveDetails.Pos;
     }
 
     // --------------------------------------------------------------------------------------------
@@ -1216,38 +1183,29 @@ public class CombatManager : MonoBehaviour
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_R;
-            currentAttackTime = sword_Attack_R_AT;
-            currentEffectTime = sword_Attack_R_ET;
-            currentEffetDistance = sword_Attack_R_ED;
-            currentDirection = sword_Attack_R_Dir;
-            currentPower = sword_Attack_R_Power;
-            currentHitPos = sword_Attack_R_Pos;
-            currentDmgAmount = sword_Attack_R_Dmg;
         }
         else if (currentCombat == Combat.Sword_Attack_R)
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_RL;
-            currentAttackTime = sword_Attack_RL_AT;
-            currentEffectTime = sword_Attack_RL_ET;
-            currentEffetDistance = sword_Attack_RL_ED;
-            currentDirection = sword_Attack_RL_Dir;
-            currentPower = sword_Attack_RL_Power;
-            currentHitPos = sword_Attack_RL_Pos;
-            currentDmgAmount = sword_Attack_RL_Dmg;
         }
         else
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_R;
-            currentAttackTime = sword_Attack_R_AT;
-            currentEffectTime = sword_Attack_R_ET;
-            currentEffetDistance = sword_Attack_R_ED;
-            currentDirection = sword_Attack_R_Dir;
-            currentPower = sword_Attack_R_Power;
-            currentHitPos = sword_Attack_R_Pos;
-            currentDmgAmount = sword_Attack_R_Dmg;
         }
+
+        // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
+        CombatMove currentMoveDetails = allMoves[(int)currentCombat - 1];
+
+        currentAttackTime = currentMoveDetails.AT;
+        currentEffectTime = currentMoveDetails.ET;
+        currentEffetDistance = currentMoveDetails.ED;
+        currentDmgAmount = currentMoveDetails.Dmg;
+        currentDirection = currentMoveDetails.Dir;
+        currentPower = currentMoveDetails.Power;
+        currentHitPos = currentMoveDetails.Pos;
+
         sword.SetActive(true);
         compPos = companion.transform.position;
         companion.SetActive(false);
@@ -1261,98 +1219,54 @@ public class CombatManager : MonoBehaviour
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Combo_LL;
-            currentAttackTime = Sword_Attack_Combo_LL_AT;
-            currentEffectTime = Sword_Attack_Combo_LL_ET;
-            currentEffetDistance = Sword_Attack_Combo_LL_ED;
-            currentDirection = Sword_Attack_Combo_LL_Dir;
-            currentPower = Sword_Attack_Combo_LL_Power;
-            currentHitPos = Sword_Attack_Combo_LL_Pos;
-            currentDmgAmount = Sword_Attack_Combo_LL_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
-            currentAttackTime = sword_Attack_Sp_U_AT;
-            currentEffectTime = sword_Attack_Sp_U_ET;
-            currentEffetDistance = sword_Attack_Sp_U_ED;
-            currentDirection = sword_Attack_Sp_U_Dir;
-            currentPower = sword_Attack_Sp_U_Power;
-            currentHitPos = sword_Attack_Sp_U_Pos;
-            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
-            currentAttackTime = sword_Attack_Sp_U_AT;
-            currentEffectTime = sword_Attack_Sp_U_ET;
-            currentEffetDistance = sword_Attack_Sp_U_ED;
-            currentDirection = sword_Attack_Sp_U_Dir;
-            currentPower = sword_Attack_Sp_U_Power;
-            currentHitPos = sword_Attack_Sp_U_Pos;
-            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
-            currentAttackTime = sword_Attack_Sp_U_AT;
-            currentEffectTime = sword_Attack_Sp_U_ET;
-            currentEffetDistance = sword_Attack_Sp_U_ED;
-            currentDirection = sword_Attack_Sp_U_Dir;
-            currentPower = sword_Attack_Sp_U_Power;
-            currentHitPos = sword_Attack_Sp_U_Pos;
-            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
-            currentAttackTime = sword_Attack_Sp_U_AT;
-            currentEffectTime = sword_Attack_Sp_U_ET;
-            currentEffetDistance = sword_Attack_Sp_U_ED;
-            currentDirection = sword_Attack_Sp_U_Dir;
-            currentPower = sword_Attack_Sp_U_Power;
-            currentHitPos = sword_Attack_Sp_U_Pos;
-            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
-            currentAttackTime = sword_Attack_Sp_U_AT;
-            currentEffectTime = sword_Attack_Sp_U_ET;
-            currentEffetDistance = sword_Attack_Sp_U_ED;
-            currentDirection = sword_Attack_Sp_U_Dir;
-            currentPower = sword_Attack_Sp_U_Power;
-            currentHitPos = sword_Attack_Sp_U_Pos;
-            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else if (currentCombat == Combat.Sword_Attack_RL)
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Sp_U;
-            currentAttackTime = sword_Attack_Sp_U_AT;
-            currentEffectTime = sword_Attack_Sp_U_ET;
-            currentEffetDistance = sword_Attack_Sp_U_ED;
-            currentDirection = sword_Attack_Sp_U_Dir;
-            currentPower = sword_Attack_Sp_U_Power;
-            currentHitPos = sword_Attack_Sp_U_Pos;
-            currentDmgAmount = sword_Attack_Sp_U_Dmg;
         }
         else
         {
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_Combo_LL;
-            currentAttackTime = Sword_Attack_Combo_LL_AT;
-            currentEffectTime = Sword_Attack_Combo_LL_ET;
-            currentEffetDistance = Sword_Attack_Combo_LL_ED;
-            currentDirection = Sword_Attack_Combo_LL_Dir;
-            currentPower = Sword_Attack_Combo_LL_Power;
-            currentHitPos = Sword_Attack_Combo_LL_Pos;
-            currentDmgAmount = Sword_Attack_Combo_LL_Dmg;
         }
+
+        // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
+        CombatMove currentMoveDetails = allMoves[(int)currentCombat - 1];
+
+        currentAttackTime = currentMoveDetails.AT;
+        currentEffectTime = currentMoveDetails.ET;
+        currentEffetDistance = currentMoveDetails.ED;
+        currentDmgAmount = currentMoveDetails.Dmg;
+        currentDirection = currentMoveDetails.Dir;
+        currentPower = currentMoveDetails.Power;
+        currentHitPos = currentMoveDetails.Pos;
+
         sword.SetActive(true);
         compPos = companion.transform.position;
         companion.SetActive(false);
