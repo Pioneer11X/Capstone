@@ -207,6 +207,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1166950579119954
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4044793607149984}
+  - component: {fileID: 33765224490192332}
+  - component: {fileID: 23126355866201808}
+  - component: {fileID: 95644083717541952}
+  m_Layer: 8
+  m_Name: Sword
+  m_TagString: Sword
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1181891843834744
 GameObject:
   m_ObjectHideFlags: 1
@@ -1047,24 +1065,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1824091857487472
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4958819285147368}
-  - component: {fileID: 33879292067674158}
-  - component: {fileID: 23831505621286644}
-  - component: {fileID: 95062414076142126}
-  m_Layer: 8
-  m_Name: Sword
-  m_TagString: Sword
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1832531232563168
 GameObject:
   m_ObjectHideFlags: 1
@@ -1342,6 +1342,19 @@ Transform:
   m_Father: {fileID: 4564099018618202}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4044793607149984
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1166950579119954}
+  m_LocalRotation: {x: -0.32078263, y: -0.3126616, z: 0.71469635, w: -0.537169}
+  m_LocalPosition: {x: 0.072, y: 0.194, z: -0.218}
+  m_LocalScale: {x: 0.009999999, y: 0.010000003, z: 0.010000002}
+  m_Children: []
+  m_Father: {fileID: 4556927389868778}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 4.433, y: -145.55301, z: -180.935}
 --- !u!4 &4049069036242884
 Transform:
   m_ObjectHideFlags: 1
@@ -1543,8 +1556,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870170771485162}
-  m_LocalRotation: {x: -0, y: 0.6934436, z: -0, w: -0.7205109}
-  m_LocalPosition: {x: 52.946556, y: 0.353, z: -39.27534}
+  m_LocalRotation: {x: -0, y: 0.33191794, z: -0, w: -0.94330835}
+  m_LocalPosition: {x: -41.6, y: 13.71, z: -40.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4655072841929058}
@@ -1554,7 +1567,7 @@ Transform:
   - {fileID: 4529835732204942}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 272.193, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 321.23, z: 0}
 --- !u!4 &4279836993827122
 Transform:
   m_ObjectHideFlags: 1
@@ -1884,7 +1897,7 @@ Transform:
   - {fileID: 4331638784359902}
   - {fileID: 4187348731584000}
   - {fileID: 4399192409483656}
-  - {fileID: 4958819285147368}
+  - {fileID: 4044793607149984}
   - {fileID: 4875810766280054}
   m_Father: {fileID: 4012266907785480}
   m_RootOrder: 0
@@ -2421,19 +2434,6 @@ Transform:
   m_Father: {fileID: 4194447391782396}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4958819285147368
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824091857487472}
-  m_LocalRotation: {x: -0.32078263, y: -0.3126616, z: 0.71469635, w: -0.537169}
-  m_LocalPosition: {x: 0.072, y: 0.194, z: -0.218}
-  m_LocalScale: {x: 0.009999999, y: 0.010000003, z: 0.010000002}
-  m_Children: []
-  m_Father: {fileID: 4556927389868778}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 4.433, y: -145.55301, z: -180.935}
 --- !u!4 &4968254266309538
 Transform:
   m_ObjectHideFlags: 1
@@ -2538,6 +2538,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!23 &23126355866201808
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1166950579119954}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: f00417d4eb2b64a4497130409681ee53, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!23 &23561905684662630
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2584,38 +2616,6 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: f4329007c3dc03545bb66475e9b467f4, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!23 &23831505621286644
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824091857487472}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: f00417d4eb2b64a4497130409681ee53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2694,12 +2694,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1821969346159448}
   m_Mesh: {fileID: 4300000, guid: 52058499a402c8347ab3ae633f683d33, type: 3}
---- !u!33 &33879292067674158
+--- !u!33 &33765224490192332
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824091857487472}
+  m_GameObject: {fileID: 1166950579119954}
   m_Mesh: {fileID: 4300000, guid: a9e8b0c84ce4b2749aca0e63a676e439, type: 3}
 --- !u!33 &33950124855280878
 MeshFilter:
@@ -2895,13 +2895,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!95 &95062414076142126
+--- !u!95 &95644083717541952
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824091857487472}
+  m_GameObject: {fileID: 1166950579119954}
   m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: a9e8b0c84ce4b2749aca0e63a676e439, type: 3}
   m_Controller: {fileID: 0}
@@ -3056,7 +3056,7 @@ MonoBehaviour:
   swordFX: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
   gunShotFX: {fileID: 8300000, guid: 82e8248742f82c249ab88ee97a9f2056, type: 3}
   gun: {fileID: 1843143527485728}
-  sword: {fileID: 1824091857487472}
+  sword: {fileID: 1166950579119954}
   wrist: {fileID: 1090890770272610}
   allMoves:
   - name: Punch_Jab_L
@@ -3182,8 +3182,8 @@ MonoBehaviour:
   jumpAirTime: 0.3
   jumpDownTime: 0.35
   currentHitPos: 0
-  dodgeTime: 0.5
-  rollTime: 0.4
+  dodgeTime: 0
+  rollTime: 0.5
   rollSpeed: 3
   hitTime: 1
   hitMaxWalkSpeed: 1
@@ -3200,42 +3200,42 @@ MonoBehaviour:
   punch_Jab_L_Pos: 0
   punch_Jab_L_Dir: 0
   punch_Jab_L_Power: 0
-  punch_Jab_L_Dmg: 3
+  punch_Jab_L_Dmg: 10
   punch_Jab_R_AT: 0.5
   punch_Jab_R_ET: 0.2
   punch_Jab_R_ED: 1
   punch_Jab_R_Pos: 0
   punch_Jab_R_Dir: 0
   punch_Jab_R_Power: 0
-  punch_Jab_R_Dmg: 3
+  punch_Jab_R_Dmg: 10
   punch_Hook_L_AT: 0.65
   punch_Hook_L_ET: 0.2
   punch_Hook_L_ED: 1
   punch_Hook_L_Pos: 0
   punch_Hook_L_Dir: 0
   punch_Hook_L_Power: 0
-  punch_Hook_L_Dmg: 5
+  punch_Hook_L_Dmg: 10
   punch_Hook_R_AT: 0.65
   punch_Hook_R_ET: 0.2
   punch_Hook_R_ED: 1
   punch_Hook_R_Pos: 0
   punch_Hook_R_Dir: 0
   punch_Hook_R_Power: 0
-  punch_Hook_R_Dmg: 5
+  punch_Hook_R_Dmg: 10
   punch_UpperCut_L_AT: 0.8
   punch_UpperCut_L_ET: 0.5
   punch_UpperCut_L_ED: 1
   punch_UpperCut_L_Pos: 0
   punch_UpperCut_L_Dir: 0
   punch_UpperCut_L_Power: 0
-  punch_UpperCut_L_Dmg: 7
+  punch_UpperCut_L_Dmg: 10
   punch_UpperCut_R_AT: 0.8
   punch_UpperCut_R_ET: 0.5
   punch_UpperCut_R_ED: 1
   punch_UpperCut_R_Pos: 0
   punch_UpperCut_R_Dir: 0
   punch_UpperCut_R_Power: 0
-  punch_UpperCut_R_Dmg: 7
+  punch_UpperCut_R_Dmg: 10
   kick_Straight_Mid_R_AT: 1
   kick_Straight_Mid_R_ET: 0.6
   kick_Straight_Mid_R_ED: 1
@@ -3257,41 +3257,41 @@ MonoBehaviour:
   kick_HorseKick_Dir: 0
   kick_HorseKick_Power: 0
   kick_HorseKick_Dmg: 10
-  sword_Attack_R_AT: 1
-  sword_Attack_R_ET: 0.3
-  sword_Attack_R_ED: 1.25
-  sword_Attack_R_Pos: 1
-  sword_Attack_R_Dir: 1
+  sword_Attack_R_AT: 0
+  sword_Attack_R_ET: 0
+  sword_Attack_R_ED: 0
+  sword_Attack_R_Pos: 0
+  sword_Attack_R_Dir: 0
   sword_Attack_R_Power: 0
-  sword_Attack_R_Dmg: 10
-  sword_Attack_RL_AT: 0.8
-  sword_Attack_RL_ET: 0.3
-  sword_Attack_RL_ED: 1.25
+  sword_Attack_R_Dmg: 0
+  sword_Attack_RL_AT: 0
+  sword_Attack_RL_ET: 0
+  sword_Attack_RL_ED: 0
   sword_Attack_RL_Pos: 0
-  sword_Attack_RL_Dir: 2
+  sword_Attack_RL_Dir: 0
   sword_Attack_RL_Power: 0
-  sword_Attack_RL_Dmg: 10
-  sword_Attack_Sp_U_AT: 1.5
-  sword_Attack_Sp_U_ET: 0.5
-  sword_Attack_Sp_U_ED: 1.25
+  sword_Attack_RL_Dmg: 0
+  sword_Attack_Sp_U_AT: 0
+  sword_Attack_Sp_U_ET: 0
+  sword_Attack_Sp_U_ED: 0
   sword_Attack_Sp_U_Pos: 0
   sword_Attack_Sp_U_Dir: 0
-  sword_Attack_Sp_U_Power: 1
-  sword_Attack_Sp_U_Dmg: 15
-  Sword_Attack_Combo_LL_AT: 2
-  Sword_Attack_Combo_LL_ET: 0.5
-  Sword_Attack_Combo_LL_ED: 1.25
+  sword_Attack_Sp_U_Power: 0
+  sword_Attack_Sp_U_Dmg: 0
+  Sword_Attack_Combo_LL_AT: 0
+  Sword_Attack_Combo_LL_ET: 0
+  Sword_Attack_Combo_LL_ED: 0
   Sword_Attack_Combo_LL_Pos: 0
-  Sword_Attack_Combo_LL_Dir: 2
-  Sword_Attack_Combo_LL_Power: 1
-  Sword_Attack_Combo_LL_Dmg: 20
-  KB_Gun_AT: 2
-  KB_Gun_ET: 0.5
-  KB_Gun_ED: 1
-  KB_Gun_Pos: 1
+  Sword_Attack_Combo_LL_Dir: 0
+  Sword_Attack_Combo_LL_Power: 0
+  Sword_Attack_Combo_LL_Dmg: 0
+  KB_Gun_AT: 0
+  KB_Gun_ET: 0
+  KB_Gun_ED: 0
+  KB_Gun_Pos: 0
   KB_Gun_Dir: 0
-  KB_Gun_Power: 1
-  KB_Gun_Dmg: 20
+  KB_Gun_Power: 0
+  KB_Gun_Dmg: 0
 --- !u!114 &114802117432634516
 MonoBehaviour:
   m_ObjectHideFlags: 1
