@@ -26,7 +26,7 @@ public class CombatManager : MonoBehaviour
     public GameObject gun;
     public GameObject sword;
     public GameObject wrist;
-    private GameObject companion;
+    public GameObject companion;
     private Vector3 compPos;
     //---------------------------------------------------------------------------------------------
 
@@ -620,7 +620,7 @@ public class CombatManager : MonoBehaviour
             listCounter++;
             if(listCounter > 240)
             {
-                enemyList = new List<GameObject>();
+                enemyList.Clear();
                 enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
                 for (int i = 0; i < enemyArray.Length; i++)
                 {
@@ -630,11 +630,11 @@ public class CombatManager : MonoBehaviour
             }
 
 
-            if(attackDuration > 0)
+            if(attackDuration > -0.5f)
             {
                 attackDuration -= Time.deltaTime;
             }
-            if(attackDuration <= 0 && swordGunAttack)
+            if(attackDuration <= -0.5f && swordGunAttack)
             {
                 swordGunAttack = false;
                 sword.SetActive(false);
@@ -911,7 +911,7 @@ public class CombatManager : MonoBehaviour
     public void Effect()
     {
 
-        if (currentTarget != null && currentTarget.tag!="Ghost")
+        if (currentTarget != null && currentTarget.tag != "Ghost")
         {
 
             float distance = Vector3.Distance(m_char.charBody.transform.position, currentTarget.charBody.transform.position);
@@ -979,7 +979,23 @@ public class CombatManager : MonoBehaviour
                     }
                 }
 
-                currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentDmgAmount);
+                // If attack is a sword attack, hit multiple enemies
+                if(currentCombat == Combat.Sword_Attack_R || currentCombat == Combat.Sword_Attack_RL ||
+                    currentCombat == Combat.Sword_Attack_Combo_LL)
+                {
+                    foreach(GameObject obj in enemyList)
+                    {
+                        if(Vector3.Distance(obj.transform.position, gameObject.transform.position) <
+                            allMoves[(int)currentCombat - 1].ED )
+                        {
+                            obj.GetComponent<CombatManager>().Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentDmgAmount);
+                        }
+                    }
+                }
+                else
+                {
+                    currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentDmgAmount);
+                }
             }
 
         }
@@ -1143,7 +1159,7 @@ public class CombatManager : MonoBehaviour
         // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
         // Because of None in the Enum, subtract by 1.
         CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
-        Debug.Log(currentCombat + " " + currentMoveDetails.name);
+        //Debug.Log(currentCombat + " " + currentMoveDetails.name);
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
         currentEffetDistance = currentMoveDetails.ED;
