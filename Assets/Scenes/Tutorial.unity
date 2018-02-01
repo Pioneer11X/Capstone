@@ -5586,6 +5586,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114802117432634516, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: myCarmera
+      value: 
+      objectReference: {fileID: 1869303115}
     - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
         type: 2}
       propertyPath: lifeBar
@@ -5593,199 +5598,19 @@ Prefab:
       objectReference: {fileID: 465433810}
     - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
         type: 2}
-      propertyPath: visionBar
+      propertyPath: staminaBar
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 740863994}
     - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
         type: 2}
       propertyPath: specialBar
       value: 
       objectReference: {fileID: 1415618952}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: bulletBar
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114802117432634516, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: myCarmera
-      value: 
-      objectReference: {fileID: 1869303115}
     - target: {fileID: 114134014511445044, guid: cb9e65a512285fe4c99a4ffa0421331a,
         type: 2}
       propertyPath: camera
       value: 
       objectReference: {fileID: 1869303115}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: health
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: speedMove
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: speedDash
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: speedRun
-      value: 0.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: jumpPower
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: specialRegenRate
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: bulletRegenRate
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: staminaBar
-      value: 
-      objectReference: {fileID: 740863994}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: combatAudio
-      value: 
-      objectReference: {fileID: 1288603907}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: punchFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 775874b6182f9ad4fa91db3589f01c68, type: 3}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: kickFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 8d804eabe19676a45aae01789de0a6eb, type: 3}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: swordFX
-      value: 
-      objectReference: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: gunShotFX
-      value: 
-      objectReference: {fileID: 8300000, guid: 82e8248742f82c249ab88ee97a9f2056, type: 3}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: gun
-      value: 
-      objectReference: {fileID: 703661642}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: sword
-      value: 
-      objectReference: {fileID: 1030691736}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: wrist
-      value: 
-      objectReference: {fileID: 1278917251}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: maxShotDistance
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: minShotDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: dodgeTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: rollTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: punch_Jab_L_Dmg
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: punch_Jab_R_Dmg
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: punch_Hook_L_Dmg
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: punch_Hook_R_Dmg
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: punch_UpperCut_L_Dmg
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: punch_UpperCut_R_Dmg
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: kick_Straight_Mid_R_Dmg
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: kick_AxeKick_Dmg
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: kick_HorseKick_Dmg
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: sword_Attack_R_Dmg
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: sword_Attack_RL_Dmg
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: sword_Attack_Sp_U_Dmg
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: Sword_Attack_Combo_LL_Dmg
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114752409784205740, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: KB_Gun_Dmg
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb9e65a512285fe4c99a4ffa0421331a, type: 2}
   m_IsPrefabParent: 0
@@ -13429,11 +13254,6 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &703661642 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1843143527485728, guid: cb9e65a512285fe4c99a4ffa0421331a,
-    type: 2}
-  m_PrefabInternal: {fileID: 292130452}
 --- !u!1001 &706977180
 Prefab:
   m_ObjectHideFlags: 0
@@ -19833,11 +19653,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856,
     type: 2}
   m_PrefabInternal: {fileID: 1851727206}
---- !u!1 &1030691736 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1824091857487472, guid: cb9e65a512285fe4c99a4ffa0421331a,
-    type: 2}
-  m_PrefabInternal: {fileID: 292130452}
 --- !u!4 &1036862823 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856,
@@ -24680,11 +24495,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafa909e8f523ef4d85e79ca36e20577, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1278917251 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1090890770272610, guid: cb9e65a512285fe4c99a4ffa0421331a,
-    type: 2}
-  m_PrefabInternal: {fileID: 292130452}
 --- !u!1 &1279216684 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100012, guid: 295a40cb3d48ea24084a7a1d354aa125, type: 3}
@@ -24839,11 +24649,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fafa909e8f523ef4d85e79ca36e20577, type: 2}
   m_IsPrefabParent: 0
---- !u!82 &1288603907 stripped
-AudioSource:
-  m_PrefabParentObject: {fileID: 82615407774490180, guid: cb9e65a512285fe4c99a4ffa0421331a,
-    type: 2}
-  m_PrefabInternal: {fileID: 292130452}
 --- !u!4 &1294163202 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: fafa909e8f523ef4d85e79ca36e20577, type: 2}

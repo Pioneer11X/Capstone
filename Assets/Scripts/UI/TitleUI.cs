@@ -16,6 +16,7 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private AudioSource SFX;
     [SerializeField] private AudioClip Button_SFX1;
     [SerializeField] private AudioClip Button_SFX2;
+    [SerializeField] private GameObject EventSystemObject;
 
     private bool titleMenu; // Is the title screen on the title menu buttons or sub buttons.
 
@@ -70,6 +71,7 @@ public class TitleUI : MonoBehaviour
     public void LoadTutorial()
     {
         SFX.PlayOneShot(Button_SFX2);
+        EventSystemObject.SetActive(false);
         StartCoroutine(WaitForAudioBeforeScene(1, "LoadingT"));
     }
 
@@ -79,6 +81,7 @@ public class TitleUI : MonoBehaviour
     public void LoadMainLevel()
     {
         SFX.PlayOneShot(Button_SFX2);
+        EventSystemObject.SetActive(false);
         StartCoroutine(WaitForAudioBeforeScene(1, "LoadingM"));
     }
 
@@ -88,6 +91,7 @@ public class TitleUI : MonoBehaviour
     public void OptionsButton()
     {
         SFX.PlayOneShot(Button_SFX1);
+        EventSystemObject.SetActive(false);
         StartCoroutine(WaitForAudioBeforeScene(1, "Options"));
     }
 
@@ -97,6 +101,7 @@ public class TitleUI : MonoBehaviour
     public void HelpButton()
     {
         SFX.PlayOneShot(Button_SFX1);
+        EventSystemObject.SetActive(false);
         StartCoroutine(WaitForAudioBeforeScene(1, "Help"));
     }
 
@@ -106,6 +111,7 @@ public class TitleUI : MonoBehaviour
     public void CreditsButton()
     {
         SFX.PlayOneShot(Button_SFX1);
+        EventSystemObject.SetActive(false);
         StartCoroutine(WaitForAudioBeforeScene(1, "Credits"));
     }
 
@@ -127,6 +133,7 @@ public class TitleUI : MonoBehaviour
     public void ExitButton()
     {
         SFX.PlayOneShot(Button_SFX2);
+        EventSystemObject.SetActive(false);
         StartCoroutine(WaitForAudioBeforeEnd(2));
     }
 

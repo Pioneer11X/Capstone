@@ -9,6 +9,7 @@ public class PauseUI : MonoBehaviour
 {
     [SerializeField] private GameObject HelpSprite;
     [SerializeField] private GameObject OptionsSprite;
+    [SerializeField] private GameObject EventSystemObject;
 
     private Pause pause;
 
@@ -19,6 +20,7 @@ public class PauseUI : MonoBehaviour
     {
         HelpSprite.SetActive(false);
         OptionsSprite.SetActive(false);
+        EventSystemObject.SetActive(true);
 
         pause = Pause.Instance;
     }
@@ -72,6 +74,7 @@ public class PauseUI : MonoBehaviour
     /// </summary>
     public void MenuButton()
     {
+        EventSystemObject.SetActive(false);
         SceneManager.LoadSceneAsync("Title");
     }
 }

@@ -621,6 +621,7 @@ MonoBehaviour:
   SFX: {fileID: 1378095834}
   Button_SFX1: {fileID: 8300000, guid: 01fc8c7538ecbe341887f42bd3674185, type: 3}
   Button_SFX2: {fileID: 8300000, guid: dec63394af1445a46953924b51cc749d, type: 3}
+  EventSystemObject: {fileID: 249776006}
 --- !u!4 &774837543
 Transform:
   m_ObjectHideFlags: 0

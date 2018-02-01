@@ -3049,15 +3049,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyList: []
-  isPlayer: 0
-  combatAudio: {fileID: 0}
-  punchFX: {fileID: 0}
-  kickFX: {fileID: 0}
-  swordFX: {fileID: 0}
-  gunShotFX: {fileID: 0}
-  gun: {fileID: 0}
-  sword: {fileID: 0}
-  wrist: {fileID: 0}
+  isPlayer: 1
+  combatAudio: {fileID: 82615407774490180}
+  punchFX: {fileID: 8300000, guid: 775874b6182f9ad4fa91db3589f01c68, type: 3}
+  kickFX: {fileID: 8300000, guid: 8d804eabe19676a45aae01789de0a6eb, type: 3}
+  swordFX: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
+  gunShotFX: {fileID: 8300000, guid: 82e8248742f82c249ab88ee97a9f2056, type: 3}
+  gun: {fileID: 1843143527485728}
+  sword: {fileID: 1824091857487472}
+  wrist: {fileID: 1090890770272610}
   allMoves:
   - name: Punch_Jab_L
     AT: 0.7
@@ -3132,58 +3132,58 @@ MonoBehaviour:
     Dir: 0
     Power: 0
   - name: Sword_Attack_R
-    AT: 0
-    ET: 0
-    ED: 0
-    Dmg: 0
-    Pos: 0
-    Dir: 0
+    AT: 1
+    ET: 0.3
+    ED: 1.25
+    Dmg: 10
+    Pos: 1
+    Dir: 1
     Power: 0
   - name: Sword_Attack_RL
-    AT: 0
-    ET: 0
-    ED: 0
-    Dmg: 0
+    AT: 0.8
+    ET: 0.3
+    ED: 1.25
+    Dmg: 10
     Pos: 0
-    Dir: 0
+    Dir: 2
     Power: 0
   - name: Sword_Attack_Sp_U
-    AT: 0
-    ET: 0
-    ED: 0
-    Dmg: 0
+    AT: 1.5
+    ET: 0.5
+    ED: 1.25
+    Dmg: 15
     Pos: 0
     Dir: 0
-    Power: 0
+    Power: 1
   - name: Sword_Attack_Combo_LL
-    AT: 0
-    ET: 0
-    ED: 0
-    Dmg: 0
+    AT: 2
+    ET: 0.5
+    ED: 1.25
+    Dmg: 20
     Pos: 0
-    Dir: 0
-    Power: 0
+    Dir: 2
+    Power: 1
   - name: KB_Gun
-    AT: 0
-    ET: 0
-    ED: 0
-    Dmg: 0
-    Pos: 0
+    AT: 2
+    ET: 0.5
+    ED: 1
+    Dmg: 20
+    Pos: 1
     Dir: 0
-    Power: 0
+    Power: 1
   currentTarget: {fileID: 0}
   aimTarget: {fileID: 0}
   inCombatDuration: 4
   moveDir: 0
-  maxShotDistance: 0
-  minShotDistance: 0
+  maxShotDistance: 20
+  minShotDistance: 2
   isJumping: 0
   jumpUpTime: 0.5
   jumpAirTime: 0.3
   jumpDownTime: 0.35
   currentHitPos: 0
-  dodgeTime: 0
-  rollTime: 0.5
+  dodgeTime: 0.5
+  rollTime: 0.4
   rollSpeed: 3
   hitTime: 1
   hitMaxWalkSpeed: 1
@@ -3200,98 +3200,98 @@ MonoBehaviour:
   punch_Jab_L_Pos: 0
   punch_Jab_L_Dir: 0
   punch_Jab_L_Power: 0
-  punch_Jab_L_Dmg: 10
+  punch_Jab_L_Dmg: 3
   punch_Jab_R_AT: 0.5
   punch_Jab_R_ET: 0.2
   punch_Jab_R_ED: 1
   punch_Jab_R_Pos: 0
   punch_Jab_R_Dir: 0
   punch_Jab_R_Power: 0
-  punch_Jab_R_Dmg: 10
+  punch_Jab_R_Dmg: 3
   punch_Hook_L_AT: 0.65
   punch_Hook_L_ET: 0.2
   punch_Hook_L_ED: 1
   punch_Hook_L_Pos: 0
   punch_Hook_L_Dir: 0
   punch_Hook_L_Power: 0
-  punch_Hook_L_Dmg: 10
+  punch_Hook_L_Dmg: 5
   punch_Hook_R_AT: 0.65
   punch_Hook_R_ET: 0.2
   punch_Hook_R_ED: 1
   punch_Hook_R_Pos: 0
   punch_Hook_R_Dir: 0
   punch_Hook_R_Power: 0
-  punch_Hook_R_Dmg: 10
+  punch_Hook_R_Dmg: 5
   punch_UpperCut_L_AT: 0.8
   punch_UpperCut_L_ET: 0.5
   punch_UpperCut_L_ED: 1
   punch_UpperCut_L_Pos: 0
   punch_UpperCut_L_Dir: 0
   punch_UpperCut_L_Power: 0
-  punch_UpperCut_L_Dmg: 10
+  punch_UpperCut_L_Dmg: 7
   punch_UpperCut_R_AT: 0.8
   punch_UpperCut_R_ET: 0.5
   punch_UpperCut_R_ED: 1
   punch_UpperCut_R_Pos: 0
   punch_UpperCut_R_Dir: 0
   punch_UpperCut_R_Power: 0
-  punch_UpperCut_R_Dmg: 10
+  punch_UpperCut_R_Dmg: 7
   kick_Straight_Mid_R_AT: 1
   kick_Straight_Mid_R_ET: 0.6
   kick_Straight_Mid_R_ED: 1
   kick_Straight_Mid_R_Pos: 0
   kick_Straight_Mid_R_Dir: 0
   kick_Straight_Mid_R_Power: 0
-  kick_Straight_Mid_R_Dmg: 0
+  kick_Straight_Mid_R_Dmg: 10
   kick_AxeKick_AT: 1.2
   kick_AxeKick_ET: 0.5
   kick_AxeKick_ED: 1
   kick_AxeKick_Pos: 0
   kick_AxeKick_Dir: 0
   kick_AxeKick_Power: 0
-  kick_AxeKick_Dmg: 0
+  kick_AxeKick_Dmg: 10
   kick_HorseKick_AT: 1
   kick_HorseKick_ET: 0.4
   kick_HorseKick_ED: 1
   kick_HorseKick_Pos: 0
   kick_HorseKick_Dir: 0
   kick_HorseKick_Power: 0
-  kick_HorseKick_Dmg: 0
-  sword_Attack_R_AT: 0
-  sword_Attack_R_ET: 0
-  sword_Attack_R_ED: 0
-  sword_Attack_R_Pos: 0
-  sword_Attack_R_Dir: 0
+  kick_HorseKick_Dmg: 10
+  sword_Attack_R_AT: 1
+  sword_Attack_R_ET: 0.3
+  sword_Attack_R_ED: 1.25
+  sword_Attack_R_Pos: 1
+  sword_Attack_R_Dir: 1
   sword_Attack_R_Power: 0
-  sword_Attack_R_Dmg: 0
-  sword_Attack_RL_AT: 0
-  sword_Attack_RL_ET: 0
-  sword_Attack_RL_ED: 0
+  sword_Attack_R_Dmg: 10
+  sword_Attack_RL_AT: 0.8
+  sword_Attack_RL_ET: 0.3
+  sword_Attack_RL_ED: 1.25
   sword_Attack_RL_Pos: 0
-  sword_Attack_RL_Dir: 0
+  sword_Attack_RL_Dir: 2
   sword_Attack_RL_Power: 0
-  sword_Attack_RL_Dmg: 0
-  sword_Attack_Sp_U_AT: 0
-  sword_Attack_Sp_U_ET: 0
-  sword_Attack_Sp_U_ED: 0
+  sword_Attack_RL_Dmg: 10
+  sword_Attack_Sp_U_AT: 1.5
+  sword_Attack_Sp_U_ET: 0.5
+  sword_Attack_Sp_U_ED: 1.25
   sword_Attack_Sp_U_Pos: 0
   sword_Attack_Sp_U_Dir: 0
-  sword_Attack_Sp_U_Power: 0
-  sword_Attack_Sp_U_Dmg: 0
-  Sword_Attack_Combo_LL_AT: 0
-  Sword_Attack_Combo_LL_ET: 0
-  Sword_Attack_Combo_LL_ED: 0
+  sword_Attack_Sp_U_Power: 1
+  sword_Attack_Sp_U_Dmg: 15
+  Sword_Attack_Combo_LL_AT: 2
+  Sword_Attack_Combo_LL_ET: 0.5
+  Sword_Attack_Combo_LL_ED: 1.25
   Sword_Attack_Combo_LL_Pos: 0
-  Sword_Attack_Combo_LL_Dir: 0
-  Sword_Attack_Combo_LL_Power: 0
-  Sword_Attack_Combo_LL_Dmg: 0
-  KB_Gun_AT: 0
-  KB_Gun_ET: 0
-  KB_Gun_ED: 0
-  KB_Gun_Pos: 0
+  Sword_Attack_Combo_LL_Dir: 2
+  Sword_Attack_Combo_LL_Power: 1
+  Sword_Attack_Combo_LL_Dmg: 20
+  KB_Gun_AT: 2
+  KB_Gun_ET: 0.5
+  KB_Gun_ED: 1
+  KB_Gun_Pos: 1
   KB_Gun_Dir: 0
-  KB_Gun_Power: 0
-  KB_Gun_Dmg: 0
+  KB_Gun_Power: 1
+  KB_Gun_Dmg: 20
 --- !u!114 &114802117432634516
 MonoBehaviour:
   m_ObjectHideFlags: 1

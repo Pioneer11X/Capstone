@@ -10,6 +10,7 @@ public class DeathUI : MonoBehaviour
 {
     [SerializeField] private AudioSource SFX;
     [SerializeField] private AudioClip Button_SFX1;
+    [SerializeField] private GameObject EventSystemObject;
 
     /// <summary>
     /// Initial stuff
@@ -51,6 +52,7 @@ public class DeathUI : MonoBehaviour
     IEnumerator WaitForAudioBeforeScene(float delay, string scene)
     {
         SFX.PlayOneShot(Button_SFX1);
+        EventSystemObject.SetActive(false);
 
         yield return new WaitForSeconds(delay);
 
