@@ -1589,7 +1589,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1378835262746324}
   m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.18, y: 6.808, z: 59.58}
+  m_LocalPosition: {x: 24.18, y: 6.808, z: 54.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4203143637384952}
@@ -1745,8 +1745,10 @@ MonoBehaviour:
       amIFacingTheTarget: 0
       myPrevMove: 
       targetPrevMove: 
+    combat: 1
     actionTime: 0.7
     damage: 10
+    preference: 10
   - name: Punch_Jab_R
     intialState:
       hasTarget: 0
@@ -1768,8 +1770,10 @@ MonoBehaviour:
       amIFacingTheTarget: 0
       myPrevMove: 
       targetPrevMove: 
+    combat: 2
     actionTime: 0.5
     damage: 10
+    preference: 10
   - name: Punch_Hook_L
     intialState:
       hasTarget: 0
@@ -1791,8 +1795,10 @@ MonoBehaviour:
       amIFacingTheTarget: 0
       myPrevMove: 
       targetPrevMove: 
+    combat: 3
     actionTime: 0.65
     damage: 10
+    preference: 10
   - name: Punch_Hook_R
     intialState:
       hasTarget: 0
@@ -1814,8 +1820,10 @@ MonoBehaviour:
       amIFacingTheTarget: 0
       myPrevMove: 
       targetPrevMove: 
+    combat: 4
     actionTime: 0.65
     damage: 10
+    preference: 10
   - name: Punch_Upper_Cut_L
     intialState:
       hasTarget: 0
@@ -1837,123 +1845,10 @@ MonoBehaviour:
       amIFacingTheTarget: 0
       myPrevMove: 
       targetPrevMove: 
+    combat: 5
     actionTime: 0.8
     damage: 10
-  - name: Punch_Hook_L
-    intialState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    finalState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    actionTime: 0.65
-    damage: 10
-  - name: Punch_Hook_L
-    intialState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    finalState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    actionTime: 0.65
-    damage: 10
-  - name: Punch_Hook_L
-    intialState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    finalState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    actionTime: 0.65
-    damage: 10
-  - name: Punch_Hook_L
-    intialState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    finalState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    actionTime: 0.65
-    damage: 10
-  - name: Punch_Hook_L
-    intialState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    finalState:
-      hasTarget: 0
-      canTargetAttack: 0
-      canIAttack: 0
-      targetStunned: 0
-      amIStunned: 0
-      isTargetFacingMe: 0
-      amIFacingTheTarget: 0
-      myPrevMove: 
-      targetPrevMove: 
-    actionTime: 0.65
-    damage: 10
+    preference: 10
 --- !u!114 &114153668705709184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1987,6 +1882,7 @@ MonoBehaviour:
   seekTarget: {fileID: 0}
   ghostTarget: {fileID: 0}
   maxSensoryRadius: 10
+  s_action: {fileID: 0}
 --- !u!114 &114228248886608912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2057,6 +1953,119 @@ MonoBehaviour:
   gun: {fileID: 0}
   sword: {fileID: 0}
   wrist: {fileID: 0}
+  allMoves:
+  - name: Punch_Jab_L
+    AT: 0.7
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Jab_R
+    AT: 0.5
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Hook_L
+    AT: 0.65
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Hook_R
+    AT: 0.65
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Upper_Cut_L
+    AT: 0.8
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Upper_Cut_R
+    AT: 0.8
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Straight_Mid_R
+    AT: 1
+    ET: 0.6
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Axe_Kick
+    AT: 1.2
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Horse_Kick
+    AT: 1
+    ET: 0.4
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_R
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_RL
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_Sp_U
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_Combo_LL
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: KB_Gun
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
   currentTarget: {fileID: 0}
   aimTarget: {fileID: 0}
   inCombatDuration: 4

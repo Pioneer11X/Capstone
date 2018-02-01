@@ -10,9 +10,8 @@ public class ActionSelector : MonoBehaviour {
     CombatManager m_combat;
 
     // ప్రస్తుత పరిస్థితి
+    // Current State.
     State currentState;
-
-    // మనకి మన ఆక్షన్ పేరుతో పాటు ఒక ప్రాదాన్యతా అంక్య కూడా వుండాలి.
 
     // Use this for initialization
     void Start () {
@@ -28,30 +27,39 @@ public class ActionSelector : MonoBehaviour {
     public void selectNextOption()
     {
         // మన ప్రస్తుత పరిస్థితి చూసుకోవాలి.
+        // Perform action based on the current State.
         currentState.hasTarget = (null != m_combat.CurrentTarget) ? customBool.True : customBool.False;
         currentState.canIAttack = (m_combat.canAttack) ? customBool.True : customBool.False;
         currentState.canTargetAttack = (m_combat.CurrentTarget.GetComponentInChildren<CombatManager>().canAttack) ? (customBool.True) : (customBool.False);
 
         // వీటిని చూసి మార్చాలి.
+        // TODO: Change these based on the current State.
         currentState.amIStunned = customBool.False;
         currentState.targetStunned = customBool.False;
         currentState.isTargetFacingMe = customBool.True;
         currentState.amIFacingTheTarget = customBool.True;
 
         // దాని ద్వారా మనం చేయగలిగినవి ఏమేమి వున్నాయో చూసుకోవాలి.
+        // Get the valid actions for the current state.
         List<Action> validActions = l_action.GetValidActions(currentState);
 
         // తరువాత అందులో ఒకటి చూసుకొని దానిని తీసుకోవాలి.
+        // Select one of the valid actions.
         if ( validActions.Count > 0)
         {
+            int curAction = validActions.Count - 1;
             // ఇందిలో మొదటి Action తీసుకోవాలి.
-            // ఎలా అన్నది కొంచెం తేడాగా వుంది.
-            Debug.Log(validActions[0].name);
+            // Get the Action.
+            if (m_combat.canAttack)
+            {
+                m_combat.PerformAction(validActions[curAction].combat);
+                l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+            }
         }
         
-        // ఏదీ లేకపోతే ఎం చెయ్యాలి? ఒక exception వెయ్యాలి.
+        // ఏదీ లేకపోతే ఎం చెయ్యాలి? ఒక exception వెయ్యాలి. చూడాలి.
+        // TODO: Throw an exception when no action is present..
 
     }
-
 
 }

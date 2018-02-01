@@ -52,18 +52,22 @@ public struct Action
     public State intialState;
     public State finalState;
 
+    public CombatManager.Combat combat;
+
     public float actionTime;
     public float damage;
 
-    // దీనితో పాటు ఒక ప్రాదాన్యత అంకె కూడా కావలి.
-    public float preference;
+    // దీనితో పాటు ఒక ప్రాదాన్యత అంకె కూడా కావలి. చేసినవి మళ్ళి మళ్ళి చెయ్యకూడదు.
+    // We need a preference to make sure that the actions would not be repeated.
+    public int preference;
  
 
-    public Action(string _name, State _initialState, State _finalState, float actionTime, float _damage, float _preference = 1.0f)
+    public Action(string _name, State _initialState, State _finalState, CombatManager.Combat _combat, float actionTime, float _damage, int _preference = 10)
     {
         this.name = _name;
         this.intialState = _initialState;
         this.finalState = _finalState;
+        this.combat = _combat;
         this.actionTime = actionTime;
         this.damage = _damage;
         this.preference = _preference;
@@ -87,7 +91,22 @@ public class ActionList : MonoBehaviour {
 		
 	}
 
+    public void UpdateActionPreference(String actionName, int preference)
+    {
+        for (int i = 0; i < initalActionsList.Count; i++)
+        {
+            if ( actionName == initalActionsList[i].name)
+            {
+                Action newAction;
+                newAction = initalActionsList[i];
+                newAction.preference = preference;
+                initalActionsList[i] = newAction;
+            }
+        }
+    }
+
     // ఒక పరిస్థితి ఇస్తే దానికి తగట్టు మనం ఒక సమాధానంగా ఏ పని చెయ్యాలి?
+    // Get the valid actions for the given state.
     public List<Action> GetValidActions(State currentState)
     {
 
@@ -109,12 +128,12 @@ public class ActionList : MonoBehaviour {
 
         
         // ఇప్పుడు చెయ్యగలిగిన అన్నిటిలో మనం దేనికి ఎక్కువ ప్రాధాన్యత ఇస్తామో చూసుకొని దానిని చెయ్యి.
-        validActions.Sort((a, b) => (int)(a.preference - b.preference));
+        // Sort all the actions by the preference..
+        validActions.Sort((a, b) => (a.preference - b.preference));
 
+        // Return the Valid ACtions. This could be an empty string.
         // ఇప్పుడు మొదల్లో వున్నదాన్ని చెయ్యాలి.
         return validActions;
-
-            // ఒక వేల చెయ్యగలిగినవెవీ లేకపోతే, బయటకు వచేయ్యి.
 
     }
 

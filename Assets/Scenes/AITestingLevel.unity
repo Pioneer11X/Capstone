@@ -16329,6 +16329,56 @@ Prefab:
       propertyPath: allMoves.Array.data[8].Dmg
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[0].combat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[1].combat
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[2].combat
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[3].combat
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[4].combat
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[0].preference
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[1].preference
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[2].preference
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[3].preference
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: initalActionsList.Array.data[4].preference
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
   m_IsPrefabParent: 0

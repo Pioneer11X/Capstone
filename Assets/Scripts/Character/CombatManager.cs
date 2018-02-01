@@ -84,7 +84,7 @@ public class CombatManager : MonoBehaviour
     // దీనిలో ఒక Combat Move కి సంబంధించిన వివరాలు వుంటాయి. 
 
     [System.Serializable]
-    public struct CombatMove
+    public struct CombatMoveDetails
     {
         // --------------------------------------------------------------------------------------------
         // AT - Attack Time
@@ -111,8 +111,8 @@ public class CombatManager : MonoBehaviour
     // A List with all the Actions and their parameters. ( Dictionary has to made serializable manually by writing a new class and stuff ).
     // The index is the enum value of the combat. (The evaluated integer)  
     [SerializeField]
-    // public List<CombatMove> allMoves = new List<CombatMove>((int)Combat.Number_Of_Items);
-    public List<CombatMove> allMoves;
+    // public List<CombatMoveDetails> allMoves = new List<CombatMoveDetails>((int)Combat.Number_Of_Items);
+    public List<CombatMoveDetails> allMoves;
 
 
     //target parameters
@@ -1068,6 +1068,31 @@ public class CombatManager : MonoBehaviour
         moveDir = dir;
     }
 
+    // బయటినుండి ఇచ్చిన combat ని చెయ్యి
+    // Function to perform the combat that was passed.
+    public void PerformAction(Combat _input)
+    {
+        currentCombat = _input;
+        // సౌన్డ్లకి కూడా ఒక variable కావాలి.
+        // TODO: A Variable for the Sound in the CombatMoveDetails Struct.
+        combatAudio.PlayOneShot(punchFX);
+
+        // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
+        // Remove 1 from the current combat because of the None in the Enum.
+        CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
+        Debug.Log(currentCombat + " " + currentMoveDetails.name);
+        currentAttackTime = currentMoveDetails.AT;
+        currentEffectTime = currentMoveDetails.ET;
+        currentEffetDistance = currentMoveDetails.ED;
+        currentDmgAmount = currentMoveDetails.Dmg;
+        currentDirection = currentMoveDetails.Dir;
+        currentPower = currentMoveDetails.Power;
+        currentHitPos = currentMoveDetails.Pos;
+
+        Attack();
+
+    }
+
     void NextCombat()
     {
         if (currentCombat == Combat.none)
@@ -1113,7 +1138,8 @@ public class CombatManager : MonoBehaviour
         // ఇక్కడ ఎక్సెప్షన్ వస్తుంది. ఎందుకో చూసి, దానిని తీర్చు.
 
         // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
-        CombatMove currentMoveDetails = allMoves[(int)currentCombat - 1];
+        // Because of None in the Enum, subtract by 1.
+        CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
         Debug.Log(currentCombat + " " + currentMoveDetails.name);
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
@@ -1164,7 +1190,8 @@ public class CombatManager : MonoBehaviour
         }
 
         // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
-        CombatMove currentMoveDetails = allMoves[(int)currentCombat - 1];
+        // Again reduce by 1 because of enum definition.
+        CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
 
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
@@ -1196,7 +1223,8 @@ public class CombatManager : MonoBehaviour
         }
 
         // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
-        CombatMove currentMoveDetails = allMoves[(int)currentCombat - 1];
+        // Reduce by 1 because of enum.
+        CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
 
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
@@ -1257,7 +1285,7 @@ public class CombatManager : MonoBehaviour
         }
 
         // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
-        CombatMove currentMoveDetails = allMoves[(int)currentCombat - 1];
+        CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
 
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
