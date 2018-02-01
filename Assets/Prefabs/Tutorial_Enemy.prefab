@@ -927,15 +927,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740812503336440}
-  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.380238, y: -0.00000028391744, z: -17.618328}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0.88581467, y: 84.72752, z: -63.548836}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4374146948056330}
   - {fileID: 4051041106731162}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!4 &4031752747669092
 Transform:
   m_ObjectHideFlags: 1
@@ -1742,7 +1742,6 @@ MonoBehaviour:
   speedMove: 0.08
   speedDash: 0.2
   speedRun: 0.16
-  speedCrouch: 0.04
   jumpPower: 10
   stamina: 0
   senseRadius: 0
@@ -1782,6 +1781,119 @@ MonoBehaviour:
   gun: {fileID: 0}
   sword: {fileID: 0}
   wrist: {fileID: 0}
+  allMoves:
+  - name: Punch_Jab_L
+    AT: 0.7
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Jab_R
+    AT: 0.5
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Hook_L
+    AT: 0.65
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Hook_R
+    AT: 0.65
+    ET: 0.2
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Upper_Cut_L
+    AT: 0.8
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Punch_Upper_Cut_R
+    AT: 0.8
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Straight_Mid_R
+    AT: 1
+    ET: 0.6
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Axe_Kick
+    AT: 1.2
+    ET: 0.5
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Kick_Horse_Kick
+    AT: 1
+    ET: 0.4
+    ED: 1
+    Dmg: 10
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_R
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_RL
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_Sp_U
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: Sword_Attack_Combo_LL
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
+  - name: KB_Gun
+    AT: 0
+    ET: 0
+    ED: 0
+    Dmg: 0
+    Pos: 0
+    Dir: 0
+    Power: 0
   currentTarget: {fileID: 0}
   aimTarget: {fileID: 0}
   inCombatDuration: 4
@@ -1853,21 +1965,21 @@ MonoBehaviour:
   kick_Straight_Mid_R_Pos: 0
   kick_Straight_Mid_R_Dir: 0
   kick_Straight_Mid_R_Power: 0
-  kick_Straight_Mid_R_Dmg: 0
+  kick_Straight_Mid_R_Dmg: 10
   kick_AxeKick_AT: 1.2
   kick_AxeKick_ET: 0.5
   kick_AxeKick_ED: 1
   kick_AxeKick_Pos: 0
   kick_AxeKick_Dir: 0
   kick_AxeKick_Power: 0
-  kick_AxeKick_Dmg: 0
+  kick_AxeKick_Dmg: 10
   kick_HorseKick_AT: 1
   kick_HorseKick_ET: 0.4
   kick_HorseKick_ED: 1
   kick_HorseKick_Pos: 0
   kick_HorseKick_Dir: 0
   kick_HorseKick_Power: 0
-  kick_HorseKick_Dmg: 0
+  kick_HorseKick_Dmg: 10
   sword_Attack_R_AT: 0
   sword_Attack_R_ET: 0
   sword_Attack_R_ED: 0
@@ -1936,6 +2048,7 @@ MonoBehaviour:
   seekTarget: {fileID: 0}
   ghostTarget: {fileID: 0}
   maxSensoryRadius: 10
+  s_action: {fileID: 0}
 --- !u!114 &114897600667665338
 MonoBehaviour:
   m_ObjectHideFlags: 1
