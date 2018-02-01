@@ -56,7 +56,7 @@ namespace FriedTofu
                 writer.Write(NumAnimationFrames);
             }
         }
-        
+
         [StructLayout(LayoutKind.Explicit, Pack = 1, Size = 8)]
         [Serializable]
         public struct SubMesh
@@ -70,9 +70,6 @@ namespace FriedTofu
                 writer.Write(NumIndices);
             }
         }
-
-        private static string lastPath = null;
-        
 
         //[MenuItem("Tools/Test")]
         //static void Test()
@@ -94,16 +91,30 @@ namespace FriedTofu
         //    }
         //}
 
+        [Serializable]
+        public struct Config
+        {
+            public string LastExportPath;
+            public string DXTexConvPath;
+        }
+
         [MenuItem("Tools/Set TexConv Path")]
         static void SetDXTexConv()
         {
+            string configPath = Application.dataPath + "exporter.cfg";
+            Config config = new Config();
+
+            if (File.Exists(configPath))
+                config = JsonUtility.FromJson<Config>(File.ReadAllText(configPath));
+
             string path = EditorUtility.OpenFilePanel(
-                "Select texconv.exe", null, "exe");
+                "Select texconv.exe", config.DXTexConvPath, "exe");
 
             if (string.IsNullOrEmpty(path))
                 return;
 
-            TexConverter.DXTexConvPath = path;
+            config.DXTexConvPath = path;
+            File.WriteAllText(configPath, JsonUtility.ToJson(config));
         }
 
         [MenuItem("Tools/Export Current Scene (readable)")]
@@ -120,13 +131,26 @@ namespace FriedTofu
 
         static void ExportCurrentScene(bool compact)
         {
+            string configPath = Application.dataPath + "exporter.cfg";
+            string lastPath = null;
+
+            Config config = new Config();
+
+            if (File.Exists(configPath))
+            {
+                config = JsonUtility.FromJson<Config>(File.ReadAllText(configPath));
+                lastPath = config.LastExportPath;
+            }
+
             string path = EditorUtility.SaveFolderPanel("Select output assets folder", lastPath, null);
             if (string.IsNullOrEmpty(path))
             {
                 return;
             }
 
-            lastPath = path;
+            config.LastExportPath = path;
+            File.WriteAllText(configPath, JsonUtility.ToJson(config));
+
             ResourceMap context = new ResourceMap(path);
             Debug.Log("Assets folder: " + path);
 
@@ -149,11 +173,11 @@ namespace FriedTofu
             scene.Save(
                 Path.Combine(
                     Path.Combine(
-                        context.BaseDir, 
+                        context.BaseDir,
                         "scenes"
-                        ), 
+                        ),
                     unityScene.name + ".json"
-                    ), 
+                    ),
                 compact);
 
             context.Save();
@@ -181,7 +205,7 @@ namespace FriedTofu
             {
                 type = "mesh";
             }
-            
+
             if (type == "mesh")
             {
                 Scene.Renderable renderable = new Scene.Renderable();
@@ -217,7 +241,7 @@ namespace FriedTofu
 
                 entity.Add(renderable);
             }
-            
+
             Collider collider = obj.GetComponent<Collider>();
             if (null != collider)
             {
@@ -272,7 +296,7 @@ namespace FriedTofu
             {
                 basename = "Unity_Builtin_" + mesh.name;
             }
-            
+
             string newPath = Path.Combine("models", basename + ".model");
 
             newPath = newPath.Replace('\\', '/');
@@ -360,7 +384,50 @@ namespace FriedTofu
                     {
                         throw new Exception("Mesh not supported.");
                     }
-                    
+
+                    //Vector3[] tangents = new Vector3[mesh.vertexCount];
+                    //for (int i = 0; i < mesh.triangles.Length; i+=3)
+                    //{
+                    //    int i1 = mesh.triangles[i];
+                    //    int i2 = mesh.triangles[i+1];
+                    //    int i3 = mesh.triangles[i+2];
+
+                    //    Vector3 v1 = mesh.vertices[i1];
+                    //    Vector3 v2 = mesh.vertices[i2];
+                    //    Vector3 v3 = mesh.vertices[i3];
+
+                    //    Vector2 w1 = mesh.uv[i1];
+                    //    Vector2 w2 = mesh.uv[i2];
+                    //    Vector2 w3 = mesh.uv[i3];
+
+                    //    float x1 = v2.x - v1.x;
+                    //    float x2 = v3.x - v1.x;
+                    //    float y1 = v2.y - v1.y;
+                    //    float y2 = v3.y - v1.y;
+                    //    float z1 = v2.z - v1.z;
+                    //    float z2 = v3.z - v1.z;
+
+                    //    float s1 = w2.x - w1.x;
+                    //    float s2 = w3.x - w1.x;
+                    //    float t1 = w2.y - w1.y;
+                    //    float t2 = w3.y - w1.y;
+
+                    //    float r = 1.0f / (s1 * t2 - s2 * t1);
+                    //    Vector3 sdir = new Vector3(
+                    //        (t2 * x1 - t1 * x2) * r,
+                    //        (t2 * y1 - t1 * y2) * r,
+                    //        (t2 * z1 - t1 * z2) * r);
+
+                    //    Vector3 tdir = new Vector3(
+                    //        (s1 * x2 - s2 * x1) * r,
+                    //        (s1 * y2 - s2 * y1) * r,
+                    //        (s1 * z2 - s2 * z1) * r);
+
+                    //    tangents[i1] += sdir;
+                    //    tangents[i2] += sdir;
+                    //    tangents[i3] += sdir;
+                    //}
+
                     for (int i = 0; i < mesh.vertexCount; i++)
                     {
                         // position
@@ -376,10 +443,13 @@ namespace FriedTofu
                         writer.Write(normal.z);
 
                         // tangent
-                        Vector3 tangent = mesh.tangents[i];
+                        Vector4 tangent = mesh.tangents[i];
+                        //tangent *= mesh.tangents[i].w;
+                        //Vector4 tangent = (tangents[i] - normal * Vector3.Dot(normal, tangents[i])).normalized;
                         writer.Write(tangent.x);
                         writer.Write(tangent.y);
                         writer.Write(tangent.z);
+                        writer.Write(tangent.w);
 
                         // uv
                         Vector2 uv = mesh.uv[i];
@@ -393,7 +463,7 @@ namespace FriedTofu
                     }
                 }
             }
-            
+
             context.MeshTable[basename] = guid;
 
             return newPath;
@@ -449,7 +519,7 @@ namespace FriedTofu
                     material.NormalMap = normalMap;
                 }
             }
-            
+
             context.MaterialTable.Add(basename, material);
 
             return basename;
@@ -461,7 +531,7 @@ namespace FriedTofu
             {
                 return null;
             }
-            
+
             string path = AssetDatabase.GetAssetPath(tex);
             if (string.IsNullOrEmpty(path))
             {
@@ -494,21 +564,26 @@ namespace FriedTofu
             switch (tex.dimension)
             {
                 case UnityEngine.Rendering.TextureDimension.Tex2D:
+                    if (importer.convertToNormalmap)
+                    {
+                        Texture2D tex2d = tex as Texture2D;
+                        TexConverter.ConvertNormalMap(tex2d, Path.Combine(context.BaseDir, newPath + ".texture"));
+                    }
+                    else
                     {
                         Texture2D tex2d = tex as Texture2D;
                         texture.WrapMode = tex2d.wrapMode.ToString().ToLower();
                         texture.FilterMode = tex2d.filterMode.ToString().ToLower();
                         texture.MipmapCount = tex2d.mipmapCount;
                         texture.MipmapBias = tex2d.mipMapBias;
-                        
+
                         TexConverter.Convert(
-                            Path.Combine(Path.GetDirectoryName(Application.dataPath), path), 
-                            Path.Combine(context.BaseDir, newPath + ".texture"), 
-                            tex2d.format, tex2d.mipmapCount, 
+                            Path.Combine(Path.GetDirectoryName(Application.dataPath), path),
+                            Path.Combine(context.BaseDir, newPath + ".texture"),
+                            tex2d.format, tex2d.mipmapCount,
                             importer.convertToNormalmap, importer.heightmapScale * 1000);
-                        
-                        break;
                     }
+                    break;
                 case UnityEngine.Rendering.TextureDimension.Cube:
                     {
                         //Cubemap cubemap = texture as Cubemap;

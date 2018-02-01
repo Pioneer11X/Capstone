@@ -8,9 +8,7 @@ using System;
 public class TexConverter
 {
     public static Dictionary<TextureFormat, string> FormatTable { get; private set; }
-
-    public static string DXTexConvPath { get; set; }
-
+    
     static TexConverter()
     {
         FormatTable = new Dictionary<TextureFormat, string>();
@@ -52,8 +50,14 @@ public class TexConverter
             args += " -nmap l -nmapamp " + bumpiness;
         }
         args += " \"" + src.Replace('/', '\\') + "\"";
+        
+        string configPath = Application.dataPath + "exporter.cfg";
+        if (!File.Exists(configPath))
+            throw new Exception("Cannot find texconv path.");
+        
+        FriedTofu.SceneExporter.Config config = JsonUtility.FromJson<FriedTofu.SceneExporter.Config>(File.ReadAllText(configPath));
 
-        ProcessStartInfo info = new ProcessStartInfo(DXTexConvPath, args);
+        ProcessStartInfo info = new ProcessStartInfo(config.DXTexConvPath, args);
         info.WorkingDirectory = outDir;
         info.RedirectStandardOutput = true;
         info.RedirectStandardError = true;
@@ -74,5 +78,33 @@ public class TexConverter
             throw new Exception("Cannot find output dds.");
 
         File.Copy(outDDS, dst, true);
+    }
+
+    public static void ConvertNormalMap(Texture2D normalMap, string dst)
+    {
+        string outDir = Path.GetDirectoryName(dst).Replace('/', '\\');
+        string outFilename = Path.GetFileName(dst);
+        string srcBasename = Path.GetFileNameWithoutExtension(dst);
+        string outPNG = Path.Combine(outDir, srcBasename + ".png");
+
+        Texture2D tex = new Texture2D(normalMap.width, normalMap.height, TextureFormat.RGB24, false, false);
+
+        for (int y = 0; y < normalMap.height; y++)
+        {
+            for (int x = 0; x < normalMap.width; x++)
+            {
+                Color c = normalMap.GetPixel(x, y);
+                float r = c.a * 2 - 1;
+                float g = c.g * 2 - 1;
+                float b = Mathf.Sqrt(1 - r * r - g * g);
+                c = new Color((r + 1) * 0.5f, (g + 1) * 0.5f, (b + 1) * 0.5f);
+                tex.SetPixel(x, y, c);
+            }
+        }
+
+        byte[] data = tex.EncodeToPNG();
+        File.WriteAllBytes(outPNG, data);
+
+        Convert(outPNG, dst, TextureFormat.DXT5, normalMap.mipmapCount);
     }
 }

@@ -115,3 +115,6 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Configuration of assets exporter
+Assetsexporter.cfg
