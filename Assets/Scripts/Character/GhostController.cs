@@ -38,7 +38,6 @@ public class GhostController : MonoBehaviour
     private float h = 0;
     private float rotationY = 0;
     private float rotationX = 0;
-    private float zoom = 0;
 
     private Pause pause;
 
@@ -123,7 +122,7 @@ public class GhostController : MonoBehaviour
     {
         if (!isReplay)
         {
-            playerCharacter.StaminaBar = playerCharacter.StaminaBar - 0.1f;
+            playerCharacter.SpecialBar = playerCharacter.SpecialBar - 0.1f;
             visionHackTimer += Time.deltaTime;
 
             if (visionHackTimer >= maxVisionHackTime || !CrossPlatformInputManager.GetButton("Hack")) {

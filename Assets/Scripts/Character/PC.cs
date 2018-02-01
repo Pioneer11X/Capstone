@@ -17,7 +17,10 @@ public class PC : Humanoid
     private int counter;
 
     public float SpecialBar
-    { get { return specialBar.value; } }
+    {
+        get { return specialBar.value; }
+        set { specialBar.value = value; }
+    }
 
     public float StaminaBar
     {

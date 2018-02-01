@@ -237,7 +237,7 @@ public class ThirdPControl : MonoBehaviour
         if (CrossPlatformInputManager.GetButtonDown("Hack")) //Button 4
         {
             //if (visionHackCDTimer == visionHackCD)
-            if (playerCharacter.StaminaBar > 20 && !m_hacking)
+            if (playerCharacter.SpecialBar > 20 && !m_hacking)
             {
                 Debug.Log("Vision Hack");
                 m_hacking = true;
@@ -281,14 +281,14 @@ public class ThirdPControl : MonoBehaviour
             //jumpCount++;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !m_aiming)
+        if (Input.GetKeyDown(KeyCode.B) && !m_aiming)
         {
             m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
             m_aiming = true;
             m_Character.m_combat.IsAimming = true;
             AimList();
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl) && m_aiming)
+        if (Input.GetKeyUp(KeyCode.B) && m_aiming)
         {
             m_aiming = false;
             m_Character.m_combat.IsAimming = false;
