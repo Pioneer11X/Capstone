@@ -310,217 +310,220 @@ public class CombatManager : MonoBehaviour
     // ET - Effect Time
     // ED - Effect Distance
     // Dmg = Damage Amount
-    [SerializeField]
-    private float punch_Jab_L_AT;
-    [SerializeField]
-    private float punch_Jab_L_ET;
-    [SerializeField]
-    private float punch_Jab_L_ED;
-    [SerializeField]
-    private HitPosition punch_Jab_L_Pos;
-    [SerializeField]
-    private CombatDirection punch_Jab_L_Dir;
-    [SerializeField]
-    private HitPower punch_Jab_L_Power;
-    [SerializeField]
-    private float punch_Jab_L_Dmg;
 
-    [SerializeField]
-    private float punch_Jab_R_AT;
-    [SerializeField]
-    private float punch_Jab_R_ET;
-    [SerializeField]
-    private float punch_Jab_R_ED;
-    [SerializeField]
-    private HitPosition punch_Jab_R_Pos;
-    [SerializeField]
-    private CombatDirection punch_Jab_R_Dir;
-    [SerializeField]
-    private HitPower punch_Jab_R_Power;
-    [SerializeField]
-    private float punch_Jab_R_Dmg;
+    // ఇవి మనకింక అవసరం లేదు.
+    // We do not need these anymore.
+    //[SerializeField]
+    //private float punch_Jab_L_AT;
+    //[SerializeField]
+    //private float punch_Jab_L_ET;
+    //[SerializeField]
+    //private float punch_Jab_L_ED;
+    //[SerializeField]
+    //private HitPosition punch_Jab_L_Pos;
+    //[SerializeField]
+    //private CombatDirection punch_Jab_L_Dir;
+    //[SerializeField]
+    //private HitPower punch_Jab_L_Power;
+    //[SerializeField]
+    //private float punch_Jab_L_Dmg;
 
-    [SerializeField]
-    private float punch_Hook_L_AT;
-    [SerializeField]
-    private float punch_Hook_L_ET;
-    [SerializeField]
-    private float punch_Hook_L_ED;
-    [SerializeField]
-    private HitPosition punch_Hook_L_Pos;
-    [SerializeField]
-    private CombatDirection punch_Hook_L_Dir;
-    [SerializeField]
-    private HitPower punch_Hook_L_Power;
-    [SerializeField]
-    private float punch_Hook_L_Dmg;
+    //[SerializeField]
+    //private float punch_Jab_R_AT;
+    //[SerializeField]
+    //private float punch_Jab_R_ET;
+    //[SerializeField]
+    //private float punch_Jab_R_ED;
+    //[SerializeField]
+    //private HitPosition punch_Jab_R_Pos;
+    //[SerializeField]
+    //private CombatDirection punch_Jab_R_Dir;
+    //[SerializeField]
+    //private HitPower punch_Jab_R_Power;
+    //[SerializeField]
+    //private float punch_Jab_R_Dmg;
 
-    [SerializeField]
-    private float punch_Hook_R_AT;
-    [SerializeField]
-    private float punch_Hook_R_ET;
-    [SerializeField]
-    private float punch_Hook_R_ED;
-    [SerializeField]
-    private HitPosition punch_Hook_R_Pos;
-    [SerializeField]
-    private CombatDirection punch_Hook_R_Dir;
-    [SerializeField]
-    private HitPower punch_Hook_R_Power;
-    [SerializeField]
-    private float punch_Hook_R_Dmg;
+    //[SerializeField]
+    //private float punch_Hook_L_AT;
+    //[SerializeField]
+    //private float punch_Hook_L_ET;
+    //[SerializeField]
+    //private float punch_Hook_L_ED;
+    //[SerializeField]
+    //private HitPosition punch_Hook_L_Pos;
+    //[SerializeField]
+    //private CombatDirection punch_Hook_L_Dir;
+    //[SerializeField]
+    //private HitPower punch_Hook_L_Power;
+    //[SerializeField]
+    //private float punch_Hook_L_Dmg;
+
+    //[SerializeField]
+    //private float punch_Hook_R_AT;
+    //[SerializeField]
+    //private float punch_Hook_R_ET;
+    //[SerializeField]
+    //private float punch_Hook_R_ED;
+    //[SerializeField]
+    //private HitPosition punch_Hook_R_Pos;
+    //[SerializeField]
+    //private CombatDirection punch_Hook_R_Dir;
+    //[SerializeField]
+    //private HitPower punch_Hook_R_Power;
+    //[SerializeField]
+    //private float punch_Hook_R_Dmg;
 
 
-    [SerializeField]
-    private float punch_UpperCut_L_AT;
-    [SerializeField]
-    private float punch_UpperCut_L_ET;
-    [SerializeField]
-    private float punch_UpperCut_L_ED;
-    [SerializeField]
-    private HitPosition punch_UpperCut_L_Pos;
-    [SerializeField]
-    private CombatDirection punch_UpperCut_L_Dir;
-    [SerializeField]
-    private HitPower punch_UpperCut_L_Power;
-    [SerializeField]
-    private float punch_UpperCut_L_Dmg;
+    //[SerializeField]
+    //private float punch_UpperCut_L_AT;
+    //[SerializeField]
+    //private float punch_UpperCut_L_ET;
+    //[SerializeField]
+    //private float punch_UpperCut_L_ED;
+    //[SerializeField]
+    //private HitPosition punch_UpperCut_L_Pos;
+    //[SerializeField]
+    //private CombatDirection punch_UpperCut_L_Dir;
+    //[SerializeField]
+    //private HitPower punch_UpperCut_L_Power;
+    //[SerializeField]
+    //private float punch_UpperCut_L_Dmg;
 
-    [SerializeField]
-    private float punch_UpperCut_R_AT;
-    [SerializeField]
-    private float punch_UpperCut_R_ET;
-    [SerializeField]
-    private float punch_UpperCut_R_ED;
-    [SerializeField]
-    private HitPosition punch_UpperCut_R_Pos;
-    [SerializeField]
-    private CombatDirection punch_UpperCut_R_Dir;
-    [SerializeField]
-    private HitPower punch_UpperCut_R_Power;
-    [SerializeField]
-    private float punch_UpperCut_R_Dmg;
+    //[SerializeField]
+    //private float punch_UpperCut_R_AT;
+    //[SerializeField]
+    //private float punch_UpperCut_R_ET;
+    //[SerializeField]
+    //private float punch_UpperCut_R_ED;
+    //[SerializeField]
+    //private HitPosition punch_UpperCut_R_Pos;
+    //[SerializeField]
+    //private CombatDirection punch_UpperCut_R_Dir;
+    //[SerializeField]
+    //private HitPower punch_UpperCut_R_Power;
+    //[SerializeField]
+    //private float punch_UpperCut_R_Dmg;
 
-    [SerializeField]
-    private float kick_Straight_Mid_R_AT;
-    [SerializeField]
-    private float kick_Straight_Mid_R_ET;
-    [SerializeField]
-    private float kick_Straight_Mid_R_ED;
-    [SerializeField]
-    private HitPosition kick_Straight_Mid_R_Pos;
-    [SerializeField]
-    private CombatDirection kick_Straight_Mid_R_Dir;
-    [SerializeField]
-    private HitPower kick_Straight_Mid_R_Power;
-    [SerializeField]
-    private float kick_Straight_Mid_R_Dmg;
+    //[SerializeField]
+    //private float kick_Straight_Mid_R_AT;
+    //[SerializeField]
+    //private float kick_Straight_Mid_R_ET;
+    //[SerializeField]
+    //private float kick_Straight_Mid_R_ED;
+    //[SerializeField]
+    //private HitPosition kick_Straight_Mid_R_Pos;
+    //[SerializeField]
+    //private CombatDirection kick_Straight_Mid_R_Dir;
+    //[SerializeField]
+    //private HitPower kick_Straight_Mid_R_Power;
+    //[SerializeField]
+    //private float kick_Straight_Mid_R_Dmg;
 
-    [SerializeField]
-    private float kick_AxeKick_AT;
-    [SerializeField]
-    private float kick_AxeKick_ET;
-    [SerializeField]
-    private float kick_AxeKick_ED;
-    [SerializeField]
-    private HitPosition kick_AxeKick_Pos;
-    [SerializeField]
-    private CombatDirection kick_AxeKick_Dir;
-    [SerializeField]
-    private HitPower kick_AxeKick_Power;
-    [SerializeField]
-    private float kick_AxeKick_Dmg;
+    //[SerializeField]
+    //private float kick_AxeKick_AT;
+    //[SerializeField]
+    //private float kick_AxeKick_ET;
+    //[SerializeField]
+    //private float kick_AxeKick_ED;
+    //[SerializeField]
+    //private HitPosition kick_AxeKick_Pos;
+    //[SerializeField]
+    //private CombatDirection kick_AxeKick_Dir;
+    //[SerializeField]
+    //private HitPower kick_AxeKick_Power;
+    //[SerializeField]
+    //private float kick_AxeKick_Dmg;
 
-    [SerializeField]
-    private float kick_HorseKick_AT;
-    [SerializeField]
-    private float kick_HorseKick_ET;
-    [SerializeField]
-    private float kick_HorseKick_ED;
-    [SerializeField]
-    private HitPosition kick_HorseKick_Pos;
-    [SerializeField]
-    private CombatDirection kick_HorseKick_Dir;
-    [SerializeField]
-    private HitPower kick_HorseKick_Power;
-    [SerializeField]
-    private float kick_HorseKick_Dmg;
+    //[SerializeField]
+    //private float kick_HorseKick_AT;
+    //[SerializeField]
+    //private float kick_HorseKick_ET;
+    //[SerializeField]
+    //private float kick_HorseKick_ED;
+    //[SerializeField]
+    //private HitPosition kick_HorseKick_Pos;
+    //[SerializeField]
+    //private CombatDirection kick_HorseKick_Dir;
+    //[SerializeField]
+    //private HitPower kick_HorseKick_Power;
+    //[SerializeField]
+    //private float kick_HorseKick_Dmg;
 
-    [SerializeField]
-    private float sword_Attack_R_AT;
-    [SerializeField]
-    private float sword_Attack_R_ET;
-    [SerializeField]
-    private float sword_Attack_R_ED;
-    [SerializeField]
-    private HitPosition sword_Attack_R_Pos;
-    [SerializeField]
-    private CombatDirection sword_Attack_R_Dir;
-    [SerializeField]
-    private HitPower sword_Attack_R_Power;
-    [SerializeField]
-    private float sword_Attack_R_Dmg;
+    //[SerializeField]
+    //private float sword_Attack_R_AT;
+    //[SerializeField]
+    //private float sword_Attack_R_ET;
+    //[SerializeField]
+    //private float sword_Attack_R_ED;
+    //[SerializeField]
+    //private HitPosition sword_Attack_R_Pos;
+    //[SerializeField]
+    //private CombatDirection sword_Attack_R_Dir;
+    //[SerializeField]
+    //private HitPower sword_Attack_R_Power;
+    //[SerializeField]
+    //private float sword_Attack_R_Dmg;
 
-    [SerializeField]
-    private float sword_Attack_RL_AT;
-    [SerializeField]
-    private float sword_Attack_RL_ET;
-    [SerializeField]
-    private float sword_Attack_RL_ED;
-    [SerializeField]
-    private HitPosition sword_Attack_RL_Pos;
-    [SerializeField]
-    private CombatDirection sword_Attack_RL_Dir;
-    [SerializeField]
-    private HitPower sword_Attack_RL_Power;
-    [SerializeField]
-    private float sword_Attack_RL_Dmg;
+    //[SerializeField]
+    //private float sword_Attack_RL_AT;
+    //[SerializeField]
+    //private float sword_Attack_RL_ET;
+    //[SerializeField]
+    //private float sword_Attack_RL_ED;
+    //[SerializeField]
+    //private HitPosition sword_Attack_RL_Pos;
+    //[SerializeField]
+    //private CombatDirection sword_Attack_RL_Dir;
+    //[SerializeField]
+    //private HitPower sword_Attack_RL_Power;
+    //[SerializeField]
+    //private float sword_Attack_RL_Dmg;
 
-    [SerializeField]
-    private float sword_Attack_Sp_U_AT;
-    [SerializeField]
-    private float sword_Attack_Sp_U_ET;
-    [SerializeField]
-    private float sword_Attack_Sp_U_ED;
-    [SerializeField]
-    private HitPosition sword_Attack_Sp_U_Pos;
-    [SerializeField]
-    private CombatDirection sword_Attack_Sp_U_Dir;
-    [SerializeField]
-    private HitPower sword_Attack_Sp_U_Power;
-    [SerializeField]
-    private float sword_Attack_Sp_U_Dmg;
+    //[SerializeField]
+    //private float sword_Attack_Sp_U_AT;
+    //[SerializeField]
+    //private float sword_Attack_Sp_U_ET;
+    //[SerializeField]
+    //private float sword_Attack_Sp_U_ED;
+    //[SerializeField]
+    //private HitPosition sword_Attack_Sp_U_Pos;
+    //[SerializeField]
+    //private CombatDirection sword_Attack_Sp_U_Dir;
+    //[SerializeField]
+    //private HitPower sword_Attack_Sp_U_Power;
+    //[SerializeField]
+    //private float sword_Attack_Sp_U_Dmg;
 
-    [SerializeField]
-    private float Sword_Attack_Combo_LL_AT;
-    [SerializeField]
-    private float Sword_Attack_Combo_LL_ET;
-    [SerializeField]
-    private float Sword_Attack_Combo_LL_ED;
-    [SerializeField]
-    private HitPosition Sword_Attack_Combo_LL_Pos;
-    [SerializeField]
-    private CombatDirection Sword_Attack_Combo_LL_Dir;
-    [SerializeField]
-    private HitPower Sword_Attack_Combo_LL_Power;
-    [SerializeField]
-    private float Sword_Attack_Combo_LL_Dmg;
+    //[SerializeField]
+    //private float Sword_Attack_Combo_LL_AT;
+    //[SerializeField]
+    //private float Sword_Attack_Combo_LL_ET;
+    //[SerializeField]
+    //private float Sword_Attack_Combo_LL_ED;
+    //[SerializeField]
+    //private HitPosition Sword_Attack_Combo_LL_Pos;
+    //[SerializeField]
+    //private CombatDirection Sword_Attack_Combo_LL_Dir;
+    //[SerializeField]
+    //private HitPower Sword_Attack_Combo_LL_Power;
+    //[SerializeField]
+    //private float Sword_Attack_Combo_LL_Dmg;
 
-    [SerializeField]
-    private float KB_Gun_AT;
-    [SerializeField]
-    private float KB_Gun_ET;
-    [SerializeField]
-    private float KB_Gun_ED;
-    [SerializeField]
-    private HitPosition KB_Gun_Pos;
-    [SerializeField]
-    private CombatDirection KB_Gun_Dir;
-    [SerializeField]
-    private HitPower KB_Gun_Power;
-    [SerializeField]
-    private float KB_Gun_Dmg;
-    // --------------------------------------------------------------------------------------------
+    //[SerializeField]
+    //private float KB_Gun_AT;
+    //[SerializeField]
+    //private float KB_Gun_ET;
+    //[SerializeField]
+    //private float KB_Gun_ED;
+    //[SerializeField]
+    //private HitPosition KB_Gun_Pos;
+    //[SerializeField]
+    //private CombatDirection KB_Gun_Dir;
+    //[SerializeField]
+    //private HitPower KB_Gun_Power;
+    //[SerializeField]
+    //private float KB_Gun_Dmg;
+    //// --------------------------------------------------------------------------------------------
 
     //
     #region Bools
@@ -819,13 +822,19 @@ public class CombatManager : MonoBehaviour
             combatAudio.clip = gunShotFX;
             combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.KB_Gun;
-            currentAttackTime = KB_Gun_AT;
-            currentEffectTime = KB_Gun_ET;
-            currentEffetDistance = KB_Gun_ED;
-            currentDirection = KB_Gun_Dir;
-            currentPower = KB_Gun_Power;
-            currentHitPos = KB_Gun_Pos;
-            currentDmgAmount = KB_Gun_Dmg;
+
+            // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
+            // Because of None in the Enum, subtract by 1.
+            CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
+            Debug.Log(currentCombat + " " + currentMoveDetails.name);
+            currentAttackTime = currentMoveDetails.AT;
+            currentEffectTime = currentMoveDetails.ET;
+            currentEffetDistance = currentMoveDetails.ED;
+            currentDmgAmount = currentMoveDetails.Dmg;
+            currentDirection = currentMoveDetails.Dir;
+            currentPower = currentMoveDetails.Power;
+            currentHitPos = currentMoveDetails.Pos;
+
             attackDuration = currentAttackTime;
             Shoot();
         }
@@ -1130,12 +1139,6 @@ public class CombatManager : MonoBehaviour
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
         }
-
-        // ముందు all moves లో ఎన్ని వస్తువులు వున్నాయో చూడు.
-        // పనిచేస్తోంది.
-        // Debug.Log(allMoves.Count);
-
-        // ఇక్కడ ఎక్సెప్షన్ వస్తుంది. ఎందుకో చూసి, దానిని తీర్చు.
 
         // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
         // Because of None in the Enum, subtract by 1.
