@@ -643,6 +643,8 @@ GameObject:
   - component: {fileID: 114706027536123182}
   - component: {fileID: 114588212800587386}
   - component: {fileID: 114374242420607524}
+  - component: {fileID: 114056766501642784}
+  - component: {fileID: 114886710987461754}
   m_Layer: 8
   m_Name: Tutorial_Enemy
   m_TagString: Enemy
@@ -1711,6 +1713,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114056766501642784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740812503336440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4480db29a9f46f844bad89b548e468b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114227522319718284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2049,6 +2062,143 @@ MonoBehaviour:
   ghostTarget: {fileID: 0}
   maxSensoryRadius: 10
   s_action: {fileID: 0}
+--- !u!114 &114886710987461754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740812503336440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2162ae2402366db4cbc621f92e942090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initalActionsList:
+  - name: Punch_Jab_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 1
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    combat: 1
+    actionTime: 0.7
+    damage: 10
+    preference: 10
+  - name: Punch_Jab_R
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 1
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    combat: 2
+    actionTime: 0.5
+    damage: 10
+    preference: 10
+  - name: Punch_Hook_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 1
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    combat: 3
+    actionTime: 0.65
+    damage: 10
+    preference: 10
+  - name: Punch_Hook_R
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    combat: 4
+    actionTime: 0.65
+    damage: 10
+    preference: 10
+  - name: Punch_Upper_Cut_L
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 0
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 1
+      canIAttack: 1
+      targetStunned: 0
+      amIStunned: 2
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    combat: 5
+    actionTime: 0.8
+    damage: 10
+    preference: 10
 --- !u!114 &114897600667665338
 MonoBehaviour:
   m_ObjectHideFlags: 1
