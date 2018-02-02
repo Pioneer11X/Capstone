@@ -109,6 +109,7 @@ public class ThirdPCharacter : Character
             Vector3 temp, temp2;
             temp = camRot.eulerAngles;
             temp2 = charBodyRotation.eulerAngles;
+            temp.y = temp.y + 7;
             if (temp2.y > 360)
             { temp2.y -= 360; }
             //temp.x = 0.0f;

@@ -164,11 +164,16 @@ public class ThirdPCamera : MonoBehaviour
     private void FixedUpdate()
     {
         // Maintain Aim Position if in Aim Mode
-        if(isAiming && adjustAimOnce)
+        //if(isAiming && adjustAimOnce)
+        //{
+        //    adjustAimOnce = false;
+        //    transform.position = aimTargetPos.transform.position;
+        //    //lookAtTarget = target;
+        //}
+        if (isAiming )
         {
-            adjustAimOnce = false;
             transform.position = aimTargetPos.transform.position;
-            lookAtTarget = target;
+            //lookAtTarget = target;
         }
 
 
