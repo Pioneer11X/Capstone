@@ -3058,6 +3058,7 @@ MonoBehaviour:
   gun: {fileID: 1843143527485728}
   sword: {fileID: 1166950579119954}
   wrist: {fileID: 1090890770272610}
+  companion: {fileID: 0}
   allMoves:
   - name: Punch_Jab_L
     AT: 0.7
@@ -3164,7 +3165,7 @@ MonoBehaviour:
     Dir: 2
     Power: 1
   - name: KB_Gun
-    AT: 2
+    AT: 1
     ET: 0.5
     ED: 1
     Dmg: 20

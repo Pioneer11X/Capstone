@@ -14,14 +14,17 @@ abstract public class Character : MonoBehaviour
         jump_up,
         jump_air,
         jump_down,
-        aim,
-        shoot,
         attack,
         adjustPosition,
         hit,
         dodge,
         roll,
-        aimMove
+        draw_Gun,
+        aim_Idle,
+        shoot,
+        holster_Gun,
+        aim_Move,
+        dead
     }
 
     public AudioSource charAudio;
@@ -69,6 +72,7 @@ abstract public class Character : MonoBehaviour
     protected bool m_moving;
     protected bool frozen = false;
     private bool hasJumped = false;
+    public bool isDead;
 
     protected float turnMod;
     protected float m_OrigGroundCheckDistance;
@@ -375,7 +379,7 @@ abstract public class Character : MonoBehaviour
             else if (m_combat.IsAimming && m_combat.moveDir > -1)
             {
                 animationParameter = m_combat.moveDir;
-                currentState = CharacterState.aimMove;
+                currentState = CharacterState.aim_Move;
             }
             else
             {
@@ -394,6 +398,10 @@ abstract public class Character : MonoBehaviour
                     {
                         currentState = CharacterState.idle_InCombat;
                     }
+                    else if(m_combat.IsAimming)
+                    {
+                        currentState = CharacterState.idle_InCombat;
+                    }
                     else
                     {
                         currentState = CharacterState.idle_OutCombat;
@@ -403,6 +411,10 @@ abstract public class Character : MonoBehaviour
             }
         }
 
+        if(isDead)
+        {
+            currentState = CharacterState.dead;
+        }
 
         if (lastState != currentState)
         {

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
+using System.Collections;
 using System.Collections.Generic;
 
 /*This is a third person controller script built on the basis of unity's built in third person controller.
@@ -14,6 +15,7 @@ public class ThirdPControl : MonoBehaviour
 {
 
     public GameObject myCarmera;
+    private GameObject gun;
 
     [SerializeField]
     private float mouseRotationFactor; //Set mouse rotation sensitivity
@@ -81,7 +83,9 @@ public class ThirdPControl : MonoBehaviour
 
 
     public Transform target;
-    public Transform aimTarget;
+    //public Transform aimTarget;
+    public GameObject aimTarget;
+    public GameObject gunTarget;
 
 
 
@@ -108,6 +112,8 @@ public class ThirdPControl : MonoBehaviour
 
         sprintCoolDown = false;
         m_hacking = false;
+
+        gun = gameObject.GetComponent<CombatManager>().gun;
     }//end start
 
     private void Update()
@@ -180,6 +186,10 @@ public class ThirdPControl : MonoBehaviour
         }
         else if(m_aiming)
         {
+            if(!gun.activeSelf)
+            {
+                gun.SetActive(true);
+            }
             // Gun Attack
             if (attackButtonDown)
             {
@@ -283,10 +293,15 @@ public class ThirdPControl : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B) && !m_aiming)
         {
-            m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
-            m_aiming = true;
-            m_Character.m_combat.IsAimming = true;
-            AimList();
+            if(AimList())
+            {
+                m_Character.CurrentState = ThirdPCharacter.CharacterState.draw_Gun;
+                m_aiming = true;
+                m_Character.m_combat.IsAimming = true;
+                gun.SetActive(true);
+            }
+            
+            
         }
         if (Input.GetKeyUp(KeyCode.B) && m_aiming)
         {
@@ -294,6 +309,9 @@ public class ThirdPControl : MonoBehaviour
             m_Character.m_combat.IsAimming = false;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
             enemies.Clear();
+            m_Character.CurrentState = ThirdPCharacter.CharacterState.holster_Gun;
+            UnHighlightEnemies();
+            StartCoroutine(GunHolsterDelay());
         }
 
     }//end update
@@ -355,23 +373,30 @@ public class ThirdPControl : MonoBehaviour
         {
             if (!m_aiming)
             {
-                m_Character.CurrentState = ThirdPCharacter.CharacterState.aim;
-                m_aiming = true;
-                m_Character.m_combat.IsAimming = true;
+                if (AimList())
+                {
+                    m_Character.CurrentState = ThirdPCharacter.CharacterState.draw_Gun;
+                    m_aiming = true;
+                    m_Character.m_combat.IsAimming = true;
 
-                // TODO
-                // Find nearest enemy in front of the player and set as aim target
-                AimList();
+                    // TODO
+                    // Find nearest enemy in front of the player and set as aim target
 
-                m_usedConAim = true;
+                    gun.SetActive(true);
+                    m_usedConAim = true;
+                }
             }
         }
         else if(m_aiming && m_usedConAim) // TODO change to work better with controller and some form of error range
         {
             m_aiming = false;
+            m_usedConAim = false;
             m_Character.m_combat.IsAimming = false;
             myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
             enemies.Clear();
+            m_Character.CurrentState = ThirdPCharacter.CharacterState.holster_Gun;
+            UnHighlightEnemies();
+            StartCoroutine(GunHolsterDelay());
         }
 
         // D-Pad goes here
@@ -427,7 +452,13 @@ public class ThirdPControl : MonoBehaviour
                     {
                         aimTargetIndex--;
                     }
-                    myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, enemyArray[aimTargetIndex]);
+                    gunTarget = enemyArray[aimTargetIndex];
+                    aimTarget = gunTarget.transform.GetChild(0).gameObject;
+
+                    myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
+                    m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
+                    gunTarget.GetComponentInChildren<SkinnedMeshRenderer>().material = gunTarget.GetComponent<Enemy>().highlightMat;
+                    enemyArray[aimTargetIndex - 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex - 1].GetComponent<Enemy>().defaultMat;
                 }
                 else if (rotationX < -1 && aimCoolDown > 29)
                 {
@@ -436,7 +467,13 @@ public class ThirdPControl : MonoBehaviour
                     {
                         aimTargetIndex = 0;
                     }
-                    myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, enemyArray[aimTargetIndex]);
+                    gunTarget = enemyArray[aimTargetIndex];
+                    aimTarget = gunTarget.transform.GetChild(0).gameObject;
+
+                    myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
+                    m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
+                    gunTarget.GetComponentInChildren<SkinnedMeshRenderer>().material = gunTarget.GetComponent<Enemy>().highlightMat;
+                    enemyArray[aimTargetIndex + 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex + 1].GetComponent<Enemy>().defaultMat;
                 }
             }
             aimCoolDown--;
@@ -475,13 +512,18 @@ public class ThirdPControl : MonoBehaviour
         m_Jump = false;
     }
 
-    // Make a list of enemy targets for aiming
-    private void AimList()
+    /// <summary>
+    /// Make a list of enemy targets for aiming
+    /// </summary>
+    /// <returns>True if a target is found</returns>
+    private bool AimList()
     {
         enemies.Clear();
         bool done = false;
         enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject aimTarget = null;
+        //GameObject target = null;
+
+        UnHighlightEnemies();
 
         // Get the enemies in front of me
         for (int i = 0; i < enemyArray.Length; i++)
@@ -528,14 +570,20 @@ public class ThirdPControl : MonoBehaviour
                 {
                     tempDot = dot;
                     aimTargetIndex = i;
-                    aimTarget = enemyArray[i].transform.GetChild(0).gameObject;
+                    gunTarget = enemyArray[i];
+                    aimTarget = gunTarget.transform.GetChild(0).gameObject;
                 }
             }
 
         
-                myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
-                m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
+            myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
+            m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
+            gunTarget.GetComponentInChildren<SkinnedMeshRenderer>().material = gunTarget.GetComponent<Enemy>().highlightMat;
+
+            return true;
         }
+
+        return false;
     }
 
     /// <summary>
@@ -563,6 +611,25 @@ public class ThirdPControl : MonoBehaviour
         visionHackCDTimer = 0;
         gameObject.SetActive(true);
         m_Character.camera = myCarmera;
+    }
+
+
+    IEnumerator GunHolsterDelay()
+    {
+        yield return new WaitForSeconds(1);
+
+        gun.SetActive(false);
+    }
+
+    /// <summary>
+    /// Reset Enemy material to the defualt
+    /// </summary>
+    private void UnHighlightEnemies()
+    {
+        for (int i = 0; i < enemyArray.Length; i++)
+        {
+            enemyArray[i].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[i].GetComponent<Enemy>().defaultMat;
+        }
     }
 }//end ThirdPControl
 

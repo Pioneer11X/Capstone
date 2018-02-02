@@ -127,11 +127,7 @@ public class PC : Humanoid
     /// <returns></returns>
     IEnumerator WaitToEnd()
     {
-        while (counter < 120)
-        {
-            counter++;
-            yield return null;
-        }
+        yield return new WaitForSeconds(4);
 
         SceneManager.LoadSceneAsync("Death");
     }

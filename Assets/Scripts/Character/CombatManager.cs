@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -75,7 +76,7 @@ public class CombatManager : MonoBehaviour
         Sword_Attack_RL,
         Sword_Attack_Sp_U,
         Sword_Attack_Combo_LL,
-        KB_Gun,
+        Gun_Shoot,
         Number_Of_Items
     }
 
@@ -638,7 +639,7 @@ public class CombatManager : MonoBehaviour
             {
                 swordGunAttack = false;
                 sword.SetActive(false);
-                gun.SetActive(false);
+                //gun.SetActive(false);
                 companion.SetActive(true);
                 companion.transform.position = compPos;
             }
@@ -666,6 +667,8 @@ public class CombatManager : MonoBehaviour
             {
                 companion.SetActive(true);
             }
+
+            
         }
         //*******************************************************************
     }
@@ -746,7 +749,7 @@ public class CombatManager : MonoBehaviour
     }
 
 
-    public void Hit(HitPosition pos, HitDirection dir, HitPower power, float dmg)
+    public void Hit(HitPosition pos, HitDirection dir, HitPower power, float dmg, float delay = 0, bool dmgDelay = false)
     {
         //
         isHit = true;
@@ -757,7 +760,15 @@ public class CombatManager : MonoBehaviour
         resetHit = true;
 
         // Does damage based on what attack
-        this.GetComponent<Humanoid>().TakeDamag(dmg);
+        if(!dmgDelay)
+        {
+            this.GetComponent<Humanoid>().TakeDamag(dmg);
+        }
+        else
+        {
+            StartCoroutine(DelayBeforeDamage(delay, dmg));
+        }
+        
         Debug.Log(gameObject.name + ": Takes " + dmg + " damage");
 
         isAttacking = false;
@@ -818,10 +829,10 @@ public class CombatManager : MonoBehaviour
         if (CheckRangeTarget())
         {
             swordGunAttack = true;
-            gun.SetActive(true);
+            //gun.SetActive(true);
             combatAudio.clip = gunShotFX;
             combatAudio.PlayDelayed(0.5f);
-            currentCombat = Combat.KB_Gun;
+            currentCombat = Combat.Gun_Shoot;
 
             // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
             // Because of None in the Enum, subtract by 1.
@@ -837,6 +848,9 @@ public class CombatManager : MonoBehaviour
 
             attackDuration = currentAttackTime;
             Shoot();
+
+            // TODO Modify hit dir later
+            aimTarget.m_combat.Hit(aimTarget.m_combat.currentHitPos, HitDirection.backward, currentPower, currentDmgAmount, 0.5f, true);
         }
     }
 
@@ -988,13 +1002,13 @@ public class CombatManager : MonoBehaviour
                         if(Vector3.Distance(obj.transform.position, gameObject.transform.position) <
                             allMoves[(int)currentCombat - 1].ED )
                         {
-                            obj.GetComponent<CombatManager>().Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentDmgAmount);
+                            obj.GetComponent<CombatManager>().Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentDmgAmount, 0.5f, true);
                         }
                     }
                 }
                 else
                 {
-                    currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentDmgAmount);
+                    currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentDmgAmount, 0.5f, true);
                 }
             }
 
@@ -1321,5 +1335,13 @@ public class CombatManager : MonoBehaviour
         attackDuration = currentAttackTime;
     }
     // --------------------------------------------------------------------------------------------
+
+
+    IEnumerator DelayBeforeDamage(float delay, float dmg)
+    {
+        yield return new WaitForSeconds(delay);
+
+        this.GetComponent<Humanoid>().TakeDamag(dmg);
+    }
 
 }// End of Combat Manager

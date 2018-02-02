@@ -29,6 +29,7 @@ public class CapstoneAnimation : MonoBehaviour
 
     public void Play(Character.CharacterState state, int parameter)
     {
+        //Debug.Log(state);
         switch (state)
         {
             case Character.CharacterState.idle_OutCombat:
@@ -46,7 +47,6 @@ public class CapstoneAnimation : MonoBehaviour
                 else {
                     animator.Play("Dash");
                 }
-                
                 break;
             case Character.CharacterState.jump_up:
                 animator.Play("Jump_Up");
@@ -57,7 +57,19 @@ public class CapstoneAnimation : MonoBehaviour
             case Character.CharacterState.jump_down:
                 animator.Play("Jump_Down");
                 break;
-            case Character.CharacterState.aimMove:
+            case Character.CharacterState.draw_Gun:
+                animator.Play("Gun_Draw");
+                break;
+            case Character.CharacterState.holster_Gun:
+                animator.Play("Gun_Holster");
+                break;
+            case Character.CharacterState.shoot:
+                animator.Play("Gun_Shoot");
+                break;
+            case Character.CharacterState.aim_Idle:
+                animator.Play("Gun_Idle");
+                break;
+            case Character.CharacterState.aim_Move:
                 if (parameter == 0)
                 {
                     animator.Play("Aim_Sidestep_L");
@@ -92,6 +104,9 @@ public class CapstoneAnimation : MonoBehaviour
                 {
                     animator.Play("Dodge_F");
                 }
+                break;
+            case Character.CharacterState.dead:
+                animator.Play("Death");
                 break;
             case Character.CharacterState.roll:
                 animator.Play("Roll");

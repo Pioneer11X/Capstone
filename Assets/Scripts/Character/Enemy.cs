@@ -9,6 +9,8 @@ public class Enemy : Humanoid
     public GameObject BossBar;
     public Slider LifeBar;
     private GameObject level_Manager;
+    public Material defaultMat;
+    public Material highlightMat;
 
     private int counter;
 
@@ -42,38 +44,31 @@ public class Enemy : Humanoid
     /// </summary>
     protected override void Die()
     {
-        if (!isBoss && !isTutorial)
-        {
-            Destroy(gameObject);
-            
-        }
-        else if (isBoss )
+        if (isBoss )
         {
             LifeBar.value = 0;
-            StartCoroutine(WaitToDestroy());
         }
-        else if(isTutorial)
-        {
-            health = 1000;
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            Debug.Assert(false, "Invalid enemy type called Die function");
-        }
+        StartCoroutine(WaitToDestroy());
     }
 
     IEnumerator WaitToDestroy()
     {
-        while (counter < 60)
-        {
-            counter++;
-            yield return null;
-        }
+        yield return new WaitForSeconds(4);
 
-        BossBar.SetActive(false);
-        level_Manager.GetComponent<LevelManager>().End();
-        Destroy(gameObject);
+        if (isBoss)
+        {
+            BossBar.SetActive(false);
+            level_Manager.GetComponent<LevelManager>().End();
+        }
+        if (!isTutorial)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            health = 1000;
+            gameObject.SetActive(false);
+        }
         
     }
 

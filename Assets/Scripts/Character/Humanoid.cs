@@ -65,6 +65,7 @@ abstract public class Humanoid : MonoBehaviour
         }
         if (health <= 0)
         {
+            this.GetComponent<Character>().isDead = true;
             Die();
         }
     }
