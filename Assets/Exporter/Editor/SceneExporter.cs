@@ -269,7 +269,7 @@ namespace FriedTofu
                     Scene.PhysicsComponent comp = new Scene.PhysicsComponent();
                     comp.colliderType = "capsule";
                     comp.center = new Scene.Float3(capsule.center);
-                    comp.size = new Scene.Float3(capsule.radius, capsule.height, 0);
+                    comp.size = new Scene.Float3(capsule.radius, capsule.height - 2 * capsule.radius, 0);
                     entity.Add(comp);
                 }
                 else if (null != collider as MeshCollider)
