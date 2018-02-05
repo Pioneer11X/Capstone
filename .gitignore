@@ -118,3 +118,7 @@ DerivedDataCache/*
 
 # Ignoring this file that just won't go away
 Thumbs.db.meta
+
+# Configuration of assets exporter
+Assetsexporter.cfg
+

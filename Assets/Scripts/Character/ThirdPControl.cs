@@ -400,6 +400,7 @@ public class ThirdPControl : MonoBehaviour
         }
 
         // D-Pad goes here
+        /*
         if (CrossPlatformInputManager.GetAxis("dpX") > 0)
         { Debug.Log("D-Pad Right"); }
         if (CrossPlatformInputManager.GetAxis("dpX") < 0)
@@ -408,6 +409,7 @@ public class ThirdPControl : MonoBehaviour
         { Debug.Log("D-Pad Up"); }
         if (CrossPlatformInputManager.GetAxis("dpY") < 0)
         { Debug.Log("D-Pad Down"); }
+        */
 
 
         #region Specific Mouse Input
