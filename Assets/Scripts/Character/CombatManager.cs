@@ -769,7 +769,7 @@ public class CombatManager : MonoBehaviour
             StartCoroutine(DelayBeforeDamage(delay, dmg));
         }
         
-        Debug.Log(gameObject.name + ": Takes " + dmg + " damage");
+        //Debug.Log(gameObject.name + ": Takes " + dmg + " damage");
 
         isAttacking = false;
         isRolling = false;
@@ -821,7 +821,7 @@ public class CombatManager : MonoBehaviour
     // Gun Shooting
     public void GunShot()
     {
-        if (!canAttack || !isAimming)
+        if (!canAttack || !isAimming || aimTarget == null)
         {
             return;
         }
@@ -837,7 +837,7 @@ public class CombatManager : MonoBehaviour
             // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
             // Because of None in the Enum, subtract by 1.
             CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
-            Debug.Log(currentCombat + " " + currentMoveDetails.name);
+            //Debug.Log(currentCombat + " " + currentMoveDetails.name);
             currentAttackTime = currentMoveDetails.AT;
             currentEffectTime = currentMoveDetails.ET;
             currentEffetDistance = currentMoveDetails.ED;

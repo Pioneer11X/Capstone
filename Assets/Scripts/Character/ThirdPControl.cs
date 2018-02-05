@@ -445,6 +445,38 @@ public class ThirdPControl : MonoBehaviour
             // Change aim target if one is available based on joystick/mouse movement.
             if (enemyArray.Length > 1)
             {
+                // Is current target is dead, get new one
+                if (!gunTarget.activeSelf)
+                {
+                    float dist = float.MaxValue;
+                    List<GameObject> tempArray = new List<GameObject>(enemyArray.Length);
+
+                    // Adjust the array to remove the dead enemy
+                    for (int i = 0; i < enemyArray.Length; i++)
+                    {
+                        if(enemyArray[i].activeSelf)
+                        {
+                            enemyArray[i].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[i].GetComponent<Enemy>().defaultMat;
+                            tempArray.Add(enemyArray[i]);
+                        }
+                    }
+                    enemyArray = tempArray.ToArray();
+                    
+                    // Set the closet enemy as the target
+                    for (int i = 0; i < enemyArray.Length; i++)
+                    {
+                        float temp = Vector3.Distance(enemyArray[i].transform.position, transform.position);
+                        if (temp < dist)
+                        {
+                            dist = temp;
+                            gunTarget = enemyArray[i];
+                            aimTargetIndex = i;
+                        }
+                    }
+                    SetAimTarget(aimTargetIndex);
+                }
+
+                // Switch Aim Target
                 if (rotationX > 1 && aimCoolDown > 29)
                 {
                     aimTargetIndex++;
@@ -452,13 +484,9 @@ public class ThirdPControl : MonoBehaviour
                     {
                         aimTargetIndex--;
                     }
-                    gunTarget = enemyArray[aimTargetIndex];
-                    aimTarget = gunTarget.transform.GetChild(0).gameObject;
-
-                    myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
-                    m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
-                    gunTarget.GetComponentInChildren<SkinnedMeshRenderer>().material = gunTarget.GetComponent<Enemy>().highlightMat;
+                    SetAimTarget(aimTargetIndex);
                     enemyArray[aimTargetIndex - 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex - 1].GetComponent<Enemy>().defaultMat;
+
                 }
                 else if (rotationX < -1 && aimCoolDown > 29)
                 {
@@ -467,15 +495,26 @@ public class ThirdPControl : MonoBehaviour
                     {
                         aimTargetIndex = 0;
                     }
-                    gunTarget = enemyArray[aimTargetIndex];
-                    aimTarget = gunTarget.transform.GetChild(0).gameObject;
 
-                    myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
-                    m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
-                    gunTarget.GetComponentInChildren<SkinnedMeshRenderer>().material = gunTarget.GetComponent<Enemy>().highlightMat;
+                    SetAimTarget(aimTargetIndex);
                     enemyArray[aimTargetIndex + 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex + 1].GetComponent<Enemy>().defaultMat;
                 }
+
+
             }
+            else if(enemyArray.Length == 1 && !gunTarget.activeSelf)
+            {
+                // If there are no enemies left to aim at kick the player out of aim mode
+                m_aiming = false;
+                m_usedConAim = false;
+                m_Character.m_combat.IsAimming = false;
+                myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
+                enemies.Clear();
+                m_Character.CurrentState = ThirdPCharacter.CharacterState.holster_Gun;
+                UnHighlightEnemies();
+                StartCoroutine(GunHolsterDelay());
+            }
+
             aimCoolDown--;
             if(aimCoolDown < 1)
             {
@@ -631,5 +670,21 @@ public class ThirdPControl : MonoBehaviour
             enemyArray[i].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[i].GetComponent<Enemy>().defaultMat;
         }
     }
+
+    /// <summary>
+    /// Set the player's aim target
+    /// </summary>
+    /// <param name="index">Enemy array index</param>
+    private void SetAimTarget(int index)
+    {
+        gunTarget = enemyArray[index];
+        aimTarget = gunTarget.transform.GetChild(0).gameObject;
+
+        myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
+        m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
+        gunTarget.GetComponentInChildren<SkinnedMeshRenderer>().material = gunTarget.GetComponent<Enemy>().highlightMat;
+    }
+
+
 }//end ThirdPControl
 

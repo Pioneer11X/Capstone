@@ -17,11 +17,11 @@ using System.Collections.Generic;
 
 public class ThirdPCamera : MonoBehaviour 
 {
-    [SerializeField] private Transform target;        //target for camera to interact with
+    [SerializeField] private Transform target;          // target for camera to interact with
     [SerializeField] private Transform aimTargetPos;    // target for aim mode
 
-    private Transform lookAtTarget; // target camera should look at
-    private Vector3 moveAlong;      //vector for camera zoom
+    private Transform lookAtTarget;     // target camera should look at
+    private Vector3 moveAlong;          // vector for camera zoom
 
     [SerializeField] private float bumperDistanceCheck = 2.0f;  // length of bumper ray
     //[SerializeField] private float bumperCameraHeight = 0.5f;   // adjust camera height while bumping
@@ -32,24 +32,18 @@ public class ThirdPCamera : MonoBehaviour
     [SerializeField] private float upperTiltAngle = 110f;       // upper limit of camera Y tilt
     [SerializeField] private float minDistance = 3f;            // closet camera should get
     [SerializeField] private float maxDistance = 6f;            // furthest camera should get
-    //[SerializeField] private float aimHorizontal = 1f;          // furthest camera should aim left/right
-    //[SerializeField] private float aimVertical = 1f;            // furthest camera should aim up/down
-    //[SerializeField] private float aimSpeed = 0.1f;            // aiming speed
 
     private bool isAiming;
-    private bool adjustAimOnce;
 
     // test variables
     // Do not change these in the inspector
     public int tooClose;
     public int tooFar;
 
-    //private Vector3 lastCamPos;
     private Vector3 targetLastPos;
-    //private Vector3 aimTargetDefault;
     private float distance;
 
-    //Start, setup the initial camera position with the character
+    // Start, setup the initial camera position with the character
     void Start()
     {
         // Early out if we don't have a target
@@ -58,17 +52,14 @@ public class ThirdPCamera : MonoBehaviour
             Debug.Log("Camera has no target at Start.");
             return;
         }
-        //lastCamPos = transform.position;
         targetLastPos = target.transform.position;
         lookAtTarget = target;
-        //aimTargetDefault = transform.localPosition;
 
         isAiming = false;
-        adjustAimOnce = true;
 
         tooClose = 0;
         tooFar = 0;
-    }//end start
+    }// end start
 
     private void Update()
     {
@@ -81,23 +72,14 @@ public class ThirdPCamera : MonoBehaviour
         Vector3 left = transform.TransformDirection(-1 * Vector3.right);
 
         // cast the bumper ray out from rear and check to see if there is anything behind
-        //if (Physics.Raycast(target.TransformPoint(bumperRayOffset), back, out hit, bumperDistanceCheck)
-        //&& hit.transform != target && !hit.collider.CompareTag("Player")) // ignore ray-casts that hit the user. DR
-        //if (Physics.Raycast(transform.position, back, out hit, bumperDistanceCheck)
-        //&& hit.transform != target && !hit.collider.CompareTag("Player")) // ignore ray-casts that hit the user. DR
+        // if (Physics.Raycast(target.TransformPoint(bumperRayOffset), back, out hit, bumperDistanceCheck)
+        // && hit.transform != target && !hit.collider.CompareTag("Player")) // ignore ray-casts that hit the user. DR
+        // if (Physics.Raycast(transform.position, back, out hit, bumperDistanceCheck)
+        // && hit.transform != target && !hit.collider.CompareTag("Player")) // ignore ray-casts that hit the user. DR
         if (Physics.SphereCast(transform.position, bumperDistanceCheck, back, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            //Debug.Log(hit.point);
-
-            //wantedPosition = transform.position;
-            //// clamp wanted position to hit position
-            //wantedPosition.x = hit.point.x;
-            //wantedPosition.z = hit.point.z;
-            //wantedPosition.y = Mathf.Lerp(hit.point.y, wantedPosition.y, dt * damping);
-
             Vector3 temp = transform.position - hit.point;
-
 
             transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
 
@@ -106,14 +88,6 @@ public class ThirdPCamera : MonoBehaviour
         else if (Physics.SphereCast(transform.position, bumperDistanceCheck/2, right, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            //Debug.Log(hit.point);
-
-            //wantedPosition = transform.position;
-            //// clamp wanted position to hit position
-            //wantedPosition.x = hit.point.x;
-            //wantedPosition.z = hit.point.z;
-            //wantedPosition.y = Mathf.Lerp(hit.point.y, wantedPosition.y, dt * damping);
-
             Vector3 temp = transform.position - hit.point;
 
 
@@ -124,16 +98,7 @@ public class ThirdPCamera : MonoBehaviour
         else if (Physics.SphereCast(transform.position, bumperDistanceCheck/2, left, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            // Debug.Log(hit.point);
-
-            //wantedPosition = transform.position;
-            //// clamp wanted position to hit position
-            //wantedPosition.x = hit.point.x;
-            //wantedPosition.z = hit.point.z;
-            //wantedPosition.y = Mathf.Lerp(hit.point.y, wantedPosition.y, dt * damping);
-
             Vector3 temp = transform.position - hit.point;
-
 
             transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
 
@@ -164,16 +129,9 @@ public class ThirdPCamera : MonoBehaviour
     private void FixedUpdate()
     {
         // Maintain Aim Position if in Aim Mode
-        //if(isAiming && adjustAimOnce)
-        //{
-        //    adjustAimOnce = false;
-        //    transform.position = aimTargetPos.transform.position;
-        //    //lookAtTarget = target;
-        //}
         if (isAiming )
         {
             transform.position = aimTargetPos.transform.position;
-            //lookAtTarget = target;
         }
 
 
@@ -192,9 +150,7 @@ public class ThirdPCamera : MonoBehaviour
 
         //keep the camera looking at the character
         transform.LookAt(lookAtTarget);
-
-        //lastCamPos = transform.position;
-    }//end fixed update
+    }// end fixed update
 
     /// <summary>
     /// Called once per frame after update, checking if camera has a target.
@@ -209,7 +165,7 @@ public class ThirdPCamera : MonoBehaviour
         }
 
         //Debug.DrawLine(transform.position, transform.position + (transform.forward * 1.5f), Color.yellow);
-    }//end late update
+    }// end late update
 
     /// <summary>
     /// Control camera vertical position and zoom.
@@ -219,11 +175,11 @@ public class ThirdPCamera : MonoBehaviour
     /// <param name="zoom">Camera zoom value to move by</param>
     public void moveCamera(float rotationX, float rotationY, float zoom)
     {
-        //get a vector between camera and target
+        // get a vector between camera and target
         moveAlong = transform.position - target.transform.position;
         
-        //bind the angle between a lower and upper range
-        //keep the camera bounded between alomst straight overhead and near to underneath
+        // bind the angle between a lower and upper range
+        // keep the camera bounded between alomst straight overhead and near to underneath
         float angle = Vector3.Angle(moveAlong, Vector3.up);
 
         if (angle > lowerTiltAngle && -rotationY > 0)
@@ -242,8 +198,8 @@ public class ThirdPCamera : MonoBehaviour
             transform.RotateAround(target.transform.position, this.transform.up, rotationX);
         }
 
-        //zoom the camera in or out
-        //draw a line between the camera and it's target, and move the camera along that line
+        // zoom the camera in or out
+        // draw a line between the camera and it's target, and move the camera along that line
         moveAlong = transform.position - target.transform.position;
 
         if (moveAlong.magnitude > 1f && zoom > 0)
@@ -258,7 +214,7 @@ public class ThirdPCamera : MonoBehaviour
             moveAlong *= -zoom;
             transform.position += moveAlong / 2;
         }
-    }//end move camera
+    }// end move camera
 
     /// <summary>
     /// Move camera to the aim state position.
@@ -275,7 +231,6 @@ public class ThirdPCamera : MonoBehaviour
         else
         {
             lookAtTarget = target;
-            adjustAimOnce = true;
         }
     }
 
@@ -302,15 +257,13 @@ public class ThirdPCamera : MonoBehaviour
             Debug.Log("Camera has no target at Start.");
             return;
         }
-        //lastCamPos = transform.position;
+
         targetLastPos = target.transform.position;
         lookAtTarget = target;
-        //aimTargetDefault = transform.localPosition;
 
         isAiming = false;
-        adjustAimOnce = true;
 
         tooClose = 0;
         tooFar = 0;
     }
-}//end ThirdPCamera Script
+}// end ThirdPCamera Script

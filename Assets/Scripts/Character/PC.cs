@@ -14,8 +14,6 @@ public class PC : Humanoid
     [SerializeField] protected Slider staminaBar;
     [SerializeField] protected Slider specialBar;
 
-    private int counter;
-
     public float SpecialBar
     {
         get { return specialBar.value; }
@@ -38,9 +36,6 @@ public class PC : Humanoid
         lifeBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
         staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
         specialBar = GameObject.FindGameObjectWithTag("SpecialBar").GetComponent<Slider>();
-
-        counter = 0;
-
     }
 
     /// <summary>
@@ -132,6 +127,10 @@ public class PC : Humanoid
         SceneManager.LoadSceneAsync("Death");
     }
 
+    /// <summary>
+    /// If player hits a kill plane, kill them
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "KillPlane")
