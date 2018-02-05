@@ -243,7 +243,7 @@ namespace FriedTofu
             }
 
             Collider collider = obj.GetComponent<Collider>();
-            if (null != collider)
+            if (null != collider && !collider.isTrigger)
             {
                 if (null != collider as BoxCollider)
                 {
@@ -468,11 +468,11 @@ namespace FriedTofu
                         writer.Write(tangent.y);
                         writer.Write(tangent.z);
                         writer.Write(tangent.w);
-
+                        
                         // uv
                         Vector2 uv = mesh.uv[i];
                         writer.Write(uv.x);
-                        writer.Write(uv.y);
+                        writer.Write(1.0f - uv.y);
                     }
 
                     for (int i = 0; i < finalIndices.Count; i++)
