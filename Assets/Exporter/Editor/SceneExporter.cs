@@ -254,6 +254,24 @@ namespace FriedTofu
                     comp.size = new Scene.Float3(box.size * 0.5f);
                     entity.Add(comp);
                 }
+                else if (null != collider as SphereCollider)
+                {
+                    SphereCollider sphere = collider as SphereCollider;
+                    Scene.PhysicsComponent comp = new Scene.PhysicsComponent();
+                    comp.colliderType = "sphere";
+                    comp.center = new Scene.Float3(sphere.center);
+                    comp.size = new Scene.Float3(sphere.radius, 0, 0);
+                    entity.Add(comp);
+                }
+                else if (null != collider as CapsuleCollider && (collider as CapsuleCollider).direction == 1)
+                {
+                    CapsuleCollider capsule = collider as CapsuleCollider;
+                    Scene.PhysicsComponent comp = new Scene.PhysicsComponent();
+                    comp.colliderType = "capsule";
+                    comp.center = new Scene.Float3(capsule.center);
+                    comp.size = new Scene.Float3(capsule.radius, capsule.height, 0);
+                    entity.Add(comp);
+                }
                 else if (null != collider as MeshCollider)
                 {
                     MeshCollider meshCollider = collider as MeshCollider;
