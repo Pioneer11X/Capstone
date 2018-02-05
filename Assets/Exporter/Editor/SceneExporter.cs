@@ -598,7 +598,9 @@ namespace FriedTofu
                         TexConverter.Convert(
                             Path.Combine(Path.GetDirectoryName(Application.dataPath), path),
                             Path.Combine(context.BaseDir, newPath + ".texture"),
-                            tex2d.format, tex2d.mipmapCount,
+                            tex2d.format,
+                            tex2d.width, tex2d.height,
+                            tex2d.mipmapCount,
                             importer.convertToNormalmap, importer.heightmapScale * 1000);
                     }
                     break;

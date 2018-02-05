@@ -34,7 +34,7 @@ public class TexConverter
         FormatTable.Add(TextureFormat.DXT5Crunched, "BC3_UNORM");
     }
 
-    public static void Convert(string src, string dst, TextureFormat format, int mipmapLevels = 1, bool heightmap = false, float bumpiness = 1.0f)
+    public static void Convert(string src, string dst, TextureFormat format, int width = 0, int height = 0, int mipmapLevels = 1, bool heightmap = false, float bumpiness = 1.0f)
     {
         string outDir = Path.GetDirectoryName(dst).Replace('/', '\\');
         string outFilename = Path.GetFileName(dst);
@@ -45,6 +45,10 @@ public class TexConverter
         args += " -o " + outDir;
         args += " -f " + FormatTable[format];
         args += " -m " + mipmapLevels;
+        if (width > 0 && height > 0)
+        {
+            args += " -w " + width + " -h " + height;
+        }
         if (heightmap)
         {
             args += " -nmap l -nmapamp " + bumpiness;
@@ -105,6 +109,6 @@ public class TexConverter
         byte[] data = tex.EncodeToPNG();
         File.WriteAllBytes(outPNG, data);
 
-        Convert(outPNG, dst, TextureFormat.DXT5, normalMap.mipmapCount);
+        Convert(outPNG, dst, TextureFormat.DXT5, normalMap.width, normalMap.height, normalMap.mipmapCount);
     }
 }
