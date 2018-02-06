@@ -23647,6 +23647,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114802117432634516, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: myCarmera
+      value: 
+      objectReference: {fileID: 737285128}
     - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
         type: 2}
       propertyPath: lifeBar
@@ -23662,11 +23667,6 @@ Prefab:
       propertyPath: specialBar
       value: 
       objectReference: {fileID: 1465451912}
-    - target: {fileID: 114802117432634516, guid: cb9e65a512285fe4c99a4ffa0421331a,
-        type: 2}
-      propertyPath: myCarmera
-      value: 
-      objectReference: {fileID: 737285128}
     - target: {fileID: 114134014511445044, guid: cb9e65a512285fe4c99a4ffa0421331a,
         type: 2}
       propertyPath: camera

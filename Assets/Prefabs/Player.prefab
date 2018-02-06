@@ -1556,8 +1556,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870170771485162}
-  m_LocalRotation: {x: -0, y: 0.6934436, z: -0, w: -0.7205109}
-  m_LocalPosition: {x: 52.946556, y: 0.353, z: -39.27534}
+  m_LocalRotation: {x: -0, y: 0.33191794, z: -0, w: -0.94330835}
+  m_LocalPosition: {x: -41.6, y: 13.71, z: -40.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4655072841929058}
@@ -2958,6 +2958,7 @@ MonoBehaviour:
   camera: {fileID: 0}
   m_combat: {fileID: 0}
   m_IsGrounded: 0
+  isDead: 0
   currentState: 0
 --- !u!114 &114148524265643924
 MonoBehaviour:
@@ -3064,6 +3065,7 @@ MonoBehaviour:
     AT: 0.7
     ET: 0.2
     ED: 1
+    HT: 0.2
     Dmg: 3
     Pos: 0
     Dir: 0
@@ -3072,6 +3074,7 @@ MonoBehaviour:
     AT: 0.5
     ET: 0.2
     ED: 1
+    HT: 1
     Dmg: 3
     Pos: 0
     Dir: 0
@@ -3080,6 +3083,7 @@ MonoBehaviour:
     AT: 0.65
     ET: 0.2
     ED: 1
+    HT: 0.2
     Dmg: 5
     Pos: 0
     Dir: 0
@@ -3088,6 +3092,7 @@ MonoBehaviour:
     AT: 0.65
     ET: 0.2
     ED: 1
+    HT: 0.5
     Dmg: 5
     Pos: 0
     Dir: 0
@@ -3096,6 +3101,7 @@ MonoBehaviour:
     AT: 0.8
     ET: 0.5
     ED: 1
+    HT: 1
     Dmg: 7
     Pos: 0
     Dir: 0
@@ -3104,6 +3110,7 @@ MonoBehaviour:
     AT: 0.8
     ET: 0.5
     ED: 1
+    HT: 1
     Dmg: 7
     Pos: 0
     Dir: 0
@@ -3112,6 +3119,7 @@ MonoBehaviour:
     AT: 1
     ET: 0.6
     ED: 1
+    HT: 0.8
     Dmg: 10
     Pos: 0
     Dir: 0
@@ -3120,6 +3128,7 @@ MonoBehaviour:
     AT: 1.2
     ET: 0.5
     ED: 1
+    HT: 0.8
     Dmg: 10
     Pos: 0
     Dir: 0
@@ -3128,6 +3137,7 @@ MonoBehaviour:
     AT: 1
     ET: 0.4
     ED: 1
+    HT: 1
     Dmg: 10
     Pos: 0
     Dir: 0
@@ -3136,6 +3146,7 @@ MonoBehaviour:
     AT: 1
     ET: 0.3
     ED: 1.25
+    HT: 1
     Dmg: 10
     Pos: 1
     Dir: 1
@@ -3144,6 +3155,7 @@ MonoBehaviour:
     AT: 0.8
     ET: 0.3
     ED: 1.25
+    HT: 1
     Dmg: 10
     Pos: 0
     Dir: 2
@@ -3152,6 +3164,7 @@ MonoBehaviour:
     AT: 1.5
     ET: 0.5
     ED: 1.25
+    HT: 1
     Dmg: 15
     Pos: 0
     Dir: 0
@@ -3160,6 +3173,7 @@ MonoBehaviour:
     AT: 2
     ET: 0.5
     ED: 1.25
+    HT: 0.8
     Dmg: 20
     Pos: 0
     Dir: 2
@@ -3168,6 +3182,7 @@ MonoBehaviour:
     AT: 1
     ET: 0.5
     ED: 1
+    HT: 0.5
     Dmg: 20
     Pos: 1
     Dir: 0
@@ -3220,6 +3235,7 @@ MonoBehaviour:
   visionHackTime: 10
   target: {fileID: 4655072841929058}
   aimTarget: {fileID: 4947234899538014}
+  gunTarget: {fileID: 0}
   ghostPrefab: {fileID: 1150824672077162, guid: ee33e1fddca3cc44e9931834a9cd0cbf,
     type: 2}
 --- !u!136 &136304036867196626
