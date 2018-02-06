@@ -93,15 +93,17 @@ public class CombatManager : MonoBehaviour
         // ED - Effect Distance
         // Dmg = Damage Amount
         // HT - Hit Time.
+        // AD - Attack Distance.
 
         // పేరు ఉత్తినే పెడతాము మనం గుర్తుపదతానికి.
-        // Name doesn't matter but is good for recognising.
+        // Name doesn't matter but is the key.
         public string name;
         public float AT;
         public float ET;
         public float ED;
         public float HT;
         public float Dmg;
+        public float AD;
         public HitPosition Pos;
         public CombatDirection Dir;
         public HitPower Power;
@@ -245,6 +247,13 @@ public class CombatManager : MonoBehaviour
     //hit parameters
     private bool isHit;
     private bool resetHit;
+    [SerializeField]
+    public float timeBetweenAttacks;
+    public float TimeBetweenAttacks
+    {
+        get { return timeBetweenAttacks; }
+    }
+
     [SerializeField]
     private float hitTime;
     [SerializeField]
@@ -553,8 +562,6 @@ public class CombatManager : MonoBehaviour
         {
             StartCoroutine(DelayBeforeDamage(delay, dmg));
         }
-        
-        //Debug.Log(gameObject.name + ": Takes " + dmg + " damage");
 
         isAttacking = false;
         isRolling = false;
@@ -562,6 +569,33 @@ public class CombatManager : MonoBehaviour
         isJumping = false;
         isMoving = false;
 
+    }
+
+    public void Hit(CombatMoveDetails combatMoveDetails, float delay = 0, bool dmgDelay = false)
+    {
+        isHit = true;
+        m_char.StateTimer = 0;
+        inCombat = true;
+        inCombatTimer = inCombatDuration;
+        hitAnimationInfo = (int)combatMoveDetails.Pos * 100 + (int)combatMoveDetails.Dir * 10 + (int)combatMoveDetails.Power;
+        HitTime = hitTime;
+        resetHit = true;
+
+        // Does damage based on what attack
+        if (!dmgDelay)
+        {
+            this.GetComponent<Humanoid>().TakeDamag(combatMoveDetails.Dmg);
+        }
+        else
+        {
+            StartCoroutine(DelayBeforeDamage(delay, combatMoveDetails.Dmg));
+        }
+
+        isAttacking = false;
+        isRolling = false;
+        isAdjusting = false;
+        isJumping = false;
+        isMoving = false;
     }
 
     // Basic Attack Combos
@@ -636,7 +670,7 @@ public class CombatManager : MonoBehaviour
             Shoot();
 
             // TODO Modify hit dir later
-            aimTarget.m_combat.Hit(aimTarget.m_combat.currentHitPos, HitDirection.backward, currentPower, currentHitTime, currentDmgAmount, 0.5f, true);
+            aimTarget.m_combat.Hit(currentMoveDetails, 0.5f, true);
         }
     }
 
@@ -905,7 +939,6 @@ public class CombatManager : MonoBehaviour
         // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
         // Remove 1 from the current combat because of the None in the Enum.
         CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
-        Debug.Log(currentCombat + " " + currentMoveDetails.name);
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
         currentEffetDistance = currentMoveDetails.ED;

@@ -23,8 +23,6 @@ public class AICharacter : Character
 
     // Temporary timer variables.
     protected float timer = 0.0f;
-    protected float timerLimit = 3.0f;
-
 
     public ActionSelector s_action;
 
@@ -71,7 +69,7 @@ public class AICharacter : Character
             return;
         }
 
-        if(ghostTarget != null && Vector3.Distance(transform.position, ghostTarget.position) <= maxSensoryRadius)
+        if (ghostTarget != null && Vector3.Distance(transform.position, ghostTarget.position) <= maxSensoryRadius)
         {
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
@@ -83,7 +81,7 @@ public class AICharacter : Character
                     this.m_combat.CurrentTarget = seekTarget.gameObject.GetComponent<Character>();
                 }
 
-                if (timer > timerLimit)
+                if (timer > m_combat.TimeBetweenAttacks)
                 {
                     // TODO: Use the Action Selector here. Select an Item and then, reduce the preference.
                     // this.m_combat.BasicCombo();
@@ -111,15 +109,16 @@ public class AICharacter : Character
         {
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
+
                 navMeshAgent.isStopped = true;
                 this.m_combat.IsMoving = false;
 
-                if ( null == this.m_combat.CurrentTarget)
+                if ( null == this.m_combat.CurrentTarget) 
                 {
                     this.m_combat.CurrentTarget = seekTarget.gameObject.GetComponent<Character>();
                 }
 
-                if (timer > timerLimit)
+                if (timer > m_combat.TimeBetweenAttacks)
                 {
                     // TODO: Use the Action Selector here. Select an Item and then, reduce the preference.
                     // this.m_combat.BasicCombo();

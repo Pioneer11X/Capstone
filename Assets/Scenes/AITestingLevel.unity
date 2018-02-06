@@ -14502,6 +14502,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: adjustMaxDistance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: timeBetweenAttacks
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 195292706730197916, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: m_StoppingDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
   m_IsPrefabParent: 0
