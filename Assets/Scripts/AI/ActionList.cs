@@ -139,7 +139,7 @@ public class ActionList : MonoBehaviour {
 
     public bool compatible(State needState, State givenState)
     {
-        // ఇందిలో అన్ని పరినామల్నీ చూసుకొని సరిగ్గా వుందో లేదో చెప్పాలి.
+        // ఇందిలో అన్ని పరినామాల్నీ చూసుకొని సరిగ్గా వుందో లేదో చెప్పాలి.
 
         if (!compatible(needState.hasTarget, givenState.hasTarget)) return false;
         if (!compatible(needState.canTargetAttack, givenState.canTargetAttack)) return false;

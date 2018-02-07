@@ -192,6 +192,7 @@ public class CombatManager : MonoBehaviour
     private float currentEffetDistance;
     private float currentDmgAmount;
     private float currentHitTime;
+    private float currentAttackDistance;
     private CombatDirection currentDirection;
     private HitPower currentPower;
     public HitPosition currentHitPos;
@@ -947,6 +948,12 @@ public class CombatManager : MonoBehaviour
         currentPower = currentMoveDetails.Power;
         currentHitPos = currentMoveDetails.Pos;
         currentHitTime = currentMoveDetails.HT;
+
+        // ఎంత దూరంగా ఉండాలో చూసి జరుగు.
+        currentAttackDistance = currentMoveDetails.AD;
+
+        // Move according to the Attack Distance.
+
 
         Attack();
 
