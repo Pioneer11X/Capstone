@@ -213,12 +213,12 @@ abstract public class Character : MonoBehaviour
     /// <summary>
     /// handle airborne movement
     /// </summary>
-    protected void HandleAirborneMovement(float v, float h)
+    protected void HandleAirborneMovement(float v, float h, Vector3 move)
     {
         // apply extra gravity from multiplier:
         Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
         m_Rigidbody.AddForce(extraGravityForce);
-        m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x - (v/10), m_Rigidbody.velocity.y, m_Rigidbody.velocity.z + (h / 10));
+        m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x + (move.x/10), m_Rigidbody.velocity.y, m_Rigidbody.velocity.z + (move.z / 10));
 
         m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
 
@@ -418,6 +418,7 @@ abstract public class Character : MonoBehaviour
 
         if (lastState != currentState)
         {
+            Debug.Log(currentState);
             animator.Play(currentState, animationParameter);
         }
 

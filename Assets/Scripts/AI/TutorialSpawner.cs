@@ -38,6 +38,7 @@ public class TutorialSpawner : MonoBehaviour
         {
             Enemy[i].SetActive(true);
             Enemy[i].GetComponent<Enemy>().Health = 20;
+            Enemy[i].GetComponent<AICharacter>().isDead = false;
             Enemy[i].transform.position = RespawnPos[i].transform.position;
         }
     }

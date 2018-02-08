@@ -5619,11 +5619,11 @@ Prefab:
     - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
         type: 2}
       propertyPath: health
-      value: 10
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1870170771485162, guid: cb9e65a512285fe4c99a4ffa0421331a, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb9e65a512285fe4c99a4ffa0421331a, type: 2}
@@ -9462,21 +9462,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 270
-      objectReference: {fileID: 0}
     - target: {fileID: 1740812503336440, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
       propertyPath: m_Name
       value: Tutorial_Enemy (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 114588212800587386, guid: f617d72fbb1957541b45bed67a47e856,
+        type: 2}
+      propertyPath: timeBetweenAttacks
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
@@ -27429,7 +27422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1447422854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30071,7 +30064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1570494162
 Transform:
   m_ObjectHideFlags: 0
@@ -30568,6 +30561,16 @@ Prefab:
     - target: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114374242420607524, guid: f617d72fbb1957541b45bed67a47e856,
+        type: 2}
+      propertyPath: health
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114588212800587386, guid: f617d72fbb1957541b45bed67a47e856,
+        type: 2}
+      propertyPath: timeBetweenAttacks
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
@@ -33724,21 +33727,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 270
-      objectReference: {fileID: 0}
     - target: {fileID: 1740812503336440, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
       propertyPath: m_Name
       value: Tutorial_Enemy (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 114588212800587386, guid: f617d72fbb1957541b45bed67a47e856,
+        type: 2}
+      propertyPath: timeBetweenAttacks
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
@@ -35757,7 +35753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1869303116
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -898,25 +898,28 @@ public class CombatManager : MonoBehaviour
         isAdjusting = true;
     }
 
-    public void Dodge(int dir)
+    public bool Dodge(int dir)
     {
         if (!canDodge)
         {
-            return;
+            return false;
         }
         dodgeDirection = dir;
         m_char.StateTimer = 0;
         isDodging = true;
+
+        return true;
     }
 
-    public void Roll()
+    public bool Roll()
     {
         if (!canRoll)
         {
-            return;
+            return false;
         }
         m_char.StateTimer = 0;
         isRolling = true;
+        return true;
     }
 
     public void AimMove(int dir)

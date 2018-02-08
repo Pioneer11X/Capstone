@@ -22,6 +22,12 @@ public class ThirdPCharacter : Character
     void Update()
     {
         UpdateState();
+
+        // If character goes through the floor, pop them back up
+        if(transform.position.y < -0.1f)
+        {
+            transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
+        }
     }
 
    
@@ -168,7 +174,7 @@ public class ThirdPCharacter : Character
         }
         else
         {
-            HandleAirborneMovement(vert, hori);
+            HandleAirborneMovement(vert, hori, move);
         }
 
         //move the character

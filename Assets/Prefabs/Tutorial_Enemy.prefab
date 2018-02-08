@@ -930,7 +930,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1740812503336440}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 29.16, y: -0.0000004712664, z: -41.94}
+  m_LocalPosition: {x: 35.345814, y: 84.72752, z: -65.37584}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4374146948056330}
@@ -1802,7 +1802,9 @@ MonoBehaviour:
     AT: 0.7
     ET: 0.2
     ED: 1
+    HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1810,7 +1812,9 @@ MonoBehaviour:
     AT: 0.5
     ET: 0.2
     ED: 1
+    HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1818,7 +1822,9 @@ MonoBehaviour:
     AT: 0.65
     ET: 0.2
     ED: 1
+    HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1826,7 +1832,9 @@ MonoBehaviour:
     AT: 0.65
     ET: 0.2
     ED: 1
+    HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1834,7 +1842,9 @@ MonoBehaviour:
     AT: 0.8
     ET: 0.5
     ED: 1
+    HT: 0.8
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1842,7 +1852,9 @@ MonoBehaviour:
     AT: 0.8
     ET: 0.5
     ED: 1
+    HT: 0.8
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1850,7 +1862,9 @@ MonoBehaviour:
     AT: 1
     ET: 0.6
     ED: 1
+    HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1858,7 +1872,9 @@ MonoBehaviour:
     AT: 1.2
     ET: 0.5
     ED: 1
+    HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1866,7 +1882,9 @@ MonoBehaviour:
     AT: 1
     ET: 0.4
     ED: 1
+    HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1874,7 +1892,9 @@ MonoBehaviour:
     AT: 0
     ET: 0
     ED: 0
+    HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1882,7 +1902,9 @@ MonoBehaviour:
     AT: 0
     ET: 0
     ED: 0
+    HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1890,7 +1912,9 @@ MonoBehaviour:
     AT: 0
     ET: 0
     ED: 0
+    HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1898,7 +1922,9 @@ MonoBehaviour:
     AT: 0
     ET: 0
     ED: 0
+    HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1906,7 +1932,9 @@ MonoBehaviour:
     AT: 0
     ET: 0
     ED: 0
+    HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1924,11 +1952,12 @@ MonoBehaviour:
   dodgeTime: 0
   rollTime: 0.5
   rollSpeed: 3
+  timeBetweenAttacks: 2
   hitTime: 1
   hitMaxWalkSpeed: 1
   adjustSpeed: 2
   adjustMinDistance: 0.75
-  adjustMaxDistance: 2.5
+  adjustMaxDistance: 1.5
   adjustAgle: 5
   currentCombat: 0
   comboTimer: 0

@@ -208,34 +208,51 @@ public class ThirdPControl : MonoBehaviour
         }
 
 
-        if (CrossPlatformInputManager.GetButtonDown("Dodge") && playerCharacter.StaminaBar > 5) //Button 1
+        if (CrossPlatformInputManager.GetButtonDown("Dodge") && playerCharacter.StaminaBar > 15) //Button 1
         {
             if (!m_aiming)
             {
                 // TODO
                 // If can roll
-                m_Character.m_combat.Roll();
-
-                // Remove stamina
-                playerCharacter.StaminaBar = playerCharacter.StaminaBar - 33;
+                if (m_Character.m_combat.Roll())
+                {
+                    // Remove stamina
+                    playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                }
             }
             else
             {
                 if (h < 0)  // Left
                 {
-                    m_Character.m_combat.Dodge(0);
+                    if(m_Character.m_combat.Dodge(0))
+                    {
+                        // Remove stamina
+                        playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                    }
                 }
                 else if (h > 0) // Right
                 {
-                    m_Character.m_combat.Dodge(1);
+                    if(m_Character.m_combat.Dodge(1))
+                    {
+                        // Remove stamina
+                        playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                    }
                 }
                 else if (v < 0)  // Back
                 {
-                    m_Character.m_combat.Dodge(2);
+                    if(m_Character.m_combat.Dodge(2))
+                    {
+                        // Remove stamina
+                        playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                    }
                 }
                 else if (v > 0)  // Foward
                 {
-                    m_Character.m_combat.Dodge(3);
+                    if(m_Character.m_combat.Dodge(3))
+                    {
+                        // Remove stamina
+                        playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                    }
                 }
                 else
                 {
