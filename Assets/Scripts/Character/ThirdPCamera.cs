@@ -70,7 +70,7 @@ public class ThirdPCamera : MonoBehaviour
         Vector3 back = transform.TransformDirection(-1 * Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
         Vector3 left = transform.TransformDirection(-1 * Vector3.right);
-
+        //Debug.DrawLine(transform.position, target.transform.position, Color.yellow);
         // cast the bumper ray out from rear and check to see if there is anything behind
         // if (Physics.Raycast(target.TransformPoint(bumperRayOffset), back, out hit, bumperDistanceCheck)
         // && hit.transform != target && !hit.collider.CompareTag("Player")) // ignore ray-casts that hit the user. DR
@@ -79,32 +79,45 @@ public class ThirdPCamera : MonoBehaviour
         if (Physics.SphereCast(transform.position, bumperDistanceCheck, back, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            Vector3 temp = transform.position - hit.point;
+            Vector3 toTarget = (transform.position - target.transform.position);
 
-            transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
+            float distBetweenPandC = ((hit.distance * 100) / bumperMaxDistance) * maxDistance;
 
-            Debug.DrawLine(transform.position, hit.point, Color.blue);
+            toTarget = Vector3.ClampMagnitude(toTarget, distBetweenPandC);
+
+            transform.position = Vector3.Lerp(transform.position, (transform.position - toTarget), dt * damping);
+
+            //transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
+            
+            Debug.DrawLine(transform.position, hit.point, Color.red);
         }
         else if (Physics.SphereCast(transform.position, bumperDistanceCheck/2, right, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            Vector3 temp = transform.position - hit.point;
+            Vector3 toTarget = (transform.position - target.transform.position);
+
+            float distBetweenPandC = ((hit.distance * 100) / bumperMaxDistance) * maxDistance;
+
+            toTarget = Vector3.ClampMagnitude(toTarget, distBetweenPandC);
 
 
-            transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
-
+            transform.position = Vector3.Lerp(transform.position, (transform.position - toTarget), dt * damping);
+            
             Debug.DrawLine(transform.position, hit.point, Color.blue);
         }
         else if (Physics.SphereCast(transform.position, bumperDistanceCheck/2, left, out hit, bumperMaxDistance)
             && !hit.collider.CompareTag("Player"))
         {
-            Vector3 temp = transform.position - hit.point;
+            Vector3 toTarget = (transform.position - target.transform.position);
 
-            transform.position = Vector3.Lerp(transform.position, (transform.position + temp), dt * damping);
+            float distBetweenPandC = ((hit.distance * 100) / bumperMaxDistance) * maxDistance;
 
-            Debug.DrawLine(transform.position, hit.point, Color.blue);
-        }
-        else if(!isAiming)
+            toTarget = Vector3.ClampMagnitude(toTarget, distBetweenPandC);
+            transform.position = Vector3.Lerp(transform.position, (transform.position - toTarget), dt * damping);
+
+            Debug.DrawLine(transform.position, hit.point, Color.magenta);
+        } 
+        else if (!isAiming)
         {
             // Adjust if the camera is too close or too far away
             distance = (transform.position - target.transform.position).magnitude;
@@ -116,7 +129,7 @@ public class ThirdPCamera : MonoBehaviour
             else if (distance < minDistance)
             {
                 tooClose++;
-                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, -0.1f);
+                //transform.position = Vector3.MoveTowards(transform.position, target.transform.position, -0.1f);
             }
         }
     }
