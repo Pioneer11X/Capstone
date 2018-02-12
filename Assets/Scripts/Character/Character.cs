@@ -418,7 +418,6 @@ abstract public class Character : MonoBehaviour
 
         if (lastState != currentState)
         {
-            Debug.Log(currentState);
             animator.Play(currentState, animationParameter);
         }
 
