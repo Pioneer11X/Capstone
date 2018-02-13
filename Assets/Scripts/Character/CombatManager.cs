@@ -184,6 +184,7 @@ public class CombatManager : MonoBehaviour
     { get { return jumpDownTime; } }
 
     //attack parameters
+
     private bool isAttacking;
     private bool resetAttack;
     private float attackDuration;
@@ -244,6 +245,12 @@ public class CombatManager : MonoBehaviour
     { get { return rollTime; } }
     public float RollSpeed
     { get { return rollSpeed; } }
+
+    // Turning Parameters.
+    [SerializeField]
+    private bool isTurning = false;
+    [SerializeField]
+    private Quaternion targetRotation;
 
     //hit parameters
     private bool isHit;
@@ -494,7 +501,7 @@ public class CombatManager : MonoBehaviour
                 currentCombat = Combat.none;
             }
         }
-
+ 
         //is in combat
         if (isHit)
         {
@@ -930,8 +937,27 @@ public class CombatManager : MonoBehaviour
 
     // బయటినుండి ఇచ్చిన combat ని చెయ్యి
     // Function to perform the combat that was passed.
-    public void PerformAction(Combat _input)
+    public void PerformAction(Action _action)
     {
+
+        Combat _input = _action.combat;
+
+        if ( Combat.none == _input)
+        {
+            // Perform the Action even though the Combat is set to None.
+            switch (_action.name)
+            {
+                case "Face_Towards_The_Enemy":
+                    isTurning = true;
+                    var direc = this.CurrentTarget.transform.position - transform.position;
+                    var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
+                    return;
+                default:
+                    return;
+            }
+
+        }
+
         currentCombat = _input;
         // సౌన్డ్లకి కూడా ఒక variable కావాలి.
         // TODO: A Variable for the Sound in the CombatMoveDetails Struct.

@@ -40,7 +40,7 @@ public class AICharacter : Character
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         // Assert that the scene has a player has a Nav Mesh Agent.
-        Debug.Assert(null != seekTarget);
+        Debug.Assert(null != navMeshAgent);
 
         m_combat.SetChar(this);
 

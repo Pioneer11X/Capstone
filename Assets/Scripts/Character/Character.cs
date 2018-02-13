@@ -8,6 +8,7 @@ abstract public class Character : MonoBehaviour
     public enum CharacterState
     {
         none,
+        turning,
         idle_OutCombat,
         idle_InCombat,
         run,

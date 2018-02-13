@@ -21,23 +21,35 @@ public class ActionSelector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        
+
+    }
 
     public void selectNextOption()
     {
+
+        // Check to see if I am facing the target or not.
+        //Rotate
+        var direc = this.m_combat.CurrentTarget.transform.position - transform.position;
+        var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
+        float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
+        Debug.Log(angle);
+        // transform.rotation = new Quaternion(0, rot.y, 0, rot.w);
+        currentState.amIFacingTheTarget = (angle < 20) ? customBool.True : customBool.False;
+
         // మన ప్రస్తుత పరిస్థితి చూసుకోవాలి.
         // Perform action based on the current State.
         currentState.hasTarget = (null != m_combat.CurrentTarget) ? customBool.True : customBool.False;
         currentState.canIAttack = (m_combat.canAttack) ? customBool.True : customBool.False;
         currentState.canTargetAttack = (m_combat.CurrentTarget.GetComponentInChildren<CombatManager>().canAttack) ? (customBool.True) : (customBool.False);
+        currentState.amIStunned = (this.m_combat.IsHit) ? customBool.True : customBool.False;
 
         // వీటిని చూసి మార్చాలి.
         // TODO: Change these based on the current State.
         currentState.amIStunned = customBool.False;
         currentState.targetStunned = customBool.False;
         currentState.isTargetFacingMe = customBool.True;
-        currentState.amIFacingTheTarget = customBool.True;
 
         // దాని ద్వారా మనం చేయగలిగినవి ఏమేమి వున్నాయో చూసుకోవాలి.
         // Get the valid actions for the current state.
@@ -52,9 +64,13 @@ public class ActionSelector : MonoBehaviour {
             // Get the Action.
             if (m_combat.canAttack)
             {
-                m_combat.PerformAction(validActions[curAction].combat);
+                m_combat.PerformAction(validActions[curAction]);
                 l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
             }
+        }
+        else
+        {
+            Debug.LogError("No Valid Actions");
         }
         
         // ఏదీ లేకపోతే ఎం చెయ్యాలి? ఒక exception వెయ్యాలి. చూడాలి.
