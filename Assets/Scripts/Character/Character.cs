@@ -66,6 +66,7 @@ abstract public class Character : MonoBehaviour
 
     protected Rigidbody m_Rigidbody;
 
+    public bool inCombat;
     public bool m_IsGrounded;
     protected bool m_jump;
     protected bool m_dashing;
@@ -139,6 +140,8 @@ abstract public class Character : MonoBehaviour
 
         stateTimer = 0;
         m_MoveSpeedMultiplier = m_BaseSpeedMultiplier;
+
+        inCombat = false;
     }
 	
 	// Update is called once per frame
@@ -340,6 +343,7 @@ abstract public class Character : MonoBehaviour
                 if (stateTimer < m_combat.CurrentAttackTime)
                 {
                     currentState = CharacterState.attack;
+                    inCombat = true;
                     animationParameter = (int)m_combat.CurrentCombat;
                     if (stateTimer >= m_combat.CurrentEffectTime && !hasEffect)
                     {
@@ -397,14 +401,18 @@ abstract public class Character : MonoBehaviour
                     if (m_combat.InCombat)
                     {
                         currentState = CharacterState.idle_InCombat;
+                        inCombat = true;
                     }
                     else if(m_combat.IsAimming)
                     {
                         currentState = CharacterState.idle_InCombat;
+                        inCombat = true;
                     }
                     else
                     {
                         currentState = CharacterState.idle_OutCombat;
+                        inCombat = false;
+
                     }
 
                 }

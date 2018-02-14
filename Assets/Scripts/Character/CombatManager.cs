@@ -412,6 +412,8 @@ public class CombatManager : MonoBehaviour
         //*******************************************************************
         if (isPlayer)
         {
+            companion.GetComponent<Companion>().inCombat = m_char.inCombat;
+
             listCounter++;
             if(listCounter > 240)
             {

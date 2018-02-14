@@ -76,5 +76,6 @@ public class PauseUI : MonoBehaviour
     {
         EventSystemObject.SetActive(false);
         SceneManager.LoadSceneAsync("Title");
+        Destroy(GameObject.FindGameObjectWithTag("LevelManager"));
     }
 }

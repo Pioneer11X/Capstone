@@ -27510,16 +27510,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 359161424}
-  bumperDistanceCheck: 2
-  bumperHeight: 0.5
-  bumperRayOffset: {x: 0, y: 0, z: 0}
-  damping: 5
-  distance: 0.75
-  height: 1.75
+  initDistance: 0.5
+  initHeight: 1.6
+  combatDistance: 0.3
+  combatHeight: 1.35
   heightDamping: 4
   positionDamping: 5
-  rotationDamping: 1
   inUse: 0
+  inCombat: 0
 --- !u!23 &1447422855
 MeshRenderer:
   m_ObjectHideFlags: 0

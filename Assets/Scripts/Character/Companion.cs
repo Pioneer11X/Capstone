@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Companion follow script
+/// </summary>
 public class Companion : MonoBehaviour
 {
     public Transform target;    //target for companion to interact with
 
-    [SerializeField] private float bumperDistanceCheck = 2.0f;  // length of bumper ray
-    [SerializeField] private float bumperHeight = 0.5f;         // adjust height while bumping
-    [SerializeField] private Vector3 bumperRayOffset;           // allows offset of the bumper ray from target origin
-    [SerializeField] private float damping = 5.0f;              // damping
-    [SerializeField] private float distance;
-    [SerializeField] private float height = 1.5f;
+    [SerializeField] private float initDistance;
+    [SerializeField] private float initHeight = 1.5f;
+    [SerializeField] private float combatDistance;
+    [SerializeField] private float combatHeight = 1.0f;
     [SerializeField] private float heightDamping = 4.0f;
     [SerializeField] private float positionDamping = 4.0f;
-    [SerializeField] private float rotationDamping = 4.0f;
 
-
+    private float distance;
+    private float height;
     private Vector3 targetLastPos;
-    
     public bool inUse;
+    public bool inCombat;
 
-    //Start, setup the initial camera position with the character
+    //Start, setup the initial companion position with the character
     void Start()
     {
         // Early out if we don't have a target
@@ -30,6 +31,7 @@ public class Companion : MonoBehaviour
         }
         targetLastPos = target.transform.position;
         inUse = false;
+        inCombat = false;
     }//end start
 
 
@@ -40,6 +42,17 @@ public class Companion : MonoBehaviour
         {
             Debug.Log("Companion has lost it's target during run time.");
             return;
+        }
+
+        if(!inCombat)
+        {
+            distance = initDistance;
+            height = initHeight;
+        }
+        else
+        {
+            distance = combatDistance;
+            height = combatHeight;
         }
 
         if (!inUse)
@@ -60,10 +73,6 @@ public class Companion : MonoBehaviour
             // adjust the height of the companion
             transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
 
-            // look at the target
-
-            transform.forward = Vector3.Lerp(transform.forward, target.position - transform.position, rotationDamping * dt);
-
             transform.position = transform.position + dir;
 
             targetLastPos = target.position;
@@ -71,40 +80,5 @@ public class Companion : MonoBehaviour
         //Debug.DrawLine(transform.position, transform.position + (transform.forward * 1.5f), Color.yellow);
     }
 
-    /// <summary>
-    /// Called in sync with physics.
-    /// Using to check if the camera will collide with an object.
-    /// </summary>
-    private void FixedUpdate()
-    {
-        Vector3 wantedPosition;
-        float dt = Time.deltaTime;
-
-        //check to see if there is anything behind the target
-        RaycastHit hit;
-        Vector3 back = transform.TransformDirection(-1 * Vector3.forward);
-
-        // cast the bumper ray out from rear and check to see if there is anything behind
-        if (Physics.Raycast(target.TransformPoint(bumperRayOffset), back, out hit, bumperDistanceCheck)
-            && hit.transform != target) // ignore ray-casts that hit the user. DR
-        {
-            wantedPosition = transform.position;
-            // clamp wanted position to hit position
-            wantedPosition.x = hit.point.x;
-            wantedPosition.z = hit.point.z;
-            wantedPosition.y = Mathf.Lerp(hit.point.y + bumperHeight, wantedPosition.y, dt * damping);
-
-            transform.position = Vector3.Lerp(transform.position, wantedPosition, dt * damping);
-        }
-
-    }//end fixed update
-
-    /// <summary>
-    /// Called once per frame after update, checking if camera has a target.
-    /// </summary>
-    private void LateUpdate()
-    {
-        
-    }//end late update
 
 }//end of Companion
