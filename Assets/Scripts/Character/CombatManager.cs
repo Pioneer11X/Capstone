@@ -107,7 +107,7 @@ public class CombatManager : MonoBehaviour
         public HitPosition Pos;
         public CombatDirection Dir;
         public HitPower Power;
-        
+        public AudioClip CombatSFX;
     }
 
     // ఆటలో వున్నా అన్ని Actions కి ఇది ఒక నిఘంటువు. ఇందిలో వున్నా Actions మాత్రమే వాడాలి.
@@ -611,6 +611,7 @@ public class CombatManager : MonoBehaviour
         {
             return;
         }
+        
         NextCombat();
         if (CheckTarget())
         {
@@ -723,6 +724,7 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     public void Attack()
     {
+        m_char.freezeChar();
         inCombat = true;
         inCombatTimer = inCombatDuration;
         isAttacking = true;
@@ -938,9 +940,6 @@ public class CombatManager : MonoBehaviour
     public void PerformAction(Combat _input)
     {
         currentCombat = _input;
-        // సౌన్డ్లకి కూడా ఒక variable కావాలి.
-        // TODO: A Variable for the Sound in the CombatMoveDetails Struct.
-        combatAudio.PlayOneShot(punchFX);
 
         // ఇందులో ఒకటి తక్కువ పెట్టాలి. ఎందుకంటే, పైన లిస్ట్లో ఒకటి none అని వుంది.
         // Remove 1 from the current combat because of the None in the Enum.
@@ -959,7 +958,8 @@ public class CombatManager : MonoBehaviour
 
         // Move according to the Attack Distance.
 
-
+        // Variable for the Sound
+        combatAudio.PlayOneShot(currentMoveDetails.CombatSFX);
         Attack();
 
     }
@@ -988,12 +988,12 @@ public class CombatManager : MonoBehaviour
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
-            combatAudio.PlayOneShot(punchFX);
+            combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_Straight_Mid_R;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
-            combatAudio.PlayOneShot(kickFX);
+            combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
         }
         else

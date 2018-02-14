@@ -108,7 +108,7 @@ public class ThirdPControl : MonoBehaviour
 
         enemies = new List<GameObject>();
 
-        aimCoolDown = 60;
+        aimCoolDown = 0;
 
         visionHackCDTimer = visionHackCD;
 
@@ -359,8 +359,6 @@ public class ThirdPControl : MonoBehaviour
         h = CrossPlatformInputManager.GetAxis("Horizontal");
 
         // Triggers
-
-        // TODO Finish hooking up the sprint to an energy pool
         float rt = CrossPlatformInputManager.GetAxis("Dash");
         if ((rt != 0 || Input.GetKey(KeyCode.LeftShift)) && playerCharacter.StaminaBar > 0 && !sprintCoolDown)
         {
@@ -498,27 +496,37 @@ public class ThirdPControl : MonoBehaviour
                 }
 
                 // Switch Aim Target
-                if (rotationX > 1 && aimCoolDown > 29)
+                if (rotationX > 1 && aimCoolDown < 1)
                 {
                     aimTargetIndex++;
+                    Debug.Log("Index: " + aimTargetIndex);
                     if (aimTargetIndex == enemyArray.Length)
                     {
                         aimTargetIndex--;
                     }
-                    SetAimTarget(aimTargetIndex);
-                    enemyArray[aimTargetIndex - 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex - 1].GetComponent<Enemy>().defaultMat;
-
+                    else
+                    {
+                        Debug.Log("Use this index: " + aimTargetIndex);
+                        SetAimTarget(aimTargetIndex);
+                        enemyArray[aimTargetIndex - 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex - 1].GetComponent<Enemy>().defaultMat;
+                        aimCoolDown = 16;
+                    }
                 }
-                else if (rotationX < -1 && aimCoolDown > 29)
+                else if (rotationX < -1 && aimCoolDown < 1)
                 {
                     aimTargetIndex--;
+                    Debug.Log("Index: " + aimTargetIndex);
                     if (aimTargetIndex < 0)
                     {
                         aimTargetIndex = 0;
                     }
-
-                    SetAimTarget(aimTargetIndex);
-                    enemyArray[aimTargetIndex + 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex + 1].GetComponent<Enemy>().defaultMat;
+                    else
+                    {
+                        Debug.Log("Use this index: " + aimTargetIndex);
+                        SetAimTarget(aimTargetIndex);
+                        enemyArray[aimTargetIndex + 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex + 1].GetComponent<Enemy>().defaultMat;
+                        aimCoolDown = 16;
+                    }
                 }
 
 
@@ -536,12 +544,12 @@ public class ThirdPControl : MonoBehaviour
                 StartCoroutine(GunHolsterDelay());
             }
 
-            aimCoolDown--;
-            if(aimCoolDown < 1)
+            
+            if(aimCoolDown > 0)
             {
-                aimCoolDown = 30;
+                aimCoolDown--;
             }
-
+            Debug.Log(aimCoolDown);
 
             // Tell the animator which direction the character is moving in
             if (h < 0)  // Left

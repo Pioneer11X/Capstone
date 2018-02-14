@@ -86,7 +86,7 @@ public class ThirdPCamera : MonoBehaviour
             else if (dist < minDistance + 2.0f)
             {
                 tooClose++;
-                Vector3 testVec = Vector3.MoveTowards(transform.position, target.transform.position, -0.1f);
+                Vector3 testVec = Vector3.MoveTowards(transform.position, target.transform.position, -damping * dT);
                 if (!BumperCheck(testVec, dT))
                 {
                     transform.position = testVec;

@@ -173,10 +173,12 @@ abstract public class Character : MonoBehaviour
     /// <summary>
     /// freeze the character body rotation
     /// </summary>
-    protected void freezeChar()
+    public void freezeChar()
     {
-        charBody.transform.rotation = charBodyRotation;
-        frozen = true;
+        m_Rigidbody.velocity = Vector3.zero;
+        m_Rigidbody.constraints = RigidbodyConstraints.FreezePosition;
+        unFreezeChar();
+
     }
 
     /// <summary>
@@ -184,11 +186,7 @@ abstract public class Character : MonoBehaviour
     /// </summary>
     protected void unFreezeChar()
     {
-        if (frozen)
-        {
-            charBody.transform.rotation = m_Rotation;
-            frozen = false;
-        }
+        m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }
 
     /// <summary>
