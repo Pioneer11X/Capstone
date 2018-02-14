@@ -53,7 +53,7 @@ abstract public class Character : MonoBehaviour
 
 
     protected float m_MoveSpeedMultiplier;
-    protected float m_DashSpeedMultiplier;
+    protected float m_SprintSpeedMultiplier;
     protected float m_RunSpeedMultiplier;
 
 
@@ -134,7 +134,7 @@ abstract public class Character : MonoBehaviour
 
         m_JumpPower = humanoid.JumpPower;
         m_BaseSpeedMultiplier = humanoid.SpeedMove;
-        m_DashSpeedMultiplier = humanoid.SpeedDash;
+        m_SprintSpeedMultiplier = humanoid.SpeedDash;
         m_RunSpeedMultiplier = humanoid.SpeedRun;
 
         stateTimer = 0;
@@ -153,10 +153,10 @@ abstract public class Character : MonoBehaviour
     /// <param name="vert">forward/backward motion</param>
     /// <param name="hori">side to side motion</param>
     /// <param name="charRotation">rotation of player</param>
-    /// <param name="jump">should player jump</param>
-    /// <param name="running">is the player running</param>
-    /// <param name="dash">is the player dashing</param>
-    abstract public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool dash, bool aiming);
+    /// <param name="jump">should character jump</param>
+    /// <param name="running">is the character running</param>
+    /// <param name="sprinting">is the character sprinting</param>
+    abstract public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool sprinting, bool aiming);
 
     /// <summary>
     /// Move AI Character

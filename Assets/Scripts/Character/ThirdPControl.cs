@@ -21,7 +21,7 @@ public class ThirdPControl : MonoBehaviour
     private float mouseRotationFactor; //Set mouse rotation sensitivity
 
     [SerializeField]
-    private float crossRotationFactor; //Set mouse rotation sensitivity
+    private float crossRotationFactor; //Set joystick rotation sensitivity
 
     [SerializeField]
     private float scrollFactor;        //Set scroll zoom sensitivity
@@ -97,6 +97,8 @@ public class ThirdPControl : MonoBehaviour
 
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         // get the third person character ( this should never be null due to require component )
         m_Character = GetComponent<ThirdPCharacter>();
         playerCharacter = GetComponent<PC>();

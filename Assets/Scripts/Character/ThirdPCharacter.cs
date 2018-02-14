@@ -1,36 +1,47 @@
 ﻿using UnityEngine;
 
+// Darren Farr
+
 /*This is a thrid person character script based on unity's built in script. It has been overhauled to work
- * with a new version of th third person control script. The built in animation control has been taken out 
- * and is being done differently. This script is required by the third person control script.
- * Darren Farr 11/08/2017 */
+ * with a new version of the third person control script. The built in animation control has been taken out 
+ * and is being done separately. This script is required by the third person control script.
+ * First Edited 09/12/2015
+ * Latest edit start: 11/08/2017 */
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 
+/// <summary>
+/// Third Person Character class to move a character.
+/// </summary>
 public class ThirdPCharacter : Character
 {
-    // Use this for initialization
+    /// <summary>
+    /// Initialization
+    /// </summary>
     override protected void Start()
     {
         base.Start();
 
         m_combat.SetChar(this);
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
+    /// <summary>
+    /// Update
+    /// </summary>
     void Update()
     {
         UpdateState();
 
         // If character goes through the floor, pop them back up
-        if(transform.position.y < -0.1f)
+        // TODO Update for efficiency, should run less often
+        if (transform.position.y < -0.1f)
         {
             transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
         }
     }
 
-   
+
     /// <summary>
     /// Move the player character.
     /// </summary>
@@ -39,8 +50,8 @@ public class ThirdPCharacter : Character
     /// <param name="charRotation">rotation of player</param>
     /// <param name="jump">should player jump</param>
     /// <param name="running">is the player running</param>
-    /// <param name="dash">is the player dashing</param>
-    override public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool dash, bool aiming)
+    /// <param name="sprinting">is the player sprinting</param>
+    override public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool sprinting, bool aiming)
     {
         m_combat.IsMoving = m_moving = false;
         m_combat.IsDashing = m_dashing  = false;
@@ -118,8 +129,6 @@ public class ThirdPCharacter : Character
             temp.y = temp.y + 7;
             if (temp2.y > 360)
             { temp2.y -= 360; }
-            //temp.x = 0.0f;
-            //temp.z = 0.0f;
             temp.x = temp2.x;
             temp.z = temp2.z;
 
@@ -133,9 +142,9 @@ public class ThirdPCharacter : Character
         move = (vert * m_Rigidbody.transform.forward) + (hori * m_Rigidbody.transform.right);
 
         //check to see if the character is running or dashing and adjust modifier
-        if (dash)
+        if (sprinting)
         {
-            m_MoveSpeedMultiplier = m_DashSpeedMultiplier; //0.2
+            m_MoveSpeedMultiplier = m_SprintSpeedMultiplier; //0.2
             m_combat.IsDashing = true;
         }
         else if (running)
@@ -150,7 +159,6 @@ public class ThirdPCharacter : Character
         Vector3 customRight = new Vector3(0, 0, 0);
         customRight.x = m_Rigidbody.transform.forward.z;
         customRight.z = -m_Rigidbody.transform.forward.x;
-        //Debug.Log(m_Rigidbody.transform.forward + " " + m_Rigidbody.transform.right + " " + customRight);
 
         //keep the rotation holders updated
         charBodyRotation = charBody.transform.rotation;
@@ -164,8 +172,6 @@ public class ThirdPCharacter : Character
 
         CheckGroundStatus();
         move = Vector3.ProjectOnPlane(move, m_GroundNormal);
-
-        //m_Rigidbody.transform.RotateAround(m_Rigidbody.transform.position, m_Rigidbody.transform.up, charRotation);
 
         // control and velocity handling is different when grounded and airborne:
         if (m_IsGrounded)
@@ -182,9 +188,6 @@ public class ThirdPCharacter : Character
         {
             Vector3 v = (move * m_MoveSpeedMultiplier) / Time.deltaTime;
 
-            // we preserve the existing y part of the current velocity.
-            //velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
-            v.y = m_Rigidbody.velocity.y;
             v.y = 0;
             m_Rigidbody.velocity = v;
         }
