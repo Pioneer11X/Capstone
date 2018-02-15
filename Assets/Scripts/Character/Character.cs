@@ -8,6 +8,7 @@ abstract public class Character : MonoBehaviour
     public enum CharacterState
     {
         none,
+        turning,
         idle_OutCombat,
         idle_InCombat,
         walk,
@@ -76,6 +77,9 @@ abstract public class Character : MonoBehaviour
     protected bool frozen = false;
     private bool hasJumped = false;
     public bool isDead;
+
+    [SerializeField]
+    protected float turnSpeed = 100;
 
     protected float turnMod;
     protected float m_OrigGroundCheckDistance;
@@ -385,6 +389,10 @@ abstract public class Character : MonoBehaviour
             {
                 animationParameter = m_combat.moveDir;
                 currentState = CharacterState.aim_Move;
+            }
+            else if (m_combat.IsTurning)
+            {
+                currentState = CharacterState.turning;
             }
             else
             {

@@ -40,7 +40,7 @@ public class AICharacter : Character
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         // Assert that the scene has a player has a Nav Mesh Agent.
-        Debug.Assert(null != seekTarget);
+        Debug.Assert(null != navMeshAgent);
 
         m_combat.SetChar(this);
 
@@ -67,6 +67,18 @@ public class AICharacter : Character
         {
             // Play the Idle Animation.
             return;
+        }
+
+        if ( this.m_combat.IsTurning && (null != m_combat.CurrentTarget))
+        {
+            var direc = this.m_combat.CurrentTarget.transform.position - transform.position;
+            var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
+            float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
+            if ( angle < 20) { this.m_combat.IsTurning = false; }
+            else
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0, rot.y, 0, rot.w), turnSpeed * Time.deltaTime);
+            }
         }
 
         if (ghostTarget != null && Vector3.Distance(transform.position, ghostTarget.position) <= maxSensoryRadius)

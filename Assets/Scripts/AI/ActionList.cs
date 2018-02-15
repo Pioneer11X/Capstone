@@ -45,7 +45,7 @@ public struct State
 [System.Serializable]
 public struct Action
 {
-    // All the attributes like how much damage each move does, or if the move stuns is taken care by the difference between the IntialState and the FinalState. The time it takes for the Action to complete is sort of independent????
+    // Combat attributes are taken care of by the Combat. The final State contains the estimated final state.
     public string name;
     [Space(10)]
 
@@ -119,10 +119,20 @@ public class ActionList : MonoBehaviour {
             // ఒక్కొక్క దానికి చూస్తుంటావు.
             // ఒక్కొక్క సంబందిత ప్రమాన్నన్నీ చూసుకోవాలి.
             // initialState సరిగ్గా వుందో లేదో చూసుకో.
-            if (compatible(initalActionsList[i].intialState, currentState))
-            {
-                validActions.Add(initalActionsList[i]);
+            try {
+
+                if (compatible(initalActionsList[i].intialState, currentState))
+                {
+                    validActions.Add(initalActionsList[i]);
+                }
+
             }
+            catch(Exception e)
+            {
+                Debug.LogError(e);
+                Debug.Log("Welp");
+            }
+            
 
         }
 
