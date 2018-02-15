@@ -29,105 +29,131 @@ public class CapstoneAnimation : MonoBehaviour
 
     public void Play(Character.CharacterState state, int parameter)
     {
+        string animationName_0 = "";
+        string animationName_1 = "";
+        float duration = 0.0f;
+        int layerOverride = 0;
+        
         //Debug.Log(state);
         switch (state)
         {
             case Character.CharacterState.idle_OutCombat:
                 //animator.Play("Idle_OutCombat");
-                animator.CrossFade("Idle_OutCombat", 0.2f);
+                animationName_0 = animationName_1 = "Idle_OutCombat";
+                duration = 0.2f;
                 break;
             case Character.CharacterState.idle_InCombat:
-                animator.CrossFade("Idle_InCombat",0.2f);
+                animationName_0 = animationName_1 = "Idle_InCombat";
+                duration = 0.2f;
                 break;
             case Character.CharacterState.walk:
-                animator.CrossFade("Walk", 0.15f);
+                animationName_0 = animationName_1 = "Walk";
+                duration = 0.15f;
                 break;
             case Character.CharacterState.run:
-                animator.CrossFade("Run", 0.1f);
-                //animator.Play("Run");
+                animationName_0 = animationName_1 = "Run";
+                duration = 0.1f;
                 break;
             case Character.CharacterState.jump_up:
-                animator.Play("Jump_Up");
+                animationName_0 = animationName_1 = "Jump_Up";
                 break;
             case Character.CharacterState.jump_air:
-                animator.Play("Jump_Air");
+                animationName_0 = animationName_1 = "Jump_Air";
                 break;
             case Character.CharacterState.jump_down:
-                animator.Play("Jump_Down");
+                animationName_0 = animationName_1 = "Jump_Down";
                 break;
             case Character.CharacterState.draw_Gun:
-                animator.Play("Gun_Draw");
+                animationName_0 = animationName_1 = "Gun_Draw";
                 break;
             case Character.CharacterState.holster_Gun:
-                animator.Play("Gun_Holster");
+                animationName_0 = animationName_1 = "Gun_Holster";
                 break;
             case Character.CharacterState.shoot:
-                animator.Play("Gun_Shoot");
+                animationName_0 = animationName_1 = "Gun_Shoot";
                 break;
             case Character.CharacterState.aim_Idle:
-                animator.Play("Gun_Idle");
+                animationName_0 = animationName_1 = "Gun_Idle";
                 break;
             case Character.CharacterState.aim_Move:
                 if (parameter == 0)
                 {
-                    animator.Play("Gun_Idle", 1);
-                    animator.Play("Aim_Sidestep_L", 2);
-                    //animator.Play("Aim_Sidestep_L");
+                    animationName_0 = "Aim_Sidestep_L";
+                    animationName_1 = "Gun_Idle"; 
                 }
                 else if (parameter == 1)
                 {
-                    animator.Play("Gun_Idle", 1);
-                    animator.Play("Aim_Sidestep_R", 2);
-                    //animator.Play("Aim_Sidestep_R");
+                    animationName_0 = "Aim_Sidestep_R";
+                    animationName_1 = "Gun_Idle";
                 }
                 else if (parameter == 2)
                 {
-                    animator.Play("Aim_WalkB");
+                    animationName_0 = "Aim_WalkB";
+                    animationName_1 = "Gun_Idle";
                 }
                 else if (parameter == 3)
                 {
-                    animator.Play("Aim_WalkF");
+                    animationName_0 = "Aim_WalkF";
+                    animationName_1 = "Gun_Idle";
                 }
                 break;
             case Character.CharacterState.dodge:
                 if (parameter == 0)
                 {
-                    animator.Play("Dodge_L");
+                    animationName_0 = "Dodge_L";
                 }
                 else if (parameter == 1)
                 {
-                    animator.Play("Dodge_R");
+                    animationName_0 = "Dodge_R";
                 }
                 else if (parameter == 2)
                 {
-                    animator.Play("Dodge_B");
+                    animationName_0 = "Dodge_B";
                 }
                 else if (parameter == 3)
                 {
-                    animator.Play("Dodge_F");
+                    animationName_0 = "Dodge_F";
                 }
                 break;
             case Character.CharacterState.dead:
-                animator.Play("Death");
+                animationName_0 = animationName_1 = "Death";
                 break;
             case Character.CharacterState.roll:
-                animator.Play("Roll");
+                animationName_0 = animationName_1 = "Roll";
                 break;
             case Character.CharacterState.attack:
                 CombatManager.Combat combat = (CombatManager.Combat)parameter;
-                animator.Play(combat.ToString(), -1, 0);
+                //animator.Play(combat.ToString(), -1, 0);
+                animationName_0 = animationName_1 = combat.ToString();
+                duration = 0;
+                layerOverride = -1;
                 break;
             case Character.CharacterState.adjustPosition:
-                animator.Play("Adjust");
+                animationName_0 = animationName_1 = "Adjust";
                 break;
             case Character.CharacterState.hit:
                 CombatManager.HitPosition pos = (CombatManager.HitPosition)((parameter / 100) % 10);
                 CombatManager.HitDirection dir = (CombatManager.HitDirection)((parameter / 10) % 10);
                 CombatManager.HitPower power = (CombatManager.HitPower)((parameter / 1) % 10);
                 string animationName = "A_Hit_" + pos.ToString() + "_" + dir.ToString() + "_" + power.ToString();
-                animator.Play(animationName,-1,0);
+                //animator.Play(animationName,-1,0);
+                animationName_0 = animationName_1 = animationName;
+                duration = 0;
+                layerOverride = -1;
                 break;
+        }// End Switch
+
+        if (layerOverride == 0)
+        {
+            animator.CrossFade(animationName_0, duration, 0);
+            animator.CrossFade(animationName_1, duration, 1);
         }
+        else if(layerOverride == -1)
+        {
+            animator.CrossFade(animationName_0, 0.0f, 0, 0);
+            animator.CrossFade(animationName_1, 0.0f, 1, 0);
+        }
+
     }
 
 
