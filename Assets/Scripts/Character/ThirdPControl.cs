@@ -499,14 +499,12 @@ public class ThirdPControl : MonoBehaviour
                 if (rotationX > 1 && aimCoolDown < 1)
                 {
                     aimTargetIndex++;
-                    Debug.Log("Index: " + aimTargetIndex);
                     if (aimTargetIndex == enemyArray.Length)
                     {
                         aimTargetIndex--;
                     }
                     else
                     {
-                        Debug.Log("Use this index: " + aimTargetIndex);
                         SetAimTarget(aimTargetIndex);
                         enemyArray[aimTargetIndex - 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex - 1].GetComponent<Enemy>().defaultMat;
                         aimCoolDown = 16;
@@ -515,14 +513,13 @@ public class ThirdPControl : MonoBehaviour
                 else if (rotationX < -1 && aimCoolDown < 1)
                 {
                     aimTargetIndex--;
-                    Debug.Log("Index: " + aimTargetIndex);
                     if (aimTargetIndex < 0)
                     {
                         aimTargetIndex = 0;
                     }
                     else
                     {
-                        Debug.Log("Use this index: " + aimTargetIndex);
+ 
                         SetAimTarget(aimTargetIndex);
                         enemyArray[aimTargetIndex + 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex + 1].GetComponent<Enemy>().defaultMat;
                         aimCoolDown = 16;
@@ -549,7 +546,6 @@ public class ThirdPControl : MonoBehaviour
             {
                 aimCoolDown--;
             }
-            Debug.Log(aimCoolDown);
 
             // Tell the animator which direction the character is moving in
             if (h < 0)  // Left
@@ -712,6 +708,8 @@ public class ThirdPControl : MonoBehaviour
         myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
         m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
         gunTarget.GetComponentInChildren<SkinnedMeshRenderer>().material = gunTarget.GetComponent<Enemy>().highlightMat;
+
+        //m_Character.SmoothRotate(myCarmera.GetComponent<ThirdPCamera>().transform.rotation);
     }
 
 

@@ -10,6 +10,7 @@ abstract public class Character : MonoBehaviour
         none,
         idle_OutCombat,
         idle_InCombat,
+        walk,
         run,
         jump_up,
         jump_air,
@@ -66,6 +67,7 @@ abstract public class Character : MonoBehaviour
 
     protected Rigidbody m_Rigidbody;
 
+    public bool switchingTargets;
     public bool inCombat;
     public bool m_IsGrounded;
     protected bool m_jump;
@@ -142,6 +144,7 @@ abstract public class Character : MonoBehaviour
         m_MoveSpeedMultiplier = m_BaseSpeedMultiplier;
 
         inCombat = false;
+        switchingTargets = false;
     }
 	
 	// Update is called once per frame
@@ -388,10 +391,11 @@ abstract public class Character : MonoBehaviour
 
                 if (m_moving)
                 {
-                    currentState = CharacterState.run;
+                    currentState = CharacterState.walk;
                     if (m_dashing)
                     {
-                        animationParameter = 1;
+                        currentState = CharacterState.run;
+                        //animationParameter = 1;
                     }
                 }
                 else
@@ -403,7 +407,8 @@ abstract public class Character : MonoBehaviour
                     }
                     else if(m_combat.IsAimming)
                     {
-                        currentState = CharacterState.idle_InCombat;
+                        currentState = CharacterState.aim_Idle;
+                        //currentState = CharacterState.idle_InCombat;
                         inCombat = true;
                     }
                     else
@@ -464,5 +469,4 @@ abstract public class Character : MonoBehaviour
     {
         transform.position += direction * speed * Time.deltaTime;
     }
-
 }// End Character

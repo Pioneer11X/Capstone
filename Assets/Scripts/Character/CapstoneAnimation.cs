@@ -39,14 +39,12 @@ public class CapstoneAnimation : MonoBehaviour
             case Character.CharacterState.idle_InCombat:
                 animator.CrossFade("Idle_InCombat",0.2f);
                 break;
+            case Character.CharacterState.walk:
+                animator.CrossFade("Walk", 0.15f);
+                break;
             case Character.CharacterState.run:
-                if (parameter == 0)
-                {
-                    animator.CrossFade("Run",0.1f);                    
-                }
-                else {
-                    animator.Play("Dash");
-                }
+                animator.CrossFade("Run", 0.1f);
+                //animator.Play("Run");
                 break;
             case Character.CharacterState.jump_up:
                 animator.Play("Jump_Up");
@@ -72,11 +70,15 @@ public class CapstoneAnimation : MonoBehaviour
             case Character.CharacterState.aim_Move:
                 if (parameter == 0)
                 {
-                    animator.Play("Aim_Sidestep_L");
+                    animator.Play("Gun_Idle", 1);
+                    animator.Play("Aim_Sidestep_L", 2);
+                    //animator.Play("Aim_Sidestep_L");
                 }
                 else if (parameter == 1)
                 {
-                    animator.Play("Aim_Sidestep_R");
+                    animator.Play("Gun_Idle", 1);
+                    animator.Play("Aim_Sidestep_R", 2);
+                    //animator.Play("Aim_Sidestep_R");
                 }
                 else if (parameter == 2)
                 {

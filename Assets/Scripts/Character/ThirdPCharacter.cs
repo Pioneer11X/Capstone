@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 // Darren Farr
 
@@ -132,25 +133,34 @@ public class ThirdPCharacter : Character
             temp.x = temp2.x;
             temp.z = temp2.z;
 
-
             r = Quaternion.Euler(temp);
-            charBody.transform.rotation = r;
-            m_Rigidbody.transform.rotation = r;
+
+            Quaternion smoothR = Quaternion.Lerp(transform.rotation, r, Time.deltaTime * 2);
+
+            charBody.transform.rotation = smoothR;
+            m_Rigidbody.transform.rotation = smoothR;
+
+            //charBody.transform.rotation = r;
+            //m_Rigidbody.transform.rotation = r;
         }
+        
 
         //calculate initial movement direction and force
         move = (vert * m_Rigidbody.transform.forward) + (hori * m_Rigidbody.transform.right);
 
-        //check to see if the character is running or dashing and adjust modifier
+        //check to see if the character is sprinting and adjust modifier
         if (sprinting)
         {
             m_MoveSpeedMultiplier = m_SprintSpeedMultiplier; //0.2
             m_combat.IsDashing = true;
+            m_dashing = true;
         }
-        else if (running)
-        {
-            m_MoveSpeedMultiplier = m_RunSpeedMultiplier; //0.16
-        }
+        //else if (running)
+        //{
+        //    m_MoveSpeedMultiplier = m_RunSpeedMultiplier; //0.16
+        //    m_combat.IsDashing = true;
+        //    m_dashing = true;
+        //}
         else
         {
             m_MoveSpeedMultiplier = m_BaseSpeedMultiplier; //0.08
@@ -199,5 +209,47 @@ public class ThirdPCharacter : Character
         //Debug.DrawLine(charPos, charVel, Color.red);
 
     }//end move
+
+
+    /// <summary>
+    /// Perform a smooth rotation from target to target
+    /// </summary>
+    /// <param name="rot"></param>
+    public void SmoothRotate(Quaternion rot)
+    {
+        
+        Quaternion r;
+        Vector3 temp, temp2;
+        temp = rot.eulerAngles;
+        temp2 = charBodyRotation.eulerAngles;
+        temp.y = temp.y + 7;
+        if (temp2.y > 360)
+        { temp2.y -= 360; }
+        temp.x = temp2.x;
+        temp.z = temp2.z;
+
+        r = Quaternion.Euler(temp);
+        if (!switchingTargets)
+        {
+            switchingTargets = true;
+            StartCoroutine(RotateToTarget(r));
+        }
+        
+    }
+
+    IEnumerator RotateToTarget(Quaternion rot)
+    {
+        // Rotate until the difference between the two rotations is too small to care
+        while (Quaternion.Angle(transform.rotation, rot) > 0.01)
+        {
+            // Lerp the quaternion
+            Quaternion smoothR = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * 2);
+
+            charBody.transform.rotation = smoothR;
+            m_Rigidbody.transform.rotation = smoothR;
+            yield return null;
+        }
+        switchingTargets = false;
+    }
 
 }//end of class
