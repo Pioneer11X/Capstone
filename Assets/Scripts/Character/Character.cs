@@ -382,6 +382,10 @@ abstract public class Character : MonoBehaviour
                 animationParameter = m_combat.moveDir;
                 currentState = CharacterState.aim_Move;
             }
+            else if (m_combat.IsTurning)
+            {
+                currentState = CharacterState.turning;
+            }
             else
             {
 

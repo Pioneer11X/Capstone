@@ -249,6 +249,10 @@ public class CombatManager : MonoBehaviour
     // Turning Parameters.
     [SerializeField]
     private bool isTurning = false;
+    public bool IsTurning {
+        get { return isTurning; }
+        set { isTurning = value; }
+    }
     [SerializeField]
     private Quaternion targetRotation;
 

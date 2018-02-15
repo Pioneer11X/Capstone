@@ -69,6 +69,18 @@ public class AICharacter : Character
             return;
         }
 
+        if ( this.m_combat.IsTurning && (null != m_combat.CurrentTarget))
+        {
+            var direc = this.m_combat.CurrentTarget.transform.position - transform.position;
+            var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
+            float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
+            if ( angle < 20) { this.m_combat.IsTurning = false; }
+            else
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0, rot.y, 0, rot.w), 100 * Time.deltaTime);
+            }
+        }
+
         if (ghostTarget != null && Vector3.Distance(transform.position, ghostTarget.position) <= maxSensoryRadius)
         {
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
