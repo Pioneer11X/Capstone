@@ -77,7 +77,7 @@ public class AICharacter : Character
             if ( angle < 20) { this.m_combat.IsTurning = false; }
             else
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0, rot.y, 0, rot.w), 100 * Time.deltaTime);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0, rot.y, 0, rot.w), turnSpeed * Time.deltaTime);
             }
         }
 

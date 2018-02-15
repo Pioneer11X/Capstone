@@ -75,6 +75,9 @@ abstract public class Character : MonoBehaviour
     private bool hasJumped = false;
     public bool isDead;
 
+    [SerializeField]
+    protected float turnSpeed = 100;
+
     protected float turnMod;
     protected float m_OrigGroundCheckDistance;
 
