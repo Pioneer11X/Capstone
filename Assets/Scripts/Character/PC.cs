@@ -9,10 +9,13 @@ using UnityEngine.SceneManagement;
 public class PC : Humanoid
 {
     [SerializeField] private float specialRegenRate;
-    [SerializeField] private float bulletRegenRate;
+    [SerializeField] private float staminaRegenRate;
     [SerializeField] protected Slider lifeBar;
     [SerializeField] protected Slider staminaBar;
     [SerializeField] protected Slider specialBar;
+
+    private bool specialInUse;
+    private bool staminaInUse;
 
     public float SpecialBar
     {
@@ -36,6 +39,9 @@ public class PC : Humanoid
         lifeBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
         staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
         specialBar = GameObject.FindGameObjectWithTag("SpecialBar").GetComponent<Slider>();
+
+        specialInUse = false;
+        staminaInUse = false;
     }
 
     /// <summary>
@@ -56,8 +62,8 @@ public class PC : Humanoid
     /// </summary>
     protected void FixedUpdate()
     {
-        // Special Rege
-        if (specialBar != null)
+        // Special Regen
+        if (specialBar != null && !specialInUse)
         {
             if (specialBar.value < 100)
             {
@@ -68,6 +74,22 @@ public class PC : Humanoid
                 specialBar.value = 100;
             }
         }
+
+        // Stamina Regen
+        if (staminaBar != null && !staminaInUse)
+        {
+            if (staminaBar.value < 100)
+            {
+                staminaBar.value += staminaRegenRate;
+            }
+            if (staminaBar.value > 100)
+            {
+                staminaBar.value = 100;
+            }
+        }
+
+        if(specialInUse) { specialInUse = false; }
+        if(staminaInUse) { staminaInUse = false; }
     }
 
     /// <summary>
@@ -84,16 +106,12 @@ public class PC : Humanoid
     /// Subtract from Special UI Bar
     /// </summary>
     /// <param name="value">How much special to use (Light 25, Heavy 50)</param>
-    /// <param name="light">Light attack?</param>
-    public void UseSpecial(int value, bool light)
+    public void UseSpecial(int value)
     {
-        if (specialBar.value > 24.9999f && light)
+        if (specialBar.value > (value + 0.01f) )
         {
             specialBar.value -= value;
-        }
-        else if (specialBar.value > 49.9999f && !light)
-        {
-            specialBar.value -= value;
+            specialInUse = true;
         }
         if (specialBar.value < 0)
         {
@@ -102,17 +120,19 @@ public class PC : Humanoid
     }
 
     /// <summary>
-    /// Reduce number of available bullets
+    /// Subtract from Stamina UI Bar
     /// </summary>
-    public void Shoot()
+    /// <param name="value">How much stamina to use</param>
+    public void UseStamina(int value)
     {
-        if (specialBar.value > 33.9999f)
+        if (staminaBar.value > (value + 0.01f) )
         {
-            specialBar.value -= 33;
+            staminaBar.value -= value;
+            staminaInUse = true;
         }
-        if (specialBar.value < 0)
+        if (staminaBar.value < 0)
         {
-            specialBar.value = 0;
+            staminaBar.value = 0;
         }
     }
 

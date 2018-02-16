@@ -55,15 +55,22 @@ public class ThirdPCharacter : Character
     override public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool sprinting, bool aiming)
     {
         m_combat.IsMoving = m_moving = false;
-        m_combat.IsDashing = m_dashing  = false;
+        m_combat.IsDashing = m_sprinting  = false;
+
         if (!m_combat.canMove)
         {
-            return;
+            return;     // Early out if the player is not allowed to move
         }
-        if (!aiming && (vert != 0 || hori != 0) )
+
+        if((vert != 0 || hori != 0))
         {
             m_combat.IsMoving = true;
             m_moving = true;
+        }
+
+        // Character Rotation
+        if (!aiming && (vert != 0 || hori != 0) )
+        {
             if (!charAudio.isPlaying && m_IsGrounded)
             {
                 charAudio.PlayOneShot(footsteps4);
@@ -121,7 +128,7 @@ public class ThirdPCharacter : Character
                 }
             }
         }
-        else if(aiming) // Rotate Character to face camera direction
+        else if(aiming && !m_moving) // Rotate Character to face camera direction
         {
             Quaternion r;
             Vector3 temp, temp2;
@@ -143,7 +150,25 @@ public class ThirdPCharacter : Character
             //charBody.transform.rotation = r;
             //m_Rigidbody.transform.rotation = r;
         }
-        
+        else if (aiming && m_moving) // Rotate Character to face camera direction
+        {
+            Quaternion r;
+            Vector3 temp, temp2;
+            temp = camRot.eulerAngles;
+            temp2 = charBodyRotation.eulerAngles;
+            //temp.y = temp.y + 7;
+            temp.y = temp.y - 45;
+            if (temp2.y > 360)
+            { temp2.y -= 360; }
+            temp.x = temp2.x;
+            temp.z = temp2.z;
+
+            r = Quaternion.Euler(temp);
+
+            charBody.transform.rotation = r;
+            //m_Rigidbody.transform.rotation = r;
+        }
+
 
         //calculate initial movement direction and force
         move = (vert * m_Rigidbody.transform.forward) + (hori * m_Rigidbody.transform.right);
@@ -153,13 +178,13 @@ public class ThirdPCharacter : Character
         {
             m_MoveSpeedMultiplier = m_SprintSpeedMultiplier; //0.2
             m_combat.IsDashing = true;
-            m_dashing = true;
+            m_sprinting = true;
         }
         //else if (running)
         //{
         //    m_MoveSpeedMultiplier = m_RunSpeedMultiplier; //0.16
         //    m_combat.IsDashing = true;
-        //    m_dashing = true;
+        //    m_sprinting = true;
         //}
         else
         {
@@ -209,47 +234,5 @@ public class ThirdPCharacter : Character
         //Debug.DrawLine(charPos, charVel, Color.red);
 
     }//end move
-
-
-    /// <summary>
-    /// Perform a smooth rotation from target to target
-    /// </summary>
-    /// <param name="rot"></param>
-    public void SmoothRotate(Quaternion rot)
-    {
-        
-        Quaternion r;
-        Vector3 temp, temp2;
-        temp = rot.eulerAngles;
-        temp2 = charBodyRotation.eulerAngles;
-        temp.y = temp.y + 7;
-        if (temp2.y > 360)
-        { temp2.y -= 360; }
-        temp.x = temp2.x;
-        temp.z = temp2.z;
-
-        r = Quaternion.Euler(temp);
-        if (!switchingTargets)
-        {
-            switchingTargets = true;
-            StartCoroutine(RotateToTarget(r));
-        }
-        
-    }
-
-    IEnumerator RotateToTarget(Quaternion rot)
-    {
-        // Rotate until the difference between the two rotations is too small to care
-        while (Quaternion.Angle(transform.rotation, rot) > 0.01)
-        {
-            // Lerp the quaternion
-            Quaternion smoothR = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * 2);
-
-            charBody.transform.rotation = smoothR;
-            m_Rigidbody.transform.rotation = smoothR;
-            yield return null;
-        }
-        switchingTargets = false;
-    }
 
 }//end of class

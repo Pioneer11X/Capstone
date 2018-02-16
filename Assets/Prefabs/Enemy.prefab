@@ -1849,6 +1849,31 @@ MonoBehaviour:
     actionTime: 0.8
     damage: 10
     preference: 10
+  - name: Face_Towards_The_Enemy
+    intialState:
+      hasTarget: 0
+      canTargetAttack: 2
+      canIAttack: 2
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 1
+      myPrevMove: 
+      targetPrevMove: 
+    finalState:
+      hasTarget: 2
+      canTargetAttack: 2
+      canIAttack: 2
+      targetStunned: 2
+      amIStunned: 1
+      isTargetFacingMe: 2
+      amIFacingTheTarget: 0
+      myPrevMove: 
+      targetPrevMove: 
+    combat: 0
+    actionTime: 0.8
+    damage: 0
+    preference: 10
 --- !u!114 &114153668705709184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1877,8 +1902,11 @@ MonoBehaviour:
   charBody: {fileID: 1081017911599592}
   camera: {fileID: 0}
   m_combat: {fileID: 0}
+  switchingTargets: 0
+  inCombat: 0
   m_IsGrounded: 0
   isDead: 0
+  turnSpeed: 100
   currentState: 0
   seekTarget: {fileID: 0}
   ghostTarget: {fileID: 0}
@@ -1964,126 +1992,154 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Jab_R
     AT: 0.5
     ET: 0.2
     ED: 1
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Hook_L
     AT: 0.65
     ET: 0.2
     ED: 1
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Hook_R
     AT: 0.65
     ET: 0.2
     ED: 1
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_L
     AT: 0.8
     ET: 0.5
     ED: 1
     HT: 0.8
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_R
     AT: 0.8
     ET: 0.5
     ED: 1
     HT: 0.8
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Kick_Straight_Mid_R
     AT: 1
     ET: 0.6
     ED: 1
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Kick_Axe_Kick
     AT: 1.2
     ET: 0.5
     ED: 1
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Kick_Horse_Kick
     AT: 1
     ET: 0.4
     ED: 1
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Sword_Attack_R
     AT: 0
     ET: 0
     ED: 0
     HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Sword_Attack_RL
     AT: 0
     ET: 0
     ED: 0
     HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Sword_Attack_Sp_U
     AT: 0
     ET: 0
     ED: 0
     HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Sword_Attack_Combo_LL
     AT: 0
     ET: 0
     ED: 0
     HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: KB_Gun
     AT: 0
     ET: 0
     ED: 0
     HT: 0
     Dmg: 0
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   currentTarget: {fileID: 0}
   aimTarget: {fileID: 0}
   inCombatDuration: 4
@@ -2098,6 +2154,9 @@ MonoBehaviour:
   dodgeTime: 0
   rollTime: 0.5
   rollSpeed: 3
+  isTurning: 0
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  timeBetweenAttacks: 0
   hitTime: 1
   hitMaxWalkSpeed: 1
   adjustSpeed: 2

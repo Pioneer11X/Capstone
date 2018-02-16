@@ -1556,8 +1556,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1870170771485162}
-  m_LocalRotation: {x: -0, y: 0.33191794, z: -0, w: -0.94330835}
-  m_LocalPosition: {x: -41.6, y: 13.71, z: -40.36}
+  m_LocalRotation: {x: -0, y: -0.67521363, z: -0, w: -0.73762226}
+  m_LocalPosition: {x: 50.48252, y: 0.35800004, z: -38.275356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4655072841929058}
@@ -1567,7 +1567,7 @@ Transform:
   - {fileID: 4529835732204942}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 321.23, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 444.941, z: 0}
 --- !u!4 &4279836993827122
 Transform:
   m_ObjectHideFlags: 1
@@ -2957,8 +2957,11 @@ MonoBehaviour:
   charBody: {fileID: 1359089739512094}
   camera: {fileID: 0}
   m_combat: {fileID: 0}
+  switchingTargets: 0
+  inCombat: 0
   m_IsGrounded: 0
   isDead: 0
+  turnSpeed: 100
   currentState: 0
 --- !u!114 &114148524265643924
 MonoBehaviour:
@@ -2995,7 +2998,7 @@ MonoBehaviour:
   stamina: 0
   senseRadius: 0
   specialRegenRate: 0.1
-  bulletRegenRate: 0.1
+  staminaRegenRate: 1
   lifeBar: {fileID: 0}
   staminaBar: {fileID: 0}
   specialBar: {fileID: 0}
@@ -3067,126 +3070,154 @@ MonoBehaviour:
     ED: 1
     HT: 0.2
     Dmg: 3
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Jab_R
     AT: 0.5
     ET: 0.2
     ED: 1
     HT: 1
     Dmg: 3
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Hook_L
     AT: 0.65
     ET: 0.2
     ED: 1
     HT: 0.2
     Dmg: 5
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Hook_R
     AT: 0.65
     ET: 0.2
     ED: 1
     HT: 0.5
     Dmg: 5
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_L
     AT: 0.8
     ET: 0.5
     ED: 1
     HT: 1
     Dmg: 7
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_R
     AT: 0.8
     ET: 0.5
     ED: 1
     HT: 1
     Dmg: 7
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Kick_Straight_Mid_R
     AT: 1
     ET: 0.6
     ED: 1
     HT: 0.8
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Kick_Axe_Kick
     AT: 1.2
     ET: 0.5
     ED: 1
     HT: 0.8
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Kick_Horse_Kick
     AT: 1
     ET: 0.4
     ED: 1
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Sword_Attack_R
     AT: 1
     ET: 0.3
     ED: 1.25
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 1
     Dir: 1
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Sword_Attack_RL
     AT: 0.8
     ET: 0.3
     ED: 1.25
     HT: 1
     Dmg: 10
+    AD: 0
     Pos: 0
     Dir: 2
     Power: 0
+    CombatSFX: {fileID: 0}
   - name: Sword_Attack_Sp_U
     AT: 1.5
     ET: 0.5
     ED: 1.25
     HT: 1
     Dmg: 15
+    AD: 0
     Pos: 0
     Dir: 0
     Power: 1
+    CombatSFX: {fileID: 0}
   - name: Sword_Attack_Combo_LL
     AT: 2
     ET: 0.5
     ED: 1.25
     HT: 0.8
     Dmg: 20
+    AD: 0
     Pos: 0
     Dir: 2
     Power: 1
+    CombatSFX: {fileID: 0}
   - name: KB_Gun
     AT: 1
     ET: 0.5
     ED: 1
     HT: 0.5
-    Dmg: 20
+    Dmg: 10
+    AD: 0
     Pos: 1
     Dir: 0
     Power: 1
+    CombatSFX: {fileID: 0}
   currentTarget: {fileID: 0}
   aimTarget: {fileID: 0}
   inCombatDuration: 4
@@ -3201,6 +3232,9 @@ MonoBehaviour:
   dodgeTime: 0
   rollTime: 0.5
   rollSpeed: 3
+  isTurning: 0
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  timeBetweenAttacks: 0
   hitTime: 1
   hitMaxWalkSpeed: 1
   adjustSpeed: 2
@@ -3222,7 +3256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myCarmera: {fileID: 0}
-  mouseRotationFactor: 2
+  mouseRotationFactor: 1
   crossRotationFactor: 2
   scrollFactor: 2
   mouseHorizontalAxisName: Mouse X
@@ -3233,8 +3267,10 @@ MonoBehaviour:
   enemyArray: []
   visionHackCD: 30
   visionHackTime: 10
+  rollDodgeCost: 15
+  sprintCost: 1
   target: {fileID: 4655072841929058}
-  aimTarget: {fileID: 4947234899538014}
+  aimTarget: {fileID: 0}
   gunTarget: {fileID: 0}
   ghostPrefab: {fileID: 1150824672077162, guid: ee33e1fddca3cc44e9931834a9cd0cbf,
     type: 2}

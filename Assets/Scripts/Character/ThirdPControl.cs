@@ -17,14 +17,11 @@ public class ThirdPControl : MonoBehaviour
     public GameObject myCarmera;
     private GameObject gun;
 
-    [SerializeField]
-    private float mouseRotationFactor; //Set mouse rotation sensitivity
+    [SerializeField] private float mouseRotationFactor; //Set mouse rotation sensitivity
 
-    [SerializeField]
-    private float crossRotationFactor; //Set joystick rotation sensitivity
+    [SerializeField] private float crossRotationFactor; //Set joystick rotation sensitivity
 
-    [SerializeField]
-    private float scrollFactor;        //Set scroll zoom sensitivity
+    [SerializeField] private float scrollFactor;        //Set scroll zoom sensitivity
 
     // Default unity names for mouse axes
     public string mouseHorizontalAxisName = "Mouse X";
@@ -39,7 +36,7 @@ public class ThirdPControl : MonoBehaviour
 
     private bool m_Jump;
     private bool m_running;
-    private bool m_dashing;
+    private bool m_sprinting;
     private bool m_hacking;
     private bool sprintCoolDown;
 
@@ -61,11 +58,9 @@ public class ThirdPControl : MonoBehaviour
     private float specialButtonTimer = 0;
     private bool specialButtonDown;
 
-    [SerializeField]
-    private float minHoldTime;
+    [SerializeField] private float minHoldTime;
 
-    [SerializeField]
-    private float maxHoldTime;
+    [SerializeField] private float maxHoldTime;
 
     private Pause pause;
 
@@ -74,12 +69,11 @@ public class ThirdPControl : MonoBehaviour
     private int aimTargetIndex;
     private int aimCoolDown;
 
-
-    [SerializeField]
-    private float visionHackCD;
     private float visionHackCDTimer;
-    [SerializeField]
-    private float visionHackTime;
+    [SerializeField] private float visionHackCD;
+    [SerializeField] private float visionHackTime;
+    [SerializeField] private int rollDodgeCost;
+    [SerializeField] private int sprintCost;
 
 
     public Transform target;
@@ -210,7 +204,7 @@ public class ThirdPControl : MonoBehaviour
         }
 
 
-        if (CrossPlatformInputManager.GetButtonDown("Dodge") && playerCharacter.StaminaBar > 15) //Button 1
+        if (CrossPlatformInputManager.GetButtonDown("Dodge") && playerCharacter.StaminaBar > rollDodgeCost) //Button 1
         {
             if (!m_aiming)
             {
@@ -219,7 +213,7 @@ public class ThirdPControl : MonoBehaviour
                 if (m_Character.m_combat.Roll())
                 {
                     // Remove stamina
-                    playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                    playerCharacter.UseStamina(rollDodgeCost);
                 }
             }
             else
@@ -229,7 +223,7 @@ public class ThirdPControl : MonoBehaviour
                     if(m_Character.m_combat.Dodge(0))
                     {
                         // Remove stamina
-                        playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                        playerCharacter.UseStamina(rollDodgeCost);
                     }
                 }
                 else if (h > 0) // Right
@@ -237,7 +231,7 @@ public class ThirdPControl : MonoBehaviour
                     if(m_Character.m_combat.Dodge(1))
                     {
                         // Remove stamina
-                        playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                        playerCharacter.UseStamina(rollDodgeCost);
                     }
                 }
                 else if (v < 0)  // Back
@@ -245,7 +239,7 @@ public class ThirdPControl : MonoBehaviour
                     if(m_Character.m_combat.Dodge(2))
                     {
                         // Remove stamina
-                        playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                        playerCharacter.UseStamina(rollDodgeCost);
                     }
                 }
                 else if (v > 0)  // Foward
@@ -253,12 +247,12 @@ public class ThirdPControl : MonoBehaviour
                     if(m_Character.m_combat.Dodge(3))
                     {
                         // Remove stamina
-                        playerCharacter.StaminaBar = playerCharacter.StaminaBar - 15;
+                        playerCharacter.UseStamina(rollDodgeCost);
                     }
                 }
                 else
                 {
-                    // Add for block
+                    Debug.Log("Why is roll / dodge falling into this else statement???");
                 }
             }
         }
@@ -357,26 +351,25 @@ public class ThirdPControl : MonoBehaviour
         // Character movement (forward/backward motion) (rotate left/right)
         v = CrossPlatformInputManager.GetAxis("Vertical");
         h = CrossPlatformInputManager.GetAxis("Horizontal");
+        if( v > 0.001f && v < 0.5f) { v = 0.5f; }
+        else if (v < -0.001f && v > -0.5f) { v = -0.5f; }
+        if (h > 0.001f && h < 0.5f) { h = 0.5f; }
+        else if (h < -0.001f && h > -0.5f) { h = -0.5f; }
 
         // Triggers
         float rt = CrossPlatformInputManager.GetAxis("Dash");
-        if ((rt != 0 || Input.GetKey(KeyCode.LeftShift)) && playerCharacter.StaminaBar > 0 && !sprintCoolDown)
+        if ((rt != 0 || Input.GetKey(KeyCode.LeftShift)) && playerCharacter.StaminaBar > 0 
+            && !sprintCoolDown && (v != 0 || h != 0) )
         {
-            // check for energy
-            if(true)
-            {
-                // use energy here
-                playerCharacter.StaminaBar = playerCharacter.StaminaBar - 1f;
-                m_dashing = true;
-            }
+            playerCharacter.UseStamina(sprintCost);
+            m_sprinting = true;
             
         }
         else if(!m_hacking && !m_Character.m_combat.IsRolling)
         {
-            playerCharacter.StaminaBar = playerCharacter.StaminaBar + 0.2f;
-            m_dashing = false;
+            m_sprinting = false;
         }
-        if(playerCharacter.StaminaBar < 0.5)
+        if(playerCharacter.StaminaBar < sprintCost * 2)
         {
             sprintCoolDown = true;
         }
@@ -571,7 +564,7 @@ public class ThirdPControl : MonoBehaviour
         }
 
         m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,
-            m_Jump, m_running, m_dashing, m_aiming);
+            m_Jump, m_running, m_sprinting, m_aiming);
 
         m_Jump = false;
     }
@@ -708,8 +701,6 @@ public class ThirdPControl : MonoBehaviour
         myCarmera.GetComponent<ThirdPCamera>().SetAimState(true, aimTarget);
         m_Character.m_combat.AimTarget = aimTarget.GetComponentInParent<Character>();
         gunTarget.GetComponentInChildren<SkinnedMeshRenderer>().material = gunTarget.GetComponent<Enemy>().highlightMat;
-
-        //m_Character.SmoothRotate(myCarmera.GetComponent<ThirdPCamera>().transform.rotation);
     }
 
 

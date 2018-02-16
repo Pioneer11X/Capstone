@@ -72,7 +72,7 @@ abstract public class Character : MonoBehaviour
     public bool inCombat;
     public bool m_IsGrounded;
     protected bool m_jump;
-    protected bool m_dashing;
+    protected bool m_sprinting;
     protected bool m_moving;
     protected bool frozen = false;
     private bool hasJumped = false;
@@ -400,7 +400,7 @@ abstract public class Character : MonoBehaviour
                 if (m_moving)
                 {
                     currentState = CharacterState.walk;
-                    if (m_dashing)
+                    if (m_sprinting)
                     {
                         currentState = CharacterState.run;
                         //animationParameter = 1;
@@ -408,7 +408,7 @@ abstract public class Character : MonoBehaviour
                 }
                 else
                 {
-                    if (m_combat.InCombat)
+                    if (m_combat.InCombat && !m_combat.IsAimming)
                     {
                         currentState = CharacterState.idle_InCombat;
                         inCombat = true;

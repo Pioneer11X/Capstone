@@ -703,7 +703,7 @@ public class CombatManager : MonoBehaviour
         if (CheckTarget())
         {
             Attack();
-            m_char.GetComponent<PC>().UseSpecial(25, true);
+            m_char.GetComponent<PC>().UseSpecial(25);
         }
         else
         {
@@ -721,7 +721,7 @@ public class CombatManager : MonoBehaviour
         if (CheckTarget())
         {
             Attack();
-            m_char.GetComponent<PC>().UseSpecial(50, true);
+            m_char.GetComponent<PC>().UseSpecial(50);
         }
         else
         {
@@ -755,7 +755,7 @@ public class CombatManager : MonoBehaviour
         resetAttack = true;
 
         // Update UI
-        m_char.GetComponent<PC>().Shoot();
+        m_char.GetComponent<PC>().UseSpecial(50);
     }
 
     public void Effect()
@@ -960,8 +960,6 @@ public class CombatManager : MonoBehaviour
             {
                 case "Face_Towards_The_Enemy":
                     isTurning = true;
-                    var direc = this.CurrentTarget.transform.position - transform.position;
-                    var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
                     return;
                 default:
                     return;
