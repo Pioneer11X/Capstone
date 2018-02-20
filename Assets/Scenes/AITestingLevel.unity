@@ -14470,11 +14470,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1322775103}
     m_Modifications:
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.size
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalPosition.x
       value: 24.18
@@ -14506,111 +14501,6 @@ Prefab:
     - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: adjustMaxDistance
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: timeBetweenAttacks
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 195292706730197916, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: m_StoppingDistance
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 195292706730197916, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].name
-      value: Face_Towards_The_Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].intialState.canTargetAttack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].intialState.targetStunned
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].intialState.amIStunned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].intialState.isTargetFacingMe
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].finalState.hasTarget
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].finalState.canTargetAttack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].finalState.canIAttack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].finalState.amIStunned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].finalState.isTargetFacingMe
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].combat
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].actionTime
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].damage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].preference
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].intialState.canIAttack
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].intialState.amIFacingTheTarget
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114124007182536088, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: initalActionsList.Array.data[5].finalState.targetStunned
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
@@ -26418,15 +26308,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.4114666
+      value: 32.75
       objectReference: {fileID: 0}
     - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.72
       objectReference: {fileID: 0}
     - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 8.148912
+      value: 53.18
       objectReference: {fileID: 0}
     - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_LocalRotation.x
@@ -31798,16 +31688,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 904029769}
-  bumperDistanceCheck: 2
-  bumperHeight: 0.5
-  bumperRayOffset: {x: 0, y: 0, z: 0}
-  damping: 5
-  distance: 0.75
-  height: 1.75
+  initDistance: 0
+  initHeight: 1.5
+  combatDistance: 0
+  combatHeight: 1
   heightDamping: 4
   positionDamping: 5
-  rotationDamping: 1
   inUse: 0
+  inCombat: 0
 --- !u!4 &1851661710 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 10360b615654a204d8391dfbce76c2df, type: 2}
