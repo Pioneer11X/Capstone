@@ -70,6 +70,7 @@ public class ActionSelector : MonoBehaviour {
         }
         else
         {
+            // This Triggers when you are dead..
             Debug.LogError("No Valid Actions");
         }
         
