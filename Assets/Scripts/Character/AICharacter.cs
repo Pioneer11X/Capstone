@@ -13,6 +13,7 @@ public class AICharacter : Character
 {
 
     public Transform seekTarget;    // A variable to store the transform of the target to seek.
+    private Transform playerTarget;
     public Transform ghostTarget;
 
     [SerializeField]
@@ -33,7 +34,7 @@ public class AICharacter : Character
 
         s_action = GetComponent<ActionSelector>();
 
-        seekTarget = GameObject.FindGameObjectWithTag("Player").transform;
+        seekTarget = playerTarget = GameObject.FindGameObjectWithTag("Player").transform;
 
         // Assert that the scene has a player tagged with Player.
         Debug.Assert(null != seekTarget);
@@ -61,7 +62,7 @@ public class AICharacter : Character
         }
         else
         {
-            seekTarget = GameObject.FindGameObjectWithTag("Player").transform;
+            seekTarget = playerTarget;
         }
         if ( null == seekTarget)
         {

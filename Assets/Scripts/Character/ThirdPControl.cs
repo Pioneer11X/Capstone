@@ -654,7 +654,7 @@ public class ThirdPControl : MonoBehaviour
         GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation) as GameObject;
         //init the ghost
         GhostController gc = ghost.GetComponent<GhostController>();
-        gc.Init(visionHackTime, this, myCarmera);
+        gc.Init(this, myCarmera);
         //set cam
         //myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(gc.target, gc.aimTarget);
         //disappear

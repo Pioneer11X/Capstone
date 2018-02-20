@@ -93,8 +93,7 @@ public class GhostController : MonoBehaviour
         gameObject.tag = "Untagged";
     }//end start
 
-    public void Init(float time,ThirdPControl p,GameObject camera) {
-        maxVisionHackTime = time;
+    public void Init(ThirdPControl p,GameObject camera) {
         player = p;
         myCarmera = camera;
         //camPos = myCarmera.transform.position;
@@ -126,7 +125,7 @@ public class GhostController : MonoBehaviour
             playerCharacter.SpecialBar = playerCharacter.SpecialBar - 0.1f;
             visionHackTimer += Time.deltaTime;
 
-            if (visionHackTimer >= maxVisionHackTime || !CrossPlatformInputManager.GetButton("Hack")) {
+            if (playerCharacter.SpecialBar < 0.5f || !CrossPlatformInputManager.GetButton("Hack") ) {
                 End();
             }
 
