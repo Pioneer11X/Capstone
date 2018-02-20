@@ -2156,12 +2156,12 @@ MonoBehaviour:
   rollSpeed: 3
   isTurning: 0
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
-  timeBetweenAttacks: 0
+  timeBetweenAttacks: 2
   hitTime: 1
   hitMaxWalkSpeed: 1
   adjustSpeed: 2
   adjustMinDistance: 0.75
-  adjustMaxDistance: 2.5
+  adjustMaxDistance: 1.5
   adjustAgle: 5
   currentCombat: 0
   comboTimer: 0
@@ -2299,7 +2299,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

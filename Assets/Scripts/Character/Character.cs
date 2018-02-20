@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
@@ -433,6 +434,12 @@ abstract public class Character : MonoBehaviour
         if(isDead)
         {
             currentState = CharacterState.dead;
+
+            if ( null != GetComponent<NavMeshAgent>())
+            {
+                GetComponent<NavMeshAgent>().isStopped = true;
+            }
+
         }
 
         if (lastState != currentState)
