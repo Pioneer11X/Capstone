@@ -1946,7 +1946,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.2
     Dmg: 3
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1957,7 +1957,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 3
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1968,7 +1968,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.2
     Dmg: 5
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1979,7 +1979,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.5
     Dmg: 5
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -1990,7 +1990,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 7
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -2001,7 +2001,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 7
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -2012,7 +2012,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.8
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -2023,7 +2023,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.8
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -2034,7 +2034,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -2045,7 +2045,7 @@ MonoBehaviour:
     ED: 1.25
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 1
     Dir: 1
     Power: 0
@@ -2056,7 +2056,7 @@ MonoBehaviour:
     ED: 1.25
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 2
     Power: 0
@@ -2067,7 +2067,7 @@ MonoBehaviour:
     ED: 1.25
     HT: 1
     Dmg: 15
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 1
@@ -2078,7 +2078,7 @@ MonoBehaviour:
     ED: 1.25
     HT: 0.8
     Dmg: 20
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 2
     Power: 1
@@ -2089,7 +2089,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.5
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 1
     Dir: 0
     Power: 1
@@ -16298,6 +16298,11 @@ Prefab:
     - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
+        type: 2}
+      propertyPath: allMoves.Array.data[0].StrikeDistance
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}

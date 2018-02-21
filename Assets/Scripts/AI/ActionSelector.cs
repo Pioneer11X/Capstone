@@ -64,6 +64,9 @@ public class ActionSelector : MonoBehaviour {
             // Get the Action.
             if (m_combat.canAttack)
             {
+                
+                //  
+
                 m_combat.PerformAction(validActions[curAction]);
                 l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
             }
@@ -78,5 +81,32 @@ public class ActionSelector : MonoBehaviour {
         // TODO: Throw an exception when no action is present..
 
     }
+
+    /*
+     * 
+     *         currentAttackDistance = currentMoveDetails.StrikeDistance;
+
+        // మనం ఎంత దూరంలో ఉన్నామో చూసి దాని బట్టి ఎం చెయ్యాలో చూడు.
+        // Check the Distance and Adjust accordingly.
+        currentDistanceToTarget = Vector3.Distance(this.transform.position, this.CurrentTarget.transform.position);
+        while ( Mathf.Abs(currentDistanceToTarget - currentAttackDistance) > Mathf.Epsilon)
+        {
+            
+            // Move CLoser or Farther..
+            if ( currentDistanceToTarget > currentAttackDistance)
+            {
+                // Move Closer.
+                // దగ్గరకు వెళ్ళు.
+                this.m_char.ForceMove(0.5f, (this.CurrentTarget.transform.position - this.transform.position));
+            }
+            else
+            {
+                // Move Father.
+                // దూరంగా వెళ్ళు.
+                this.m_char.ForceMove(0.5f, (this.transform.position - this.CurrentTarget.transform.position));
+            }
+        }
+     * 
+     */
 
 }
