@@ -143,6 +143,8 @@ public class CapstoneAnimation : MonoBehaviour
                 break;
         }// End Switch
 
+        Debug.Log(animationName_0 + "  " + animationName_1);
+
         if (layerOverride == 0)
         {
             animator.CrossFade(animationName_0, duration, 0);
