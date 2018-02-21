@@ -103,7 +103,8 @@ public class CombatManager : MonoBehaviour
         public float ED;
         public float HT;
         public float Dmg;
-        public float AD;
+        [Range(0.1f, 2.5f)]
+        public float StrikeDistance;
         public HitPosition Pos;
         public CombatDirection Dir;
         public HitPower Power;
@@ -215,6 +216,10 @@ public class CombatManager : MonoBehaviour
         get { return resetAttack; }
         set { resetAttack = value; }
     }
+
+    // Dummy Parameter to check.
+    private float currentDistanceToTarget;
+
 
     //dodge parameters
     private bool isDodging;
@@ -981,8 +986,6 @@ public class CombatManager : MonoBehaviour
         currentHitPos = currentMoveDetails.Pos;
         currentHitTime = currentMoveDetails.HT;
 
-        // ఎంత దూరంగా ఉండాలో చూసి జరుగు.
-        currentAttackDistance = currentMoveDetails.AD;
 
         // Move according to the Attack Distance.
 
