@@ -34,7 +34,6 @@ public class ActionSelector : MonoBehaviour {
         var direc = this.m_combat.CurrentTarget.transform.position - transform.position;
         var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
         float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
-        Debug.Log(angle);
         // transform.rotation = new Quaternion(0, rot.y, 0, rot.w);
         currentState.amIFacingTheTarget = (angle < 20) ? customBool.True : customBool.False;
 
@@ -64,8 +63,24 @@ public class ActionSelector : MonoBehaviour {
             // Get the Action.
             if (m_combat.canAttack)
             {
-                m_combat.PerformAction(validActions[curAction]);
-                l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+                // Check the distance and see if the Enemy can use the attack or not??
+                float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
+                float strikingDistance = this.m_combat.allMoves[(int)((validActions[curAction]).combat) - 1].AD;
+
+                float buffer = 0.1f;
+
+                if ( Mathf.Abs(distanceToTarget - strikingDistance) > buffer)
+                {
+                    this.m_combat.adjustMinDistance = strikingDistance - buffer;
+                    this.m_combat.adjustMaxDistance = strikingDistance + buffer;
+                    this.m_combat.IsAdjusting = true;
+                }
+                else
+                {
+                    m_combat.PerformAction(validActions[curAction]);
+                    l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+                }
+                
             }
         }
         else
