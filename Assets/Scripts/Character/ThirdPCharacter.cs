@@ -77,7 +77,6 @@ public class ThirdPCharacter : Character
             }
             if (m_IsGrounded)
             {
-
                 Quaternion r;
                 Vector3 temp, temp2;
                 temp = camRot.eulerAngles;

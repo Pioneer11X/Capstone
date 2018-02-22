@@ -21143,7 +21143,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.2
     Dmg: 3
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21154,7 +21154,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 3
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21165,7 +21165,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.2
     Dmg: 5
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21176,7 +21176,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.5
     Dmg: 5
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21187,7 +21187,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 7
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21198,7 +21198,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 7
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21209,7 +21209,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.8
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21220,7 +21220,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.8
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21231,7 +21231,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
@@ -21242,7 +21242,7 @@ MonoBehaviour:
     ED: 1.25
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 1
     Dir: 1
     Power: 0
@@ -21253,7 +21253,7 @@ MonoBehaviour:
     ED: 1.25
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 2
     Power: 0
@@ -21264,7 +21264,7 @@ MonoBehaviour:
     ED: 1.25
     HT: 1
     Dmg: 15
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 1
@@ -21275,7 +21275,7 @@ MonoBehaviour:
     ED: 1.25
     HT: 0.8
     Dmg: 20
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 2
     Power: 1
@@ -21286,7 +21286,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.5
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 1
     Dir: 0
     Power: 1
@@ -21304,6 +21304,7 @@ MonoBehaviour:
   currentHitPos: 0
   dodgeTime: 0
   rollTime: 0.5
+  runRollTime: 1.5
   rollSpeed: 3
   isTurning: 0
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -29736,7 +29737,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1326738795}
-  m_LocalRotation: {x: 0.05143531, y: 0.0149977235, z: 0.0064511946, w: 0.99854285}
+  m_LocalRotation: {x: 0.051435314, y: 0.0149977235, z: 0.006451195, w: 0.99854285}
   m_LocalPosition: {x: -6.3682393e-16, y: -6.2527766e-16, z: -0.17732918}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -47516,7 +47517,7 @@ Animator:
   m_GameObject: {fileID: 2132324241}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 52058499a402c8347ab3ae633f683d33, type: 3}
-  m_Controller: {fileID: 9100000, guid: b11c77d79b9b1a64693b3ddc547d40df, type: 2}
+  m_Controller: {fileID: 9100000, guid: 85104162f22f7734caf33e485f26c175, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -238,16 +238,17 @@ public class CombatManager : MonoBehaviour
 
     //roll parameters
     private bool isRolling;
-    [SerializeField]
-    private float rollTime;
-    [SerializeField]
-    private float rollSpeed;
+    [SerializeField] private float rollTime;
+    [SerializeField] private float runRollTime;
+    [SerializeField] private float rollSpeed;
     public bool IsRolling
     { get { return isRolling; }
       set { isRolling = value; }
     }
     public float RollTime
     { get { return rollTime; } }
+    public float RunRollTime
+    { get { return runRollTime; } }
     public float RollSpeed
     { get { return rollSpeed; } }
 

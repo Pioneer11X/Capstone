@@ -46,12 +46,40 @@ public class CapstoneAnimation : MonoBehaviour
                 animationName_0 = animationName_1 = "Idle_InCombat";
                 duration = 0.2f;
                 break;
+            case Character.CharacterState.idle_Injured:
+                animationName_0 = animationName_1 = "Idle_Injured";
+                duration = 0.2f;
+                break;
             case Character.CharacterState.walk:
                 animationName_0 = animationName_1 = "Walk";
                 duration = 0.15f;
                 break;
+            case Character.CharacterState.walk_Injured:
+                animationName_0 = animationName_1 = "Walk_Injured";
+                duration = 0.15f;
+                break;
+            case Character.CharacterState.walk_Turn_L:
+                animationName_0 = animationName_1 = "Walk_Turn_Around_L";
+                duration = 0.15f;
+                break;
+            case Character.CharacterState.walk_Turn_R:
+                animationName_0 = animationName_1 = "Walk_Turn_Around_R";
+                duration = 0.15f;
+                break;
             case Character.CharacterState.run:
                 animationName_0 = animationName_1 = "Run";
+                duration = 0.1f;
+                break;
+            case Character.CharacterState.run_Turn_L:
+                animationName_0 = animationName_1 = "Run_Turn_Around_L";
+                duration = 0.1f;
+                break;
+            case Character.CharacterState.run_Turn_R:
+                animationName_0 = animationName_1 = "Run_Turn_Around_R";
+                duration = 0.1f;
+                break;
+            case Character.CharacterState.run_Jump:
+                animationName_0 = animationName_1 = "Run_Jump";
                 duration = 0.1f;
                 break;
             case Character.CharacterState.jump_up:
@@ -120,6 +148,10 @@ public class CapstoneAnimation : MonoBehaviour
                 break;
             case Character.CharacterState.roll:
                 animationName_0 = animationName_1 = "Roll";
+                break;
+            case Character.CharacterState.roll_Run:
+                animationName_0 = animationName_1 = "Running_Roll";
+                //duration = 0.5f;
                 break;
             case Character.CharacterState.attack:
                 CombatManager.Combat combat = (CombatManager.Combat)parameter;

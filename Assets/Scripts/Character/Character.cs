@@ -12,8 +12,15 @@ abstract public class Character : MonoBehaviour
         turning,
         idle_OutCombat,
         idle_InCombat,
+        idle_Injured,
         walk,
+        walk_Injured,
+        walk_Turn_L,
+        walk_Turn_R,
         run,
+        run_Turn_L,
+        run_Turn_R,
+        run_Jump,
         jump_up,
         jump_air,
         jump_down,
@@ -22,6 +29,7 @@ abstract public class Character : MonoBehaviour
         hit,
         dodge,
         roll,
+        roll_Run,
         draw_Gun,
         aim_Idle,
         shoot,
@@ -126,6 +134,8 @@ abstract public class Character : MonoBehaviour
         set { lastState = value; }
     }
 
+    private bool runningJump;
+
     // Use this for initialization
     virtual protected void Start ()
     {
@@ -150,6 +160,7 @@ abstract public class Character : MonoBehaviour
 
         inCombat = false;
         switchingTargets = false;
+        runningJump = false;
     }
 	
 	// Update is called once per frame
@@ -297,24 +308,45 @@ abstract public class Character : MonoBehaviour
         {
             if (m_jump)
             {
-                if (stateTimer < m_combat.JumpUpTime)
+                if(currentState == CharacterState.run)
                 {
-                    hasJumped = true;
-                    currentState = CharacterState.jump_up;
+                    runningJump = true;
                 }
-                else if (stateTimer >= m_combat.JumpUpTime && stateTimer < m_combat.JumpUpTime + m_combat.JumpAirTime)
+                if (!runningJump)
                 {
-                    currentState = CharacterState.jump_air;
+                    if (stateTimer < m_combat.JumpUpTime)
+                    {
+                        hasJumped = true;
+                        currentState = CharacterState.jump_up;
+                    }
+                    else if (stateTimer >= m_combat.JumpUpTime && stateTimer < m_combat.JumpUpTime + m_combat.JumpAirTime)
+                    {
+                        currentState = CharacterState.jump_air;
+                    }
+                    else if (stateTimer >= m_combat.JumpUpTime + m_combat.JumpAirTime && stateTimer < m_combat.JumpUpTime + m_combat.JumpAirTime + m_combat.JumpDownTime)
+                    {
+                        currentState = CharacterState.jump_down;
+                    }
+                    else
+                    {
+                        stateTimer = -1;
+                        m_jump = false;
+                        m_combat.IsJumping = false;
+                    }
                 }
-                else if (stateTimer >= m_combat.JumpUpTime + m_combat.JumpAirTime && stateTimer < m_combat.JumpUpTime + m_combat.JumpAirTime + m_combat.JumpDownTime)
+                else if(runningJump)
                 {
-                    currentState = CharacterState.jump_down;
-                }
-                else
-                {
-                    stateTimer = -1;
-                    m_jump = false;
-                    m_combat.IsJumping = false;
+                    if (stateTimer < m_combat.JumpUpTime + 0.5f)
+                    {
+                        hasJumped = true;
+                        currentState = CharacterState.run_Jump;
+                    }
+                    else
+                    {
+                        stateTimer = -1;
+                        m_jump = false;
+                        m_combat.IsJumping = false;
+                    }
                 }
 
             }
@@ -333,10 +365,15 @@ abstract public class Character : MonoBehaviour
             }
             else if (m_combat.IsRolling)
             {
-                if (stateTimer < m_combat.RollTime)
+                if (stateTimer < m_combat.RollTime && (currentState != CharacterState.run && currentState != CharacterState.roll_Run) )
                 {
                     currentState = CharacterState.roll;
                     ForceMove(m_combat.RollSpeed, 1);
+                }
+                else if (stateTimer < m_combat.RunRollTime && currentState != CharacterState.roll)
+                {
+                    currentState = CharacterState.roll_Run;
+                    ForceMove(m_combat.RollSpeed * 1.5f, 1);
                 }
                 else
                 {

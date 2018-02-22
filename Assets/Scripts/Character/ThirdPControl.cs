@@ -48,6 +48,8 @@ public class ThirdPControl : MonoBehaviour
     private float lt;
     private float v = 0;
     private float h = 0;
+    private float lastH = 0;
+    private float lastV = 0;
     private float rotationY = 0;
     private float rotationX = 0;
     private float zoom = 0;
@@ -567,6 +569,9 @@ public class ThirdPControl : MonoBehaviour
             m_Jump, m_running, m_sprinting, m_aiming);
 
         m_Jump = false;
+
+        lastH = h;
+        lastV = v;
     }
 
     /// <summary>
