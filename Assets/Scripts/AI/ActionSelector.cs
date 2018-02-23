@@ -4,7 +4,8 @@ using UnityEngine;
 
 
 
-public class ActionSelector : MonoBehaviour {
+public class ActionSelector : MonoBehaviour
+{
 
     ActionList l_action;
     CombatManager m_combat;
@@ -14,17 +15,15 @@ public class ActionSelector : MonoBehaviour {
     State currentState;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         l_action = GetComponent<ActionList>();
         m_combat = GetComponent<CombatManager>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-        
-
     }
+
+    // Update is called once per frame
+    void Update()
+    {}
 
     public void selectNextOption()
     {
@@ -34,7 +33,6 @@ public class ActionSelector : MonoBehaviour {
         var direc = this.m_combat.CurrentTarget.transform.position - transform.position;
         var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
         float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
-        Debug.Log(angle);
         // transform.rotation = new Quaternion(0, rot.y, 0, rot.w);
         currentState.amIFacingTheTarget = (angle < 20) ? customBool.True : customBool.False;
 
@@ -57,18 +55,38 @@ public class ActionSelector : MonoBehaviour {
 
         // తరువాత అందులో ఒకటి చూసుకొని దానిని తీసుకోవాలి.
         // Select one of the valid actions.
-        if ( validActions.Count > 0)
+        if (validActions.Count > 0)
         {
             int curAction = validActions.Count - 1;
             // ఇందిలో మొదటి Action తీసుకోవాలి.
             // Get the Action.
             if (m_combat.canAttack)
             {
-                
-                //  
+                // New Code, is the problem
+                {
+                    // Check the distance and see if the Enemy can use the attack or not??
+                    //float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
+                    //float strikingDistance = this.m_combat.allMoves[(int)((validActions[curAction]).combat) - 1].AD;
 
-                m_combat.PerformAction(validActions[curAction]);
-                l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+                    //float buffer = 0.1f;
+
+                    //if (Mathf.Abs(distanceToTarget - strikingDistance) > buffer)
+                    //{
+                    //    this.m_combat.AdjustMinDistance = strikingDistance - buffer;
+                    //    this.m_combat.AdjustMinDistance = strikingDistance + buffer;
+                    //    this.m_combat.IsAdjusting = true;
+                    //}
+                    //else
+                    //{
+                    //    m_combat.PerformAction(validActions[curAction]);
+                    //    l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+                    //}
+                }
+                // Old Code
+                {
+                    m_combat.PerformAction(validActions[curAction]);
+                    l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+                }
             }
         }
         else
@@ -76,37 +94,10 @@ public class ActionSelector : MonoBehaviour {
             // This Triggers when you are dead..
             Debug.LogError("No Valid Actions");
         }
-        
+
         // ఏదీ లేకపోతే ఎం చెయ్యాలి? ఒక exception వెయ్యాలి. చూడాలి.
         // TODO: Throw an exception when no action is present..
 
     }
-
-    /*
-     * 
-     *         currentAttackDistance = currentMoveDetails.StrikeDistance;
-
-        // మనం ఎంత దూరంలో ఉన్నామో చూసి దాని బట్టి ఎం చెయ్యాలో చూడు.
-        // Check the Distance and Adjust accordingly.
-        currentDistanceToTarget = Vector3.Distance(this.transform.position, this.CurrentTarget.transform.position);
-        while ( Mathf.Abs(currentDistanceToTarget - currentAttackDistance) > Mathf.Epsilon)
-        {
-            
-            // Move CLoser or Farther..
-            if ( currentDistanceToTarget > currentAttackDistance)
-            {
-                // Move Closer.
-                // దగ్గరకు వెళ్ళు.
-                this.m_char.ForceMove(0.5f, (this.CurrentTarget.transform.position - this.transform.position));
-            }
-            else
-            {
-                // Move Father.
-                // దూరంగా వెళ్ళు.
-                this.m_char.ForceMove(0.5f, (this.transform.position - this.CurrentTarget.transform.position));
-            }
-        }
-     * 
-     */
 
 }

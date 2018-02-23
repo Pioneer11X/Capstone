@@ -99,6 +99,7 @@ public class CombatManager : MonoBehaviour
         // Name doesn't matter but is the key.
         public string name;
         public float AT;
+        public float AD;
         public float ET;
         public float ED;
         public float HT;
@@ -289,10 +290,14 @@ public class CombatManager : MonoBehaviour
 
     //adjust parameters
     private bool isAdjusting;
-    [SerializeField]
-    private float adjustSpeed;
-    [SerializeField]
-    private float adjustMinDistance;
+    [SerializeField] private float adjustSpeed;
+    [SerializeField] private float adjustMinDistance;
+    public float AdjustMinDistance
+    {
+        get { return adjustMinDistance; }
+        set { adjustMinDistance = value; }
+    }
+
     public bool IsAdjusting
     {
         get { return isAdjusting; }
