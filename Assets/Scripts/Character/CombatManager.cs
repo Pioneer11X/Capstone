@@ -99,6 +99,7 @@ public class CombatManager : MonoBehaviour
         // Name doesn't matter but is the key.
         public string name;
         public float AT;
+        public float AD;
         public float ET;
         public float ED;
         public float HT;
