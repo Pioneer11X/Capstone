@@ -18,6 +18,10 @@ TagManager:
   - HealthBar
   - StaminaBar
   - SpecialBar
+  - PathNode
+  - JumpNode
+  - Spawner
+  - TriggerNode
   layers:
   - Default
   - TransparentFX

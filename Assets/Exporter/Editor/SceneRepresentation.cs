@@ -49,19 +49,47 @@ namespace FriedTofu
 
         public class Node
         {
+            public string name;
             public string tag;
+            
             public Transform transform;
 
             public Node()
             {
+                name = "";
                 tag = "";
                 transform = new Transform();
             }
 
             public Node(GameObject obj)
             {
-                tag = obj.name;
+                name = obj.name;
+                tag = obj.tag;
                 transform = new Transform(obj.transform);
+            }
+        }
+
+        public class SpawnNode : Node
+        {
+            public Node trigger;
+            public SpawnNode()
+            {
+                name = "";
+                tag = "";
+                trigger = null;
+                transform = new Transform();
+            }
+
+            public SpawnNode(GameObject obj)
+            {
+                name = obj.name;
+                tag = obj.tag;
+                transform = new Transform(obj.transform);
+            }
+
+            public void AddChild(GameObject obj)
+            {
+                trigger = new Node(obj);
             }
         }
 
@@ -177,7 +205,8 @@ namespace FriedTofu
         
 
         public List<Entity> entities;
-        public List<Node> nodes;
+        public List<Node> spawnernodes;
+        public List<Node> pathnodes;
 
         public void Add(Entity entity)
         {
@@ -186,11 +215,18 @@ namespace FriedTofu
             entities.Add(entity);
         }
 
-        public void AddNode(Node node)
+        public void AddPathNode(Node node)
         {
-            if (null == nodes)
-                nodes = new List<Node>();
-            nodes.Add(node);
+            if (null == pathnodes)
+                pathnodes = new List<Node>();
+            pathnodes.Add(node);
+        }
+
+        public void AddSpwanerNode(Node node)
+        {
+            if (null == spawnernodes)
+                spawnernodes = new List<Node>();
+            spawnernodes.Add(node);
         }
 
         public void Save(string filename, bool compact = true)
