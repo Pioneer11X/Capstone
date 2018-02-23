@@ -168,7 +168,15 @@ namespace FriedTofu
                 {
                     scene.Add(entity);
                 }
+                else if (obj.tag == "PathNode" || obj.tag == "JumpNode")
+                {
+                    Scene.Node node = new Scene.Node(obj);
+                    scene.AddNode(node);
+                }
             }
+
+            // add nodes to the JSON
+
 
             scene.Save(
                 Path.Combine(
@@ -192,6 +200,11 @@ namespace FriedTofu
 
             if (obj.tag == "MainCamera")
                 return null;
+
+            // Node exporting
+            if(obj.tag == "PathNode") { return null; }
+
+            if (obj.tag == "JumpNode") { return null; }
 
             Scene.Entity entity = new Scene.Entity(obj);
 

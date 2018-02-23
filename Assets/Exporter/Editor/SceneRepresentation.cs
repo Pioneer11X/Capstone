@@ -46,7 +46,25 @@ namespace FriedTofu
                 children.Add(entity);
             }
         }
-        
+
+        public class Node
+        {
+            public string tag;
+            public Transform transform;
+
+            public Node()
+            {
+                tag = "";
+                transform = new Transform();
+            }
+
+            public Node(GameObject obj)
+            {
+                tag = obj.name;
+                transform = new Transform(obj.transform);
+            }
+        }
+
         public struct Float3
         {
             public float x, y, z;
@@ -159,12 +177,20 @@ namespace FriedTofu
         
 
         public List<Entity> entities;
+        public List<Node> nodes;
 
         public void Add(Entity entity)
         {
             if (null == entities)
                 entities = new List<Entity>();
             entities.Add(entity);
+        }
+
+        public void AddNode(Node node)
+        {
+            if (null == nodes)
+                nodes = new List<Node>();
+            nodes.Add(node);
         }
 
         public void Save(string filename, bool compact = true)
