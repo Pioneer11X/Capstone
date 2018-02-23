@@ -419,17 +419,45 @@ abstract public class Character : MonoBehaviour
             }
             else if (m_combat.IsAdjusting)
             {
-                if (m_combat.CheckTarget())
+                // TODO: A better way to check if it is Player
+                if (m_combat.CheckTarget() && ( "Player" == this.tag))
                 {
                     m_combat.IsAdjusting = false;
                     m_combat.Attack();
                 }
                 else
                 {
-                    //look at target
-                    charBody.transform.forward = m_combat.CurrentTarget.transform.position - transform.position;
-                    currentState = CharacterState.adjustPosition;
-                    ForceMove(m_combat.AdjustSpeed, 1);
+
+                    if ( "Enemy" == this.tag)
+                    {
+                        // Check for the distance.. and Move only when needed..
+                        if ( Vector3.Distance(this.transform.position, m_combat.CurrentTarget.transform.position) > m_combat.adjustMaxDistance)
+                        {
+                            //look at target
+                            charBody.transform.forward = m_combat.CurrentTarget.transform.position - transform.position;
+                            currentState = CharacterState.adjustPosition;
+                            ForceMove(m_combat.AdjustSpeed, 1);
+                        }else if (Vector3.Distance(this.transform.position, m_combat.CurrentTarget.transform.position) < m_combat.adjustMinDistance)
+                        {
+                            //look at target
+                            charBody.transform.forward = m_combat.CurrentTarget.transform.position - transform.position;
+                            currentState = CharacterState.adjustPosition;
+                            ForceMove(m_combat.AdjustSpeed, 0);
+                        }
+                        else
+                        {
+                            m_combat.IsAdjusting = false;
+                            GetComponent<ActionSelector>().selectNextOption();
+                        }
+                    }
+                    else
+                    {
+                        //look at target
+                        charBody.transform.forward = m_combat.CurrentTarget.transform.position - transform.position;
+                        currentState = CharacterState.adjustPosition;
+                        ForceMove(m_combat.AdjustSpeed, 1);
+                    }
+                    
                 }
             }
             else if (m_combat.IsAimming && m_combat.moveDir > -1)

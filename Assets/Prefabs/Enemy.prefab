@@ -1992,7 +1992,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    AD: 1
     Pos: 0
     Dir: 0
     Power: 0
@@ -2003,7 +2003,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    AD: 1
     Pos: 0
     Dir: 0
     Power: 0
@@ -2014,7 +2014,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    AD: 1.5
     Pos: 0
     Dir: 0
     Power: 0
@@ -2025,7 +2025,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    AD: 1.5
     Pos: 0
     Dir: 0
     Power: 0
@@ -2036,7 +2036,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.8
     Dmg: 10
-    AD: 0
+    AD: 1.75
     Pos: 0
     Dir: 0
     Power: 0
@@ -2047,7 +2047,7 @@ MonoBehaviour:
     ED: 1
     HT: 0.8
     Dmg: 10
-    AD: 0
+    AD: 1.75
     Pos: 0
     Dir: 0
     Power: 0
@@ -2058,7 +2058,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    AD: 1
     Pos: 0
     Dir: 0
     Power: 0
@@ -2069,7 +2069,7 @@ MonoBehaviour:
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    AD: 2
     Pos: 0
     Dir: 0
     Power: 0

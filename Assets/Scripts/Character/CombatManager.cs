@@ -292,7 +292,7 @@ public class CombatManager : MonoBehaviour
     [SerializeField]
     private float adjustSpeed;
     [SerializeField]
-    private float adjustMinDistance;
+    public float adjustMinDistance;
     public bool IsAdjusting
     {
         get { return isAdjusting; }
@@ -307,7 +307,7 @@ public class CombatManager : MonoBehaviour
     }
 
     [SerializeField]
-    private float adjustMaxDistance;
+    public float adjustMaxDistance;
 
     public float GetAdjustMaxDistance()
     {

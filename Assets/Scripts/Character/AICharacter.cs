@@ -70,17 +70,42 @@ public class AICharacter : Character
             return;
         }
 
-        if ( this.m_combat.IsTurning && (null != m_combat.CurrentTarget))
+        if (this.m_combat.IsTurning && (null != m_combat.CurrentTarget))
         {
             var direc = this.m_combat.CurrentTarget.transform.position - transform.position;
             var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
             float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
-            if ( angle < 20) { this.m_combat.IsTurning = false; }
+            if (angle < 20) { this.m_combat.IsTurning = false; }
             else
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0, rot.y, 0, rot.w), turnSpeed * Time.deltaTime);
             }
         }
+
+        if (this.m_combat.IsAdjusting)
+        {
+            // సరి చేసుకొని, ముందుకో వెనక్కో వెళ్ళు. అంతే.
+            // Well... Adjust.. and adjust only.. Do not move do not look to perform the next action..
+            float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
+            if ( distanceToTarget > this.m_combat.adjustMaxDistance)
+            {
+                ForceMove(1.0f, 1);
+            }
+
+            if ( distanceToTarget < this.m_combat.adjustMinDistance)
+            {
+                ForceMove(1.0f, -1);
+            }
+
+            if (!(distanceToTarget > this.m_combat.adjustMaxDistance || distanceToTarget < this.m_combat.adjustMinDistance))
+            {
+                this.m_combat.IsAdjusting = false;
+            }
+
+            // Also Check if the adjusting is done..
+        }
+
+
 
         if (ghostTarget != null && Vector3.Distance(transform.position, ghostTarget.position) <= maxSensoryRadius)
         {
