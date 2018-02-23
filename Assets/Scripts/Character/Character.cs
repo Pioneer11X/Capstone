@@ -135,6 +135,12 @@ abstract public class Character : MonoBehaviour
     }
 
     private bool runningJump;
+    protected bool turnAround;
+    public bool TurnAround
+    { set { turnAround = value; } }
+    protected bool runTurnAround;
+    public bool RunTurnAround
+    { set { runTurnAround = value; } }
 
     // Use this for initialization
     virtual protected void Start ()
@@ -161,6 +167,8 @@ abstract public class Character : MonoBehaviour
         inCombat = false;
         switchingTargets = false;
         runningJump = false;
+        turnAround = false;
+        runTurnAround = false;
     }
 	
 	// Update is called once per frame
@@ -435,6 +443,7 @@ abstract public class Character : MonoBehaviour
             else
             {
 
+                //if (m_moving && !turnAround && !runTurnAround)
                 if (m_moving)
                 {
                     currentState = CharacterState.walk;
@@ -444,8 +453,27 @@ abstract public class Character : MonoBehaviour
                         //animationParameter = 1;
                     }
                 }
+                //else if( (turnAround || runTurnAround) && stateTimer < 1)
+                //{
+                //    if (turnAround)
+                //    {
+                //        currentState = CharacterState.walk_Turn_R;
+                //    }
+                //    else if(runTurnAround)
+                //    {
+                //        currentState = CharacterState.run_Turn_R;
+                //    }
+                //    else
+                //    {
+                //        stateTimer = -1;
+                //        turnAround = false;
+                //        runTurnAround = false;
+                //    }
+                //}
                 else
                 {
+                    turnAround = false;
+                    runTurnAround = false;
                     if (m_combat.InCombat && !m_combat.IsAimming)
                     {
                         currentState = CharacterState.idle_InCombat;

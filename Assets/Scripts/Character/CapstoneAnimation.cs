@@ -33,7 +33,7 @@ public class CapstoneAnimation : MonoBehaviour
         string animationName_1 = "";
         float duration = 0.0f;
         int layerOverride = 0;
-        
+
         //Debug.Log(state);
         switch (state)
         {
@@ -59,11 +59,11 @@ public class CapstoneAnimation : MonoBehaviour
                 duration = 0.15f;
                 break;
             case Character.CharacterState.walk_Turn_L:
-                animationName_0 = animationName_1 = "Walk_Turn_Around_L";
+                animationName_0 = animationName_1 = "Walk_Turn_Around_Left";
                 duration = 0.15f;
                 break;
             case Character.CharacterState.walk_Turn_R:
-                animationName_0 = animationName_1 = "Walk_Turn_Around_R";
+                animationName_0 = animationName_1 = "Walk_Turn_Around_Right";
                 duration = 0.15f;
                 break;
             case Character.CharacterState.run:
@@ -71,11 +71,11 @@ public class CapstoneAnimation : MonoBehaviour
                 duration = 0.1f;
                 break;
             case Character.CharacterState.run_Turn_L:
-                animationName_0 = animationName_1 = "Run_Turn_Around_L";
+                animationName_0 = animationName_1 = "Run_Turn_Around_Left";
                 duration = 0.1f;
                 break;
             case Character.CharacterState.run_Turn_R:
-                animationName_0 = animationName_1 = "Run_Turn_Around_R";
+                animationName_0 = animationName_1 = "Run_Turn_Around_Right";
                 duration = 0.1f;
                 break;
             case Character.CharacterState.run_Jump:
@@ -175,7 +175,7 @@ public class CapstoneAnimation : MonoBehaviour
                 break;
         }// End Switch
 
-        Debug.Log(animationName_0 + "  " + animationName_1);
+        //Debug.Log(animationName_0 + "  " + animationName_1);
 
         if (layerOverride == 0)
         {

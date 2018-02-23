@@ -70,6 +70,7 @@ public class ThirdPControl : MonoBehaviour
     public GameObject[] enemyArray;
     private int aimTargetIndex;
     private int aimCoolDown;
+    private int facing;
 
     private float visionHackCDTimer;
     [SerializeField] private float visionHackCD;
@@ -105,6 +106,7 @@ public class ThirdPControl : MonoBehaviour
         enemies = new List<GameObject>();
 
         aimCoolDown = 0;
+        facing = 0;
 
         visionHackCDTimer = visionHackCD;
 
@@ -564,6 +566,26 @@ public class ThirdPControl : MonoBehaviour
                 m_Character.m_combat.AimMove(-1);
             }
         }
+
+        // Check to see if the character has turned around 180 degrees
+        if ( ( (facing == 0 && v < 0) || (facing == 2 && v > 0) ) || ((facing == 1 && h < 0) || (facing == 3 && h > 0) ) )
+        {
+            if (!m_running)
+            {
+                m_Character.TurnAround = true;
+                m_Character.StateTimer = 0;
+            }
+            else
+            {
+                m_Character.RunTurnAround = true;
+                m_Character.StateTimer = 0;
+            }
+        }
+
+        if (v > 0.05) { facing = 0; }
+        else if (v < -0.05) { facing = 2; }
+        if (h > 0.05) { facing = 1; }
+        else if (h < -0.05) { facing = 3; }
 
         m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,
             m_Jump, m_running, m_sprinting, m_aiming);

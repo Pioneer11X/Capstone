@@ -17,6 +17,11 @@ using System.Collections;
 /// </summary>
 public class ThirdPCharacter : Character
 {
+    private bool turned;
+    private int facing = 0;
+    private float lastH = 0;
+    private float lastV = 0;
+
     /// <summary>
     /// Initialization
     /// </summary>
@@ -25,6 +30,7 @@ public class ThirdPCharacter : Character
         base.Start();
 
         m_combat.SetChar(this);
+        turned = false;
     }
 
     /// <summary>
@@ -68,7 +74,16 @@ public class ThirdPCharacter : Character
             m_moving = true;
         }
 
-        // Character Rotation
+        if(turnAround && !turned)
+        {
+            turned = true;
+        }
+        else if(!turnAround && turned)
+        {
+            turned = false;
+        }
+
+        // Character Rotation && !turned
         if (!aiming && (vert != 0 || hori != 0) )
         {
             if (!charAudio.isPlaying && m_IsGrounded)
@@ -92,6 +107,7 @@ public class ThirdPCharacter : Character
                     vert *= -1;
                     hori *= -1;
                 }
+
 
                 r = Quaternion.Euler(temp);
                 charBody.transform.rotation = r;
@@ -231,7 +247,13 @@ public class ThirdPCharacter : Character
         //Blue is m_Rigidbody forward, Red is velocity, just backwards
         //Debug.DrawLine(charPos, charPosFwd, Color.blue);
         //Debug.DrawLine(charPos, charVel, Color.red);
+        if (vert > 0.05) { facing = 0; }
+        else if (vert < -0.05) { facing = 2; }
+        if (hori > 0.05) { facing = 1; }
+        else if (hori < -0.05) { facing = 3; }
 
+        lastH = hori;
+        lastV = vert;
     }//end move
 
 }//end of class
