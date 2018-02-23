@@ -353,6 +353,7 @@ abstract public class Character : MonoBehaviour
                     {
                         stateTimer = -1;
                         m_jump = false;
+                        runningJump = false;
                         m_combat.IsJumping = false;
                     }
                 }
