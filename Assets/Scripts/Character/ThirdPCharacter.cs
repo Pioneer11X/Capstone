@@ -17,10 +17,7 @@ using System.Collections;
 /// </summary>
 public class ThirdPCharacter : Character
 {
-    private bool turned;
-    private int facing = 0;
-    private float lastH = 0;
-    private float lastV = 0;
+    
 
     /// <summary>
     /// Initialization
@@ -30,7 +27,6 @@ public class ThirdPCharacter : Character
         base.Start();
 
         m_combat.SetChar(this);
-        turned = false;
     }
 
     /// <summary>
@@ -72,15 +68,6 @@ public class ThirdPCharacter : Character
         {
             m_combat.IsMoving = true;
             m_moving = true;
-        }
-
-        if(turnAround && !turned)
-        {
-            turned = true;
-        }
-        else if(!turnAround && turned)
-        {
-            turned = false;
         }
 
         // Character Rotation && !turned
@@ -247,13 +234,6 @@ public class ThirdPCharacter : Character
         //Blue is m_Rigidbody forward, Red is velocity, just backwards
         //Debug.DrawLine(charPos, charPosFwd, Color.blue);
         //Debug.DrawLine(charPos, charVel, Color.red);
-        if (vert > 0.05) { facing = 0; }
-        else if (vert < -0.05) { facing = 2; }
-        if (hori > 0.05) { facing = 1; }
-        else if (hori < -0.05) { facing = 3; }
-
-        lastH = hori;
-        lastV = vert;
     }//end move
 
 }//end of class

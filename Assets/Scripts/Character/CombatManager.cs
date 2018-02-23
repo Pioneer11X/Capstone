@@ -764,9 +764,6 @@ public class CombatManager : MonoBehaviour
         isAttacking = true;
         m_char.StateTimer = 0;
         resetAttack = true;
-
-        // Update UI
-        m_char.GetComponent<PC>().UseSpecial(50);
     }
 
     public void Effect()
@@ -862,6 +859,10 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Check if target is in range
+    /// </summary>
+    /// <returns></returns>
     public bool CheckTarget()
     {
         if (currentTarget == null)

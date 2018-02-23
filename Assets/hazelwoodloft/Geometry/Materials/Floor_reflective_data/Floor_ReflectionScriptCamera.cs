@@ -32,8 +32,8 @@ public class Floor_ReflectionScriptCamera : MonoBehaviour
 			initialReflectionTextures[i] = reflectiveMaterials[i].GetTexture(reflectionSampler);
 		}		
 		
-		if (!SystemInfo.supportsRenderTextures)
-			this.enabled = false;
+		//if (!SystemInfo.supportsRenderTextures)
+			//this.enabled = false;
 	}
 	
 	public void OnDisable()
@@ -164,9 +164,10 @@ public class Floor_ReflectionScriptCamera : MonoBehaviour
 					
 		SaneCameraSettings(reflectCamera);
 		
-		reflectCamera.backgroundColor = clearColor;				
-							
-		GL.SetRevertBackfacing(true);		
+		reflectCamera.backgroundColor = clearColor;
+
+        //GL.SetRevertBackfacing(true);
+        GL.invertCulling = true;
 							
 		Transform reflectiveSurface = reflectiveSurfaceHeight;
 			
@@ -198,9 +199,10 @@ public class Floor_ReflectionScriptCamera : MonoBehaviour
 		Vector3 euler = cam.transform.eulerAngles;
 		reflectCamera.transform.eulerAngles = new Vector3(-euler.x, euler.y, euler.z);	
 
-		reflectCamera.RenderWithShader (replacementShader, "Reflection");			
-		
-		GL.SetRevertBackfacing(false);					
+		reflectCamera.RenderWithShader (replacementShader, "Reflection");
+
+        //GL.SetRevertBackfacing(false);
+        GL.invertCulling = true;
 	}
 	
 	private void SaneCameraSettings(Camera helperCam) 

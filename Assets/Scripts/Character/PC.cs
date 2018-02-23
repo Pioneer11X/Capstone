@@ -8,14 +8,58 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class PC : Humanoid
 {
+    [SerializeField] private float minAttackHoldTime;
+    [SerializeField] private float maxAttackHoldTime;
     [SerializeField] private float specialRegenRate;
     [SerializeField] private float staminaRegenRate;
+    [SerializeField] private float sprintCost;
+    [SerializeField] private float dodgeCost;
+    [SerializeField] private float lightSwordCost;
+    [SerializeField] private float heavySwordCost;
+    [SerializeField] private float gunShootCost;
+
+
     [SerializeField] protected Slider lifeBar;
     [SerializeField] protected Slider staminaBar;
     [SerializeField] protected Slider specialBar;
+    
 
     private bool specialInUse;
     private bool staminaInUse;
+
+    public float GunShootCost
+    {
+        get { return gunShootCost; }
+    }
+
+    public float LightSwordCost
+    {
+        get { return lightSwordCost; }
+    }
+    public float HeavySwordCost
+    {
+        get { return heavySwordCost; }
+    }
+
+    public float MinHoldTime
+    {
+        get { return minAttackHoldTime; }
+    }
+
+    public float MaxHoldTime
+    {
+        get { return maxAttackHoldTime; }
+    }
+
+    public float SprintCost
+    {
+        get { return sprintCost; }
+    }
+
+    public float DodgeCost
+    {
+        get { return dodgeCost; }
+    }
 
     public float SpecialBar
     {
@@ -106,7 +150,7 @@ public class PC : Humanoid
     /// Subtract from Special UI Bar
     /// </summary>
     /// <param name="value">How much special to use (Light 25, Heavy 50)</param>
-    public void UseSpecial(int value)
+    public void UseSpecial(float value)
     {
         if (specialBar.value > (value + 0.01f) )
         {
@@ -123,7 +167,7 @@ public class PC : Humanoid
     /// Subtract from Stamina UI Bar
     /// </summary>
     /// <param name="value">How much stamina to use</param>
-    public void UseStamina(int value)
+    public void UseStamina(float value)
     {
         if (staminaBar.value > (value + 0.01f) )
         {

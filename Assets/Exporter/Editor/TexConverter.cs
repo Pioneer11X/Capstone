@@ -37,7 +37,7 @@ public class TexConverter
     public static void Convert(string src, string dst, TextureFormat format, int width = 0, int height = 0, int mipmapLevels = 1, bool heightmap = false, float bumpiness = 1.0f)
     {
         string outDir = Path.GetDirectoryName(dst).Replace('/', '\\');
-        string outFilename = Path.GetFileName(dst);
+        //string outFilename = Path.GetFileName(dst);
         string srcBasename = Path.GetFileNameWithoutExtension(src);
         string outDDS = Path.Combine(outDir, srcBasename + ".dds");
 
@@ -87,7 +87,7 @@ public class TexConverter
     public static void ConvertNormalMap(Texture2D normalMap, string dst)
     {
         string outDir = Path.GetDirectoryName(dst).Replace('/', '\\');
-        string outFilename = Path.GetFileName(dst);
+        //string outFilename = Path.GetFileName(dst);
         string srcBasename = Path.GetFileNameWithoutExtension(dst);
         string outPNG = Path.Combine(outDir, srcBasename + ".png");
 

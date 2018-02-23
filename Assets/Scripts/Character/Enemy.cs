@@ -12,15 +12,12 @@ public class Enemy : Humanoid
     public Material defaultMat;
     public Material highlightMat;
 
-    private int counter;
-
     protected override void Start()
     {
         base.Start();
 
         if (isBoss)
         {
-            counter = 0;
             BossBar = GameObject.FindGameObjectWithTag("BossBar");
             BossBar.transform.GetChild(0).gameObject.SetActive(true);
             BossBar.transform.GetChild(1).gameObject.SetActive(true);

@@ -62,9 +62,11 @@ public class ActionSelector : MonoBehaviour
             // Get the Action.
             if (m_combat.canAttack)
             {
+                // Check the distance and see if the Enemy can use the attack or not??
+
                 // New Code, is the problem
                 {
-                    // Check the distance and see if the Enemy can use the attack or not??
+
                     //float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
                     //float strikingDistance = this.m_combat.allMoves[(int)((validActions[curAction]).combat) - 1].AD;
 
