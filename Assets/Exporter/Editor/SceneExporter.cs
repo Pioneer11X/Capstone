@@ -268,6 +268,21 @@ namespace FriedTofu
 
                 entity.Add(renderable);
             }
+            else if (type == "light")
+            {
+                Light light = obj.GetComponent<Light>();
+                if (light.type != LightType.Area)
+                {
+                    Scene.Light sceneLight = new Scene.Light();
+                    sceneLight.lightType = light.type.ToString().ToLower();
+                    sceneLight.color = new Scene.Float4(light.color);
+                    sceneLight.range = light.range;
+                    sceneLight.intensity = light.intensity;
+                    sceneLight.spotAngle = light.spotAngle;
+                    sceneLight.castShadow = (light.shadows != LightShadows.None);
+                    entity.Add(sceneLight);
+                }
+            }
 
             Collider collider = obj.GetComponent<Collider>();
             if (null != collider && !collider.isTrigger)

@@ -132,6 +132,14 @@ namespace FriedTofu
                 w = v.w;
             }
 
+            public Float4(Color v)
+            {
+                x = v.r;
+                y = v.g;
+                z = v.b;
+                w = v.a;
+            }
+
             public Float4(Quaternion v)
             {
                 x = v.x;
@@ -203,6 +211,21 @@ namespace FriedTofu
             }
         }
         
+        [Serializable]
+        public class Light : Component
+        {
+            public string lightType;
+            public Float4 color;
+            public float range;
+            public float intensity;
+            public float spotAngle;
+            public bool castShadow;
+
+            public Light()
+            {
+                type = "light";
+            }
+        }
 
         public List<Entity> entities;
         public List<Node> spawnernodes;
