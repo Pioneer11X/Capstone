@@ -170,24 +170,25 @@ namespace FriedTofu
                 }
                 else if (obj.tag == "PathNode" || obj.tag == "JumpNode")
                 {
-                    Scene.Node node = new Scene.Node(obj);
+                    Scene.PathNode node = new Scene.PathNode(obj);
                     scene.AddPathNode(node);
                 }
                 else if (obj.tag == "Spawner")
                 {
-                    Debug.Log("Add Spwaner Node");
                     Scene.SpawnNode node = new Scene.SpawnNode(obj);
                     foreach (Transform child in obj.transform)
                     {
-                        Debug.Log("Add Spwaner Child Node");
-                        node.AddChild(child.gameObject);
+                        node.AddChild(child.gameObject.name);
+                        Scene.TriggerNode childNode = new Scene.TriggerNode(child.gameObject);
+                        scene.AddTriggerNode(childNode);
                     }
 
                     scene.AddSpwanerNode(node);
                 }
             }
 
-            // add nodes to the JSON
+            // sort the path nodes here
+            scene.SortPathNodes();
 
 
             scene.Save(
