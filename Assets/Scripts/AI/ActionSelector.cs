@@ -67,28 +67,30 @@ public class ActionSelector : MonoBehaviour
                 // New Code, is the problem
                 {
 
-                    //float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
-                    //float strikingDistance = this.m_combat.allMoves[(int)((validActions[curAction]).combat) - 1].AD;
+                    float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
+                    float strikingDistance = this.m_combat.allMoves[(int)((validActions[curAction]).combat) - 1].AD;
 
-                    //float buffer = 0.1f;
+                    float buffer = 0.1f;
 
-                    //if (Mathf.Abs(distanceToTarget - strikingDistance) > buffer)
-                    //{
-                    //    this.m_combat.AdjustMinDistance = strikingDistance - buffer;
-                    //    this.m_combat.AdjustMinDistance = strikingDistance + buffer;
-                    //    this.m_combat.IsAdjusting = true;
-                    //}
-                    //else
-                    //{
-                    //    m_combat.PerformAction(validActions[curAction]);
-                    //    l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
-                    //}
+                    if (Mathf.Abs(distanceToTarget - strikingDistance) > buffer)
+                    {
+                        this.m_combat.AdjustMinDistance = strikingDistance - buffer;
+                        this.m_combat.AdjustMinDistance = strikingDistance + buffer;
+                        this.m_combat.IsAdjusting = true;
+                    }
+                    else
+                    {
+                        m_combat.PerformAction(validActions[curAction]);
+                        l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+                    }
                 }
-                // Old Code
-                {
-                    m_combat.PerformAction(validActions[curAction]);
-                    l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
-                }
+
+
+                //// Old Code
+                //{
+                //    m_combat.PerformAction(validActions[curAction]);
+                //    l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+                //}
             }
         }
         else
