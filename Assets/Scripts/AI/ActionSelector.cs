@@ -84,11 +84,13 @@ public class ActionSelector : MonoBehaviour
                         l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
                     }
                 }
-                // Old Code
-                {
-                    //m_combat.PerformAction(validActions[curAction]);
-                    //l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
-                }
+
+
+                //// Old Code
+                //{
+                //    m_combat.PerformAction(validActions[curAction]);
+                //    l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
+                //}
             }
         }
         else
