@@ -75,7 +75,7 @@ public class ActionSelector : MonoBehaviour
                     if (Mathf.Abs(distanceToTarget - strikingDistance) > buffer)
                     {
                         this.m_combat.AdjustMinDistance = strikingDistance - buffer;
-                        this.m_combat.AdjustMinDistance = strikingDistance + buffer;
+                        this.m_combat.AdjustMaxDistance = strikingDistance + buffer;
                         this.m_combat.IsAdjusting = true;
                     }
                     else

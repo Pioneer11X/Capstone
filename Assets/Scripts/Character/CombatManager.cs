@@ -319,6 +319,11 @@ public class CombatManager : MonoBehaviour
 
     [SerializeField]
     private float adjustMaxDistance;
+    public float AdjustMaxDistance
+    {
+        get { return adjustMaxDistance; }
+        set { adjustMaxDistance = value; }
+    }
 
     public float GetAdjustMaxDistance()
     {
