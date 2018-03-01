@@ -12,7 +12,8 @@ public class ActionSelector : MonoBehaviour
 
     // ప్రస్తుత పరిస్థితి
     // Current State.
-    State currentState;
+    [SerializeField]
+    public State currentState;
 
     // Use this for initialization
     void Start()
@@ -45,7 +46,6 @@ public class ActionSelector : MonoBehaviour
 
         // వీటిని చూసి మార్చాలి.
         // TODO: Change these based on the current State.
-        currentState.amIStunned = customBool.False;
         currentState.targetStunned = customBool.False;
         currentState.isTargetFacingMe = customBool.True;
 
@@ -68,7 +68,7 @@ public class ActionSelector : MonoBehaviour
                 {
 
                     float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
-                    float strikingDistance = this.m_combat.allMoves[(int)((validActions[curAction]).combat) - 1].AD;
+                    float strikingDistance = this.m_combat.allMoves[ Mathf.Clamp( (int)((validActions[curAction]).combat) - 1 , 0, 1000)].AD;
 
                     float buffer = 0.1f;
 
@@ -85,12 +85,6 @@ public class ActionSelector : MonoBehaviour
                     }
                 }
 
-
-                //// Old Code
-                //{
-                //    m_combat.PerformAction(validActions[curAction]);
-                //    l_action.UpdateActionPreference(validActions[curAction].name, validActions[curAction].preference - 1);
-                //}
             }
         }
         else

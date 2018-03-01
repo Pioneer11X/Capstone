@@ -112,12 +112,11 @@ public class ActionList : MonoBehaviour {
 
         List<Action> validActions = new List<Action>();
 
-        // వున్నా అన్నిటినీ ముందు తెచ్చుకోవాలి.
+        // వున్న అన్నిటినీ ముందు తెచ్చుకోవాలి.
         // అందులో ఏవి మనకి కుదురుతాయో చూసుకోవాలి.
         for (int i = 0; i < initalActionsList.Count; i++)
         {
             // ఒక్కొక్క దానికి చూస్తుంటావు.
-            // ఒక్కొక్క సంబందిత ప్రమాన్నన్నీ చూసుకోవాలి.
             // initialState సరిగ్గా వుందో లేదో చూసుకో.
             try {
 
@@ -149,7 +148,8 @@ public class ActionList : MonoBehaviour {
 
     public bool compatible(State needState, State givenState)
     {
-        // ఇందిలో అన్ని పరినామాల్నీ చూసుకొని సరిగ్గా వుందో లేదో చెప్పాలి.
+        // ఇందిలో అన్ని పరిణామాలను చూసుకొని సరిగ్గా వుందో లేదో చెప్పాలి.
+        // Check all the parameters and see if it is Compatible.
 
         if (!compatible(needState.hasTarget, givenState.hasTarget)) return false;
         if (!compatible(needState.canTargetAttack, givenState.canTargetAttack)) return false;
