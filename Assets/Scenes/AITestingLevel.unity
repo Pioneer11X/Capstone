@@ -109,11 +109,6 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 1
   m_NavMeshData: {fileID: 23800000, guid: cb4b9ad3ee197c54c80979bd74ca666a, type: 2}
---- !u!4 &742439 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-    type: 2}
-  m_PrefabInternal: {fileID: 840256073}
 --- !u!1 &6832525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,154 +1937,168 @@ MonoBehaviour:
   allMoves:
   - name: Punch_Jab_L
     AT: 0.7
+    AD: 0
     ET: 0.2
     ED: 1
     HT: 0.2
     Dmg: 3
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Punch_Jab_R
     AT: 0.5
+    AD: 0
     ET: 0.2
     ED: 1
     HT: 1
     Dmg: 3
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Punch_Hook_L
     AT: 0.65
+    AD: 0
     ET: 0.2
     ED: 1
     HT: 0.2
     Dmg: 5
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Punch_Hook_R
     AT: 0.65
+    AD: 0
     ET: 0.2
     ED: 1
     HT: 0.5
     Dmg: 5
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_L
     AT: 0.8
+    AD: 0
     ET: 0.5
     ED: 1
     HT: 1
     Dmg: 7
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_R
     AT: 0.8
+    AD: 0
     ET: 0.5
     ED: 1
     HT: 1
     Dmg: 7
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Kick_Straight_Mid_R
     AT: 1
+    AD: 0
     ET: 0.6
     ED: 1
     HT: 0.8
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Kick_Axe_Kick
     AT: 1.2
+    AD: 0
     ET: 0.5
     ED: 1
     HT: 0.8
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Kick_Horse_Kick
     AT: 1
+    AD: 0
     ET: 0.4
     ED: 1
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Sword_Attack_R
     AT: 1
+    AD: 0
     ET: 0.3
     ED: 1.25
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 1
     Dir: 1
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Sword_Attack_RL
     AT: 0.8
+    AD: 0
     ET: 0.3
     ED: 1.25
     HT: 1
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 2
     Power: 0
     CombatSFX: {fileID: 0}
   - name: Sword_Attack_Sp_U
     AT: 1.5
+    AD: 0
     ET: 0.5
     ED: 1.25
     HT: 1
     Dmg: 15
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 0
     Power: 1
     CombatSFX: {fileID: 0}
   - name: Sword_Attack_Combo_LL
     AT: 2
+    AD: 0
     ET: 0.5
     ED: 1.25
     HT: 0.8
     Dmg: 20
-    AD: 0
+    StrikeDistance: 0
     Pos: 0
     Dir: 2
     Power: 1
     CombatSFX: {fileID: 0}
   - name: KB_Gun
     AT: 1
+    AD: 0
     ET: 0.5
     ED: 1
     HT: 0.5
     Dmg: 10
-    AD: 0
+    StrikeDistance: 0
     Pos: 1
     Dir: 0
     Power: 1
@@ -2107,6 +2116,7 @@ MonoBehaviour:
   currentHitPos: 0
   dodgeTime: 0
   rollTime: 0.5
+  runRollTime: 0
   rollSpeed: 3
   isTurning: 0
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -15818,53 +15828,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 839364257}
   m_Mesh: {fileID: 4300000, guid: 05aad97317c124741a2520a9881a1afd, type: 3}
---- !u!1001 &840256073
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1322775103}
-    m_Modifications:
-    - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 24.18
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 6.808
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 54.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819192567159232, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114757465634177106, guid: ed6db2e0bb4cb6942993ca80e21ccdad,
-        type: 2}
-      propertyPath: adjustSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: ed6db2e0bb4cb6942993ca80e21ccdad, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &842137898 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 26081d2b2d1c8ae409191fd8202b57e7, type: 2}
@@ -22825,7 +22788,7 @@ Transform:
   m_LocalPosition: {x: -18.301, y: 6.892, z: 28.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 742439}
+  - {fileID: 1750725838}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31744,6 +31707,11 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 45ca74331dee64b41a42782ee0e1425f, type: 2}
   m_PrefabInternal: {fileID: 1639043164}
+--- !u!4 &1750725838 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e,
+    type: 2}
+  m_PrefabInternal: {fileID: 2051618455}
 --- !u!4 &1754570336 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: fafa909e8f523ef4d85e79ca36e20577, type: 2}
@@ -37847,6 +37815,48 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb944631cd9391e4fa5eb7a90f8e6c23, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &2051618455
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1322775103}
+    m_Modifications:
+    - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 24.579908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 6.707999
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 55.132217
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2058839696
 Prefab:

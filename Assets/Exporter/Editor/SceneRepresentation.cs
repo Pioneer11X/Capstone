@@ -46,7 +46,80 @@ namespace FriedTofu
                 children.Add(entity);
             }
         }
-        
+
+        public class PathNode
+        {
+            public string name;
+            public string tag;
+            public Float3 position;
+            public string nearby_1 = "";
+            public string nearby_2 = "";
+            public string nearby_3 = "";
+            public string nearby_4 = "";
+
+            public PathNode()
+            {
+                name = "";
+                tag = "";
+                position = new Float3(Vector3.zero);
+            }
+
+            public PathNode(GameObject obj)
+            {
+                name = obj.name;
+                tag = obj.tag;
+                position = new Float3(obj.transform.position);
+            }
+        }
+
+        public class SpawnNode
+        {
+            public string name;
+            public string tag;
+            public Float3 position;
+            public string trigger;
+            public SpawnNode()
+            {
+                name = "";
+                tag = "";
+                trigger = null;
+                position = new Float3(Vector3.zero);
+            }
+
+            public SpawnNode(GameObject obj)
+            {
+                name = obj.name;
+                tag = obj.tag;
+                position = new Float3(obj.transform.position);
+            }
+
+            public void AddChild(string name)
+            {
+                trigger = name;
+            }
+        }
+
+        public class TriggerNode
+        {
+            public string name;
+            public string tag;
+            public Float3 position;
+
+            public TriggerNode()
+            {
+                name = "";
+                tag = "";
+                position = new Float3(Vector3.zero);
+            }
+
+            public TriggerNode(GameObject obj)
+            {
+                name = obj.name;
+                tag = obj.tag;
+                position = new Float3(obj.transform.position);
+            }
+        }
+
         public struct Float3
         {
             public float x, y, z;
@@ -64,6 +137,8 @@ namespace FriedTofu
                 y = v.y;
                 z = v.z;
             }
+
+
         }
 
         public struct Float4
@@ -84,6 +159,14 @@ namespace FriedTofu
                 y = v.y;
                 z = v.z;
                 w = v.w;
+            }
+
+            public Float4(Color v)
+            {
+                x = v.r;
+                y = v.g;
+                z = v.b;
+                w = v.a;
             }
 
             public Float4(Quaternion v)
@@ -157,14 +240,105 @@ namespace FriedTofu
             }
         }
         
+        [Serializable]
+        public class Light : Component
+        {
+            public string lightType;
+            public Float4 color;
+            public float range;
+            public float intensity;
+            public float spotAngle;
+            public bool castShadow;
+
+            public Light()
+            {
+                type = "light";
+            }
+        }
 
         public List<Entity> entities;
+        public List<SpawnNode> spawnerNodes;
+        public List<TriggerNode> triggerNodes;
+        public List<PathNode> pathNodes;
 
         public void Add(Entity entity)
         {
             if (null == entities)
                 entities = new List<Entity>();
             entities.Add(entity);
+        }
+
+        public void AddPathNode(PathNode node)
+        {
+            if (null == pathNodes)
+                pathNodes = new List<PathNode>();
+            pathNodes.Add(node);
+        }
+
+        public void AddSpwanerNode(SpawnNode node)
+        {
+            if (null == spawnerNodes)
+                spawnerNodes = new List<SpawnNode>();
+            spawnerNodes.Add(node);
+        }
+
+        public void AddTriggerNode(TriggerNode node)
+        {
+            if (null == triggerNodes)
+                triggerNodes = new List<TriggerNode>();
+            triggerNodes.Add(node);
+        }
+
+        public void SortPathNodes()
+        {
+            for(int i = 0; i < pathNodes.Count; i++)
+            {
+                bool added;
+                float dist;
+                PathNode current = pathNodes[i];
+                PathNode closest = null;
+
+                do
+                {
+                    added = false;
+                    dist = float.MaxValue;
+                    for (int j = 0; j < pathNodes.Count; j++)
+                    {
+                        Vector3 a = new Vector3(current.position.x, current.position.y, current.position.z);
+                        Vector3 b = new Vector3(pathNodes[j].position.x, pathNodes[j].position.y, pathNodes[j].position.z);
+                        float distBetween = Vector3.Distance(a, b);
+                        Debug.Log(distBetween);
+                        if (distBetween > 0 && distBetween < 14)
+                        {
+                            if (distBetween < dist && (pathNodes[j].name != current.nearby_1 && pathNodes[j].name != current.nearby_2
+                                    && pathNodes[j].name != current.nearby_3 && pathNodes[j].name != current.nearby_4))
+                            {
+                                dist = distBetween;
+                                closest = pathNodes[j];
+                                added = true;
+                            }
+                        }
+                    }
+
+                    if(current.nearby_1 == "" && added)
+                    {
+                        current.nearby_1 = closest.name;
+                    }
+                    else if (current.nearby_2 == "" && added && current.nearby_1 != "")
+                    {
+                        current.nearby_2 = closest.name;
+                    }
+                    else if (current.nearby_3 == "" && added && current.nearby_2 != "")
+                    {
+                        current.nearby_3 = closest.name;
+                    }
+                    else if (current.nearby_4 == "" && added && current.nearby_3 != "")
+                    {
+                        current.nearby_4 = closest.name;
+                        break;
+                    }
+                } while (added);
+            }
         }
 
         public void Save(string filename, bool compact = true)

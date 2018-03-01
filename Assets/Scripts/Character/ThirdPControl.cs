@@ -21,12 +21,12 @@ public class ThirdPControl : MonoBehaviour
 
     [SerializeField] private float crossRotationFactor; //Set joystick rotation sensitivity
 
-    [SerializeField] private float scrollFactor;        //Set scroll zoom sensitivity
+    //[SerializeField] private float scrollFactor;        //Set scroll zoom sensitivity
 
     // Default unity names for mouse axes
     public string mouseHorizontalAxisName = "Mouse X";
     public string mouseVerticalAxisName = "Mouse Y";
-    public string scrollAxisName = "Mouse ScrollWheel";
+    //public string scrollAxisName = "Mouse ScrollWheel";
 
     private ThirdPCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
     private PC playerCharacter;
@@ -48,8 +48,6 @@ public class ThirdPControl : MonoBehaviour
     private float lt;
     private float v = 0;
     private float h = 0;
-    private float lastH = 0;
-    private float lastV = 0;
     private float rotationY = 0;
     private float rotationX = 0;
     private float zoom = 0;
@@ -60,23 +58,16 @@ public class ThirdPControl : MonoBehaviour
     private float specialButtonTimer = 0;
     private bool specialButtonDown;
 
-    [SerializeField] private float minHoldTime;
-
-    [SerializeField] private float maxHoldTime;
-
     private Pause pause;
 
     private List<GameObject> enemies;
     public GameObject[] enemyArray;
     private int aimTargetIndex;
     private int aimCoolDown;
-    private int facing;
 
     private float visionHackCDTimer;
-    [SerializeField] private float visionHackCD;
-    [SerializeField] private float visionHackTime;
-    [SerializeField] private int rollDodgeCost;
-    [SerializeField] private int sprintCost;
+    //[SerializeField] private float visionHackCD;
+    //[SerializeField] private float visionHackTime;
 
 
     public Transform target;
@@ -106,9 +97,8 @@ public class ThirdPControl : MonoBehaviour
         enemies = new List<GameObject>();
 
         aimCoolDown = 0;
-        facing = 0;
 
-        visionHackCDTimer = visionHackCD;
+        //visionHackCDTimer = visionHackCD;
 
         sprintCoolDown = false;
         m_hacking = false;
@@ -118,13 +108,13 @@ public class ThirdPControl : MonoBehaviour
 
     private void Update()
     {
-        if (visionHackCDTimer < visionHackCD)
-        {
-            visionHackCDTimer += Time.deltaTime;
-        }
-        else {
-            visionHackCDTimer = visionHackCD;
-        }
+        //if (visionHackCDTimer < visionHackCD)
+        //{
+        //    visionHackCDTimer += Time.deltaTime;
+        //}
+        //else {
+        //    visionHackCDTimer = visionHackCD;
+        //}
 
         if(!pause.IsPaused)
         {
@@ -149,12 +139,13 @@ public class ThirdPControl : MonoBehaviour
                 attackButtonDown = true;
                 attackButtonTimer = 0;
             }
-            if (CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonTimer <= minHoldTime)
+            if (CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonTimer <= playerCharacter.MinHoldTime)
             {
                 m_Character.m_combat.BasicCombo();
                 attackButtonDown = false;
             }
-            if ((CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonDown && attackButtonTimer > minHoldTime) || (attackButtonTimer >= maxHoldTime && attackButtonDown))
+            if ((CrossPlatformInputManager.GetButtonUp("Attack") && attackButtonDown && attackButtonTimer > playerCharacter.MinHoldTime) 
+                || (attackButtonTimer >= playerCharacter.MaxHoldTime && attackButtonDown))
             {
                 m_Character.m_combat.SpecialCombat();
                 attackButtonDown = false;
@@ -165,20 +156,22 @@ public class ThirdPControl : MonoBehaviour
             {
                 specialButtonTimer += Time.deltaTime;
             }
-            if (CrossPlatformInputManager.GetButtonDown("Sword") && playerCharacter.SpecialBar > 24.9999f) //Button 3
+            if (CrossPlatformInputManager.GetButtonDown("Sword") && playerCharacter.SpecialBar > playerCharacter.LightSwordCost) //Button 3
             {
                 specialButtonDown = true;
                 specialButtonTimer = 0;
             }
             // Button Press Attack
-            if (CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonTimer <= minHoldTime && playerCharacter.SpecialBar > 24.9999f)
+            if (CrossPlatformInputManager.GetButtonUp("Sword") 
+                && specialButtonTimer <= playerCharacter.MinHoldTime && playerCharacter.SpecialBar > playerCharacter.LightSwordCost)
             {
                 m_Character.m_combat.SwordCombo();
                 specialButtonDown = false;
             }
             // Button Hold Attack
-            if (((CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonDown && specialButtonTimer > minHoldTime)
-                || (specialButtonTimer >= maxHoldTime && specialButtonDown)) && playerCharacter.SpecialBar > 49.9999f)
+            if (((CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonDown && specialButtonTimer > playerCharacter.MinHoldTime)
+                || (specialButtonTimer >= playerCharacter.MaxHoldTime && specialButtonDown)) 
+                && playerCharacter.SpecialBar > playerCharacter.HeavySwordCost)
             {
                 m_Character.m_combat.SwordSpecialCombat();
                 specialButtonDown = false;
@@ -200,15 +193,16 @@ public class ThirdPControl : MonoBehaviour
                 attackButtonDown = true;
                 attackButtonTimer = 0;
             }
-            if (CrossPlatformInputManager.GetButtonUp("Attack") && playerCharacter.SpecialBar > 33.9999f)
+            if (CrossPlatformInputManager.GetButtonUp("Attack") && playerCharacter.SpecialBar > playerCharacter.GunShootCost)
             {
+                playerCharacter.UseSpecial(playerCharacter.GunShootCost);
                 m_Character.m_combat.GunShot();
                 attackButtonDown = false;
             }
         }
 
 
-        if (CrossPlatformInputManager.GetButtonDown("Dodge") && playerCharacter.StaminaBar > rollDodgeCost) //Button 1
+        if (CrossPlatformInputManager.GetButtonDown("Dodge") && playerCharacter.StaminaBar > playerCharacter.DodgeCost) //Button 1
         {
             if (!m_aiming)
             {
@@ -217,7 +211,7 @@ public class ThirdPControl : MonoBehaviour
                 if (m_Character.m_combat.Roll())
                 {
                     // Remove stamina
-                    playerCharacter.UseStamina(rollDodgeCost);
+                    playerCharacter.UseStamina(playerCharacter.DodgeCost);
                 }
             }
             else
@@ -227,7 +221,7 @@ public class ThirdPControl : MonoBehaviour
                     if(m_Character.m_combat.Dodge(0))
                     {
                         // Remove stamina
-                        playerCharacter.UseStamina(rollDodgeCost);
+                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
                     }
                 }
                 else if (h > 0) // Right
@@ -235,7 +229,7 @@ public class ThirdPControl : MonoBehaviour
                     if(m_Character.m_combat.Dodge(1))
                     {
                         // Remove stamina
-                        playerCharacter.UseStamina(rollDodgeCost);
+                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
                     }
                 }
                 else if (v < 0)  // Back
@@ -243,7 +237,7 @@ public class ThirdPControl : MonoBehaviour
                     if(m_Character.m_combat.Dodge(2))
                     {
                         // Remove stamina
-                        playerCharacter.UseStamina(rollDodgeCost);
+                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
                     }
                 }
                 else if (v > 0)  // Foward
@@ -251,7 +245,7 @@ public class ThirdPControl : MonoBehaviour
                     if(m_Character.m_combat.Dodge(3))
                     {
                         // Remove stamina
-                        playerCharacter.UseStamina(rollDodgeCost);
+                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
                     }
                 }
                 else
@@ -365,7 +359,7 @@ public class ThirdPControl : MonoBehaviour
         if ((rt != 0 || Input.GetKey(KeyCode.LeftShift)) && playerCharacter.StaminaBar > 0 
             && !sprintCoolDown && (v != 0 || h != 0) )
         {
-            playerCharacter.UseStamina(sprintCost);
+            playerCharacter.UseStamina(playerCharacter.SprintCost);
             m_sprinting = true;
             
         }
@@ -373,7 +367,7 @@ public class ThirdPControl : MonoBehaviour
         {
             m_sprinting = false;
         }
-        if(playerCharacter.StaminaBar < sprintCost * 2)
+        if(playerCharacter.StaminaBar < (playerCharacter.SprintCost * 2) )
         {
             sprintCoolDown = true;
         }
@@ -567,33 +561,10 @@ public class ThirdPControl : MonoBehaviour
             }
         }
 
-        // Check to see if the character has turned around 180 degrees
-        if ( ( (facing == 0 && v < 0) || (facing == 2 && v > 0) ) || ((facing == 1 && h < 0) || (facing == 3 && h > 0) ) )
-        {
-            if (!m_running)
-            {
-                m_Character.TurnAround = true;
-                m_Character.StateTimer = 0;
-            }
-            else
-            {
-                m_Character.RunTurnAround = true;
-                m_Character.StateTimer = 0;
-            }
-        }
-
-        if (v > 0.05) { facing = 0; }
-        else if (v < -0.05) { facing = 2; }
-        if (h > 0.05) { facing = 1; }
-        else if (h < -0.05) { facing = 3; }
-
         m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,
             m_Jump, m_running, m_sprinting, m_aiming);
 
         m_Jump = false;
-
-        lastH = h;
-        lastV = v;
     }
 
     /// <summary>
@@ -692,7 +663,7 @@ public class ThirdPControl : MonoBehaviour
     /// Stop vision hack and return to player
     /// </summary>
     public void EndVisionHack() {
-        visionHackCDTimer = 0;
+        //visionHackCDTimer = 0;
         gameObject.SetActive(true);
         m_Character.camera = myCarmera;
     }

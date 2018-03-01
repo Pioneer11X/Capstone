@@ -168,7 +168,28 @@ namespace FriedTofu
                 {
                     scene.Add(entity);
                 }
+                else if (obj.tag == "PathNode" || obj.tag == "JumpNode")
+                {
+                    Scene.PathNode node = new Scene.PathNode(obj);
+                    scene.AddPathNode(node);
+                }
+                else if (obj.tag == "Spawner")
+                {
+                    Scene.SpawnNode node = new Scene.SpawnNode(obj);
+                    foreach (Transform child in obj.transform)
+                    {
+                        node.AddChild(child.gameObject.name);
+                        Scene.TriggerNode childNode = new Scene.TriggerNode(child.gameObject);
+                        scene.AddTriggerNode(childNode);
+                    }
+
+                    scene.AddSpwanerNode(node);
+                }
             }
+
+            // sort the path nodes here
+            scene.SortPathNodes();
+
 
             scene.Save(
                 Path.Combine(
@@ -192,6 +213,13 @@ namespace FriedTofu
 
             if (obj.tag == "MainCamera")
                 return null;
+
+            // Node exporting
+            if(obj.tag == "PathNode") { return null; }
+
+            if (obj.tag == "JumpNode") { return null; }
+
+            if (obj.tag == "Spawner" || obj.tag == "TriggerNode") { return null; }
 
             Scene.Entity entity = new Scene.Entity(obj);
 
@@ -240,6 +268,21 @@ namespace FriedTofu
                 }
 
                 entity.Add(renderable);
+            }
+            else if (type == "light")
+            {
+                Light light = obj.GetComponent<Light>();
+                if (light.type != LightType.Area)
+                {
+                    Scene.Light sceneLight = new Scene.Light();
+                    sceneLight.lightType = light.type.ToString().ToLower();
+                    sceneLight.color = new Scene.Float4(light.color);
+                    sceneLight.range = light.range;
+                    sceneLight.intensity = light.intensity;
+                    sceneLight.spotAngle = light.spotAngle;
+                    sceneLight.castShadow = (light.shadows != LightShadows.None);
+                    entity.Add(sceneLight);
+                }
             }
 
             Collider collider = obj.GetComponent<Collider>();

@@ -290,10 +290,14 @@ public class CombatManager : MonoBehaviour
 
     //adjust parameters
     private bool isAdjusting;
-    [SerializeField]
-    private float adjustSpeed;
-    [SerializeField]
-    public float adjustMinDistance;
+    [SerializeField] private float adjustSpeed;
+    [SerializeField] private float adjustMinDistance;
+    public float AdjustMinDistance
+    {
+        get { return adjustMinDistance; }
+        set { adjustMinDistance = value; }
+    }
+
     public bool IsAdjusting
     {
         get { return isAdjusting; }
@@ -308,7 +312,7 @@ public class CombatManager : MonoBehaviour
     }
 
     [SerializeField]
-    public float adjustMaxDistance;
+    private float adjustMaxDistance;
 
     public float GetAdjustMaxDistance()
     {
@@ -760,9 +764,6 @@ public class CombatManager : MonoBehaviour
         isAttacking = true;
         m_char.StateTimer = 0;
         resetAttack = true;
-
-        // Update UI
-        m_char.GetComponent<PC>().UseSpecial(50);
     }
 
     public void Effect()
@@ -858,6 +859,10 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Check if target is in range
+    /// </summary>
+    /// <returns></returns>
     public bool CheckTarget()
     {
         if (currentTarget == null)

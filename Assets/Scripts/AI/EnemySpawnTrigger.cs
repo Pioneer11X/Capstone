@@ -12,7 +12,7 @@ public class EnemySpawnTrigger : MonoBehaviour {
 
     public int totalEnemiesForPlaytest = 15;    // The last enemy would be different.
 
-    private bool spawn = false;
+    //private bool spawn = false;
 
     private bool didJustSpawn = true;   // This is set to true when we spawn a character and have to wait for a period before we can spawn again.
     private float timer = 0.0f;         // A temporary timer used to go through the time to spawn.

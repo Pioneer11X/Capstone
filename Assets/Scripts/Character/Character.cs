@@ -142,6 +142,8 @@ abstract public class Character : MonoBehaviour
     public bool RunTurnAround
     { set { runTurnAround = value; } }
 
+    private float initialY;
+
     // Use this for initialization
     virtual protected void Start ()
     {
@@ -225,6 +227,9 @@ abstract public class Character : MonoBehaviour
         // check whether conditions are right to allow a jump:
         if (jump && m_IsGrounded)
         {
+            // Set initial Y position
+            initialY = transform.position.y;
+
             charAudio.Stop();
             charAudio.PlayOneShot(jumpFX);
             // jump!
@@ -244,13 +249,17 @@ abstract public class Character : MonoBehaviour
     protected void HandleAirborneMovement(float v, float h, Vector3 move)
     {
         // apply extra gravity from multiplier:
-        Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
-        m_Rigidbody.AddForce(extraGravityForce);
-        m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x + (move.x/10), m_Rigidbody.velocity.y, m_Rigidbody.velocity.z + (move.z / 10));
+        if( !( transform.position.y > 3 + initialY) )
+        {
+            Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
+            m_Rigidbody.AddForce(extraGravityForce);
+            m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x + (move.x / 10), m_Rigidbody.velocity.y, m_Rigidbody.velocity.z + (move.z / 10));
 
-        m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
+            m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
+        }
+        
 
-
+       
     }//end airborne movement
 
     /// <summary>
@@ -298,7 +307,7 @@ abstract public class Character : MonoBehaviour
     #endregion
 
     /// <summary>
-    /// 
+    /// Update the characters state, used for animations and state based stuff
     /// </summary>
     protected void UpdateState()
     {
@@ -471,34 +480,14 @@ abstract public class Character : MonoBehaviour
             }
             else
             {
-
-                //if (m_moving && !turnAround && !runTurnAround)
                 if (m_moving)
                 {
                     currentState = CharacterState.walk;
                     if (m_sprinting)
                     {
                         currentState = CharacterState.run;
-                        //animationParameter = 1;
                     }
                 }
-                //else if( (turnAround || runTurnAround) && stateTimer < 1)
-                //{
-                //    if (turnAround)
-                //    {
-                //        currentState = CharacterState.walk_Turn_R;
-                //    }
-                //    else if(runTurnAround)
-                //    {
-                //        currentState = CharacterState.run_Turn_R;
-                //    }
-                //    else
-                //    {
-                //        stateTimer = -1;
-                //        turnAround = false;
-                //        runTurnAround = false;
-                //    }
-                //}
                 else
                 {
                     turnAround = false;
@@ -511,7 +500,6 @@ abstract public class Character : MonoBehaviour
                     else if(m_combat.IsAimming)
                     {
                         currentState = CharacterState.aim_Idle;
-                        //currentState = CharacterState.idle_InCombat;
                         inCombat = true;
                     }
                     else

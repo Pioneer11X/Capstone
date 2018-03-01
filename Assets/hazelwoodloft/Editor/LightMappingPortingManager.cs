@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEditor;
 using System.Linq;
@@ -83,7 +84,8 @@ public class LightMappingPortingManager : EditorWindow {
         lightmapDataAsset.lightmapIndexes = indexes;
         lightmapDataAsset.lightmapOffsetScales = lightmapOffsetScales;
 
-        AssetDatabase.CreateAsset(lightmapDataAsset,"Assets/LightMapData_"+Path.GetFileNameWithoutExtension(EditorApplication.currentScene));
+        //AssetDatabase.CreateAsset(lightmapDataAsset,"Assets/LightMapData_"+Path.GetFileNameWithoutExtension(EditorApplication.currentScene));
+        AssetDatabase.CreateAsset(lightmapDataAsset, "Assets/LightMapData_" + Path.GetFileNameWithoutExtension(SceneManager.GetActiveScene().ToString()));
         AssetDatabase.SaveAssets();
 
         GameObject lightmappingManager = EditorUtility.CreateGameObjectWithHideFlags("LightmappingManager",HideFlags.None,new Type[] {typeof(LightmappingManager) });
