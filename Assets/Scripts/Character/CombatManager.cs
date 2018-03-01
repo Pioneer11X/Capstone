@@ -145,8 +145,8 @@ public class CombatManager : MonoBehaviour
     private bool isAimming;
     public bool IsAimming
     {
-        get { return isAimming;}
-        set { isAimming = value;}
+        get { return isAimming; }
+        set { isAimming = value; }
     }
 
     public int moveDir;
@@ -157,12 +157,14 @@ public class CombatManager : MonoBehaviour
     private bool isMoving;
     private bool isDashing;
     public bool IsMoving
-    { get { return isMoving; }
+    {
+        get { return isMoving; }
         set { isMoving = value; }
     }
     public bool IsDashing
-    { get { return isDashing; }
-      set { isDashing = value; }
+    {
+        get { return isDashing; }
+        set { isDashing = value; }
     }
 
     //jump parameters
@@ -228,8 +230,9 @@ public class CombatManager : MonoBehaviour
     private float dodgeTime;
     private int dodgeDirection;
     public bool IsDodging
-    { get { return isDodging; }
-      set { isDodging = value; }
+    {
+        get { return isDodging; }
+        set { isDodging = value; }
     }
     public float DodgeTime
     { get { return dodgeTime; } }
@@ -243,8 +246,9 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private float runRollTime;
     [SerializeField] private float rollSpeed;
     public bool IsRolling
-    { get { return isRolling; }
-      set { isRolling = value; }
+    {
+        get { return isRolling; }
+        set { isRolling = value; }
     }
     public float RollTime
     { get { return rollTime; } }
@@ -256,7 +260,8 @@ public class CombatManager : MonoBehaviour
     // Turning Parameters.
     [SerializeField]
     private bool isTurning = false;
-    public bool IsTurning {
+    public bool IsTurning
+    {
         get { return isTurning; }
         set { isTurning = value; }
     }
@@ -401,7 +406,7 @@ public class CombatManager : MonoBehaviour
 
     private int listCounter;
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         inCombatTimer = 0;
 
@@ -429,7 +434,7 @@ public class CombatManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         //*******************************************************************
         if (isPlayer)
@@ -437,7 +442,7 @@ public class CombatManager : MonoBehaviour
             companion.GetComponent<Companion>().inCombat = m_char.inCombat;
 
             listCounter++;
-            if(listCounter > 240)
+            if (listCounter > 240)
             {
                 enemyList.Clear();
                 enemyArray = GameObject.FindGameObjectsWithTag("Enemy");
@@ -449,11 +454,11 @@ public class CombatManager : MonoBehaviour
             }
 
 
-            if(attackDuration > -0.5f)
+            if (attackDuration > -0.5f)
             {
                 attackDuration -= Time.deltaTime;
             }
-            if(attackDuration <= -0.5f && swordGunAttack)
+            if (attackDuration <= -0.5f && swordGunAttack)
             {
                 swordGunAttack = false;
                 sword.SetActive(false);
@@ -476,17 +481,17 @@ public class CombatManager : MonoBehaviour
                 }
             }
 
-            if(isAimming && companion.activeSelf)
+            if (isAimming && companion.activeSelf)
             {
                 compPos = companion.transform.position;
                 companion.SetActive(false);
             }
-            else if(!isAimming && !companion.activeSelf && !swordGunAttack)
+            else if (!isAimming && !companion.activeSelf && !swordGunAttack)
             {
                 companion.SetActive(true);
             }
 
-            
+
         }
         //*******************************************************************
     }
@@ -518,7 +523,7 @@ public class CombatManager : MonoBehaviour
                 currentCombat = Combat.none;
             }
         }
- 
+
         //is in combat
         if (isHit)
         {
@@ -579,7 +584,7 @@ public class CombatManager : MonoBehaviour
         resetHit = true;
 
         // Does damage based on what attack
-        if(!dmgDelay)
+        if (!dmgDelay)
         {
             this.GetComponent<Humanoid>().TakeDamag(dmg);
         }
@@ -633,7 +638,7 @@ public class CombatManager : MonoBehaviour
         {
             return;
         }
-        
+
         NextCombat();
         if (CheckTarget())
         {
@@ -838,13 +843,13 @@ public class CombatManager : MonoBehaviour
                 }
 
                 // If attack is a sword attack, hit multiple enemies
-                if(currentCombat == Combat.Sword_Attack_R || currentCombat == Combat.Sword_Attack_RL ||
+                if (currentCombat == Combat.Sword_Attack_R || currentCombat == Combat.Sword_Attack_RL ||
                     currentCombat == Combat.Sword_Attack_Combo_LL)
                 {
-                    foreach(GameObject obj in enemyList)
+                    foreach (GameObject obj in enemyList)
                     {
-                        if(Vector3.Distance(obj.transform.position, gameObject.transform.position) <
-                            allMoves[(int)currentCombat - 1].ED )
+                        if (Vector3.Distance(obj.transform.position, gameObject.transform.position) <
+                            allMoves[(int)currentCombat - 1].ED)
                         {
                             obj.GetComponent<CombatManager>().Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentHitTime, currentDmgAmount, 0.5f, true);
                         }
@@ -951,7 +956,7 @@ public class CombatManager : MonoBehaviour
 
     public void AimMove(int dir)
     {
-        if(!canMove)
+        if (!canMove)
         {
             return;
         }
@@ -965,7 +970,7 @@ public class CombatManager : MonoBehaviour
 
         Combat _input = _action.combat;
 
-        if ( Combat.none == _input)
+        if (Combat.none == _input)
         {
             // Perform the Action even though the Combat is set to None.
             switch (_action.name)

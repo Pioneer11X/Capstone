@@ -440,13 +440,13 @@ abstract public class Character : MonoBehaviour
                     if ( "Enemy" == this.tag)
                     {
                         // Check for the distance.. and Move only when needed..
-                        if ( Vector3.Distance(this.transform.position, m_combat.CurrentTarget.transform.position) > m_combat.adjustMaxDistance)
+                        if ( Vector3.Distance(this.transform.position, m_combat.CurrentTarget.transform.position) > m_combat.GetAdjustMaxDistance())
                         {
                             //look at target
                             charBody.transform.forward = m_combat.CurrentTarget.transform.position - transform.position;
                             currentState = CharacterState.adjustPosition;
                             ForceMove(m_combat.AdjustSpeed, 1);
-                        }else if (Vector3.Distance(this.transform.position, m_combat.CurrentTarget.transform.position) < m_combat.adjustMinDistance)
+                        }else if (Vector3.Distance(this.transform.position, m_combat.CurrentTarget.transform.position) < m_combat.GetAdjustMinDistance())
                         {
                             //look at target
                             charBody.transform.forward = m_combat.CurrentTarget.transform.position - transform.position;

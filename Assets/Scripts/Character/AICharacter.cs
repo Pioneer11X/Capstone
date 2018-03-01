@@ -87,17 +87,17 @@ public class AICharacter : Character
             // సరి చేసుకొని, ముందుకో వెనక్కో వెళ్ళు. అంతే.
             // Well... Adjust.. and adjust only.. Do not move do not look to perform the next action..
             float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
-            if ( distanceToTarget > this.m_combat.adjustMaxDistance)
+            if ( distanceToTarget > this.m_combat.GetAdjustMaxDistance())
             {
                 ForceMove(1.0f, 1);
             }
 
-            if ( distanceToTarget < this.m_combat.adjustMinDistance)
+            if ( distanceToTarget < this.m_combat.GetAdjustMinDistance())
             {
                 ForceMove(1.0f, -1);
             }
 
-            if (!(distanceToTarget > this.m_combat.adjustMaxDistance || distanceToTarget < this.m_combat.adjustMinDistance))
+            if (!(distanceToTarget > this.m_combat.GetAdjustMaxDistance() || distanceToTarget < this.m_combat.GetAdjustMinDistance()))
             {
                 this.m_combat.IsAdjusting = false;
             }
