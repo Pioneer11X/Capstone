@@ -121,11 +121,13 @@ public class AICharacter : Character
 
                 if (timer > m_combat.TimeBetweenAttacks)
                 {
-                    // TODO: Use the Action Selector here. Select an Item and then, reduce the preference.
-                    // this.m_combat.BasicCombo();
-                    // this.m_combat.BasicCombo();
-                    this.s_action.selectNextOption();
-                    timer = 0;
+                    // Only call this when we aren't stunned..
+                    // మనం కొట్టగలమో లేదో చూడాలి.
+                    if (!this.m_combat.IsHit)
+                    {
+                        this.s_action.selectNextOption();
+                        timer = 0;
+                    } 
                 }
             }
             else

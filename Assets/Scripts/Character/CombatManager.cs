@@ -294,6 +294,7 @@ public class CombatManager : MonoBehaviour
     }
 
     //adjust parameters
+    [SerializeField]
     private bool isAdjusting;
     [SerializeField] private float adjustSpeed;
     [SerializeField] private float adjustMinDistance;

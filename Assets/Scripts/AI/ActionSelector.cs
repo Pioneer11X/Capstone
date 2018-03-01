@@ -89,8 +89,8 @@ public class ActionSelector : MonoBehaviour
         }
         else
         {
-            // This Triggers when you are dead..
-            Debug.LogError("No Valid Actions");
+            // This happens when you are either Dead or Stunned.
+            Debug.Log("No Valid Actions.");
         }
 
         // ఏదీ లేకపోతే ఎం చెయ్యాలి? ఒక exception వెయ్యాలి. చూడాలి.

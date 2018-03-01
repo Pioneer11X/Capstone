@@ -20186,6 +20186,7 @@ MonoBehaviour:
   timeBetweenAttacks: 0
   hitTime: 1
   hitMaxWalkSpeed: 1
+  isAdjusting: 0
   adjustSpeed: 2
   adjustMinDistance: 0.75
   adjustMaxDistance: 2.5
@@ -34568,6 +34569,11 @@ Prefab:
     - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424428831464702, guid: f85beef79c6b9df46bef9cb2baec283e,
+        type: 2}
+      propertyPath: timeBetweenAttacks
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
