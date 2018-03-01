@@ -8561,8 +8561,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2061065343}
+  - {fileID: 559034046}
   RespawnPos:
   - {fileID: 769464398}
   - {fileID: 2121025248}
@@ -8926,7 +8926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy:
-  - {fileID: 0}
+  - {fileID: 863786849}
   RespawnPos:
   - {fileID: 1473872835}
 --- !u!65 &373920649
@@ -12660,6 +12660,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 558212525}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &559034046 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1740812503336440, guid: f617d72fbb1957541b45bed67a47e856,
+    type: 2}
+  m_PrefabInternal: {fileID: 1754322234}
 --- !u!1 &565532986
 GameObject:
   m_ObjectHideFlags: 0
@@ -19256,6 +19261,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f617d72fbb1957541b45bed67a47e856, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &863786849 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1740812503336440, guid: f617d72fbb1957541b45bed67a47e856,
+    type: 2}
+  m_PrefabInternal: {fileID: 1594565065}
 --- !u!1 &864853321
 GameObject:
   m_ObjectHideFlags: 0
@@ -25391,6 +25401,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1105079991}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1107123762 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1740812503336440, guid: f617d72fbb1957541b45bed67a47e856,
+    type: 2}
+  m_PrefabInternal: {fileID: 1394126357}
 --- !u!4 &1107995588 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4029821698199946, guid: f617d72fbb1957541b45bed67a47e856,
@@ -29915,6 +29930,11 @@ Transform:
   m_Father: {fileID: 235487589}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1324300997 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1740812503336440, guid: f617d72fbb1957541b45bed67a47e856,
+    type: 2}
+  m_PrefabInternal: {fileID: 551268464}
 --- !u!4 &1326359147 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: fafa909e8f523ef4d85e79ca36e20577, type: 2}
@@ -43642,8 +43662,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1107123762}
+  - {fileID: 1324300997}
   RespawnPos:
   - {fileID: 575439484}
   - {fileID: 1443408676}
@@ -46416,6 +46436,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2060417697}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2061065343 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1740812503336440, guid: f617d72fbb1957541b45bed67a47e856,
+    type: 2}
+  m_PrefabInternal: {fileID: 504667509}
 --- !u!4 &2063134768 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: fafa909e8f523ef4d85e79ca36e20577, type: 2}
