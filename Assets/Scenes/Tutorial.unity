@@ -34575,6 +34575,36 @@ Prefab:
       propertyPath: timeBetweenAttacks
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 114424428831464702, guid: f85beef79c6b9df46bef9cb2baec283e,
+        type: 2}
+      propertyPath: allMoves.Array.data[0].AD
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424428831464702, guid: f85beef79c6b9df46bef9cb2baec283e,
+        type: 2}
+      propertyPath: allMoves.Array.data[1].AD
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424428831464702, guid: f85beef79c6b9df46bef9cb2baec283e,
+        type: 2}
+      propertyPath: allMoves.Array.data[2].AD
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424428831464702, guid: f85beef79c6b9df46bef9cb2baec283e,
+        type: 2}
+      propertyPath: allMoves.Array.data[3].AD
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424428831464702, guid: f85beef79c6b9df46bef9cb2baec283e,
+        type: 2}
+      propertyPath: allMoves.Array.data[4].AD
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424428831464702, guid: f85beef79c6b9df46bef9cb2baec283e,
+        type: 2}
+      propertyPath: allMoves.Array.data[5].AD
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
   m_IsPrefabParent: 0

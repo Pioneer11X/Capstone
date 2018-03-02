@@ -30,7 +30,7 @@ public class ActionSelector : MonoBehaviour
     {
 
         // Check to see if I am facing the target or not.
-        //Rotate
+        // Rotate
         var direc = this.m_combat.CurrentTarget.transform.position - transform.position;
         var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
         float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
@@ -43,10 +43,10 @@ public class ActionSelector : MonoBehaviour
         currentState.canIAttack = (m_combat.canAttack) ? customBool.True : customBool.False;
         currentState.canTargetAttack = (m_combat.CurrentTarget.GetComponentInChildren<CombatManager>().canAttack) ? (customBool.True) : (customBool.False);
         currentState.amIStunned = (this.m_combat.IsHit) ? customBool.True : customBool.False;
+        currentState.targetStunned = (null != m_combat.CurrentTarget) ? ((true == m_combat.CurrentTarget.m_combat.IsHit) ? (customBool.True) : (customBool.False)) : (customBool.False);
 
         // వీటిని చూసి మార్చాలి.
         // TODO: Change these based on the current State.
-        currentState.targetStunned = customBool.False;
         currentState.isTargetFacingMe = customBool.True;
 
         // దాని ద్వారా మనం చేయగలిగినవి ఏమేమి వున్నాయో చూసుకోవాలి.
