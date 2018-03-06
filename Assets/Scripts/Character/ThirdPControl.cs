@@ -211,7 +211,15 @@ public class ThirdPControl : MonoBehaviour
                 if (m_Character.m_combat.Roll())
                 {
                     // Remove stamina
-                    playerCharacter.UseStamina(playerCharacter.DodgeCost);
+                    if(m_Character.m_combat.IsHit)
+                    {
+                        playerCharacter.UseStamina(playerCharacter.DodgeCost * 1.5f);
+                    }
+                    else
+                    {
+                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
+                    }
+                    
                 }
             }
             else

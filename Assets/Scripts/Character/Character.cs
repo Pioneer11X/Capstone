@@ -383,15 +383,22 @@ abstract public class Character : MonoBehaviour
             }
             else if (m_combat.IsRolling)
             {
-                if (stateTimer < m_combat.RollTime && (currentState != CharacterState.run && currentState != CharacterState.roll_Run) )
+                if (stateTimer < m_combat.RollTime && (currentState != CharacterState.run && currentState != CharacterState.roll_Run))
                 {
                     currentState = CharacterState.roll;
-                    ForceMove(m_combat.RollSpeed, 1);
+                    if (!m_combat.IsHit)
+                    {
+                        ForceMove(m_combat.RollSpeed, 1);
+                    }
+                    else
+                    {
+                        ForceMove(m_combat.RollSpeed, 1);
+                    }
                 }
                 else if (stateTimer < m_combat.RunRollTime && currentState != CharacterState.roll)
                 {
-                    currentState = CharacterState.roll_Run;
-                    ForceMove(m_combat.RollSpeed * 1.5f, 1);
+                    //currentState = CharacterState.roll_Run;
+                    //ForceMove(m_combat.RollSpeed * 1.5f, 1);
                 }
                 else
                 {
@@ -513,7 +520,8 @@ abstract public class Character : MonoBehaviour
             }
         }
 
-        if(isDead)
+
+        if (isDead)
         {
             currentState = CharacterState.dead;
 

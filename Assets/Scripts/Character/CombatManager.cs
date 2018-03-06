@@ -401,7 +401,8 @@ public class CombatManager : MonoBehaviour
     {
         get
         {
-            return !(isRolling || isJumping || isAimming || isAttacking || isDodging || isAdjusting);
+            //return !(isRolling || isJumping || isAimming || isAttacking || isDodging || isAdjusting);
+            return !(isRolling || isJumping || isAimming || isAttacking || isDodging);
         }
     }
 
@@ -569,6 +570,18 @@ public class CombatManager : MonoBehaviour
                 isAttacking = false;
                 m_char.HasEffect = false;
                 comboTimer = 0;
+            }
+
+            if(isRolling)
+            {
+                isHit = false;
+                stateTimer = -1;
+
+                isAttacking = false;
+                m_char.HasEffect = false;
+                comboTimer = 0;
+
+                return false;
             }
 
             return true;
