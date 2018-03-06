@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 114945421853406232}
   - component: {fileID: 114743901371453552}
   m_Layer: 8
-  m_Name: Enemy_New
+  m_Name: Enemy_Pathing_New
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1560,8 +1560,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529252476912762}
-  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.089024, y: 0.00000496113, z: -42.37}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: -19.483059, y: 1.2583189, z: -33.9518}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4698559254763812}
@@ -1789,7 +1789,7 @@ MonoBehaviour:
   allMoves:
   - name: Punch_Jab_L
     AT: 0.7
-    AD: 0.9
+    AD: 1
     ET: 0.2
     ED: 1
     HT: 1
@@ -1801,7 +1801,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Jab_R
     AT: 0.5
-    AD: 0.9
+    AD: 1
     ET: 0.2
     ED: 1
     HT: 1
@@ -1813,7 +1813,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Hook_L
     AT: 0.65
-    AD: 0.7
+    AD: 1.5
     ET: 0.2
     ED: 1
     HT: 1
@@ -1825,7 +1825,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Hook_R
     AT: 0.65
-    AD: 0.7
+    AD: 1.5
     ET: 0.2
     ED: 1
     HT: 1
@@ -1837,7 +1837,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_L
     AT: 0.8
-    AD: 0.6
+    AD: 1.75
     ET: 0.5
     ED: 1
     HT: 0.8
@@ -1849,7 +1849,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_R
     AT: 0.8
-    AD: 0.6
+    AD: 1.75
     ET: 0.5
     ED: 1
     HT: 0.8
@@ -1972,7 +1972,7 @@ MonoBehaviour:
   rollSpeed: 3
   isTurning: 0
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
-  timeBetweenAttacks: 0.2
+  timeBetweenAttacks: 2
   hitTime: 1
   hitMaxWalkSpeed: 1
   isAdjusting: 0
