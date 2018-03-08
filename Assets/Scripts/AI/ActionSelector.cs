@@ -10,6 +10,8 @@ public class ActionSelector : MonoBehaviour
     ActionList l_action;
     CombatManager m_combat;
 
+    [SerializeField] bool preventAttack = false;
+
     // ప్రస్తుత పరిస్థితి
     // Current State.
     [SerializeField]
@@ -40,7 +42,10 @@ public class ActionSelector : MonoBehaviour
         // మన ప్రస్తుత పరిస్థితి చూసుకోవాలి.
         // Perform action based on the current State.
         currentState.hasTarget = (null != m_combat.CurrentTarget) ? customBool.True : customBool.False;
-        currentState.canIAttack = (m_combat.canAttack) ? customBool.True : customBool.False;
+
+        if (!preventAttack)
+        { currentState.canIAttack = (m_combat.canAttack) ? customBool.True : customBool.False; }
+
         currentState.canTargetAttack = (m_combat.CurrentTarget.GetComponentInChildren<CombatManager>().canAttack) ? (customBool.True) : (customBool.False);
         currentState.amIStunned = (this.m_combat.IsHit) ? customBool.True : customBool.False;
         currentState.targetStunned = (null != m_combat.CurrentTarget) ? ((true == m_combat.CurrentTarget.m_combat.IsHit) ? (customBool.True) : (customBool.False)) : (customBool.False);
