@@ -18,6 +18,8 @@ namespace FriedTofu
             public string GUID;
             public string AlbedoMap;
             public string NormalMap;
+            public string MetallicGlossMap;
+            public string OcclusionMap;
         }
 
         [Serializable]

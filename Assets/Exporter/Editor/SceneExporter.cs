@@ -562,6 +562,8 @@ namespace FriedTofu
             material.AlbedoMap = null;
             material.NormalMap = null;
 
+            
+
             if (mat.HasProperty("_MainTex"))
             {
                 string albedoMap = ExportTexture(mat.GetTexture("_MainTex"), context);
@@ -577,6 +579,24 @@ namespace FriedTofu
                 if (!string.IsNullOrEmpty(normalMap))
                 {
                     material.NormalMap = normalMap;
+                }
+            }
+
+            if (mat.HasProperty("_MetallicGlossMap"))
+            {
+                string metallicMap = ExportTexture(mat.GetTexture("_MetallicGlossMap"), context);
+                if (!string.IsNullOrEmpty(metallicMap))
+                {
+                    material.MetallicGlossMap = metallicMap;
+                }
+            }
+
+            if (mat.HasProperty("_OcclusionMap"))
+            {
+                string occlusionMap = ExportTexture(mat.GetTexture("_OcclusionMap"), context);
+                if (!string.IsNullOrEmpty(occlusionMap))
+                {
+                    material.OcclusionMap = occlusionMap;
                 }
             }
 
