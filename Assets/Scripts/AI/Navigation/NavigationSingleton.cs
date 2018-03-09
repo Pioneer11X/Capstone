@@ -54,6 +54,9 @@ public class NavigationSingleton : MonoBehaviour {
     public List<PathingNode> GetPath(PathingNode nodeA, PathingNode nodeB)
     {
 
+        // మనం A* వాడతాము. రెండు నోడ్ల మధ్య దూరం 1 అనుకుందాం.
+        // Assume that the distance between two nodes is 1. We will be using A* method for Pathfinding.
+
         List<PathingNode> returnPath = new List<PathingNode> { };
 
 

@@ -1201,7 +1201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodes: []
-  "\u0C2E\u0C28\u0C02": 0
 --- !u!1 &292511764
 GameObject:
   m_ObjectHideFlags: 0
@@ -6714,6 +6713,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4809226237922442, guid: f85beef79c6b9df46bef9cb2baec283e, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195483859784402378, guid: f85beef79c6b9df46bef9cb2baec283e,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
