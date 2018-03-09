@@ -10586,7 +10586,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!154 &451047288
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -19389,7 +19389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &837705943
 AudioSource:
   m_ObjectHideFlags: 0
@@ -29027,7 +29027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1228320996
 Transform:
   m_ObjectHideFlags: 0
@@ -33265,6 +33265,10 @@ Prefab:
     - target: {fileID: 400000, guid: bead4db0bfd766945a2a7833ca17cdd5, type: 3}
       propertyPath: m_RootOrder
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bead4db0bfd766945a2a7833ca17cdd5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bead4db0bfd766945a2a7833ca17cdd5, type: 3}
@@ -45349,7 +45353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1956666718
 MeshRenderer:
   m_ObjectHideFlags: 0
