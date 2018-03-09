@@ -214,6 +214,9 @@ namespace FriedTofu
             if (obj.tag == "MainCamera")
                 return null;
 
+            if (obj.tag == "Enemy" || obj.tag == "Player")
+                return null;
+
             // Node exporting
             if(obj.tag == "PathNode") { return null; }
 
