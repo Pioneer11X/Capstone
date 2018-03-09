@@ -1761,8 +1761,8 @@ MonoBehaviour:
   isTutorial: 0
   BossBar: {fileID: 0}
   LifeBar: {fileID: 0}
-  defaultMat: {fileID: 0}
-  highlightMat: {fileID: 0}
+  defaultMat: {fileID: 2100000, guid: dd57fea2d38633a42be0ca58ae57c683, type: 2}
+  highlightMat: {fileID: 2100000, guid: 25e62ea728965c849b763d29ee5b0365, type: 2}
 --- !u!114 &114421404917363508
 MonoBehaviour:
   m_ObjectHideFlags: 1
