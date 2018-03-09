@@ -291,6 +291,9 @@ namespace FriedTofu
 
         public void SortPathNodes()
         {
+            if (pathNodes == null)
+            { return; }
+
             for(int i = 0; i < pathNodes.Count; i++)
             {
                 bool added;
