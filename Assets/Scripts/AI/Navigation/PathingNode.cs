@@ -41,16 +41,16 @@ public class PathingNode : MonoBehaviour {
         }
     }
 
-    
+    private void Awake()
+    {
+        // ఇది అస్తమానూ మార్చము. అసలు మార్చకుండా చుడాలి.
+        // We wouldn't change this often. Ideally, not at all.
+        nodePosition = this.transform.position;
+    }
 
     // Use this for initialization
     void Start () {
-		if ( null == nodePosition)
-        {
-            // ఇది అస్తమానూ మార్చము. అసలు మార్చకుండా చుడాలి.
-            // We wouldn't change this often. Ideally, not at all.
-            nodePosition = this.transform.position;
-        }
+        
 	}
 	
 	// Update is called once per frame

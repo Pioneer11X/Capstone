@@ -98,6 +98,10 @@ public class NavigationSingleton : MonoBehaviour {
                     continue;
                 }
 
+                Debug.Assert(null != currentNode);
+                Debug.Assert(null != nodeB);
+                Debug.Assert(null != neighbour);
+
                 int newMovementCostToNeighbour = currentNode.gCost + GetDistance(currentNode, neighbour);
                 if ( newMovementCostToNeighbour < neighbour.gCost || !(openSet.Contains(neighbour))) {
                     neighbour.gCost = newMovementCostToNeighbour;
@@ -138,6 +142,9 @@ public class NavigationSingleton : MonoBehaviour {
 
     int GetDistance(PathingNode nodeA, PathingNode nodeB)
     {
+
+        Debug.Assert(null != nodeA);
+        Debug.Assert(null != nodeB);
 
         int distX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
         int distY = Mathf.Abs(nodeA.gridY - nodeB.gridY);

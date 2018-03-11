@@ -12,11 +12,17 @@ public class CustomNavigationAgent : MonoBehaviour {
     [SerializeField]
     private List<PathingNode> path;
 
+    // This is to check if we have to reCalculate the Path or not.
+    // మనకి ఒకో సారి మళ్ళీ మళ్ళీ కనుక్కోవాల్సిన అవసరం లేదు.
+    public bool reCalculatePath = false;
+
     // Our Current Node
     // మనం ఇప్పుడు వున్న Node.
+    [SerializeField]
     private PathingNode currentNode;
 
     // మనం వెళ్ళాల్సిన Node
+    [SerializeField]
     private PathingNode targetNode;
 
     // ఆగున్నామా?
@@ -30,6 +36,9 @@ public class CustomNavigationAgent : MonoBehaviour {
 
     void calculatePath()
     {
+
+        targetNode = NavigationSingleton.Instance.GetCurrentNode(destination);
+
         Debug.Assert(null != currentNode);
         Debug.Assert(null != targetNode);
 
@@ -40,6 +49,9 @@ public class CustomNavigationAgent : MonoBehaviour {
             continue;
         }
         path = NavigationSingleton.Instance.GetPath(currentNode, targetNode);
+
+        Debug.Assert(null != path);
+
     }
 	
 	// Update is called once per frame
@@ -47,10 +59,18 @@ public class CustomNavigationAgent : MonoBehaviour {
         // This would get the Current node and set it.
         // మనమిప్పుడున్న Node.
         currentNode = NavigationSingleton.Instance.GetCurrentNode(this.transform.position);
+
+        if (reCalculatePath)
+        {
+            calculatePath();
+            reCalculatePath = false;
+        }
+
 	}
 
     internal void SetDestination(Vector3 targetPos)
     {
         this.destination = targetPos;
+        reCalculatePath = true;
     }
 }
