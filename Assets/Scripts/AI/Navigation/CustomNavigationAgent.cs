@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,10 @@ public class CustomNavigationAgent : MonoBehaviour {
     // మనం వెళ్ళాల్సిన Node
     private PathingNode targetNode;
 
+    // ఆగున్నామా?
+    // Similar to the Unity NavMeshAgent.
+    public bool isStopped;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -27,6 +32,13 @@ public class CustomNavigationAgent : MonoBehaviour {
     {
         Debug.Assert(null != currentNode);
         Debug.Assert(null != targetNode);
+
+        // This is an infinite loop waiting for the canCalculate Flag to be set.
+        // దారి కనుక్కోగలిగే వరకూ ఆగు. ఇది ఎంత మంచిదన్నది తెలియదు.
+        while (!NavigationSingleton.Instance.canCalculte)
+        {
+            continue;
+        }
         path = NavigationSingleton.Instance.GetPath(currentNode, targetNode);
     }
 	
@@ -36,4 +48,9 @@ public class CustomNavigationAgent : MonoBehaviour {
         // మనమిప్పుడున్న Node.
         currentNode = NavigationSingleton.Instance.GetCurrentNode(this.transform.position);
 	}
+
+    internal void SetDestination(Vector3 targetPos)
+    {
+        this.destination = targetPos;
+    }
 }
