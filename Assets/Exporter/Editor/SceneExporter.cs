@@ -214,7 +214,7 @@ namespace FriedTofu
             if (obj.tag == "MainCamera")
                 return null;
 
-            if (obj.tag == "Enemy" || obj.tag == "Player")
+            if (obj.tag == "Enemy" || obj.tag == "Player" || obj.tag == "Companion")
                 return null;
 
             // Node exporting
@@ -249,6 +249,8 @@ namespace FriedTofu
                         throw new Exception("MeshFilter not found.");
                     }
 
+                    Debug.Log(filter.sharedMesh.name + " [" + filter.sharedMesh.subMeshCount + "]");
+                    
                     string meshPath = ExportMesh(filter.sharedMesh, context);
 
                     renderable.model = meshPath;
@@ -360,6 +362,10 @@ namespace FriedTofu
             {
                 basename = "Unity_Builtin_" + mesh.name;
             }
+            else
+            {
+                basename += "_" + mesh.name;
+            }
 
             string newPath = Path.Combine("models", basename + ".model");
 
@@ -384,7 +390,7 @@ namespace FriedTofu
 
             header.NumTexcoordChannels = 1;
             header.NumMeshes = (uint)mesh.subMeshCount;
-
+            
             //
             using (var stream = File.Open(Path.Combine(context.BaseDir, newPath), FileMode.Create))
             {
@@ -448,50 +454,7 @@ namespace FriedTofu
                     {
                         throw new Exception("Mesh not supported.");
                     }
-
-                    //Vector3[] tangents = new Vector3[mesh.vertexCount];
-                    //for (int i = 0; i < mesh.triangles.Length; i+=3)
-                    //{
-                    //    int i1 = mesh.triangles[i];
-                    //    int i2 = mesh.triangles[i+1];
-                    //    int i3 = mesh.triangles[i+2];
-
-                    //    Vector3 v1 = mesh.vertices[i1];
-                    //    Vector3 v2 = mesh.vertices[i2];
-                    //    Vector3 v3 = mesh.vertices[i3];
-
-                    //    Vector2 w1 = mesh.uv[i1];
-                    //    Vector2 w2 = mesh.uv[i2];
-                    //    Vector2 w3 = mesh.uv[i3];
-
-                    //    float x1 = v2.x - v1.x;
-                    //    float x2 = v3.x - v1.x;
-                    //    float y1 = v2.y - v1.y;
-                    //    float y2 = v3.y - v1.y;
-                    //    float z1 = v2.z - v1.z;
-                    //    float z2 = v3.z - v1.z;
-
-                    //    float s1 = w2.x - w1.x;
-                    //    float s2 = w3.x - w1.x;
-                    //    float t1 = w2.y - w1.y;
-                    //    float t2 = w3.y - w1.y;
-
-                    //    float r = 1.0f / (s1 * t2 - s2 * t1);
-                    //    Vector3 sdir = new Vector3(
-                    //        (t2 * x1 - t1 * x2) * r,
-                    //        (t2 * y1 - t1 * y2) * r,
-                    //        (t2 * z1 - t1 * z2) * r);
-
-                    //    Vector3 tdir = new Vector3(
-                    //        (s1 * x2 - s2 * x1) * r,
-                    //        (s1 * y2 - s2 * y1) * r,
-                    //        (s1 * z2 - s2 * z1) * r);
-
-                    //    tangents[i1] += sdir;
-                    //    tangents[i2] += sdir;
-                    //    tangents[i3] += sdir;
-                    //}
-
+                    
                     for (int i = 0; i < mesh.vertexCount; i++)
                     {
                         // position
@@ -563,6 +526,7 @@ namespace FriedTofu
             ResourceMap.Material material = new ResourceMap.Material();
             material.Name = basename;
             material.GUID = guid;
+            material.Type =  mat.shader.name.Contains("Transparent") ? "Transparent" : "Opaque";
             material.AlbedoMap = null;
             material.NormalMap = null;
 
@@ -571,6 +535,11 @@ namespace FriedTofu
             if (mat.HasProperty("_MainTex"))
             {
                 string albedoMap = ExportTexture(mat.GetTexture("_MainTex"), context);
+
+                Vector2 scale = mat.GetTextureScale("_MainTex");
+                Vector2 offset = mat.GetTextureOffset("_MainTex");
+                material.TextureScaleOffset = new Vector4(scale.x, scale.y, offset.x, offset.y);
+
                 if (!string.IsNullOrEmpty(albedoMap))
                 {
                     material.AlbedoMap = albedoMap;
@@ -602,6 +571,25 @@ namespace FriedTofu
                 {
                     material.OcclusionMap = occlusionMap;
                 }
+            }
+
+            if (mat.HasProperty("_EmissionMap"))
+            {
+                string emissionMap = ExportTexture(mat.GetTexture("_EmissionMap"), context);
+                if (!string.IsNullOrEmpty(emissionMap))
+                {
+                    material.EmissionMap = emissionMap;
+                }
+            }
+
+            if (mat.HasProperty("_Color"))
+            {
+                material.TintColor = mat.GetColor("_Color");
+            }
+
+            if (mat.HasProperty("_EmissionColor"))
+            {
+                material.EmissionColor = mat.GetColor("_EmissionColor");
             }
 
             context.MaterialTable.Add(basename, material);

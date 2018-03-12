@@ -16,10 +16,15 @@ namespace FriedTofu
         {
             public string Name;
             public string GUID;
+            public string Type;
             public string AlbedoMap;
             public string NormalMap;
             public string MetallicGlossMap;
             public string OcclusionMap;
+            public string EmissionMap;
+            public Color TintColor;
+            public Color EmissionColor; 
+            public Vector4 TextureScaleOffset;
         }
 
         [Serializable]
