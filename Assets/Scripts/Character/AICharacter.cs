@@ -19,6 +19,11 @@ public class AICharacter : Character
     [SerializeField]
     private float maxSensoryRadius; // A variable to store the maximum sensory radius of the AI.
 
+    public float GetMaxSensoryRadious()
+    {
+        return maxSensoryRadius;
+    }
+
     // protected NavMeshAgent navMeshAgent;      // A Reference to the NavMeshAgent Component attached to the GameObject.
     protected CustomNavigationAgent customNavMeshAgent;
 
@@ -44,7 +49,7 @@ public class AICharacter : Character
         //Debug.Assert(null != navMeshAgent);
 
         m_combat.SetChar(this);
-
+        
         customNavMeshAgent = GetComponent<CustomNavigationAgent>();
         Debug.Assert(null != customNavMeshAgent, "Navigation Agent is not set for " + this.gameObject.name);
 
@@ -71,6 +76,7 @@ public class AICharacter : Character
         if ( null == seekTarget)
         {
             // Play the Idle Animation.
+            // TODO: Check if we have to make the Enemy go back to their initial position.
             return;
         }
 
@@ -194,7 +200,22 @@ public class AICharacter : Character
         {
             // TODO: Play IDLE Animaiton Here.
             // navMeshAgent.isStopped = true;
-            customNavMeshAgent.isStopped = true;
+            // customNavMeshAgent.isStopped = true;
+
+            // ఒకవేళమనంఅసలుpositionలోనేవుంటేమనంకదలాల్సినవసరంలేదు
+            // There is no need to move if we are there in the original/intial position.
+            // TODO: Hardcoded Value.
+            if ( Vector3.Distance(this.transform.position, customNavMeshAgent.initialLocation) < 0.5f)
+            {
+                customNavMeshAgent.isStopped = true;
+            }
+            else
+            {
+                // Set the Enemies to go back to their original positions.
+                // లేదంటే Enemiesని తిరిగివాళ్ళఅసలు positionకు వెళ్ళమనాలి.
+                customNavMeshAgent.SetDestination(customNavMeshAgent.initialLocation, 0);
+            }
+
             this.m_combat.IsMoving = false;
         }
 

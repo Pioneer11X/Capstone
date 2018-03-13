@@ -10,6 +10,10 @@ public class CustomNavigationAgent : MonoBehaviour {
     public Vector3 destination;
     public LayerMask targetLayer;
 
+    // This location is used to go back once you lose the target.
+    // Player బాగాదూరంగావెళ్ళిపోతేంమనంవెనక్కిరావటానికివుంటుంది.
+    public Vector3 initialLocation;
+
     [SerializeField]
     private List<PathingNode> path;
 
@@ -37,9 +41,25 @@ public class CustomNavigationAgent : MonoBehaviour {
     [SerializeField]
     RaycastHit hitInfo;
 
+    // Reference
+    private AICharacter aICharacter;
+    private float maxSensoryRadius = 0;
+
+    private void Awake()
+    {
+        
+    }
+
     // Use this for initialization
     void Start () {
-		
+
+        initialLocation = this.transform.position;
+
+        aICharacter = this.GetComponent<AICharacter>();
+        Debug.Assert(null != aICharacter);
+
+        maxSensoryRadius = aICharacter.GetMaxSensoryRadious();
+        Debug.Assert(0.5 < maxSensoryRadius);
 	}
 
     void calculatePath()
@@ -87,7 +107,7 @@ public class CustomNavigationAgent : MonoBehaviour {
         this.targetLayer = _targetLayer;
 
         // Raycast for the target, and if you can find it, we do not need the pathing nodes anymore...
-        if ( Physics.Raycast(this.transform.position, (targetPos - this.transform.position), out hitInfo))
+        if ( Physics.Raycast(this.transform.position, (targetPos - this.transform.position).normalized, out hitInfo, maxSensoryRadius))
         {
             if ( targetLayer == hitInfo.transform.gameObject.layer)
             {
