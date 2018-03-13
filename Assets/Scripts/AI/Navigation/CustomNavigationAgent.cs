@@ -32,7 +32,21 @@ public class CustomNavigationAgent : MonoBehaviour {
 
     // ఆగున్నామా?
     // Similar to the Unity NavMeshAgent.
-    public bool isStopped;
+    private bool isStopped;
+
+    public bool GetIsStopped()
+    {
+        return isStopped;
+    }
+
+    public void SetIsStopped(bool _isStopped)
+    {
+        isStopped = _isStopped;
+        if ( true == isStopped)
+        {
+            canTraverseDirectly = false;
+        }
+    }
 
     // Dummy Variable for debugging.
     // ఇది వుత్తినే పెట్టాం.
@@ -96,7 +110,18 @@ public class CustomNavigationAgent : MonoBehaviour {
 
         if (canTraverseDirectly)
         {
+
             Debug.DrawLine(this.transform.position, hitInfo.transform.position);
+
+            // Check for Rotation.
+            var direc = destination - transform.position;
+            var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
+            float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
+            if (angle > 10) { transform.rotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0, rot.y, 0, rot.w), aICharacter.turnSpeed * Time.deltaTime); return; }
+
+            
+            // Rotate First.
+            this.aICharacter.ForceMove(1.0f, 1);
         }
 
 	}

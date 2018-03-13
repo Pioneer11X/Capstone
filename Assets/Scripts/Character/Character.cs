@@ -88,7 +88,7 @@ abstract public class Character : MonoBehaviour
     public bool isDead;
 
     [SerializeField]
-    protected float turnSpeed = 100;
+    public float turnSpeed = 100;
 
     protected float turnMod;
     protected float m_OrigGroundCheckDistance;
@@ -525,9 +525,9 @@ abstract public class Character : MonoBehaviour
         {
             currentState = CharacterState.dead;
 
-            if ( null != GetComponent<NavMeshAgent>())
+            if ( null != GetComponent<CustomNavigationAgent>())
             {
-                GetComponent<NavMeshAgent>().isStopped = true;
+                GetComponent<CustomNavigationAgent>().SetIsStopped(true);
             }
 
         }

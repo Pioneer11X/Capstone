@@ -76,7 +76,7 @@ public class AICharacter : Character
         if ( null == seekTarget)
         {
             // Play the Idle Animation.
-            // TODO: Check if we have to make the Enemy go back to their initial position.
+            // TODO: Check if we have to make the Enemy go back to their initial position. No we do not because this should ideally be only true when the Player is killed by the enemy.
             return;
         }
 
@@ -119,10 +119,11 @@ public class AICharacter : Character
 
         if (ghostTarget != null && Vector3.Distance(transform.position, ghostTarget.position) <= maxSensoryRadius)
         {
+            // Ghost loop. And the Ghost is in the sensory radius of this enemy.
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
                 // navMeshAgent.isStopped = true;
-                customNavMeshAgent.isStopped = true;
+                customNavMeshAgent.SetIsStopped(true);
                 this.m_combat.IsMoving = false;
 
                 if (null == this.m_combat.CurrentTarget)
@@ -145,7 +146,7 @@ public class AICharacter : Character
             {
                 Vector3 targetPos = seekTarget.position;
                 // this.navMeshAgent.isStopped = false;
-                this.customNavMeshAgent.isStopped = false;
+                this.customNavMeshAgent.SetIsStopped(false);
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
                 if (Vector3.Distance(customNavMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
@@ -163,7 +164,7 @@ public class AICharacter : Character
             {
 
                 // navMeshAgent.isStopped = true;
-                customNavMeshAgent.isStopped = true;
+                customNavMeshAgent.SetIsStopped(true);
                 this.m_combat.IsMoving = false;
 
                 if ( null == this.m_combat.CurrentTarget) 
@@ -184,7 +185,7 @@ public class AICharacter : Character
             {
                 Vector3 targetPos = seekTarget.position;
                 // this.navMeshAgent.isStopped = false;
-                this.customNavMeshAgent.isStopped = false;
+                this.customNavMeshAgent.SetIsStopped(false);
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
                 if (Vector3.Distance(customNavMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
@@ -207,7 +208,7 @@ public class AICharacter : Character
             // TODO: Hardcoded Value.
             if ( Vector3.Distance(this.transform.position, customNavMeshAgent.initialLocation) < 0.5f)
             {
-                customNavMeshAgent.isStopped = true;
+                customNavMeshAgent.SetIsStopped(true);
             }
             else
             {
@@ -220,7 +221,7 @@ public class AICharacter : Character
         }
 
         // Update the Moving State for animating..
-        this.m_moving = !(customNavMeshAgent.isStopped);
+        this.m_moving = !(customNavMeshAgent.GetIsStopped());
         timer += Time.deltaTime;
         UpdateState();
 
