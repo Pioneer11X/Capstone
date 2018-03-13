@@ -144,7 +144,7 @@ public class AICharacter : Character
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
                 if (Vector3.Distance(customNavMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
                 {
-                    customNavMeshAgent.SetDestination(targetPos);
+                    customNavMeshAgent.SetDestination(targetPos, seekTarget.gameObject.layer);
                 }
 
                 // TODO: Play the Animation here            
@@ -183,7 +183,7 @@ public class AICharacter : Character
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
                 if (Vector3.Distance(customNavMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
                 {
-                    customNavMeshAgent.SetDestination(targetPos);
+                    customNavMeshAgent.SetDestination(targetPos, seekTarget.gameObject.layer);
                 }
 
                 // TODO: Play the Animation here            

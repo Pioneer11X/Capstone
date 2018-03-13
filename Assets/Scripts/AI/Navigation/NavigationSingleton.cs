@@ -41,8 +41,9 @@ public class NavigationSingleton : MonoBehaviour {
         // This is not ideal as we call this quite frequently and we do not want to perform this same function over and over again unless you actually optimise this.
         for ( int i = 0; i < nodes.Count; i++)
         {
-            if ( temporaryDistance > Vector3.Distance(this.transform.position, nodes[i].nodePosition))
+            if ( temporaryDistance > Vector3.Distance(currentPosition, nodes[i].nodePosition))
             {
+                temporaryDistance = Vector3.Distance(currentPosition, nodes[i].nodePosition);
                 returnNode = nodes[i];
             }
         }
@@ -119,7 +120,7 @@ public class NavigationSingleton : MonoBehaviour {
         }
 
         // Well, if you reach this. There is no path..
-        Debug.LogError("There is no path found from Nodes with index, " + nodeA.index + " to node with index, " + nodeB.index);
+        Debug.LogError("There is no path found from Nodes with index, " + nodeA.index + " to node with index, " + nodeB.index + ". They are named " + nodeA.transform.name + " and " + nodeB.transform.name);
         return null;
 
     }

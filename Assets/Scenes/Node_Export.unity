@@ -365,6 +365,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 874047202}
     m_Modifications:
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4453898476673930, guid: 8b602e116d165a14095794a62c587246, type: 2}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -415,6 +420,16 @@ Prefab:
       propertyPath: index
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1980685597}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 949180388}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b602e116d165a14095794a62c587246, type: 2}
   m_IsPrefabParent: 0
@@ -2091,6 +2106,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 874047202}
     m_Modifications:
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4453898476673930, guid: 8b602e116d165a14095794a62c587246, type: 2}
       propertyPath: m_LocalPosition.x
       value: 29
@@ -2146,6 +2166,21 @@ Prefab:
       propertyPath: index
       value: 18
       objectReference: {fileID: 0}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1980685597}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1088399996}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[2]
+      value: 
+      objectReference: {fileID: 895245286}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b602e116d165a14095794a62c587246, type: 2}
   m_IsPrefabParent: 0
@@ -2661,7 +2696,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 874047201}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 222871799}
@@ -2726,6 +2761,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 874047202}
     m_Modifications:
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4453898476673930, guid: 8b602e116d165a14095794a62c587246, type: 2}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -2776,6 +2816,16 @@ Prefab:
       propertyPath: index
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 2036776944}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 537324706}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b602e116d165a14095794a62c587246, type: 2}
   m_IsPrefabParent: 0
@@ -2983,6 +3033,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 874047202}
     m_Modifications:
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4453898476673930, guid: 8b602e116d165a14095794a62c587246, type: 2}
       propertyPath: m_LocalPosition.x
       value: 16
@@ -3038,6 +3093,16 @@ Prefab:
       propertyPath: index
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 537324706}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1216061261}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b602e116d165a14095794a62c587246, type: 2}
   m_IsPrefabParent: 0
@@ -3668,6 +3733,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 874047202}
     m_Modifications:
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4453898476673930, guid: 8b602e116d165a14095794a62c587246, type: 2}
       propertyPath: m_LocalPosition.x
       value: 29
@@ -3723,6 +3793,16 @@ Prefab:
       propertyPath: index
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 2038459363}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1216061261}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b602e116d165a14095794a62c587246, type: 2}
   m_IsPrefabParent: 0
@@ -3965,6 +4045,8 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   path: []
   reCalculatePath: 0
+  currentNode: {fileID: 0}
+  targetNode: {fileID: 0}
   isStopped: 0
 --- !u!1 &1077996780
 GameObject:
@@ -4899,6 +4981,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 874047202}
     m_Modifications:
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4453898476673930, guid: 8b602e116d165a14095794a62c587246, type: 2}
       propertyPath: m_LocalPosition.x
       value: 42
@@ -4954,6 +5041,21 @@ Prefab:
       propertyPath: index
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[0]
+      value: 
+      objectReference: {fileID: 1216061261}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 895245286}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1529453816}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b602e116d165a14095794a62c587246, type: 2}
   m_IsPrefabParent: 0
@@ -5542,6 +5644,21 @@ Prefab:
       propertyPath: gridX
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[2]
+      value: 
+      objectReference: {fileID: 1088399996}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[3]
+      value: 
+      objectReference: {fileID: 1684990438}
+    - target: {fileID: 114664472785765242, guid: 8b602e116d165a14095794a62c587246,
+        type: 2}
+      propertyPath: connectedNodes.Array.data[1]
+      value: 
+      objectReference: {fileID: 1088399996}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b602e116d165a14095794a62c587246, type: 2}
   m_IsPrefabParent: 0
@@ -6437,6 +6554,8 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   path: []
   reCalculatePath: 0
+  currentNode: {fileID: 0}
+  targetNode: {fileID: 0}
   isStopped: 0
 --- !u!1 &1861806063
 GameObject:

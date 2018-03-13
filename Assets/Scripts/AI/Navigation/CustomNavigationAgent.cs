@@ -8,6 +8,7 @@ using UnityEngine;
 public class CustomNavigationAgent : MonoBehaviour {
 
     public Vector3 destination;
+    public LayerMask targetLayer;
 
     [SerializeField]
     private List<PathingNode> path;
@@ -29,8 +30,15 @@ public class CustomNavigationAgent : MonoBehaviour {
     // Similar to the Unity NavMeshAgent.
     public bool isStopped;
 
-	// Use this for initialization
-	void Start () {
+    // Dummy Variable for debugging.
+    // ఇది వుత్తినే పెట్టాం.
+    [SerializeField]
+    bool canTraverseDirectly;
+    [SerializeField]
+    RaycastHit hitInfo;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 
@@ -66,11 +74,30 @@ public class CustomNavigationAgent : MonoBehaviour {
             reCalculatePath = false;
         }
 
+        if (canTraverseDirectly)
+        {
+            Debug.DrawLine(this.transform.position, hitInfo.transform.position);
+        }
+
 	}
 
-    internal void SetDestination(Vector3 targetPos)
+    internal void SetDestination(Vector3 targetPos, LayerMask _targetLayer)
     {
         this.destination = targetPos;
+        this.targetLayer = _targetLayer;
+
+        // Raycast for the target, and if you can find it, we do not need the pathing nodes anymore...
+        if ( Physics.Raycast(this.transform.position, (targetPos - this.transform.position), out hitInfo))
+        {
+            if ( targetLayer == hitInfo.transform.gameObject.layer)
+            {
+                canTraverseDirectly = true;
+                return;
+            }
+        }
+
+        canTraverseDirectly = false;
         reCalculatePath = true;
+
     }
 }
