@@ -17,6 +17,7 @@ public class CombatManager : MonoBehaviour
 
     private Character m_char;
     public AudioSource combatAudio;
+    // These sound FX are for base attack, not hit.
     public AudioClip punchFX;
     public AudioClip kickFX;
     public AudioClip swordFX;
@@ -617,7 +618,7 @@ public class CombatManager : MonoBehaviour
         isAdjusting = false;
         isJumping = false;
         isMoving = false;
-
+ 
     }
 
     public void Hit(CombatMoveDetails combatMoveDetails, float delay = 0, bool dmgDelay = false)

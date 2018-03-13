@@ -1133,9 +1133,9 @@ MonoBehaviour:
   enemyList: []
   isPlayer: 1
   combatAudio: {fileID: 591365904}
-  punchFX: {fileID: 8300000, guid: 775874b6182f9ad4fa91db3589f01c68, type: 3}
-  kickFX: {fileID: 8300000, guid: 8d804eabe19676a45aae01789de0a6eb, type: 3}
-  swordFX: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
+  punchFX: {fileID: 8300000, guid: d40125c9fa8cb074db9f78663878bc3f, type: 3}
+  kickFX: {fileID: 8300000, guid: c3b246f445b7d684980e8bb1fee9e4f1, type: 3}
+  swordFX: {fileID: 8300000, guid: 916e00cbc73b4b64aabeaa08ee5b7a0f, type: 3}
   gunShotFX: {fileID: 8300000, guid: 82e8248742f82c249ab88ee97a9f2056, type: 3}
   gun: {fileID: 1979892017}
   sword: {fileID: 477862132}
@@ -1153,7 +1153,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: 31e35901cc019974a9a0b15773d21ebb, type: 3}
   - name: Punch_Jab_R
     AT: 0.5
     AD: 0
@@ -1165,7 +1165,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: 31e35901cc019974a9a0b15773d21ebb, type: 3}
   - name: Punch_Hook_L
     AT: 0.65
     AD: 0
@@ -1177,7 +1177,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: 48502b951269b914dbe927b8dc78b461, type: 3}
   - name: Punch_Hook_R
     AT: 0.65
     AD: 0
@@ -1189,7 +1189,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: 48502b951269b914dbe927b8dc78b461, type: 3}
   - name: Punch_Upper_Cut_L
     AT: 0.8
     AD: 0
@@ -1201,7 +1201,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: ab14328224b898a429e751d90d026fae, type: 3}
   - name: Punch_Upper_Cut_R
     AT: 0.8
     AD: 0
@@ -1213,7 +1213,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: ab14328224b898a429e751d90d026fae, type: 3}
   - name: Kick_Straight_Mid_R
     AT: 1
     AD: 0
@@ -1225,7 +1225,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: e8788edca59d0d04bbf76df54a752d52, type: 3}
   - name: Kick_Axe_Kick
     AT: 1.2
     AD: 0
@@ -1237,7 +1237,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: e8788edca59d0d04bbf76df54a752d52, type: 3}
   - name: Kick_Horse_Kick
     AT: 1
     AD: 0
@@ -1249,7 +1249,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: e8788edca59d0d04bbf76df54a752d52, type: 3}
   - name: Sword_Attack_R
     AT: 1
     AD: 0
@@ -1261,7 +1261,7 @@ MonoBehaviour:
     Pos: 1
     Dir: 1
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
   - name: Sword_Attack_RL
     AT: 0.8
     AD: 0
@@ -1273,7 +1273,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 2
     Power: 0
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
   - name: Sword_Attack_Sp_U
     AT: 1.5
     AD: 0
@@ -1285,7 +1285,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 0
     Power: 1
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
   - name: Sword_Attack_Combo_LL
     AT: 2
     AD: 0
@@ -1297,7 +1297,7 @@ MonoBehaviour:
     Pos: 0
     Dir: 2
     Power: 1
-    CombatSFX: {fileID: 0}
+    CombatSFX: {fileID: 8300000, guid: f0535b5fb738c934293c3da5b83d80a3, type: 3}
   - name: KB_Gun
     AT: 1
     AD: 0
@@ -10652,6 +10652,36 @@ MonoBehaviour:
   m_Script: {fileID: 910771039, guid: f56d46228aee4734f9114056c53bb57e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  surfacevecs: []
+  tdataFloat: []
+  terrainData: {fileID: 0}
+  xStart: 0
+  zStart: 0
+  roadSurface: {fileID: 0}
+  surfaceMesh: {fileID: 0}
+  surfaceCollider: {fileID: 0}
+  terrainDataStored: []
+  terrainChanges: []
+  terrainTrees: []
+  detailInstances: []
+  detailInstanceStarts: 
+  surfaceObjects: []
+  terrainTestPoints: []
+  splatData: []
+  addedTrees: []
+  terrainHeightsBackup: []
+  terrainTreesBackup: []
+  terrainDetailBackup: []
+  terrainSplatBackup: []
+  detailInstanceStartsBackUp: 
+  heightmapFlag: 0
+  splatmapFlag: 0
+  treeFlag: 0
+  detailFlag: 0
+  terrainDone: 0
+  backupFlagNotification: 0
+  backupObject: {fileID: 0}
+  terrain: {fileID: 0}
 --- !u!1 &454198409
 GameObject:
   m_ObjectHideFlags: 0
