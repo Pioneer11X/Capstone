@@ -22,6 +22,11 @@ public class NavigationSingleton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+        foreach ( GameObject node in GameObject.FindGameObjectsWithTag("PathNode"))
+        {
+            nodes.Add(node.GetComponent<PathingNode>());
+        }
+
 	}
 	
 	// Update is called once per frame
