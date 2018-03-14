@@ -94,7 +94,7 @@ public class PC : Humanoid
     protected override void Update()
     {
         base.Update();
-        if (lifeBar != null)
+        if (lifeBar != null && this.tag == "Player")
         {
             lifeBar.value = this.health;
         }

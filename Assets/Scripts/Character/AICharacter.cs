@@ -60,6 +60,10 @@ public class AICharacter : Character
             ghostTarget = GameObject.FindGameObjectWithTag("Ghost").transform;
             seekTarget = ghostTarget;
         }
+        else if(GameObject.FindGameObjectWithTag("GhostRecord") != null)
+        {
+            seekTarget = null;
+        }
         else
         {
             seekTarget = playerTarget;
