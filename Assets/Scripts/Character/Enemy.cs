@@ -11,6 +11,7 @@ public class Enemy : Humanoid
     private GameObject level_Manager;
     public Material defaultMat;
     public Material highlightMat;
+    public float initialHealth;
 
     protected override void Start()
     {
@@ -23,7 +24,8 @@ public class Enemy : Humanoid
             BossBar.transform.GetChild(1).gameObject.SetActive(true);
             LifeBar = BossBar.GetComponentInChildren<Slider>();
             level_Manager = GameObject.FindGameObjectWithTag("LevelManager");
-        }        
+        }
+        initialHealth = health;
     }
 
     protected override void Update()
