@@ -408,6 +408,12 @@ abstract public class Character : MonoBehaviour
             }
             else if (m_combat.IsAttacking)
             {
+                if (isDead)
+                {
+                    m_combat.IsAttacking = false;
+                    return;
+                }
+
                 if (stateTimer < m_combat.CurrentAttackTime)
                 {
                     currentState = CharacterState.attack;

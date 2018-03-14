@@ -6,15 +6,23 @@ public class Enemy : Humanoid
 {
     public bool isBoss;
     public bool isTutorial;
+    public bool isDummy = false;
     public GameObject BossBar;
     public Slider LifeBar;
     private GameObject level_Manager;
     public Material defaultMat;
     public Material highlightMat;
     public float initialHealth;
+    protected bool isDead;
+    public bool IsDead
+    {
+        get { return IsDead; }
+    }
 
     protected override void Start()
     {
+        isDead = false;
+
         base.Start();
 
         if (isBoss)
@@ -26,6 +34,10 @@ public class Enemy : Humanoid
             level_Manager = GameObject.FindGameObjectWithTag("LevelManager");
         }
         initialHealth = health;
+        if (!isDummy)
+        {
+            this.GetComponent<ActionSelector>().PreventAttack = false;
+        }
     }
 
     protected override void Update()
@@ -43,6 +55,9 @@ public class Enemy : Humanoid
     /// </summary>
     protected override void Die()
     {
+        isDead = true;
+        this.GetComponent<ActionSelector>().PreventAttack = true;
+
         if (isBoss )
         {
             LifeBar.value = 0;

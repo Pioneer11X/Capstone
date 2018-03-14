@@ -11,6 +11,10 @@ public class ActionSelector : MonoBehaviour
     CombatManager m_combat;
 
     [SerializeField] bool preventAttack = false;
+    public bool PreventAttack
+    {
+        set { preventAttack = value; }
+    }
 
     // ప్రస్తుత పరిస్థితి
     // Current State.

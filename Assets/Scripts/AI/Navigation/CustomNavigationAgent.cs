@@ -72,7 +72,7 @@ public class CustomNavigationAgent : MonoBehaviour {
         aICharacter = this.GetComponent<AICharacter>();
         Debug.Assert(null != aICharacter);
 
-        maxSensoryRadius = aICharacter.GetMaxSensoryRadious();
+        //maxSensoryRadius = aICharacter.GetMaxSensoryRadious(); TODO uncomment this line when moving back to custom agent
         Debug.Assert(0.5 < maxSensoryRadius);
 	}
 

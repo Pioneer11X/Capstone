@@ -19,13 +19,8 @@ public class AICharacter : Character
     [SerializeField]
     private float maxSensoryRadius; // A variable to store the maximum sensory radius of the AI.
 
-    public float GetMaxSensoryRadious()
-    {
-        return maxSensoryRadius;
-    }
+    protected NavMeshAgent navMeshAgent;      // A Reference to the NavMeshAgent Component attached to the GameObject.
 
-    // protected NavMeshAgent navMeshAgent;      // A Reference to the NavMeshAgent Component attached to the GameObject.
-    protected CustomNavigationAgent customNavMeshAgent;
 
     // Temporary timer variables.
     protected float timer = 0.0f;
@@ -44,20 +39,16 @@ public class AICharacter : Character
         // Assert that the scene has a player tagged with Player.
         Debug.Assert(null != seekTarget);
 
-        //navMeshAgent = GetComponent<NavMeshAgent>();
-        //// Assert that the scene has a player has a Nav Mesh Agent.
-        //Debug.Assert(null != navMeshAgent);
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        // Assert that the scene has a player has a Nav Mesh Agent.
+        Debug.Assert(null != navMeshAgent);
 
         m_combat.SetChar(this);
-        
-        customNavMeshAgent = GetComponent<CustomNavigationAgent>();
-        Debug.Assert(null != customNavMeshAgent, "Navigation Agent is not set for " + this.gameObject.name);
 
         // Set the destination for the NavMesh.
-        if ( null != seekTarget)
+        if (null != seekTarget)
         {
-            // navMeshAgent.SetDestination(target: seekTarget.position);
-            customNavMeshAgent.destination = seekTarget.position;
+            navMeshAgent.SetDestination(target: seekTarget.position);
         }
 
     }
@@ -69,7 +60,7 @@ public class AICharacter : Character
             ghostTarget = GameObject.FindGameObjectWithTag("Ghost").transform;
             seekTarget = ghostTarget;
         }
-        else if(GameObject.FindGameObjectWithTag("GhostRecord") != null)
+        else if (GameObject.FindGameObjectWithTag("GhostRecord") != null)
         {
             seekTarget = null;
         }
@@ -77,10 +68,9 @@ public class AICharacter : Character
         {
             seekTarget = playerTarget;
         }
-        if ( null == seekTarget)
+        if (null == seekTarget)
         {
             // Play the Idle Animation.
-            // TODO: Check if we have to make the Enemy go back to their initial position. No we do not because this should ideally be only true when the Player is killed by the enemy.
             return;
         }
 
@@ -101,12 +91,12 @@ public class AICharacter : Character
             // సరి చేసుకొని, ముందుకో వెనక్కో వెళ్ళు. అంతే.
             // Well... Adjust.. and adjust only.. Do not move do not look to perform the next action..
             float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
-            if ( distanceToTarget > this.m_combat.GetAdjustMaxDistance())
+            if (distanceToTarget > this.m_combat.GetAdjustMaxDistance())
             {
                 ForceMove(1.0f, 1);
             }
 
-            if ( distanceToTarget < this.m_combat.GetAdjustMinDistance())
+            if (distanceToTarget < this.m_combat.GetAdjustMinDistance())
             {
                 ForceMove(1.0f, -1);
             }
@@ -123,11 +113,9 @@ public class AICharacter : Character
 
         if (ghostTarget != null && Vector3.Distance(transform.position, ghostTarget.position) <= maxSensoryRadius)
         {
-            // Ghost loop. And the Ghost is in the sensory radius of this enemy.
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
-                // navMeshAgent.isStopped = true;
-                customNavMeshAgent.SetIsStopped(true);
+                navMeshAgent.isStopped = true;
                 this.m_combat.IsMoving = false;
 
                 if (null == this.m_combat.CurrentTarget)
@@ -143,19 +131,18 @@ public class AICharacter : Character
                     {
                         this.s_action.selectNextOption();
                         timer = 0;
-                    } 
+                    }
                 }
             }
             else
             {
                 Vector3 targetPos = seekTarget.position;
-                // this.navMeshAgent.isStopped = false;
-                this.customNavMeshAgent.SetIsStopped(false);
+                this.navMeshAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(customNavMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
+                if (Vector3.Distance(navMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
                 {
-                    customNavMeshAgent.SetDestination(targetPos, seekTarget.gameObject.layer);
+                    navMeshAgent.SetDestination(targetPos);
                 }
 
                 // TODO: Play the Animation here            
@@ -167,11 +154,10 @@ public class AICharacter : Character
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
 
-                // navMeshAgent.isStopped = true;
-                customNavMeshAgent.SetIsStopped(true);
+                navMeshAgent.isStopped = true;
                 this.m_combat.IsMoving = false;
 
-                if ( null == this.m_combat.CurrentTarget) 
+                if (null == this.m_combat.CurrentTarget)
                 {
                     this.m_combat.CurrentTarget = seekTarget.gameObject.GetComponent<Character>();
                 }
@@ -188,13 +174,12 @@ public class AICharacter : Character
             else
             {
                 Vector3 targetPos = seekTarget.position;
-                // this.navMeshAgent.isStopped = false;
-                this.customNavMeshAgent.SetIsStopped(false);
+                this.navMeshAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(customNavMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
+                if (Vector3.Distance(navMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
                 {
-                    customNavMeshAgent.SetDestination(targetPos, seekTarget.gameObject.layer);
+                    navMeshAgent.SetDestination(targetPos);
                 }
 
                 // TODO: Play the Animation here            
@@ -204,28 +189,12 @@ public class AICharacter : Character
         else
         {
             // TODO: Play IDLE Animaiton Here.
-            // navMeshAgent.isStopped = true;
-            // customNavMeshAgent.isStopped = true;
-
-            // ఒకవేళమనంఅసలుpositionలోనేవుంటేమనంకదలాల్సినవసరంలేదు
-            // There is no need to move if we are there in the original/intial position.
-            // TODO: Hardcoded Value.
-            if ( Vector3.Distance(this.transform.position, customNavMeshAgent.initialLocation) < 0.5f)
-            {
-                customNavMeshAgent.SetIsStopped(true);
-            }
-            else
-            {
-                // Set the Enemies to go back to their original positions.
-                // లేదంటే Enemiesని తిరిగివాళ్ళఅసలు positionకు వెళ్ళమనాలి.
-                customNavMeshAgent.SetDestination(customNavMeshAgent.initialLocation, 0);
-            }
-
+            navMeshAgent.isStopped = true;
             this.m_combat.IsMoving = false;
         }
 
         // Update the Moving State for animating..
-        this.m_moving = !(customNavMeshAgent.GetIsStopped());
+        this.m_moving = !(navMeshAgent.isStopped);
         timer += Time.deltaTime;
         UpdateState();
 
@@ -241,7 +210,7 @@ public class AICharacter : Character
     /// <param name="running">is the player running</param>
     /// <param name="dash">is the player dashing</param>
     override public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool dash, bool aiming)
-    {}//end move
+    { }//end move
 
     // Pursuit the Player Function.
 
