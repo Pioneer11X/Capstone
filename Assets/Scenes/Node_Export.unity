@@ -2913,6 +2913,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114002162799610968, guid: b13b84951c8f02240ba62c13ddf4fc0c,
+        type: 2}
+      propertyPath: maxSensoryRadius
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b13b84951c8f02240ba62c13ddf4fc0c, type: 2}
   m_IsPrefabParent: 0
@@ -3120,19 +3125,21 @@ Transform:
   - {fileID: 573721557}
   - {fileID: 2101404710}
   - {fileID: 1908654968}
-  - {fileID: 1690950598}
-  - {fileID: 1701972460}
+  - {fileID: 135248805}
   - {fileID: 625347361}
   - {fileID: 59249933}
-  - {fileID: 135248805}
   - {fileID: 1046607397}
+  - {fileID: 1701972460}
   - {fileID: 267502890}
+  - {fileID: 1690950598}
   - {fileID: 88092355}
+  - {fileID: 665487946}
   - {fileID: 35970969}
   - {fileID: 110546741}
   - {fileID: 1387493128}
   - {fileID: 1822731536}
   - {fileID: 2116858014}
+  - {fileID: 1681431645}
   - {fileID: 237193705}
   - {fileID: 1843035763}
   - {fileID: 1149682012}
@@ -3140,7 +3147,6 @@ Transform:
   - {fileID: 1903330755}
   - {fileID: 1879170214}
   - {fileID: 1620273727}
-  - {fileID: 665487946}
   - {fileID: 1311774323}
   - {fileID: 1087911235}
   - {fileID: 218341410}
@@ -3155,7 +3161,6 @@ Transform:
   - {fileID: 2097388373}
   - {fileID: 790833084}
   - {fileID: 754049068}
-  - {fileID: 1681431645}
   - {fileID: 1767394697}
   - {fileID: 1812851599}
   - {fileID: 302709974}

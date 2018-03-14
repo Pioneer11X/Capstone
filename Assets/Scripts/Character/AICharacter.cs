@@ -241,4 +241,12 @@ public class AICharacter : Character
 
     // Pursuit the Player Function.
 
+    // Use this for debugging.
+
+    private void OnDrawGizmos()
+    {
+        // Draw a sphere around the player for the sensory radius.
+        Gizmos.DrawWireSphere(this.transform.position, maxSensoryRadius);
+    }
+
 }//end of class
