@@ -2097,6 +2097,11 @@ Prefab:
       propertyPath: isDummy
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 195638901970784904, guid: 71d13e16553452246a13aceeafa3c2ea,
+        type: 2}
+      propertyPath: m_StoppingDistance
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71d13e16553452246a13aceeafa3c2ea, type: 2}
   m_IsPrefabParent: 0
