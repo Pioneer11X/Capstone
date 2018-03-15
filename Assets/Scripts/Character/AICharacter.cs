@@ -46,7 +46,7 @@ public class AICharacter : Character
         m_combat.SetChar(this);
 
         // Set the destination for the NavMesh.
-        if ( null != seekTarget)
+        if (null != seekTarget)
         {
             navMeshAgent.SetDestination(target: seekTarget.position);
         }
@@ -60,11 +60,15 @@ public class AICharacter : Character
             ghostTarget = GameObject.FindGameObjectWithTag("Ghost").transform;
             seekTarget = ghostTarget;
         }
+        else if (GameObject.FindGameObjectWithTag("GhostRecord") != null)
+        {
+            seekTarget = null;
+        }
         else
         {
             seekTarget = playerTarget;
         }
-        if ( null == seekTarget)
+        if (null == seekTarget)
         {
             // Play the Idle Animation.
             return;
@@ -87,12 +91,12 @@ public class AICharacter : Character
             // సరి చేసుకొని, ముందుకో వెనక్కో వెళ్ళు. అంతే.
             // Well... Adjust.. and adjust only.. Do not move do not look to perform the next action..
             float distanceToTarget = Vector3.Distance(this.transform.position, this.m_combat.CurrentTarget.transform.position);
-            if ( distanceToTarget > this.m_combat.GetAdjustMaxDistance())
+            if (distanceToTarget > this.m_combat.GetAdjustMaxDistance())
             {
                 ForceMove(1.0f, 1);
             }
 
-            if ( distanceToTarget < this.m_combat.GetAdjustMinDistance())
+            if (distanceToTarget < this.m_combat.GetAdjustMinDistance())
             {
                 ForceMove(1.0f, -1);
             }
@@ -127,7 +131,7 @@ public class AICharacter : Character
                     {
                         this.s_action.selectNextOption();
                         timer = 0;
-                    } 
+                    }
                 }
             }
             else
@@ -153,7 +157,7 @@ public class AICharacter : Character
                 navMeshAgent.isStopped = true;
                 this.m_combat.IsMoving = false;
 
-                if ( null == this.m_combat.CurrentTarget) 
+                if (null == this.m_combat.CurrentTarget)
                 {
                     this.m_combat.CurrentTarget = seekTarget.gameObject.GetComponent<Character>();
                 }
@@ -206,7 +210,7 @@ public class AICharacter : Character
     /// <param name="running">is the player running</param>
     /// <param name="dash">is the player dashing</param>
     override public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool dash, bool aiming)
-    {}//end move
+    { }//end move
 
     // Pursuit the Player Function.
 

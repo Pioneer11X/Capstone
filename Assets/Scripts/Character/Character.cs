@@ -88,7 +88,7 @@ abstract public class Character : MonoBehaviour
     public bool isDead;
 
     [SerializeField]
-    protected float turnSpeed = 100;
+    public float turnSpeed = 100;
 
     protected float turnMod;
     protected float m_OrigGroundCheckDistance;
@@ -397,8 +397,8 @@ abstract public class Character : MonoBehaviour
                 }
                 else if (stateTimer < m_combat.RunRollTime && currentState != CharacterState.roll)
                 {
-                    //currentState = CharacterState.roll_Run;
-                    //ForceMove(m_combat.RollSpeed * 1.5f, 1);
+                    currentState = CharacterState.roll_Run;
+                    ForceMove(m_combat.RollSpeed * 1.25f, 1);
                 }
                 else
                 {
@@ -408,6 +408,12 @@ abstract public class Character : MonoBehaviour
             }
             else if (m_combat.IsAttacking)
             {
+                if (isDead)
+                {
+                    m_combat.IsAttacking = false;
+                    return;
+                }
+
                 if (stateTimer < m_combat.CurrentAttackTime)
                 {
                     currentState = CharacterState.attack;
@@ -471,7 +477,14 @@ abstract public class Character : MonoBehaviour
                         //look at target
                         charBody.transform.forward = m_combat.CurrentTarget.transform.position - transform.position;
                         currentState = CharacterState.adjustPosition;
-                        ForceMove(m_combat.AdjustSpeed, 1);
+                        if(Vector3.Distance(transform.position, m_combat.CurrentTarget.transform.position) < m_combat.CurrentAttackDistance )
+                        {
+                            ForceMove(m_combat.AdjustSpeed, 0);
+                        }
+                        else
+                        {
+                            ForceMove(m_combat.AdjustSpeed, 1);
+                        }
                     }
                     
                 }
@@ -525,9 +538,9 @@ abstract public class Character : MonoBehaviour
         {
             currentState = CharacterState.dead;
 
-            if ( null != GetComponent<NavMeshAgent>())
+            if ( null != GetComponent<CustomNavigationAgent>())
             {
-                GetComponent<NavMeshAgent>().isStopped = true;
+                GetComponent<CustomNavigationAgent>().SetIsStopped(true);
             }
 
         }

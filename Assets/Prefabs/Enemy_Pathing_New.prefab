@@ -553,6 +553,7 @@ GameObject:
   - component: {fileID: 114451992004560776}
   - component: {fileID: 114945421853406232}
   - component: {fileID: 114743901371453552}
+  - component: {fileID: 114477128325086274}
   m_Layer: 8
   m_Name: Enemy_Pathing_New
   m_TagString: Enemy
@@ -1560,8 +1561,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529252476912762}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -19.483059, y: 1.2583189, z: -33.9518}
+  m_LocalRotation: {x: -0, y: -0, z: 0, w: 1}
+  m_LocalPosition: {x: 28.96, y: 0.001, z: 13.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4698559254763812}
@@ -1789,7 +1790,7 @@ MonoBehaviour:
   allMoves:
   - name: Punch_Jab_L
     AT: 0.7
-    AD: 1
+    AD: 0.9
     ET: 0.2
     ED: 1
     HT: 1
@@ -1801,7 +1802,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Jab_R
     AT: 0.5
-    AD: 1
+    AD: 0.9
     ET: 0.2
     ED: 1
     HT: 1
@@ -1813,7 +1814,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Hook_L
     AT: 0.65
-    AD: 1.5
+    AD: 0.7
     ET: 0.2
     ED: 1
     HT: 1
@@ -1825,7 +1826,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Hook_R
     AT: 0.65
-    AD: 1.5
+    AD: 0.7
     ET: 0.2
     ED: 1
     HT: 1
@@ -1837,7 +1838,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_L
     AT: 0.8
-    AD: 1.75
+    AD: 0.6
     ET: 0.5
     ED: 1
     HT: 0.8
@@ -1849,7 +1850,7 @@ MonoBehaviour:
     CombatSFX: {fileID: 0}
   - name: Punch_Upper_Cut_R
     AT: 0.8
-    AD: 1.75
+    AD: 0.6
     ET: 0.5
     ED: 1
     HT: 0.8
@@ -1972,7 +1973,7 @@ MonoBehaviour:
   rollSpeed: 3
   isTurning: 0
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
-  timeBetweenAttacks: 2
+  timeBetweenAttacks: 0.2
   hitTime: 1
   hitMaxWalkSpeed: 1
   isAdjusting: 0
@@ -2009,6 +2010,27 @@ MonoBehaviour:
   LifeBar: {fileID: 0}
   defaultMat: {fileID: 0}
   highlightMat: {fileID: 0}
+--- !u!114 &114477128325086274
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1529252476912762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6a30b7e7236314285fb9771904d2b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: {x: 0, y: 0, z: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  initialLocation: {x: 0, y: 0, z: 0}
+  path: []
+  reCalculatePath: 0
+  currentNode: {fileID: 0}
+  targetNode: {fileID: 0}
+  canTraverseDirectly: 0
 --- !u!114 &114743901371453552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2318,7 +2340,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1529252476912762}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.2
   m_Speed: 3.5
