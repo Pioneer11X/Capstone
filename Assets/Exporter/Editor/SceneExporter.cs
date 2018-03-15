@@ -23,14 +23,15 @@ namespace FriedTofu
             [FieldOffset(9)] public byte Reserved0;
             [FieldOffset(10)] public byte Reserved1;
             [FieldOffset(11)] public byte NumTexcoordChannels;
-            [FieldOffset(12)] public uint NumMeshes;
-            [FieldOffset(16)] public uint NumBones;
-            [FieldOffset(20)] public uint NumAnimations;
-            [FieldOffset(24)] public uint NumAnimChannels;
-            [FieldOffset(28)] public uint NumTotalTranslationFrames;
-            [FieldOffset(32)] public uint NumTotalRotationFrames;
-            [FieldOffset(36)] public uint NumTotalScaleFrames;
-            [FieldOffset(40)] public uint NumAnimationFrames;
+            [FieldOffset(12)] public uint NumVertices;
+            [FieldOffset(16)] public uint NumMeshes;
+            [FieldOffset(20)] public uint NumBones;
+            [FieldOffset(24)] public uint NumAnimations;
+            [FieldOffset(28)] public uint NumAnimChannels;
+            [FieldOffset(32)] public uint NumTotalTranslationFrames;
+            [FieldOffset(36)] public uint NumTotalRotationFrames;
+            [FieldOffset(40)] public uint NumTotalScaleFrames;
+            [FieldOffset(44)] public uint NumAnimationFrames;
 
             public void Initialize()
             {
@@ -47,6 +48,7 @@ namespace FriedTofu
                 writer.Write(Reserved0);
                 writer.Write(Reserved1);
                 writer.Write((byte)(NumTexcoordChannels << 4));
+                writer.Write(NumVertices);
                 writer.Write(NumMeshes);
                 writer.Write(NumBones);
                 writer.Write(NumAnimations);
@@ -407,6 +409,7 @@ namespace FriedTofu
             header.Initialize();
 
             header.NumTexcoordChannels = 1;
+            header.NumVertices = (uint)mesh.vertexCount;
             header.NumMeshes = (uint)mesh.subMeshCount;
             
             //
