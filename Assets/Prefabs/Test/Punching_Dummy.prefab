@@ -1869,10 +1869,12 @@ MonoBehaviour:
   senseRadius: 0
   isBoss: 0
   isTutorial: 1
+  isDummy: 1
   BossBar: {fileID: 0}
   LifeBar: {fileID: 0}
   defaultMat: {fileID: 2100000, guid: dd57fea2d38633a42be0ca58ae57c683, type: 2}
   highlightMat: {fileID: 2100000, guid: 25e62ea728965c849b763d29ee5b0365, type: 2}
+  initialHealth: 0
 --- !u!114 &114421404917363508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2287,7 +2289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a56bc52885fe24ea0bd7ce74484581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charAudio: {fileID: 0}
+  charAudio: {fileID: 82493332204715012}
   charCombatAudio: {fileID: 0}
   footsteps1: {fileID: 0}
   footsteps2: {fileID: 0}

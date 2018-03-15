@@ -600,7 +600,10 @@ public class CombatManager : MonoBehaviour
 
     public void Hit(HitPosition pos, HitDirection dir, HitPower power, float hitTime, float dmg, AudioClip sFX, float delay = 0, bool dmgDelay = false)
     {
-        combatAudio.PlayOneShot(sFX);
+        if (sFX != null)
+        {
+            combatAudio.PlayOneShot(sFX);
+        }
 
         //
         isHit = true;
@@ -631,7 +634,10 @@ public class CombatManager : MonoBehaviour
 
     public void Hit(CombatMoveDetails combatMoveDetails, float delay = 0, bool dmgDelay = false)
     {
-        combatAudio.PlayOneShot(combatMoveDetails.CombatSFX);
+        if (combatMoveDetails.CombatSFX != null)
+        {
+            combatAudio.PlayOneShot(combatMoveDetails.CombatSFX);
+        }
 
         isHit = true;
         m_char.StateTimer = 0;
@@ -887,6 +893,8 @@ public class CombatManager : MonoBehaviour
                 }
                 else
                 {
+                    if(currentSFX == null)
+                    { Debug.Log("Null SFX"); }
                     currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentHitTime, currentDmgAmount, currentSFX, 0.5f, true);
                 }
             }
@@ -1035,11 +1043,12 @@ public class CombatManager : MonoBehaviour
         currentHitPos = currentMoveDetails.Pos;
         currentHitTime = currentMoveDetails.HT;
         currentAttackDistance = currentMoveDetails.StrikeDistance;
+        currentSFX = allMoves[(int)currentCombat - 1].CombatSFX;
 
         // Move according to the Attack Distance.
 
         // Variable for the Sound
-        
+
         Attack();
 
     }
