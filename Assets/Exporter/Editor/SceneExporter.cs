@@ -7,6 +7,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace FriedTofu
 {
@@ -61,12 +62,12 @@ namespace FriedTofu
         [Serializable]
         public struct SubMesh
         {
-            [FieldOffset(0)] public uint NumVertices;
+            [FieldOffset(0)] public uint BaseVertex;
             [FieldOffset(4)] public uint NumIndices;
 
             public void WriteTo(BinaryWriter writer)
             {
-                writer.Write(NumVertices);
+                writer.Write(BaseVertex);
                 writer.Write(NumIndices);
             }
         }
@@ -211,6 +212,9 @@ namespace FriedTofu
             if (!obj.activeInHierarchy)
                 return null;
 
+            if (obj.layer == LayerMask.NameToLayer("UI"))
+                return null;
+
             if (obj.tag == "MainCamera")
                 return null;
 
@@ -249,7 +253,7 @@ namespace FriedTofu
                         throw new Exception("MeshFilter not found.");
                     }
 
-                    Debug.Log(filter.sharedMesh.name + " [" + filter.sharedMesh.subMeshCount + "]");
+                    //Debug.Log(filter.sharedMesh.name + " [" + filter.sharedMesh.subMeshCount + "]");
                     
                     string meshPath = ExportMesh(filter.sharedMesh, context);
 
@@ -349,22 +353,36 @@ namespace FriedTofu
         static string ExportMesh(Mesh mesh, ResourceMap context)
         {
             string originalPath = AssetDatabase.GetAssetPath(mesh);
+            string guid = string.Empty;
+            string basename = string.Empty;
+
             if (string.IsNullOrEmpty(originalPath))
             {
-                throw new Exception("Cannot find mesh asset.");
-            }
+                PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
+                SerializedObject so = new SerializedObject(mesh);
+                inspectorModeInfo.SetValue(so, InspectorMode.Debug, null); 
+                
+                SerializedProperty localIdProp = so.FindProperty("m_LocalIdentfierInFile");
 
-            string guid = AssetDatabase.AssetPathToGUID(originalPath);
-
-            string basename = Path.GetFileNameWithoutExtension(originalPath);
-
-            if (basename == "unity default resources")
-            {
-                basename = "Unity_Builtin_" + mesh.name;
+                int localId = localIdProp.intValue;
+                
+                guid = localId.ToString();
+                basename = mesh.name + "_" + localId;
             }
             else
             {
-                basename += "_" + mesh.name;
+                guid = AssetDatabase.AssetPathToGUID(originalPath);
+
+                basename = Path.GetFileNameWithoutExtension(originalPath);
+
+                if (basename == "unity default resources")
+                {
+                    basename = "Unity_Builtin_" + mesh.name;
+                }
+                else
+                {
+                    basename += "_" + mesh.name;
+                }
             }
 
             string newPath = Path.Combine("models", basename + ".model");
@@ -400,31 +418,35 @@ namespace FriedTofu
 
                     SubMesh[] submeshes = new SubMesh[mesh.subMeshCount];
                     uint[] startVertexLocs = new uint[mesh.subMeshCount];
-
+                    
                     List<ushort> finalIndices = new List<ushort>();
-
-                    int verticesCount = 0;
-
+                    
                     // writer list of sub meshes
                     for (int i = 0; i < mesh.subMeshCount; i++)
                     {
                         int[] indices = mesh.GetIndices(i);
 
-                        if (indices.Length <= 0 || indices.Length % 3 != 0)
+                        if (indices.Length < 0 || indices.Length % 3 != 0)
                         {
-                            throw new Exception("Mesh not supported.");
+                            throw new Exception("Mesh not supported. [" + basename + "][" + i + "] num of indices : " + indices.Length);
                         }
 
-                        int maxIndex = indices[0];
-                        int minIndex = indices[0];
+                        if (indices.Length == 0)
+                        {
+                            if (mesh.subMeshCount > 1 || mesh.vertexCount == 0)
+                            {
+                                throw new Exception("Mesh not supported. [" + basename + "][" + i + "] num of indices : " + indices.Length + ", num of vertices: " + mesh.vertexCount);
+                            }
+
+                            indices = new int[mesh.vertexCount];
+
+                            for (int j = 0; j < indices.Length; j++)
+                                indices[j] = j;
+                        }
+                        
                         for (int j = 0; j < indices.Length; j++)
                         {
-                            if (indices[j] > maxIndex)
-                                maxIndex = indices[j];
-                            if (indices[j] < minIndex)
-                                minIndex = indices[j];
-
-                            int finalIndex = indices[j] - verticesCount;
+                            int finalIndex = indices[j];
                             if (finalIndex < 0 || finalIndex > ushort.MaxValue)
                             {
                                 throw new Exception("Mesh not supported.");
@@ -432,27 +454,12 @@ namespace FriedTofu
 
                             finalIndices.Add((ushort)finalIndex);
                         }
-
-                        if (minIndex != verticesCount)
-                        {
-                            throw new Exception("Mesh not supported.");
-                        }
-
-                        startVertexLocs[i] = (uint)minIndex;
-                        int verts = maxIndex - minIndex + 1;
-
-                        submeshes[i].NumVertices = (uint)verts;
+                        
+                        submeshes[i].BaseVertex = 0;
                         submeshes[i].NumIndices = (uint)indices.Length;
 
-                        writer.Write(submeshes[i].NumVertices);
+                        writer.Write(submeshes[i].BaseVertex);
                         writer.Write(submeshes[i].NumIndices);
-
-                        verticesCount += verts;
-                    }
-
-                    if (verticesCount != mesh.vertexCount)
-                    {
-                        throw new Exception("Mesh not supported.");
                     }
                     
                     for (int i = 0; i < mesh.vertexCount; i++)
@@ -471,8 +478,6 @@ namespace FriedTofu
 
                         // tangent
                         Vector4 tangent = mesh.tangents[i];
-                        //tangent *= mesh.tangents[i].w;
-                        //Vector4 tangent = (tangents[i] - normal * Vector3.Dot(normal, tangents[i])).normalized;
                         writer.Write(tangent.x);
                         writer.Write(tangent.y);
                         writer.Write(tangent.z);
@@ -638,6 +643,12 @@ namespace FriedTofu
                 case UnityEngine.Rendering.TextureDimension.Tex2D:
                     if (importer.convertToNormalmap)
                     {
+                        if (!importer.isReadable)
+                        {
+                            importer.isReadable = true;
+                            importer.SaveAndReimport();
+                        }
+                        
                         Texture2D tex2d = tex as Texture2D;
                         TexConverter.ConvertNormalMap(tex2d, Path.Combine(context.BaseDir, newPath + ".texture"));
                     }
