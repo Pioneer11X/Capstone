@@ -160,7 +160,7 @@ abstract public class Character : MonoBehaviour
 
         m_JumpPower = humanoid.JumpPower;
         m_BaseSpeedMultiplier = humanoid.SpeedMove;
-        m_SprintSpeedMultiplier = humanoid.SpeedDash;
+        m_SprintSpeedMultiplier = humanoid.SpeedRun;
         m_RunSpeedMultiplier = humanoid.SpeedRun;
 
         stateTimer = 0;
