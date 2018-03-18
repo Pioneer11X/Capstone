@@ -21,6 +21,7 @@ public class ThirdPCharacter : Character
     private float hori;
     private float vertLerp;
     private float horiLerp;
+    private float footStepsMod;
     [SerializeField] float lerpMod;
 
     /// <summary>
@@ -33,6 +34,7 @@ public class ThirdPCharacter : Character
         m_combat.SetChar(this);
         vertLerp = 0.5f;
         horiLerp = 0.5f;
+        footStepsMod = 0;
     }
 
     /// <summary>
@@ -125,14 +127,16 @@ public class ThirdPCharacter : Character
         {
             m_combat.IsMoving = true;
             m_moving = true;
+            footStepsMod++;
         }
 
         // Character Rotation && !turned
         if (!aiming && (vert != 0 || hori != 0) )
         {
-            if (!charAudio.isPlaying && m_IsGrounded)
+            if (!charAudio.isPlaying && m_IsGrounded && footStepsMod > 15)
             {
                 charAudio.PlayOneShot(footsteps4);
+                footStepsMod = 0;
             }
             if (m_IsGrounded)
             {
