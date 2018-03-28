@@ -188,6 +188,11 @@ namespace FriedTofu
 
                     scene.AddSpwanerNode(node);
                 }
+                else if(obj.tag == "PlayerSpawn")
+                {
+                    Scene.SpawnPoint node = new Scene.SpawnPoint(obj);
+                    scene.AddSpawnPoint(node);
+                }
             }
 
             // sort the path nodes here
@@ -230,15 +235,17 @@ namespace FriedTofu
 
             if (obj.tag == "Spawner" || obj.tag == "TriggerNode") { return null; }
 
+            if(obj.tag == "PlayerSpawn") { return null; }
+
             Scene.Entity entity = new Scene.Entity(obj);
 
             string type = "unknown";
 
-            if (null != obj.GetComponent<Light>())
+            if (null != obj.GetComponent<Light>() && obj.GetComponent<Light>().enabled)
             {
                 type = "light";
             }
-            else if (null != obj.GetComponent<MeshRenderer>())
+            else if (null != obj.GetComponent<MeshRenderer>() && obj.GetComponent<MeshRenderer>().enabled)
             {
                 type = "mesh";
             }
@@ -297,7 +304,7 @@ namespace FriedTofu
             }
 
             Collider collider = obj.GetComponent<Collider>();
-            if (null != collider && !collider.isTrigger)
+            if (null != collider && !collider.isTrigger && collider.enabled)
             {
                 if (null != collider as BoxCollider)
                 {
