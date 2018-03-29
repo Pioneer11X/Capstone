@@ -17,7 +17,12 @@ using System.Collections;
 /// </summary>
 public class ThirdPCharacter : Character
 {
-    
+    private float vert;
+    private float hori;
+    private float vertLerp;
+    private float horiLerp;
+    private float footStepsMod;
+    [SerializeField] float lerpMod;
 
     /// <summary>
     /// Initialization
@@ -27,6 +32,9 @@ public class ThirdPCharacter : Character
         base.Start();
 
         m_combat.SetChar(this);
+        vertLerp = 0.5f;
+        horiLerp = 0.5f;
+        footStepsMod = 0;
     }
 
     /// <summary>
@@ -54,8 +62,59 @@ public class ThirdPCharacter : Character
     /// <param name="jump">should player jump</param>
     /// <param name="running">is the player running</param>
     /// <param name="sprinting">is the player sprinting</param>
-    override public void Move(float vert, float hori, Quaternion camRot, bool jump, bool running, bool sprinting, bool aiming)
+    override public void Move(float _vert, float _hori, Quaternion camRot, bool jump, bool running, bool sprinting, bool aiming)
     {
+        // Smooth buildup of movement
+        if( _vert > 0 )
+        {
+            vert = Mathf.Lerp(0.2f, 1.0f, vertLerp);
+
+            if (vertLerp < 1.0f)
+            {
+                vertLerp += lerpMod;
+            }
+        }
+        else if( _vert < 0 )
+        {
+            vert = -Mathf.Lerp(0.2f, 1.0f, vertLerp);
+
+            if (vertLerp < 1.0f)
+            {
+                vertLerp += lerpMod;
+            }
+        }
+        else
+        {
+            vertLerp = 0.2f;
+            vert = 0.0f;
+        }
+
+        if (_hori > 0)
+        {
+            hori = Mathf.Lerp(0.2f, 1.0f, horiLerp);
+
+            if (horiLerp < 1.0f)
+            {
+                horiLerp += lerpMod;
+            }
+        }
+        else if (_hori < 0)
+        {
+            hori = -Mathf.Lerp(0.2f, 1.0f, horiLerp);
+
+            if (horiLerp < 1.0f)
+            {
+                horiLerp += lerpMod;
+            }
+        }
+        else
+        {
+            horiLerp = 0.2f;
+            hori = 0.0f;
+        }
+
+
+
         m_combat.IsMoving = m_moving = false;
         m_combat.IsDashing = m_sprinting  = false;
 
@@ -68,14 +127,16 @@ public class ThirdPCharacter : Character
         {
             m_combat.IsMoving = true;
             m_moving = true;
+            footStepsMod++;
         }
 
         // Character Rotation && !turned
         if (!aiming && (vert != 0 || hori != 0) )
         {
-            if (!charAudio.isPlaying && m_IsGrounded)
+            if (!charAudio.isPlaying && m_IsGrounded && footStepsMod > 15)
             {
                 charAudio.PlayOneShot(footsteps4);
+                footStepsMod = 0;
             }
             if (m_IsGrounded)
             {

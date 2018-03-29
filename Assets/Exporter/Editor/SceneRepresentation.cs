@@ -120,6 +120,20 @@ namespace FriedTofu
             }
         }
 
+        public class SpawnPoint
+        {
+            public Float3 position;
+            public SpawnPoint()
+            {
+                position = new Float3(Vector3.zero);
+            }
+
+            public SpawnPoint(GameObject obj)
+            {
+                position = new Float3(obj.transform.position);
+            }
+        }
+
         public struct Float3
         {
             public float x, y, z;
@@ -260,6 +274,7 @@ namespace FriedTofu
         public List<SpawnNode> spawnerNodes;
         public List<TriggerNode> triggerNodes;
         public List<PathNode> pathNodes;
+        public List<SpawnPoint> playerSpawn;
 
         public void Add(Entity entity)
         {
@@ -289,8 +304,18 @@ namespace FriedTofu
             triggerNodes.Add(node);
         }
 
+        public void AddSpawnPoint(SpawnPoint node)
+        {
+            if (null == playerSpawn)
+                playerSpawn = new List<SpawnPoint>();
+            playerSpawn.Add(node);
+        }
+
         public void SortPathNodes()
         {
+            if (pathNodes == null)
+            { return; }
+
             for(int i = 0; i < pathNodes.Count; i++)
             {
                 bool added;

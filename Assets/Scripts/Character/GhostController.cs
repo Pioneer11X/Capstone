@@ -90,7 +90,7 @@ public class GhostController : MonoBehaviour
         isReplay = false;
         frameCount = 1;
         visionHackTimer = 0;
-        gameObject.tag = "Untagged";
+        gameObject.tag = "GhostRecord";
     }//end start
 
     public void Init(ThirdPControl p,GameObject camera) {

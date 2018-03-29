@@ -17,6 +17,7 @@ public class CombatManager : MonoBehaviour
 
     private Character m_char;
     public AudioSource combatAudio;
+    // These sound FX are for base attack, not hit.
     public AudioClip punchFX;
     public AudioClip kickFX;
     public AudioClip swordFX;
@@ -104,7 +105,7 @@ public class CombatManager : MonoBehaviour
         public float ED;
         public float HT;
         public float Dmg;
-        [Range(0.1f, 2.5f)]
+        [Range(0.0f, 2.5f)]
         public float StrikeDistance;
         public HitPosition Pos;
         public CombatDirection Dir;
@@ -194,13 +195,14 @@ public class CombatManager : MonoBehaviour
     private float attackDuration;
     private float currentAttackTime;
     private float currentEffectTime;
-    private float currentEffetDistance;
+    private float currentEffectDistance;
     private float currentDmgAmount;
     private float currentHitTime;
     private float currentAttackDistance;
     private CombatDirection currentDirection;
     private HitPower currentPower;
     public HitPosition currentHitPos;
+    private AudioClip currentSFX;
     public bool IsAttacking
     {
         get { return isAttacking; }
@@ -213,6 +215,11 @@ public class CombatManager : MonoBehaviour
     public float CurrentEffectTime
     {
         get { return currentEffectTime; }
+    }
+
+    public float CurrentAttackDistance
+    {
+        get { return currentAttackDistance; }
     }
     public bool ResetAttack
     {
@@ -591,8 +598,13 @@ public class CombatManager : MonoBehaviour
     }
 
 
-    public void Hit(HitPosition pos, HitDirection dir, HitPower power, float hitTime, float dmg, float delay = 0, bool dmgDelay = false)
+    public void Hit(HitPosition pos, HitDirection dir, HitPower power, float hitTime, float dmg, AudioClip sFX, float delay = 0, bool dmgDelay = false)
     {
+        if (sFX != null)
+        {
+            combatAudio.PlayOneShot(sFX);
+        }
+
         //
         isHit = true;
         m_char.StateTimer = 0;
@@ -617,11 +629,16 @@ public class CombatManager : MonoBehaviour
         isAdjusting = false;
         isJumping = false;
         isMoving = false;
-
+ 
     }
 
     public void Hit(CombatMoveDetails combatMoveDetails, float delay = 0, bool dmgDelay = false)
     {
+        if (combatMoveDetails.CombatSFX != null)
+        {
+            combatAudio.PlayOneShot(combatMoveDetails.CombatSFX);
+        }
+
         isHit = true;
         m_char.StateTimer = 0;
         inCombat = true;
@@ -709,7 +726,7 @@ public class CombatManager : MonoBehaviour
             //Debug.Log(currentCombat + " " + currentMoveDetails.name);
             currentAttackTime = currentMoveDetails.AT;
             currentEffectTime = currentMoveDetails.ET;
-            currentEffetDistance = currentMoveDetails.ED;
+            currentEffectDistance = currentMoveDetails.ED;
             currentDmgAmount = currentMoveDetails.Dmg;
             currentDirection = currentMoveDetails.Dir;
             currentPower = currentMoveDetails.Power;
@@ -799,7 +816,7 @@ public class CombatManager : MonoBehaviour
             float distance = Vector3.Distance(m_char.charBody.transform.position, currentTarget.charBody.transform.position);
             HitDirection dir = HitDirection.forward;
 
-            if (distance <= currentEffetDistance)
+            if (distance <= currentEffectDistance)
             {
                 float angleFB = Vector3.Angle(currentTarget.charBody.transform.position - m_char.charBody.transform.position, currentTarget.charBody.transform.forward);
                 float angleLR = Vector3.Angle(currentTarget.charBody.transform.position - m_char.charBody.transform.position, currentTarget.charBody.transform.right);
@@ -870,13 +887,15 @@ public class CombatManager : MonoBehaviour
                         if (Vector3.Distance(obj.transform.position, gameObject.transform.position) <
                             allMoves[(int)currentCombat - 1].ED)
                         {
-                            obj.GetComponent<CombatManager>().Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentHitTime, currentDmgAmount, 0.5f, true);
+                            obj.GetComponent<CombatManager>().Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentHitTime, currentDmgAmount, currentSFX, 0.5f, true);
                         }
                     }
                 }
                 else
                 {
-                    currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentHitTime, currentDmgAmount, 0.5f, true);
+                    if(currentSFX == null)
+                    { Debug.Log("Null SFX"); }
+                    currentTarget.m_combat.Hit(currentTarget.m_combat.currentHitPos, dir, currentPower, currentHitTime, currentDmgAmount, currentSFX, 0.5f, true);
                 }
             }
 
@@ -898,10 +917,17 @@ public class CombatManager : MonoBehaviour
             float distance = Vector3.Distance(m_char.charBody.transform.position, currentTarget.charBody.transform.position);
             float angle = Vector3.Angle(currentTarget.charBody.transform.position - m_char.charBody.transform.position, m_char.charBody.transform.forward);
 
-            if (distance < adjustMinDistance && angle < adjustAgle)
+            // Character must be close enough to attack but not too close
+
+            // Character is in the sweet spot for attacking
+            if(distance < currentAttackDistance + adjustMinDistance && distance > currentAttackDistance - adjustMinDistance && angle < adjustAgle)
             {
                 return true;
             }
+            //if (distance < adjustMinDistance + currentAttackDistance && angle < adjustAgle)
+            //{
+            //    return true;
+            //}
             else if (distance > adjustMaxDistance)
             {
                 return true;
@@ -1010,18 +1036,19 @@ public class CombatManager : MonoBehaviour
         CombatMoveDetails currentMoveDetails = allMoves[(int)currentCombat - 1];
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
-        currentEffetDistance = currentMoveDetails.ED;
+        currentEffectDistance = currentMoveDetails.ED;
         currentDmgAmount = currentMoveDetails.Dmg;
         currentDirection = currentMoveDetails.Dir;
         currentPower = currentMoveDetails.Power;
         currentHitPos = currentMoveDetails.Pos;
         currentHitTime = currentMoveDetails.HT;
-
+        currentAttackDistance = currentMoveDetails.StrikeDistance;
+        currentSFX = allMoves[(int)currentCombat - 1].CombatSFX;
 
         // Move according to the Attack Distance.
 
         // Variable for the Sound
-        combatAudio.PlayOneShot(currentMoveDetails.CombatSFX);
+
         Attack();
 
     }
@@ -1030,36 +1057,43 @@ public class CombatManager : MonoBehaviour
     {
         if (currentCombat == Combat.none)
         {
+            currentSFX = allMoves[0].CombatSFX;
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
+            currentSFX = allMoves[1].CombatSFX;
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_R;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
+            currentSFX = allMoves[2].CombatSFX;
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Hook_L;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
+            currentSFX = allMoves[3].CombatSFX;
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Hook_R;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
+            currentSFX = allMoves[6].CombatSFX;
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_Straight_Mid_R;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
+            currentSFX = allMoves[0].CombatSFX;
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
         }
         else
         {
+            currentSFX = allMoves[0].CombatSFX;
             combatAudio.PlayOneShot(punchFX);
             currentCombat = Combat.punch_Jab_L;
         }
@@ -1070,49 +1104,56 @@ public class CombatManager : MonoBehaviour
         //Debug.Log(currentCombat + " " + currentMoveDetails.name);
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
-        currentEffetDistance = currentMoveDetails.ED;
+        currentEffectDistance = currentMoveDetails.ED;
         currentDmgAmount = currentMoveDetails.Dmg;
         currentDirection = currentMoveDetails.Dir;
         currentPower = currentMoveDetails.Power;
         currentHitPos = currentMoveDetails.Pos;
         currentHitTime = currentMoveDetails.HT;
-
+        currentAttackDistance = currentMoveDetails.StrikeDistance;
     }
 
     void NextSpecial()
     {
         if (currentCombat == Combat.none)
         {
+            currentSFX = allMoves[7].CombatSFX;
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
+            currentSFX = allMoves[7].CombatSFX;
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
+            currentSFX = allMoves[7].CombatSFX;
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
+            currentSFX = allMoves[7].CombatSFX;
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
+            currentSFX = allMoves[7].CombatSFX;
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
+            currentSFX = allMoves[8].CombatSFX;
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_HorseKick;
         }
         else
         {
+            currentSFX = allMoves[7].CombatSFX;
             combatAudio.PlayOneShot(kickFX);
             currentCombat = Combat.kick_AxeKick;
         }
@@ -1123,12 +1164,13 @@ public class CombatManager : MonoBehaviour
 
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
-        currentEffetDistance = currentMoveDetails.ED;
+        currentEffectDistance = currentMoveDetails.ED;
         currentDmgAmount = currentMoveDetails.Dmg;
         currentDirection = currentMoveDetails.Dir;
         currentPower = currentMoveDetails.Power;
         currentHitPos = currentMoveDetails.Pos;
         currentHitTime = currentMoveDetails.HT;
+        currentAttackDistance = currentMoveDetails.StrikeDistance;
     }
 
     // --------------------------------------------------------------------------------------------
@@ -1137,16 +1179,19 @@ public class CombatManager : MonoBehaviour
     {
         if (currentCombat == Combat.none)
         {
+            currentSFX = allMoves[9].CombatSFX;
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_R;
         }
         else if (currentCombat == Combat.Sword_Attack_R)
         {
+            currentSFX = allMoves[10].CombatSFX;
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_RL;
         }
         else
         {
+            currentSFX = allMoves[9].CombatSFX;
             combatAudio.PlayOneShot(swordFX);
             currentCombat = Combat.Sword_Attack_R;
         }
@@ -1157,12 +1202,13 @@ public class CombatManager : MonoBehaviour
 
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
-        currentEffetDistance = currentMoveDetails.ED;
+        currentEffectDistance = currentMoveDetails.ED;
         currentDmgAmount = currentMoveDetails.Dmg;
         currentDirection = currentMoveDetails.Dir;
         currentPower = currentMoveDetails.Power;
         currentHitPos = currentMoveDetails.Pos;
         currentHitTime = currentMoveDetails.HT;
+        currentAttackDistance = currentMoveDetails.StrikeDistance;
 
         sword.SetActive(true);
         compPos = companion.transform.position;
@@ -1175,42 +1221,58 @@ public class CombatManager : MonoBehaviour
     {
         if (currentCombat == Combat.none)
         {
-            combatAudio.PlayOneShot(swordFX);
+            currentSFX = allMoves[12].CombatSFX;
+            combatAudio.clip = swordFX;
+            combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.Sword_Attack_Combo_LL;
         }
         else if (currentCombat == Combat.punch_Jab_L)
         {
-            combatAudio.PlayOneShot(swordFX);
+            currentSFX = allMoves[11].CombatSFX;
+            combatAudio.clip = swordFX;
+            combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.Sword_Attack_Sp_U;
         }
         else if (currentCombat == Combat.punch_Jab_R)
         {
-            combatAudio.PlayOneShot(swordFX);
+            currentSFX = allMoves[11].CombatSFX;
+            combatAudio.clip = swordFX;
+            combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.Sword_Attack_Sp_U;
         }
         else if (currentCombat == Combat.punch_Hook_L)
         {
-            combatAudio.PlayOneShot(swordFX);
+            currentSFX = allMoves[11].CombatSFX;
+            combatAudio.clip = swordFX;
+            combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.Sword_Attack_Sp_U;
         }
         else if (currentCombat == Combat.punch_Hook_R)
         {
-            combatAudio.PlayOneShot(swordFX);
+            currentSFX = allMoves[11].CombatSFX;
+            combatAudio.clip = swordFX;
+            combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.Sword_Attack_Sp_U;
         }
         else if (currentCombat == Combat.kick_Straight_Mid_R)
         {
-            combatAudio.PlayOneShot(swordFX);
+            currentSFX = allMoves[11].CombatSFX;
+            combatAudio.clip = swordFX;
+            combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.Sword_Attack_Sp_U;
         }
         else if (currentCombat == Combat.Sword_Attack_RL)
         {
-            combatAudio.PlayOneShot(swordFX);
+            currentSFX = allMoves[11].CombatSFX;
+            combatAudio.clip = swordFX;
+            combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.Sword_Attack_Sp_U;
         }
         else
         {
-            combatAudio.PlayOneShot(swordFX);
+            currentSFX = allMoves[12].CombatSFX;
+            combatAudio.clip = swordFX;
+            combatAudio.PlayDelayed(0.5f);
             currentCombat = Combat.Sword_Attack_Combo_LL;
         }
 
@@ -1219,12 +1281,13 @@ public class CombatManager : MonoBehaviour
 
         currentAttackTime = currentMoveDetails.AT;
         currentEffectTime = currentMoveDetails.ET;
-        currentEffetDistance = currentMoveDetails.ED;
+        currentEffectDistance = currentMoveDetails.ED;
         currentDmgAmount = currentMoveDetails.Dmg;
         currentDirection = currentMoveDetails.Dir;
         currentPower = currentMoveDetails.Power;
         currentHitPos = currentMoveDetails.Pos;
         currentHitTime = currentMoveDetails.HT;
+        currentAttackDistance = currentMoveDetails.StrikeDistance;
 
         sword.SetActive(true);
         compPos = companion.transform.position;

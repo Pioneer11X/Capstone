@@ -22,6 +22,8 @@ TagManager:
   - JumpNode
   - Spawner
   - TriggerNode
+  - GhostRecord
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX

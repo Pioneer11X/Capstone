@@ -150,6 +150,7 @@ public class ThirdPCamera : MonoBehaviour
     /// <param name="zoom">Camera zoom value to move by</param>
     public void moveCamera(float rotationX, float rotationY, float zoom)
     {
+		// t = t*t*t * (t * (6f*t - 15f) + 10f)
         // get a vector between camera and target
         moveAlong = transform.position - target.transform.position;
         
