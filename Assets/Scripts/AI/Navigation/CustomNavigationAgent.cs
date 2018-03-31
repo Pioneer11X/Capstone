@@ -32,7 +32,7 @@ public class CustomNavigationAgent : MonoBehaviour {
 
     // ఆగున్నామా?
     // Similar to the Unity NavMeshAgent.
-    private bool isStopped;
+    public bool isStopped;
 
     public bool GetIsStopped()
     {
@@ -72,7 +72,7 @@ public class CustomNavigationAgent : MonoBehaviour {
         aICharacter = this.GetComponent<AICharacter>();
         Debug.Assert(null != aICharacter);
 
-        //maxSensoryRadius = aICharacter.GetMaxSensoryRadious(); TODO uncomment this line when moving back to custom agent
+        maxSensoryRadius = aICharacter.GetMaxSensoryRadius();
         Debug.Assert(0.5 < maxSensoryRadius);
 	}
 

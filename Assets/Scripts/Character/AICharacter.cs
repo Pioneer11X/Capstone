@@ -18,8 +18,13 @@ public class AICharacter : Character
 
     [SerializeField]
     private float maxSensoryRadius; // A variable to store the maximum sensory radius of the AI.
+    public float GetMaxSensoryRadius()
+    {
+        return maxSensoryRadius;
+    }
 
-    protected NavMeshAgent navMeshAgent;      // A Reference to the NavMeshAgent Component attached to the GameObject.
+    // protected NavMeshAgent navMeshAgent;      // A Reference to the NavMeshAgent Component attached to the GameObject.
+    protected CustomNavigationAgent customNavigationAgent;
 
 
     // Temporary timer variables.
@@ -39,16 +44,15 @@ public class AICharacter : Character
         // Assert that the scene has a player tagged with Player.
         Debug.Assert(null != seekTarget);
 
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        // Assert that the scene has a player has a Nav Mesh Agent.
-        Debug.Assert(null != navMeshAgent);
+        customNavigationAgent = GetComponent<CustomNavigationAgent>();
+        Debug.Assert(null != customNavigationAgent, "Custom Navigation is not set for " + this.gameObject.name);
 
         m_combat.SetChar(this);
 
         // Set the destination for the NavMesh.
         if (null != seekTarget)
         {
-            navMeshAgent.SetDestination(target: seekTarget.position);
+            customNavigationAgent.destination = seekTarget.position;
         }
 
     }
@@ -115,7 +119,7 @@ public class AICharacter : Character
         {
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
-                navMeshAgent.isStopped = true;
+                customNavigationAgent.isStopped = true;
                 this.m_combat.IsMoving = false;
 
                 if (null == this.m_combat.CurrentTarget)
@@ -137,12 +141,12 @@ public class AICharacter : Character
             else
             {
                 Vector3 targetPos = seekTarget.position;
-                this.navMeshAgent.isStopped = false;
+                this.customNavigationAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(navMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
+                if (Vector3.Distance(customNavigationAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
                 {
-                    navMeshAgent.SetDestination(targetPos);
+                    customNavigationAgent.SetDestination(targetPos, seekTarget.gameObject.layer);
                 }
 
                 // TODO: Play the Animation here            
@@ -154,7 +158,7 @@ public class AICharacter : Character
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
 
-                navMeshAgent.isStopped = true;
+                customNavigationAgent.isStopped = true;
                 this.m_combat.IsMoving = false;
 
                 if (null == this.m_combat.CurrentTarget)
@@ -174,12 +178,12 @@ public class AICharacter : Character
             else
             {
                 Vector3 targetPos = seekTarget.position;
-                this.navMeshAgent.isStopped = false;
+                this.customNavigationAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(navMeshAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
+                if (Vector3.Distance(customNavigationAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
                 {
-                    navMeshAgent.SetDestination(targetPos);
+                    customNavigationAgent.SetDestination(targetPos, seekTarget.gameObject.layer);
                 }
 
                 // TODO: Play the Animation here            
@@ -189,12 +193,12 @@ public class AICharacter : Character
         else
         {
             // TODO: Play IDLE Animaiton Here.
-            navMeshAgent.isStopped = true;
+            customNavigationAgent.isStopped = true;
             this.m_combat.IsMoving = false;
         }
 
         // Update the Moving State for animating..
-        this.m_moving = !(navMeshAgent.isStopped);
+        this.m_moving = !(customNavigationAgent.isStopped);
         timer += Time.deltaTime;
         UpdateState();
 
@@ -215,7 +219,7 @@ public class AICharacter : Character
     // Pursuit the Player Function.
 
     // Use this for debugging.
-
+    // TODO: Why are these functions not working??
     private void OnDrawGizmos()
     {
         // Draw a sphere around the player for the sensory radius.
