@@ -5,7 +5,10 @@ using UnityEngine;
 
 // ఇది మనం Unity NavMeshAgent లాగా వాడాలి.
 // This should be aligned as close to the Unitys NavMesh Agent as possible.
-public class CustomNavigationAgent : MonoBehaviour {
+public class CustomNavigationAgent : MonoBehaviour
+{
+
+    [SerializeField] private float AISpeedMod;
 
     public Vector3 destination;
     public LayerMask targetLayer;
@@ -107,12 +110,11 @@ public class CustomNavigationAgent : MonoBehaviour {
             calculatePath();
             reCalculatePath = false;
         }
-
+        Debug.DrawLine(this.transform.position, hitInfo.point, Color.blue);
         if (canTraverseDirectly)
         {
-
+            
             Debug.DrawLine(this.transform.position, hitInfo.transform.position);
-
             // Check for Rotation.
             var direc = destination - transform.position;
             var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
@@ -121,7 +123,7 @@ public class CustomNavigationAgent : MonoBehaviour {
 
             
             // Rotate First.
-            this.aICharacter.ForceMove(1.0f, 1);
+            this.aICharacter.ForceMove(AISpeedMod, 1);
         }
 
 	}
