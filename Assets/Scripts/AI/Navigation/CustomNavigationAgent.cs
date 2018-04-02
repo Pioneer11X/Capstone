@@ -33,6 +33,9 @@ public class CustomNavigationAgent : MonoBehaviour
     [SerializeField]
     private PathingNode targetNode;
 
+    private Vector3 rayCastSourcePoint;
+    private Vector3 rayCastTargetPoint;
+
     // ఆగున్నామా?
     // Similar to the Unity NavMeshAgent.
     public bool isStopped;
@@ -110,11 +113,11 @@ public class CustomNavigationAgent : MonoBehaviour
             calculatePath();
             reCalculatePath = false;
         }
-        Debug.DrawLine(this.transform.position, hitInfo.point, Color.blue);
+        Debug.DrawLine(rayCastSourcePoint, hitInfo.point, Color.blue);
         if (canTraverseDirectly)
         {
             
-            Debug.DrawLine(this.transform.position, hitInfo.transform.position);
+            Debug.DrawLine(rayCastSourcePoint, hitInfo.transform.position);
             // Check for Rotation.
             var direc = destination - transform.position;
             var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
@@ -125,6 +128,10 @@ public class CustomNavigationAgent : MonoBehaviour
             // Rotate First.
             this.aICharacter.ForceMove(AISpeedMod, 1);
         }
+        else
+        {
+            // Use the nodes. Use the Nodes to traverse.
+        }
 
 	}
 
@@ -133,8 +140,13 @@ public class CustomNavigationAgent : MonoBehaviour
         this.destination = targetPos;
         this.targetLayer = _targetLayer;
 
+        this.rayCastSourcePoint = this.transform.position;
+        rayCastSourcePoint.y = 0.5f;
+        this.rayCastTargetPoint = targetPos;
+        rayCastTargetPoint.y = 0.5f;
+
         // Raycast for the target, and if you can find it, we do not need the pathing nodes anymore...
-        if ( Physics.Raycast(this.transform.position, (targetPos - this.transform.position).normalized, out hitInfo, maxSensoryRadius))
+        if ( Physics.Raycast(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized, out hitInfo, maxSensoryRadius))
         {
             if ( targetLayer == hitInfo.transform.gameObject.layer)
             {
