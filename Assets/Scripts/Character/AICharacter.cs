@@ -144,10 +144,12 @@ public class AICharacter : Character
                 this.customNavigationAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(customNavigationAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
-                {
-                    customNavigationAgent.SetDestination(targetPos, seekTarget.gameObject.layer);
-                }
+                //if (Vector3.Distance(customNavigationAgent.destination, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
+                //{
+                //    customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
+                //}
+                // ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
+                customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
 
                 // TODO: Play the Animation here            
                 this.m_combat.IsMoving = true;
@@ -177,15 +179,15 @@ public class AICharacter : Character
             }
             else
             {
-                Vector3 targetPos = seekTarget.position;
                 this.customNavigationAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(customNavigationAgent.destination, targetPos) >= this.m_combat.GetAdjustMaxDistance())
-                {
-                    customNavigationAgent.SetDestination(targetPos, seekTarget.gameObject.layer);
-                }
-
+                //if (Vector3.Distance(customNavigationAgent.destination, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
+                //{
+                //    customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
+                //}
+                // ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
+                customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
                 // TODO: Play the Animation here            
                 this.m_combat.IsMoving = true;
             }

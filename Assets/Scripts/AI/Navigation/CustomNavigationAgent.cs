@@ -117,7 +117,7 @@ public class CustomNavigationAgent : MonoBehaviour
         if (canTraverseDirectly)
         {
             
-            Debug.DrawLine(rayCastSourcePoint, hitInfo.transform.position);
+            Debug.DrawLine(rayCastSourcePoint, rayCastTargetPoint);
             // Check for Rotation.
             var direc = destination - transform.position;
             var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
@@ -137,6 +137,7 @@ public class CustomNavigationAgent : MonoBehaviour
 
     internal void SetDestination(Vector3 targetPos, LayerMask _targetLayer)
     {
+        Debug.Log("మళ్ళీ మార్చావు.");
         this.destination = targetPos;
         this.targetLayer = _targetLayer;
 
@@ -158,5 +159,12 @@ public class CustomNavigationAgent : MonoBehaviour
         canTraverseDirectly = false;
         reCalculatePath = true;
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Raycast చేసేటప్పుడు ఎక్కడనుండిఎక్కడికి అన్నదిచూపించు.
+        Gizmos.DrawWireSphere(rayCastSourcePoint, 1.0f);
+        Gizmos.DrawWireSphere(rayCastTargetPoint, 1.0f);
     }
 }
