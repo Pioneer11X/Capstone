@@ -588,9 +588,9 @@ abstract public class Character : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(this.transform.position, this.m_combat.GetAdjustMaxDistance());
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireSphere(this.transform.position, this.m_combat.GetAdjustMaxDistance());
+    //}
 
 }// End Character
