@@ -162,7 +162,7 @@ public class ThirdPControl : MonoBehaviour
                 specialButtonTimer = 0;
             }
             // Button Press Attack
-            if (CrossPlatformInputManager.GetButtonUp("Sword") 
+            if (CrossPlatformInputManager.GetButtonUp("Sword") && specialButtonDown
                 && specialButtonTimer <= playerCharacter.MinHoldTime && playerCharacter.SpecialBar > playerCharacter.LightSwordCost)
             {
                 m_Character.m_combat.SwordCombo();
@@ -195,7 +195,7 @@ public class ThirdPControl : MonoBehaviour
             }
             if (CrossPlatformInputManager.GetButtonUp("Attack") && playerCharacter.SpecialBar > playerCharacter.GunShootCost)
             {
-                playerCharacter.UseSpecial(playerCharacter.GunShootCost);
+                //playerCharacter.UseSpecial(playerCharacter.GunShootCost);
                 m_Character.m_combat.GunShot();
                 attackButtonDown = false;
             }

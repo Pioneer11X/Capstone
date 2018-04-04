@@ -150,18 +150,34 @@ public class PC : Humanoid
     /// Subtract from Special UI Bar
     /// </summary>
     /// <param name="value">How much special to use (Light 25, Heavy 50)</param>
-    public void UseSpecial(float value)
+    public void UseSpecial(string attackType)
     {
-        if (specialBar.value > (value + 0.01f) )
+        int cost = 0;
+        if (attackType == "light")
         {
-            specialBar.value -= value;
+            cost = (int)lightSwordCost;
+        }
+        else if (attackType == "heavy")
+        {
+            cost = (int)heavySwordCost;
+        }
+        else
+        {
+            Debug.Log("Bad attack type for special use");
+        }
+
+        if (specialBar.value > cost)
+        {
+            specialBar.value -= cost;
             specialInUse = true;
         }
+
         if (specialBar.value < 0)
         {
             specialBar.value = 0;
         }
     }
+
 
     /// <summary>
     /// Subtract from Stamina UI Bar

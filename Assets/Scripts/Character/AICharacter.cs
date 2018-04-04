@@ -55,6 +55,13 @@ public class AICharacter : Character
 
     void Update()
     {
+        {// May cause performance hit
+            Quaternion rotB = charBody.transform.rotation;
+            rotB.x = 0.0f;
+            rotB.z = 0.0f;
+            charBody.transform.rotation = rotB;
+        }
+
         if (GameObject.FindGameObjectWithTag("Ghost") != null)
         {
             ghostTarget = GameObject.FindGameObjectWithTag("Ghost").transform;

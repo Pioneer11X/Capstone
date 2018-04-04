@@ -754,8 +754,8 @@ public class CombatManager : MonoBehaviour
         NextSwordCombat();
         if (CheckTarget())
         {
+            m_char.GetComponent<PC>().UseSpecial("light");
             Attack();
-            m_char.GetComponent<PC>().UseSpecial(25);
         }
         else
         {
@@ -773,7 +773,7 @@ public class CombatManager : MonoBehaviour
         if (CheckTarget())
         {
             Attack();
-            m_char.GetComponent<PC>().UseSpecial(50);
+            m_char.GetComponent<PC>().UseSpecial("heavy");
         }
         else
         {
