@@ -40,6 +40,8 @@ public class CustomNavigationAgent : MonoBehaviour
     // Similar to the Unity NavMeshAgent.
     public bool isStopped;
 
+    [SerializeField] private float rayCastHeight;
+
     public bool GetIsStopped()
     {
         return isStopped;
@@ -116,15 +118,12 @@ public class CustomNavigationAgent : MonoBehaviour
         
         if (canTraverseDirectly)
         {
-            
-            Debug.DrawRay(rayCastSourcePoint, rayCastTargetPoint, Color.green);
             // Check for Rotation.
             var direc = destination - transform.position;
             var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
             float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
             if (angle > 10) { transform.rotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0, rot.y, 0, rot.w), aICharacter.turnSpeed * Time.deltaTime); return; }
 
-            
             // Rotate First.
             this.aICharacter.ForceMove(AISpeedMod, 1);
         }
@@ -138,21 +137,25 @@ public class CustomNavigationAgent : MonoBehaviour
 
     internal void SetDestination(Vector3 targetPos, LayerMask _targetLayer)
     {
-        Debug.Log("మళ్ళీ మార్చావు.");
         this.destination = targetPos;
         this.targetLayer = _targetLayer;
 
         this.rayCastSourcePoint = this.transform.position;
-        rayCastSourcePoint.y = 0.5f;
+        rayCastSourcePoint.y = rayCastHeight;
         this.rayCastTargetPoint = targetPos;
-        rayCastTargetPoint.y = 0.5f;
+        rayCastTargetPoint.y = rayCastHeight;
+
+        Vector3 rayDir = (rayCastTargetPoint - rayCastSourcePoint).normalized;
+
+        //Debug.DrawRay(new Vector3( rayCastSourcePoint.x, rayCastSourcePoint.y + 0.1f, rayCastSourcePoint.z), rayDir * maxSensoryRadius, Color.green);
 
         // Raycast for the target, and if you can find it, we do not need the pathing nodes anymore...
-        if ( Physics.Raycast(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized, out hitInfo, maxSensoryRadius))
+        if ( Physics.Raycast(rayCastSourcePoint, rayDir, out hitInfo, maxSensoryRadius))
         {
-            Debug.DrawRay(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized * maxSensoryRadius, Color.blue, 0.5f);
-            if ( targetLayer == hitInfo.transform.gameObject.layer)
+            //Debug.DrawRay(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized * maxSensoryRadius, Color.blue, 0.5f);
+            if ( targetLayer == hitInfo.collider.transform.gameObject.layer)
             {
+                Debug.DrawRay(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized * maxSensoryRadius, Color.blue, 0.5f);
                 canTraverseDirectly = true;
                 return;
             }
@@ -161,12 +164,5 @@ public class CustomNavigationAgent : MonoBehaviour
         canTraverseDirectly = false;
         reCalculatePath = true;
 
-    }
-
-    private void OnDrawGizmos()
-    {
-        // Raycast చేసేటప్పుడు ఎక్కడనుండిఎక్కడికి అన్నదిచూపించు.
-        Gizmos.DrawWireSphere(rayCastSourcePoint, 1.0f);
-        Gizmos.DrawWireSphere(rayCastTargetPoint, 1.0f);
     }
 }

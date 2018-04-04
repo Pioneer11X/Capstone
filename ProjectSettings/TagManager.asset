@@ -24,6 +24,7 @@ TagManager:
   - TriggerNode
   - GhostRecord
   - PlayerSpawn
+  - PlayerBody
   layers:
   - Default
   - TransparentFX
