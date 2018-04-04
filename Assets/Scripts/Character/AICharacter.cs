@@ -151,7 +151,7 @@ public class AICharacter : Character
                 // ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
                 customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
 
-                // TODO: Play the Animation here            
+                // Play the Animation here            
                 this.m_combat.IsMoving = true;
             }
         }
@@ -188,7 +188,7 @@ public class AICharacter : Character
                 //}
                 // ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
                 customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
-                // TODO: Play the Animation here            
+                // Play the Animation here            
                 this.m_combat.IsMoving = true;
             }
         }

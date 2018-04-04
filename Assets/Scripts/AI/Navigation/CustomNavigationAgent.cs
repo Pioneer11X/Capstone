@@ -113,11 +113,11 @@ public class CustomNavigationAgent : MonoBehaviour
             calculatePath();
             reCalculatePath = false;
         }
-        Debug.DrawLine(rayCastSourcePoint, hitInfo.point, Color.blue);
+        
         if (canTraverseDirectly)
         {
             
-            Debug.DrawLine(rayCastSourcePoint, rayCastTargetPoint);
+            Debug.DrawRay(rayCastSourcePoint, rayCastTargetPoint, Color.green);
             // Check for Rotation.
             var direc = destination - transform.position;
             var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
@@ -130,6 +130,7 @@ public class CustomNavigationAgent : MonoBehaviour
         }
         else
         {
+            Debug.DrawRay(rayCastSourcePoint, hitInfo.point, Color.red);
             // Use the nodes. Use the Nodes to traverse.
         }
 
@@ -149,6 +150,7 @@ public class CustomNavigationAgent : MonoBehaviour
         // Raycast for the target, and if you can find it, we do not need the pathing nodes anymore...
         if ( Physics.Raycast(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized, out hitInfo, maxSensoryRadius))
         {
+            Debug.DrawRay(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized * maxSensoryRadius, Color.blue, 0.5f);
             if ( targetLayer == hitInfo.transform.gameObject.layer)
             {
                 canTraverseDirectly = true;
