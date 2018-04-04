@@ -59,6 +59,13 @@ public class AICharacter : Character
 
     void Update()
     {
+        {// May cause performance hit
+            Quaternion rotB = charBody.transform.rotation;
+            rotB.x = 0.0f;
+            rotB.z = 0.0f;
+            charBody.transform.rotation = rotB;
+        }
+
         if (GameObject.FindGameObjectWithTag("Ghost") != null)
         {
             ghostTarget = GameObject.FindGameObjectWithTag("Ghost").transform;
@@ -80,8 +87,8 @@ public class AICharacter : Character
 
         if (this.m_combat.IsTurning && (null != m_combat.CurrentTarget))
         {
-            var direc = this.m_combat.CurrentTarget.transform.position - transform.position;
-            var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
+            Vector3 direc = this.m_combat.CurrentTarget.transform.position - transform.position;
+            Quaternion rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
             float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
             if (angle < 20) { this.m_combat.IsTurning = false; }
             else
@@ -204,6 +211,19 @@ public class AICharacter : Character
         timer += Time.deltaTime;
         UpdateState();
 
+    }
+
+    private void FixedUpdate()
+    {
+        if (charBody.transform.rotation.x > 0.001f || charBody.transform.rotation.x < -0.001f ||
+            charBody.transform.rotation.z > 0.001f || charBody.transform.rotation.z < -0.001f)
+        {
+            Debug.Log("I got all twisted about!!!!!!!");
+            Quaternion rot = charBody.transform.rotation;
+            rot.x = 0.0f;
+            rot.z = 0.0f;
+            charBody.transform.rotation = rot;
+        }
     }
 
     /// <summary>
