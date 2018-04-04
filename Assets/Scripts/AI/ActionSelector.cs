@@ -9,6 +9,7 @@ public class ActionSelector : MonoBehaviour
 
     ActionList l_action;
     CombatManager m_combat;
+    Enemy e_enemy;
 
     [SerializeField] bool preventAttack = false;
     public bool PreventAttack
@@ -26,6 +27,7 @@ public class ActionSelector : MonoBehaviour
     {
         l_action = GetComponent<ActionList>();
         m_combat = GetComponent<CombatManager>();
+        e_enemy = GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -34,7 +36,6 @@ public class ActionSelector : MonoBehaviour
 
     public void selectNextOption()
     {
-
         // Check to see if I am facing the target or not.
         // Rotate
         var direc = this.m_combat.CurrentTarget.transform.position - transform.position;

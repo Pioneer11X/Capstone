@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.AI;
 
 public class Enemy : Humanoid
 {
@@ -37,6 +38,7 @@ public class Enemy : Humanoid
         if (!isDummy)
         {
             this.GetComponent<ActionSelector>().PreventAttack = false;
+            
         }
     }
 

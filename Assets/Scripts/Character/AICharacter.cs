@@ -71,7 +71,7 @@ public class AICharacter : Character
         {
             seekTarget = null;
         }
-        else
+        else if(!isDead)
         {
             seekTarget = playerTarget;
         }
@@ -196,6 +196,12 @@ public class AICharacter : Character
         else
         {
             // TODO: Play IDLE Animaiton Here.
+            navMeshAgent.isStopped = true;
+            this.m_combat.IsMoving = false;
+        }
+
+        if(isDead)
+        {
             navMeshAgent.isStopped = true;
             this.m_combat.IsMoving = false;
         }
