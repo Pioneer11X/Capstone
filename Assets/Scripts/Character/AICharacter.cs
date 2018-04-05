@@ -105,14 +105,17 @@ public class AICharacter : Character
             if (distanceToTarget > this.m_combat.GetAdjustMaxDistance())
             {
                 ForceMove(1.0f, 1);
+                // TODO: Check if this return affects something else? 
+                return;
             }
-
-            if (distanceToTarget < this.m_combat.GetAdjustMinDistance())
+            else if (distanceToTarget < this.m_combat.GetAdjustMinDistance())
             {
-                ForceMove(1.0f, -1);
+                // Going Back is 0 and not negative 1.. Welp
+                ForceMove(1.0f, 0);
+                // TODO: Check if this affects something else? 
+                return;
             }
-
-            if (!(distanceToTarget > this.m_combat.GetAdjustMaxDistance() || distanceToTarget < this.m_combat.GetAdjustMinDistance()))
+            else if (!(distanceToTarget > this.m_combat.GetAdjustMaxDistance() || distanceToTarget < this.m_combat.GetAdjustMinDistance()))
             {
                 this.m_combat.IsAdjusting = false;
             }
@@ -151,12 +154,12 @@ public class AICharacter : Character
                 this.customNavigationAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                //if (Vector3.Distance(customNavigationAgent.destination, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
-                //{
-                //    customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
-                //}
-                // ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
-                customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
+                if (Vector3.Distance(customNavigationAgent.destination, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
+                {
+                    customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
+                }
+                //// ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
+                //customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
 
                 // Play the Animation here            
                 this.m_combat.IsMoving = true;
@@ -189,12 +192,12 @@ public class AICharacter : Character
                 this.customNavigationAgent.isStopped = false;
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                //if (Vector3.Distance(customNavigationAgent.destination, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
-                //{
-                //    customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
-                //}
-                // ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
-                customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
+                if (Vector3.Distance(customNavigationAgent.destination, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
+                {
+                    customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
+                }
+                //// ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
+                //customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
                 // Play the Animation here            
                 this.m_combat.IsMoving = true;
             }
