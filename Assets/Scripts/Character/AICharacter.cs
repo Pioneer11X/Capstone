@@ -89,6 +89,8 @@ public class AICharacter : Character
         {
             Vector3 direc = this.m_combat.CurrentTarget.transform.position - transform.position;
             Quaternion rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
+
+            // TODO: The angle calculation seem a bit off.
             float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
             if (angle < 20) { this.m_combat.IsTurning = false; }
             else
@@ -129,7 +131,7 @@ public class AICharacter : Character
         {
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
-                customNavigationAgent.isStopped = true;
+                this.customNavigationAgent.SetIsStopped(true);
                 this.m_combat.IsMoving = false;
 
                 if (null == this.m_combat.CurrentTarget)
@@ -151,15 +153,13 @@ public class AICharacter : Character
             else
             {
                 Vector3 targetPos = seekTarget.position;
-                this.customNavigationAgent.isStopped = false;
+                this.customNavigationAgent.SetIsStopped(false);
 
                 // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(customNavigationAgent.destination, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
+                if (Vector3.Distance(this.transform.position, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
                 {
                     customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
                 }
-                //// ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
-                //customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
 
                 // Play the Animation here            
                 this.m_combat.IsMoving = true;
@@ -170,7 +170,7 @@ public class AICharacter : Character
             if (Vector3.Distance(transform.position, seekTarget.position) <= this.m_combat.GetAdjustMaxDistance())
             {
 
-                customNavigationAgent.isStopped = true;
+                this.customNavigationAgent.SetIsStopped(true);
                 this.m_combat.IsMoving = false;
 
                 if (null == this.m_combat.CurrentTarget)
@@ -181,23 +181,19 @@ public class AICharacter : Character
                 if (timer > m_combat.TimeBetweenAttacks)
                 {
                     // TODO: Use the Action Selector here. Select an Item and then, reduce the preference.
-                    // this.m_combat.BasicCombo();
-                    // this.m_combat.BasicCombo();
                     this.s_action.selectNextOption();
                     timer = 0;
                 }
             }
             else
             {
-                this.customNavigationAgent.isStopped = false;
+                this.customNavigationAgent.SetIsStopped(false);
 
-                // If the player moves, and the distance b/w your target and their position is >= .. , Recalculate the Path.
-                if (Vector3.Distance(customNavigationAgent.destination, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
+                // If the player moves, and the distance b/w yourself and their position is >= .. , Recalculate the Path.
+                if (Vector3.Distance(this.transform.position, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
                 {
                     customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
                 }
-                //// ఇదితప్పుఎందుకంటేమనంకొంచెంకదిలితేఇదిసరిగ్గాపనిచేయదు.
-                //customNavigationAgent.SetDestination(seekTarget.position, seekTarget.gameObject.layer);
                 // Play the Animation here            
                 this.m_combat.IsMoving = true;
             }
@@ -205,7 +201,7 @@ public class AICharacter : Character
         else
         {
             // TODO: Play IDLE Animaiton Here.
-            customNavigationAgent.isStopped = true;
+            this.customNavigationAgent.SetIsStopped(true);
             this.m_combat.IsMoving = false;
         }
 
