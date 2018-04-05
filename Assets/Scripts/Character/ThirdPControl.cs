@@ -30,6 +30,7 @@ public class ThirdPControl : MonoBehaviour
 
     private ThirdPCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
     private PC playerCharacter;
+    public GameObject ghost;
 
     private Vector3 m_Move;              // the world-relative desired move direction, calculated from the camForward and user input.
     private Vector3 myCamFwd;
@@ -104,6 +105,8 @@ public class ThirdPControl : MonoBehaviour
         m_hacking = false;
 
         gun = gameObject.GetComponent<CombatManager>().gun;
+
+        ghost = null;
     }//end start
 
     private void Update()
@@ -266,9 +269,9 @@ public class ThirdPControl : MonoBehaviour
         if (CrossPlatformInputManager.GetButtonDown("Hack")) //Button 4
         {
             //if (visionHackCDTimer == visionHackCD)
-            if (playerCharacter.SpecialBar > 20 && !m_hacking)
+            if (playerCharacter.SpecialBar > 20 && !m_hacking && null == ghost)
             {
-                Debug.Log("Vision Hack");
+                //Debug.Log("Vision Hack");
                 m_hacking = true;
                 StartVisionHack();
             }
@@ -657,12 +660,12 @@ public class ThirdPControl : MonoBehaviour
         //record cam pos
 
         //create a ghost
-        GameObject ghost = Instantiate(ghostPrefab, transform.position, transform.rotation) as GameObject;
+        ghost = Instantiate(ghostPrefab, transform.position, transform.rotation) as GameObject;
         //init the ghost
         GhostController gc = ghost.GetComponent<GhostController>();
         gc.Init(this, myCarmera);
         //set cam
-        //myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(gc.target, gc.aimTarget);
+        myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(gc.target, gc.aimTarget);
         //disappear
         gameObject.SetActive(false);
     }
