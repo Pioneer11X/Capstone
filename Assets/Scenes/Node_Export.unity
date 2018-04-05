@@ -2456,6 +2456,56 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: minAttackHoldTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: maxAttackHoldTime
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: sprintCost
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: dodgeCost
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: lightSwordCost
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: heavySwordCost
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: gunShootCost
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: lifeBar
+      value: 
+      objectReference: {fileID: 1119148707}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: staminaBar
+      value: 
+      objectReference: {fileID: 469373614}
+    - target: {fileID: 114346082014105318, guid: cb9e65a512285fe4c99a4ffa0421331a,
+        type: 2}
+      propertyPath: specialBar
+      value: 
+      objectReference: {fileID: 544115169}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb9e65a512285fe4c99a4ffa0421331a, type: 2}
   m_IsPrefabParent: 0
