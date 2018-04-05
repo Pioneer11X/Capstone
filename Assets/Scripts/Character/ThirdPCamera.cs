@@ -224,9 +224,12 @@ public class ThirdPCamera : MonoBehaviour
     /// </summary>
     /// <param name="t"></param>
     /// <param name="at"></param>
-    public void ChangeTarget(Transform t,Transform at) {
+    public void ChangeTarget(Transform t, Transform at) {
         target = t;
-        aimTargetPos = at;
+
+        if(null != at)
+            aimTargetPos = at;
+
         if (!target)
         {
             Debug.Log("Camera has no target at Start.");

@@ -52,6 +52,11 @@ public class GhostController : MonoBehaviour
     private Vector3 camPos;
     private Quaternion camRot;
 
+    private bool hackInProgress;
+    public bool HackInProgress
+    {
+        get { return hackInProgress; }
+    }
 
     //animation controller
     //private Animator anim;
@@ -107,7 +112,8 @@ public class GhostController : MonoBehaviour
         //set back the camera
         //myCarmera.transform.position = camPos;
         //myCarmera.transform.rotation = camRot;
-        //myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(player.target, player.aimTarget);
+        // TODO Fix
+        myCarmera.GetComponent<ThirdPCamera>().ChangeTarget(player.target,null);
         //return to the init pos
         transform.position = oriPos;
         transform.rotation = oriRot;
@@ -122,6 +128,8 @@ public class GhostController : MonoBehaviour
     {
         if (!isReplay)
         {
+            hackInProgress = false;
+
             playerCharacter.SpecialBar = playerCharacter.SpecialBar - 0.1f;
             visionHackTimer += Time.deltaTime;
 
@@ -154,10 +162,12 @@ public class GhostController : MonoBehaviour
         }
         else
         {
+            hackInProgress = true;
             frameCount++;
             charAnimation();
             if (frameCount == deadCount)
             {
+                player.ghost = null;
                 Destroy(gameObject);               
             }
         }
@@ -203,7 +213,7 @@ public class GhostController : MonoBehaviour
             { Debug.Log("D-Pad Down"); }
 
 
-            //myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
+            //myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, 0.0f);
 
             //charcter animation based on movement direction
             charAnimation();
