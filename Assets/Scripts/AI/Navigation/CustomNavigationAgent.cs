@@ -10,6 +10,15 @@ public class CustomNavigationAgent : MonoBehaviour
 
     [SerializeField] private float AISpeedMod;
 
+    // Timer for how long the vision would persist you lost site of the enemy.
+    [SerializeField]
+    [Range(0, 10)]
+    private float visionLingerTime = 5.0f;
+    [SerializeField]
+    private float visionLingerTimeCountDown = 0.0f;
+    private bool canChase = false;
+    private bool isChasingUsingNodes = false;
+
     public Vector3 destination;
     public LayerMask targetLayer;
 
@@ -106,6 +115,9 @@ public class CustomNavigationAgent : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+
+        visionLingerTimeCountDown -= Time.deltaTime;
+
         // This would get the Current node and set it.
         // మనమిప్పుడున్న Node.
         currentNode = NavigationSingleton.Instance.GetCurrentNode(this.transform.position);
@@ -129,15 +141,38 @@ public class CustomNavigationAgent : MonoBehaviour
         }
         else
         {
-            Debug.DrawRay(rayCastSourcePoint, hitInfo.point, Color.red);
-            // Use the nodes. Use the Nodes to traverse.
+            
+            if ( canChase && visionLingerTimeCountDown > 0.0f)
+            {
+                Debug.DrawRay(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint), Color.green);
+                isChasingUsingNodes = true;
+                if (null != path && path.Count > 0)
+                {
+                    this.destination = this.path[0].nodePosition;
+                    // Check for Rotation.
+                    var direc = destination - transform.position;
+                    var rot = Quaternion.LookRotation(direc, transform.TransformDirection(Vector3.up));
+                    float angle = Quaternion.Angle(transform.rotation, new Quaternion(0, rot.y, 0, rot.w));
+                    if (angle > 10) { transform.rotation = Quaternion.RotateTowards(transform.rotation, new Quaternion(0, rot.y, 0, rot.w), aICharacter.turnSpeed * Time.deltaTime); return; }
+
+                    // Rotate First.
+                    this.aICharacter.ForceMove(AISpeedMod, 1);
+                }
+                // Chase the Player.
+            }
+            else if ( visionLingerTimeCountDown < 0.0f )
+            {
+                canChase = false;
+                isChasingUsingNodes = false;
+                Debug.DrawRay(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint), Color.red);
+            }
         }
 
 	}
 
     internal void SetDestination(Vector3 targetPos, LayerMask _targetLayer)
     {
-        this.destination = targetPos;
+        //TODO: This needs to be conditional on if we want to chase using nodes or switch to targeting directly.
         this.targetLayer = _targetLayer;
 
         this.rayCastSourcePoint = this.transform.position;
@@ -147,18 +182,26 @@ public class CustomNavigationAgent : MonoBehaviour
 
         Vector3 rayDir = (rayCastTargetPoint - rayCastSourcePoint).normalized;
 
-        //Debug.DrawRay(new Vector3( rayCastSourcePoint.x, rayCastSourcePoint.y + 0.1f, rayCastSourcePoint.z), rayDir * maxSensoryRadius, Color.green);
-
         // Raycast for the target, and if you can find it, we do not need the pathing nodes anymore...
         if ( Physics.Raycast(rayCastSourcePoint, rayDir, out hitInfo, maxSensoryRadius))
         {
             //Debug.DrawRay(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized * maxSensoryRadius, Color.blue, 0.5f);
             if ( targetLayer == hitInfo.collider.transform.gameObject.layer)
             {
+                this.destination = targetPos;
                 Debug.DrawRay(rayCastSourcePoint, (rayCastTargetPoint - rayCastSourcePoint).normalized * maxSensoryRadius, Color.blue, 0.5f);
                 canTraverseDirectly = true;
+                canChase = true;
+                visionLingerTimeCountDown = visionLingerTime;
                 return;
             }
+        }
+
+        // If you cannot traverse directly, and are chasing using nodes, then set the path accordingly. For now, do not modify the destination that was already set.
+        if (isChasingUsingNodes)
+        {
+            reCalculatePath = true;
+            return;
         }
 
         canTraverseDirectly = false;

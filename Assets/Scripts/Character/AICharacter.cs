@@ -188,7 +188,6 @@ public class AICharacter : Character
             else
             {
                 this.customNavigationAgent.SetIsStopped(false);
-
                 // If the player moves, and the distance b/w yourself and their position is >= .. , Recalculate the Path.
                 if (Vector3.Distance(this.transform.position, seekTarget.position) >= this.m_combat.GetAdjustMaxDistance())
                 {

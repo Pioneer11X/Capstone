@@ -51,20 +51,7 @@ public class PathingNode : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        // మనకి index అన్నదిమనంచేత్తోపెట్టేటట్టయితేచాలాకష్టంగావుంటుంది. అందుకనిమనంకోడుద్వారాకనుక్కుందాం.
-        // The index is really hard to fill out so, I decided to make use of Grid X and Grid Y to create a unique index based on them.
-        index = 1000 * gridY + gridX;
 
-        // మనతోకలసివున్ననోడులనుకూడాఇలానేకనుక్కుంటాము.
-        // The same goes for finding the neighbouring nodes.
-        // This is a huge quality of life change for the developer at the expense of a huge performance hit at the begining of the game.
-        foreach ( GameObject currentNode in GameObject.FindGameObjectsWithTag("PathNode"))
-        {
-            if ( ( 1 == Mathf.Abs(this.gridX - currentNode.GetComponent<PathingNode>().gridX) ) || (1 == Mathf.Abs(this.gridY - currentNode.GetComponent<PathingNode>().gridY)))
-            {
-                this.connectedNodes.Add(currentNode.GetComponent<PathingNode>());
-            }
-        }
 
 	}
 	
