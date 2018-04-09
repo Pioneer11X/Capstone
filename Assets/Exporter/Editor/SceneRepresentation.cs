@@ -51,11 +51,12 @@ namespace FriedTofu
         {
             public string name;
             public string tag;
+            public int index;
             public Float3 position;
-            public string nearby_1 = "";
-            public string nearby_2 = "";
-            public string nearby_3 = "";
-            public string nearby_4 = "";
+            public int nearby_1 = -1;
+            public int nearby_2 = -1;
+            public int nearby_3 = -1;
+            public int nearby_4 = -1;
 
             public PathNode()
             {
@@ -68,7 +69,29 @@ namespace FriedTofu
             {
                 name = obj.name;
                 tag = obj.tag;
+                index = obj.GetComponent<PathingNode>().index;
                 position = new Float3(obj.transform.position);
+               if(obj.GetComponent<PathingNode>().connectedNodes.Count > 0)
+                {
+                    // I cannot believe I need a goto statement, come on C#.
+                    switch(obj.GetComponent<PathingNode>().connectedNodes.Count)
+                    {
+                        case 4:
+                            nearby_4 = obj.GetComponent<PathingNode>().connectedNodes[3].index;
+                            goto case 3;
+                        case 3:
+                            nearby_3 = obj.GetComponent<PathingNode>().connectedNodes[2].index;
+                            goto case 2;
+                        case 2:
+                            nearby_2 = obj.GetComponent<PathingNode>().connectedNodes[1].index;
+                            goto case 1;
+                        case 1:
+                            nearby_1 = obj.GetComponent<PathingNode>().connectedNodes[0].index;
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
         }
 
@@ -316,54 +339,54 @@ namespace FriedTofu
             if (pathNodes == null)
             { return; }
 
-            for(int i = 0; i < pathNodes.Count; i++)
-            {
-                bool added;
-                float dist;
-                PathNode current = pathNodes[i];
-                PathNode closest = null;
+            //for(int i = 0; i < pathNodes.Count; i++)
+            //{
+            //    bool added;
+            //    float dist;
+            //    PathNode current = pathNodes[i];
+            //    PathNode closest = null;
 
-                do
-                {
-                    added = false;
-                    dist = float.MaxValue;
-                    for (int j = 0; j < pathNodes.Count; j++)
-                    {
-                        Vector3 a = new Vector3(current.position.x, current.position.y, current.position.z);
-                        Vector3 b = new Vector3(pathNodes[j].position.x, pathNodes[j].position.y, pathNodes[j].position.z);
-                        float distBetween = Vector3.Distance(a, b);
-                        Debug.Log(distBetween);
-                        if (distBetween > 0 && distBetween < 14)
-                        {
-                            if (distBetween < dist && (pathNodes[j].name != current.nearby_1 && pathNodes[j].name != current.nearby_2
-                                    && pathNodes[j].name != current.nearby_3 && pathNodes[j].name != current.nearby_4))
-                            {
-                                dist = distBetween;
-                                closest = pathNodes[j];
-                                added = true;
-                            }
-                        }
-                    }
+            //    do
+            //    {
+            //        added = false;
+            //        dist = float.MaxValue;
+            //        for (int j = 0; j < pathNodes.Count; j++)
+            //        {
+            //            Vector3 a = new Vector3(current.position.x, current.position.y, current.position.z);
+            //            Vector3 b = new Vector3(pathNodes[j].position.x, pathNodes[j].position.y, pathNodes[j].position.z);
+            //            float distBetween = Vector3.Distance(a, b);
+            //            Debug.Log(distBetween);
+            //            if (distBetween > 0 && distBetween < 14)
+            //            {
+            //                if (distBetween < dist && (pathNodes[j].name != current.nearby_1 && pathNodes[j].name != current.nearby_2
+            //                        && pathNodes[j].name != current.nearby_3 && pathNodes[j].name != current.nearby_4))
+            //                {
+            //                    dist = distBetween;
+            //                    closest = pathNodes[j];
+            //                    added = true;
+            //                }
+            //            }
+            //        }
 
-                    if(current.nearby_1 == "" && added)
-                    {
-                        current.nearby_1 = closest.name;
-                    }
-                    else if (current.nearby_2 == "" && added && current.nearby_1 != "")
-                    {
-                        current.nearby_2 = closest.name;
-                    }
-                    else if (current.nearby_3 == "" && added && current.nearby_2 != "")
-                    {
-                        current.nearby_3 = closest.name;
-                    }
-                    else if (current.nearby_4 == "" && added && current.nearby_3 != "")
-                    {
-                        current.nearby_4 = closest.name;
-                        break;
-                    }
-                } while (added);
-            }
+            //        if(current.nearby_1 == "" && added)
+            //        {
+            //            current.nearby_1 = closest.name;
+            //        }
+            //        else if (current.nearby_2 == "" && added && current.nearby_1 != "")
+            //        {
+            //            current.nearby_2 = closest.name;
+            //        }
+            //        else if (current.nearby_3 == "" && added && current.nearby_2 != "")
+            //        {
+            //            current.nearby_3 = closest.name;
+            //        }
+            //        else if (current.nearby_4 == "" && added && current.nearby_3 != "")
+            //        {
+            //            current.nearby_4 = closest.name;
+            //            break;
+            //        }
+            //    } while (added);
+            //}
         }
 
         public void Save(string filename, bool compact = true)
