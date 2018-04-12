@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using System.Diagnostics;
 using System.IO;
 using System;
@@ -32,6 +33,7 @@ public class TexConverter
         FormatTable.Add(TextureFormat.BC5, "BC5_UNORM");
         FormatTable.Add(TextureFormat.DXT1Crunched, "BC1_UNORM");
         FormatTable.Add(TextureFormat.DXT5Crunched, "BC3_UNORM");
+        FormatTable.Add(TextureFormat.ARGB32, "BC3_UNORM");
     }
 
     public static void Convert(string src, string dst, TextureFormat format, int width = 0, int height = 0, int mipmapLevels = 1, bool heightmap = false, float bumpiness = 1.0f)
@@ -110,5 +112,121 @@ public class TexConverter
         File.WriteAllBytes(outPNG, data);
 
         Convert(outPNG, dst, TextureFormat.DXT5, normalMap.width, normalMap.height, normalMap.mipmapCount);
+    }
+    
+    [MenuItem("Assets/Export Texture")]
+    public static void ExportTexture()
+    {
+        Texture tex = Selection.activeObject as Texture;
+        if (null == tex) return;
+        
+        string srcPath = AssetDatabase.GetAssetPath(tex);
+
+        TextureImporter importer = TextureImporter.GetAtPath(srcPath) as TextureImporter;
+
+        if (null == importer) return;
+
+        string dstPath = EditorUtility.SaveFilePanel("Save File", null, null, "texture");
+        
+        switch (tex.dimension)
+        {
+            case UnityEngine.Rendering.TextureDimension.Tex2D:
+                if (importer.convertToNormalmap)
+                {
+                    if (!importer.isReadable)
+                    {
+                        importer.isReadable = true;
+                        importer.SaveAndReimport();
+                    }
+
+                    Texture2D tex2d = tex as Texture2D;
+                    ConvertNormalMap(tex2d, dstPath);
+                }
+                else
+                {
+                    Texture2D tex2d = tex as Texture2D;
+
+                    Convert(
+                        Path.Combine(Path.GetDirectoryName(Application.dataPath), srcPath),
+                        dstPath,
+                        tex2d.format,
+                        tex2d.width, tex2d.height,
+                        tex2d.mipmapCount,
+                        importer.convertToNormalmap, importer.heightmapScale * 1000);
+                }
+                break;
+            case UnityEngine.Rendering.TextureDimension.Cube:
+                {
+                    //Cubemap cubemap = texture as Cubemap;
+
+                    //break;
+                    throw new Exception("cubemap export: not implemented yet.");
+                }
+            default:
+                throw new Exception("unsupported texture.");
+        }
+    }
+
+    [Serializable]
+    class TextureData
+    {
+        public string name;
+        public Vector4 uvs;
+    }
+
+    [Serializable]
+    class AtlasData
+    {
+        public List<TextureData> atlas;
+    }
+
+    [MenuItem("Assets/Build Texture Atlas")]
+    public static void ExportAtlas()
+    {
+        UnityEngine.Object[] objs = Selection.objects;
+
+        List<Texture2D> textures = new List<Texture2D>();
+
+        foreach(var obj in objs)
+        {
+            Texture2D tex = obj as Texture2D;
+            //tex.PackTextures
+            if (null == tex)
+                continue;
+
+            textures.Add(tex);
+        }
+        
+        if (textures.Count == 0) return;
+
+        string dstPath = EditorUtility.SaveFilePanel("Save File", null, null, "texture");
+        string outDir = Path.GetDirectoryName(dstPath).Replace('/', '\\');
+        string dstBasename = Path.GetFileNameWithoutExtension(dstPath);
+
+        string pngPath = Path.Combine(outDir, dstBasename + ".png");
+        string jsonPath = Path.Combine(outDir, dstBasename + ".json");
+
+        Texture2D atlas = new Texture2D(2048, 2048);
+        Rect[] rects = atlas.PackTextures(textures.ToArray(), 1);
+
+        byte[] bytes = atlas.EncodeToPNG();
+        File.WriteAllBytes(pngPath, bytes);
+
+        AtlasData data = new AtlasData();
+        data.atlas = new List<TextureData>();
+
+        for (int i = 0; i < textures.Count; i++)
+        {
+            Rect r = rects[i];
+            data.atlas.Add(new TextureData { name = textures[i].name, uvs = new Vector4(r.xMin, 1 - r.yMax, r.xMax, 1 - r.yMin) });
+        }
+
+        string dataString = JsonUtility.ToJson(data, true);
+
+        File.WriteAllText(jsonPath, dataString);
+        
+        Convert(pngPath, dstPath, atlas.format, atlas.width, atlas.height, atlas.mipmapCount);
+
+        UnityEngine.Debug.Log("Done.");
     }
 }
