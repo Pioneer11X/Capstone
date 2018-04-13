@@ -394,6 +394,7 @@ GameObject:
   - component: {fileID: 33852934409955998}
   - component: {fileID: 23793788682555082}
   - component: {fileID: 95486664206804838}
+  - component: {fileID: 64041981714620378}
   m_Layer: 0
   m_Name: floor1_SurroundedPillar_DamagedIronMetal
   m_TagString: Untagged
@@ -766,9 +767,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1494633077808288}
-  m_LocalRotation: {x: -0, y: 0.35867918, z: -0, w: 0.93346095}
-  m_LocalPosition: {x: -15.258713, y: -7.066985, z: 46.233932}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -88.33816, y: -7.276985, z: 21.133934}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children:
   - {fileID: 4855785738360658}
   - {fileID: 4828887216011602}
@@ -796,7 +797,7 @@ Transform:
   - {fileID: 4856212536158982}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 42.038002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4953536019330430
 Transform:
   m_ObjectHideFlags: 1
@@ -1733,6 +1734,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1320027641013260}
   m_Mesh: {fileID: 4300000, guid: 7436293444b19194093aefaa81a26b09, type: 3}
+--- !u!64 &64041981714620378
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1763343649303472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: f502fa5ff915ea64fbe4de195cccdd7d, type: 3}
 --- !u!64 &64198147507184204
 MeshCollider:
   m_ObjectHideFlags: 1
