@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 33257321593553114}
   - component: {fileID: 23533194931900294}
   - component: {fileID: 95299339541242842}
+  - component: {fileID: 64198147507184204}
   m_Layer: 0
   m_Name: floor1_SideMachine_OrangePaintedMetalwithBrickSlabs
   m_TagString: Untagged
@@ -199,6 +200,7 @@ GameObject:
   - component: {fileID: 4427604047236068}
   - component: {fileID: 33686043015660464}
   - component: {fileID: 23939609352898310}
+  - component: {fileID: 65370884875394306}
   m_Layer: 0
   m_Name: polySurface1
   m_TagString: Untagged
@@ -764,9 +766,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1494633077808288}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -141.1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.35867918, z: -0, w: 0.93346095}
+  m_LocalPosition: {x: -15.258713, y: -7.066985, z: 46.233932}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4855785738360658}
   - {fileID: 4828887216011602}
@@ -794,7 +796,7 @@ Transform:
   - {fileID: 4856212536158982}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 42.038002, z: 0}
 --- !u!4 &4953536019330430
 Transform:
   m_ObjectHideFlags: 1
@@ -1731,6 +1733,32 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1320027641013260}
   m_Mesh: {fileID: 4300000, guid: 7436293444b19194093aefaa81a26b09, type: 3}
+--- !u!64 &64198147507184204
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1175479234486036}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: a01202073ecc9cc4ab7add1e242a4aa9, type: 3}
+--- !u!65 &65370884875394306
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1372999705832258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 900, y: 400, z: 1200}
+  m_Center: {x: -0.001953125, y: -0.0000076293945, z: 0.00018310547}
 --- !u!95 &95100011265667660
 Animator:
   serializedVersion: 3

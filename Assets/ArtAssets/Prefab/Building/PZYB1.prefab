@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 33437086769115108}
   - component: {fileID: 23911758122679392}
   - component: {fileID: 95737401784661248}
+  - component: {fileID: 65257120722178022}
   m_Layer: 0
   m_Name: Building1_PZY_FirstFloor_Wall1_Painted_Brick_Mix
   m_TagString: Untagged
@@ -387,6 +388,7 @@ GameObject:
   - component: {fileID: 33415139863642924}
   - component: {fileID: 23778674111871110}
   - component: {fileID: 95114447688339092}
+  - component: {fileID: 64657614039430258}
   m_Layer: 0
   m_Name: Building1_PZY_FirstFloor_Column1
   m_TagString: Untagged
@@ -749,9 +751,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1428506764617622}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 115.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.94858164, z: -0, w: 0.31653288}
+  m_LocalPosition: {x: -6.461136, y: -7.5469856, z: 32.34031}
+  m_LocalScale: {x: 2, y: 2.5, z: 2}
   m_Children:
   - {fileID: 4027984268110086}
   - {fileID: 4929292432274644}
@@ -779,7 +781,7 @@ Transform:
   - {fileID: 4447482406572666}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -143.093, z: 0}
 --- !u!4 &4580179115281564
 Transform:
   m_ObjectHideFlags: 1
@@ -1888,6 +1890,32 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1017503494313354}
   m_Mesh: {fileID: 4300000, guid: 78bba890c05392a488be6f658e0f8a85, type: 3}
+--- !u!64 &64657614039430258
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627509777229994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 88e8536622dcd9642aa67668d1d0db6a, type: 3}
+--- !u!65 &65257120722178022
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1589691837245250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 560.8544, y: 359.7583, z: 615.34064}
+  m_Center: {x: 0.76014745, y: -0.000015258789, z: 0.00047302246}
 --- !u!95 &95006037768207978
 Animator:
   serializedVersion: 3

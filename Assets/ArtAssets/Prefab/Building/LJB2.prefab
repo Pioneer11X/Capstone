@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33635950144518302}
   - component: {fileID: 23386444140603992}
   - component: {fileID: 95692239124534646}
+  - component: {fileID: 65597972921751094}
   m_Layer: 0
   m_Name: Building2_JL_Floor_1_wall_Blue Stripe Painted Brick Wall
   m_TagString: Untagged
@@ -639,9 +640,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1035358442104898}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.5, y: 5.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -42.77871, y: -7.276985, z: 26.693935}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_Children:
   - {fileID: 4411089129167350}
   - {fileID: 4049266413387678}
@@ -2382,6 +2383,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1861577561643070}
   m_Mesh: {fileID: 4300000, guid: 7d49090a3a17e79479753153da1d43ef, type: 3}
+--- !u!65 &65597972921751094
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1018612763686198}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 859.0858, y: 300.00003, z: 799.8942}
+  m_Center: {x: 0.0009765625, y: 0, z: 0}
 --- !u!95 &95018150219862488
 Animator:
   serializedVersion: 3
