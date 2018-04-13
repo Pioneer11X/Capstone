@@ -86,6 +86,7 @@ abstract public class Character : MonoBehaviour
     protected bool frozen = false;
     private bool hasJumped = false;
     public bool isDead;
+    protected bool isInjured;
 
     [SerializeField]
     public float turnSpeed = 100;
@@ -311,6 +312,15 @@ abstract public class Character : MonoBehaviour
     /// </summary>
     protected void UpdateState()
     {
+        if(!(humanoid.Health / humanoid.BaseHealth < 0.4f) )
+        {
+            isInjured = false;
+        }
+        else
+        {
+            isInjured = true;
+        }
+
         animationParameter = 0;
 
         if (stateTimer >= 0)
@@ -502,7 +512,14 @@ abstract public class Character : MonoBehaviour
             {
                 if (m_moving)
                 {
-                    currentState = CharacterState.walk;
+                    if (!isInjured)
+                    {
+                        currentState = CharacterState.walk;
+                    }
+                    else
+                    {
+                        currentState = CharacterState.walk_Injured;
+                    }
                     if (m_sprinting)
                     {
                         currentState = CharacterState.run;
@@ -524,7 +541,14 @@ abstract public class Character : MonoBehaviour
                     }
                     else
                     {
-                        currentState = CharacterState.idle_OutCombat;
+                        if (!isInjured)
+                        {
+                            currentState = CharacterState.idle_OutCombat;
+                        }
+                        else
+                        {
+                            currentState = CharacterState.idle_Injured;
+                        }
                         inCombat = false;
 
                     }

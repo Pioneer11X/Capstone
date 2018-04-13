@@ -17,13 +17,21 @@ abstract public class Humanoid : MonoBehaviour
     [SerializeField] protected float jumpPower;
     [SerializeField] protected float stamina;
     [SerializeField] protected float senseRadius;
-    
+
+    protected float baseHealth;
+
     // Properties for stats
     public float Health
     {
         get { return health; }
         set { health = value; }
     }
+
+    public float BaseHealth
+    {
+        get { return baseHealth; }
+    }
+
     public float Energy
     {
         get { return energy; }
@@ -48,7 +56,10 @@ abstract public class Humanoid : MonoBehaviour
     { get { return senseRadius; } }
 
     // Use this for initialization
-    virtual protected void Start() { }
+    virtual protected void Start()
+    {
+        baseHealth = health;
+    }
 
     // Update is called once per frame
     virtual protected void Update() { }

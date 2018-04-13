@@ -254,6 +254,11 @@ public class ThirdPCharacter : Character
             m_MoveSpeedMultiplier = m_BaseSpeedMultiplier; //0.08
         }
 
+        if(isInjured && !sprinting)
+        {
+            m_MoveSpeedMultiplier = m_MoveSpeedMultiplier / 2.0f;
+        }
+
         Vector3 customRight = new Vector3(0, 0, 0);
         customRight.x = m_Rigidbody.transform.forward.z;
         customRight.z = -m_Rigidbody.transform.forward.x;
