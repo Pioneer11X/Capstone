@@ -403,7 +403,7 @@ namespace FriedTofu
             {
                 if (guid != context.MeshTable[basename])
                 {
-                    throw new Exception("Duplicated model file name.");
+                    throw new Exception("Duplicated model file name: " + newPath);
                 }
                 else
                 {
@@ -635,7 +635,7 @@ namespace FriedTofu
             {
                 if (guid != context.TextureTable[name].GUID)
                 {
-                    throw new Exception("Duplicated texture file name.");
+                    throw new Exception("Duplicated texture file name: " + name);
                 }
                 else
                 {

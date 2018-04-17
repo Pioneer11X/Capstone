@@ -68,6 +68,8 @@ public class TexConverter
         info.RedirectStandardOutput = true;
         info.RedirectStandardError = true;
         info.UseShellExecute = false;
+        info.CreateNoWindow = true;
+        info.WindowStyle = ProcessWindowStyle.Minimized;
 
         Process p = Process.Start(info);
         if (null == p)
