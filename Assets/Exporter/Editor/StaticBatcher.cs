@@ -17,8 +17,25 @@ public class StaticBatcher
         public int shaderType;
     }
 
+    [MenuItem("Tools/Static Batch (preview)")]
+    static void StaticBatchPreview()
+    {
+        StaticBatch(false, false);
+    }
+
     [MenuItem("Tools/Static Batch")]
-    static void StaticBatch()
+    static void StaticBatchDefault()
+    {
+        StaticBatch(true, false);
+    }
+
+    [MenuItem("Tools/Static Batch (merge instancing)")]
+    static void StaticBatchMergeInstancing()
+    {
+        StaticBatch(true, true);
+    }
+
+    static void StaticBatch(bool merge, bool mergeInstancingObjs)
     {
         var originalScene = SceneManager.GetActiveScene();
         string originalPath = originalScene.path;
@@ -34,12 +51,13 @@ public class StaticBatcher
         List<Renderable> renderables = new List<Renderable>();
         List<Collider> colliders = new List<Collider>();
         List<Light> lights = new List<Light>();
+        List<GameObject> miscs = new List<GameObject>();
 
         GameObject[] rootGOs = originalScene.GetRootGameObjects();
         
         foreach (GameObject go in rootGOs)
         {
-            ProcessGameObject(go, renderables, colliders, lights);
+            ProcessGameObject(go, renderables, colliders, lights, miscs);
         }
 
         renderables.Sort((a, b) =>
@@ -74,11 +92,17 @@ public class StaticBatcher
         for (int i = 0; i < renderables.Count; i++)
         {
             int startIdx = i;
+            uint indicesCount = renderables[i].mesh.GetIndexCount(renderables[i].subMesh);
+
             while (i < renderables.Count - 1 && 
                 renderables[i].material == renderables[i + 1].material &&
                 renderables[i].mesh == renderables[i + 1].mesh &&
                 renderables[i].subMesh == renderables[i + 1].subMesh)
             {
+                indicesCount += renderables[i + 1].mesh.GetIndexCount(renderables[i + 1].subMesh);
+                if (mergeInstancingObjs && indicesCount >= 65536)
+                    break;
+
                 i++;
             }
 
@@ -104,9 +128,15 @@ public class StaticBatcher
         for (int i = 0; i < notInstanced.Count; i++)
         {
             int startIdx = i;
+            uint indicesCount = notInstanced[i].mesh.GetIndexCount(notInstanced[i].subMesh);
+
             while (i < notInstanced.Count - 1 &&
                 notInstanced[i].material == notInstanced[i + 1].material)
             {
+                indicesCount += notInstanced[i + 1].mesh.GetIndexCount(notInstanced[i + 1].subMesh);
+                if (indicesCount >= 65536)
+                    break;
+                
                 i++;
             }
 
@@ -145,27 +175,50 @@ public class StaticBatcher
 
             group.isStatic = true;
 
-            for (int j = 0; j < batch.Count; j++)
+            if (mergeInstancingObjs)
             {
-                Renderable r = batch[j];
-                sb.AppendFormat("[{0}]{1}_{2}", r.material.name, r.mesh.name, r.subMesh);
+                Mesh mergedMesh = new Mesh();
 
-                GameObject go = new GameObject(sb.ToString());
-                sb.Length = 0;
+                CombineInstance[] insts = new CombineInstance[batch.Count];
 
-                go.isStatic = true;
-
-                go.transform.parent = group.transform;
-                go.transform.position = r.gameObject.transform.position;
-                go.transform.rotation = r.gameObject.transform.rotation;
-                go.transform.localScale = r.gameObject.transform.lossyScale;
-                      
-                if (r.subMesh == 0)
+                for (int j = 0; j < batch.Count; j++)
                 {
+                    insts[j].mesh = batch[j].mesh;
+                    insts[j].subMeshIndex = batch[j].subMesh;
+                    insts[j].transform = batch[j].gameObject.transform.localToWorldMatrix;
+                }
 
-                    go.AddComponent<MeshFilter>().sharedMesh = r.mesh;
-                    
-                    go.AddComponent<MeshRenderer>().sharedMaterial = r.material;
+                mergedMesh.CombineMeshes(insts, true, true, false);
+
+                mergedMesh.name = "Merged_Instancing_Mesh_" + originalScene.name + "_" + i;
+
+                group.AddComponent<MeshFilter>().sharedMesh = mergedMesh;
+                group.AddComponent<MeshRenderer>().sharedMaterial = batch[0].material;
+            }
+            else
+            { 
+                for (int j = 0; j < batch.Count; j++)
+                {
+                    Renderable r = batch[j];
+                    sb.AppendFormat("[{0}]{1}_{2}", r.material.name, r.mesh.name, r.subMesh);
+
+                    GameObject go = new GameObject(sb.ToString());
+                    sb.Length = 0;
+
+                    go.isStatic = true;
+
+                    go.transform.parent = group.transform;
+                    go.transform.position = r.gameObject.transform.position;
+                    go.transform.rotation = r.gameObject.transform.rotation;
+                    go.transform.localScale = r.gameObject.transform.lossyScale;
+
+                    if (r.subMesh == 0)
+                    {
+
+                        go.AddComponent<MeshFilter>().sharedMesh = r.mesh;
+
+                        go.AddComponent<MeshRenderer>().sharedMaterial = r.material;
+                    }
                 }
             }
         }
@@ -186,27 +239,50 @@ public class StaticBatcher
 
             group.isStatic = true;
 
-            for (int j = 0; j < batch.Count; j++)
+            if (merge) // actuall merge the meshes
             {
-                Renderable r = batch[j];
-                sb.AppendFormat("[{0}]{1}_{2}", r.material.name, r.mesh.name, r.subMesh);
+                Mesh mergedMesh = new Mesh();
 
-                GameObject go = new GameObject(sb.ToString());
-                sb.Length = 0;
+                CombineInstance[] insts = new CombineInstance[batch.Count];
 
-                go.isStatic = true;
-
-                go.transform.parent = group.transform;
-                go.transform.position = r.gameObject.transform.position;
-                go.transform.rotation = r.gameObject.transform.rotation;
-                go.transform.localScale = r.gameObject.transform.lossyScale;
-
-                if (r.subMesh == 0)
+                for (int j = 0; j < batch.Count; j++)
                 {
+                    insts[j].mesh = batch[j].mesh;
+                    insts[j].subMeshIndex = batch[j].subMesh;
+                    insts[j].transform = batch[j].gameObject.transform.localToWorldMatrix;
+                }
 
-                    go.AddComponent<MeshFilter>().sharedMesh = r.mesh;
+                mergedMesh.CombineMeshes(insts, true, true, false);
 
-                    go.AddComponent<MeshRenderer>().sharedMaterial = r.material;
+                mergedMesh.name = "Merged_Mesh_" + originalScene.name + "_" + i;
+
+                group.AddComponent<MeshFilter>().sharedMesh = mergedMesh;
+                group.AddComponent<MeshRenderer>().sharedMaterial = batch[0].material;
+            }
+            else // just list meshes to be merged
+            {
+                for (int j = 0; j < batch.Count; j++)
+                {
+                    Renderable r = batch[j];
+                    sb.AppendFormat("[{0}]{1}_{2}", r.material.name, r.mesh.name, r.subMesh);
+
+                    GameObject go = new GameObject(sb.ToString());
+                    sb.Length = 0;
+
+                    go.isStatic = true;
+
+                    go.transform.parent = group.transform;
+                    go.transform.position = r.gameObject.transform.position;
+                    go.transform.rotation = r.gameObject.transform.rotation;
+                    go.transform.localScale = r.gameObject.transform.lossyScale;
+
+                    if (r.subMesh == 0)
+                    {
+
+                        go.AddComponent<MeshFilter>().sharedMesh = r.mesh;
+
+                        go.AddComponent<MeshRenderer>().sharedMaterial = r.material;
+                    }
                 }
             }
         }
@@ -258,34 +334,87 @@ public class StaticBatcher
             
             foreach (Collider collider in colliders)
             {
-                GameObject go = GameObject.Instantiate<GameObject>(collider.gameObject);
+                GameObject go = new GameObject(collider.gameObject.name);
                 go.transform.parent = group.transform;
 
                 go.transform.position = collider.gameObject.transform.position;
                 go.transform.rotation = collider.gameObject.transform.rotation;
                 go.transform.localScale = collider.gameObject.transform.lossyScale;
+
+                BoxCollider box = collider as BoxCollider;
+                SphereCollider sphere = collider as SphereCollider;
+                CapsuleCollider capsule = collider as CapsuleCollider;
+                MeshCollider mesh = collider as MeshCollider;
+
+                if (box)
+                {
+                    var comp = go.AddComponent<BoxCollider>();
+                    comp.center = box.center;
+                    comp.size = box.size;
+                }
+                else if (sphere)
+                {
+                    var comp = go.AddComponent<SphereCollider>();
+                    comp.center = sphere.center;
+                    comp.radius = sphere.radius;
+                }
+                else if (capsule)
+                {
+                    var comp = go.AddComponent<CapsuleCollider>();
+                    comp.center = capsule.center;
+                    comp.radius = capsule.radius;
+                    comp.height = capsule.height;
+                }
+                else if (mesh)
+                {
+                    var comp = go.AddComponent<MeshCollider>();
+                    comp.sharedMesh = mesh.sharedMesh;
+                }
+                else
+                {
+                    throw new System.Exception("Unsupported collider.");
+                }
             }
         }
 
         // lights
-
         if (lights.Count > 0)
         {
             GameObject group = new GameObject("Lights [" + lights.Count + "]");
 
             foreach (Light light in lights)
             {
-                GameObject go = GameObject.Instantiate<GameObject>(light.gameObject);
+                GameObject go = new GameObject(light.gameObject.name);
                 go.transform.parent = group.transform;
 
                 go.transform.position = light.gameObject.transform.position;
                 go.transform.rotation = light.gameObject.transform.rotation;
                 go.transform.localScale = light.gameObject.transform.lossyScale;
+
+                Light comp = go.AddComponent<Light>();
+                comp.type = light.type;
+                comp.color = light.color;
+                comp.range = light.range;
+                comp.intensity = light.intensity;
+                comp.spotAngle = light.spotAngle;
+                comp.shadows = light.shadows;
             }
         }
+
+        // miscs
+        
+        foreach (GameObject miscGo in miscs)
+        {
+            GameObject go = GameObject.Instantiate<GameObject>(miscGo);
+
+            go.transform.position = miscGo.gameObject.transform.position;
+            go.transform.rotation = miscGo.gameObject.transform.rotation;
+            go.transform.localScale = miscGo.gameObject.transform.lossyScale;
+        }
+        
     }
 
-    static void ProcessGameObject(GameObject go, List<Renderable> renderables, List<Collider> colliders, List<Light> lights)
+    static void ProcessGameObject(GameObject go, List<Renderable> renderables, List<Collider> colliders, List<Light> lights, List<GameObject> miscs)
     {
         if (!go.activeInHierarchy)
             return;
@@ -300,13 +429,29 @@ public class StaticBatcher
             return;
 
         // Node exporting
-        if (go.tag == "PathNode") { return; }
+        if (go.tag == "PathNode")
+        {
+            miscs.Add(go);
+            return;
+        }
 
-        if (go.tag == "JumpNode") { return; }
+        if (go.tag == "JumpNode")
+        {
+            miscs.Add(go);
+            return;
+        }
 
-        if (go.tag == "Spawner" || go.tag == "TriggerNode") { return; }
+        if (go.tag == "Spawner" || go.tag == "TriggerNode")
+        {
+            miscs.Add(go);
+            return;
+        }
 
-        if (go.tag == "PlayerSpawn") { return; }
+        if (go.tag == "PlayerSpawn")
+        {
+            miscs.Add(go);
+            return;
+        }
 
         Renderer renderer = go.GetComponent<Renderer>();
         MeshFilter meshFilter = go.GetComponent<MeshFilter>();
@@ -355,7 +500,7 @@ public class StaticBatcher
 
         foreach (Transform child in go.transform)
         {
-            ProcessGameObject(child.gameObject, renderables, colliders, lights);
+            ProcessGameObject(child.gameObject, renderables, colliders, lights, miscs);
         }
     }
     

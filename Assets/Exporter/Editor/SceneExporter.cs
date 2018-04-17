@@ -151,11 +151,15 @@ namespace FriedTofu
                 return;
             }
 
+            EditorUtility.DisplayProgressBar("Exporting Scene", "Reading Resources Information", 0);
+
             config.LastExportPath = path;
             File.WriteAllText(configPath, JsonUtility.ToJson(config));
 
             ResourceMap context = new ResourceMap(path);
             Debug.Log("Assets folder: " + path);
+            
+            EditorUtility.DisplayProgressBar("Exporting Scene", "Processing GameObjects", 0);
 
             // get all root gameobjects in current scene
             var unityScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
@@ -197,7 +201,8 @@ namespace FriedTofu
 
             // sort the path nodes here
             scene.SortPathNodes();
-
+            
+            EditorUtility.DisplayProgressBar("Exporting Scene", "Writing scene json file", 0);
 
             scene.Save(
                 Path.Combine(
@@ -211,6 +216,7 @@ namespace FriedTofu
 
             context.Save();
 
+            EditorUtility.ClearProgressBar();
             Debug.Log("Done.");
         }
 
@@ -359,25 +365,38 @@ namespace FriedTofu
             return entity;
         }
 
+        static int GetLocalId(UnityEngine.Object obj)
+        {
+            PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
+            SerializedObject so = new SerializedObject(obj);
+            inspectorModeInfo.SetValue(so, InspectorMode.Debug, null);
+
+            SerializedProperty localIdProp = so.FindProperty("m_LocalIdentfierInFile");
+
+            return localIdProp.intValue;
+        }
+
         static string ExportMesh(Mesh mesh, ResourceMap context)
         {
             string originalPath = AssetDatabase.GetAssetPath(mesh);
             string guid = string.Empty;
             string basename = string.Empty;
-            int localId = 0;
 
+            bool isMergedMesh = false;
+            
+            if (mesh.name.StartsWith("Merged_Instancing_Mesh_") ||
+                mesh.name.StartsWith("Merged_Mesh_"))
             {
-                PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
-                SerializedObject so = new SerializedObject(mesh);
-                inspectorModeInfo.SetValue(so, InspectorMode.Debug, null);
+                int localId = GetLocalId(mesh);
 
-                SerializedProperty localIdProp = so.FindProperty("m_LocalIdentfierInFile");
-
-                localId = localIdProp.intValue;
+                guid = localId.ToString();
+                basename = mesh.name;
+                isMergedMesh = true;
             }
-
-            if (string.IsNullOrEmpty(originalPath))
-            {   
+            else if (string.IsNullOrEmpty(originalPath))
+            {
+                int localId = GetLocalId(mesh);
+                
                 guid = localId.ToString();
                 basename = mesh.name + "_" + localId;
             }
@@ -402,11 +421,11 @@ namespace FriedTofu
             newPath = newPath.Replace('\\', '/');
 
             // check if there are dupplicated filenames
-            if (context.MeshTable.ContainsKey(basename))
+            if (context.MeshTable.ContainsKey(basename) && !isMergedMesh)
             {
                 if (guid != context.MeshTable[basename])
                 {
-                    string newname = basename + "_" + localId;
+                    string newname = basename + "_" + guid;
                     Debug.LogWarning("Mesh name [" + basename + "] duplicated, changed name to [" + newname + "]");
 
                     basename = newname;
@@ -431,6 +450,8 @@ namespace FriedTofu
                     return newPath;
                 }
             }
+            
+            EditorUtility.DisplayProgressBar("Exporting Scene", "Exporting mesh: " + basename, 0);
 
             // create a new file header
             ModelHeader header = new ModelHeader();
@@ -551,15 +572,7 @@ namespace FriedTofu
             {
                 if (guid != context.MaterialTable[basename].GUID)
                 {
-                    PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
-                    SerializedObject so = new SerializedObject(mat);
-                    inspectorModeInfo.SetValue(so, InspectorMode.Debug, null);
-
-                    SerializedProperty localIdProp = so.FindProperty("m_LocalIdentfierInFile");
-
-                    int localId = localIdProp.intValue;
-
-                    string newname = basename + "_" + localId;
+                    string newname = basename + "_" + guid;
                     Debug.LogWarning("Material name [" + basename + "] duplicated, changed name to [" + newname + "]");
 
                     basename = newname;
@@ -581,6 +594,8 @@ namespace FriedTofu
                     return basename;
                 }
             }
+
+            EditorUtility.DisplayProgressBar("Exporting Scene", "Exporting material: " + basename, 0);
 
             ResourceMap.Material material = new ResourceMap.Material();
             material.Name = basename;
@@ -679,15 +694,7 @@ namespace FriedTofu
             {
                 if (guid != context.TextureTable[name].GUID)
                 {
-                    PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
-                    SerializedObject so = new SerializedObject(tex);
-                    inspectorModeInfo.SetValue(so, InspectorMode.Debug, null);
-
-                    SerializedProperty localIdProp = so.FindProperty("m_LocalIdentfierInFile");
-
-                    int localId = localIdProp.intValue;
-
-                    string newname = basename + "_" + localId;
+                    string newname = basename + "_" + guid;
                     Debug.LogWarning("Texture name [" + basename + "] duplicated, changed name to [" + newname + "]");
 
                     basename = newname;
@@ -711,6 +718,8 @@ namespace FriedTofu
                     return name;
                 }
             }
+            
+            EditorUtility.DisplayProgressBar("Exporting Scene", "Exporting texture: " + basename, 0);
 
             ResourceMap.Texture texture = new ResourceMap.Texture();
             texture.Path = name;
