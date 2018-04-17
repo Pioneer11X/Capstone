@@ -364,17 +364,20 @@ namespace FriedTofu
             string originalPath = AssetDatabase.GetAssetPath(mesh);
             string guid = string.Empty;
             string basename = string.Empty;
+            int localId = 0;
 
-            if (string.IsNullOrEmpty(originalPath))
             {
                 PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
                 SerializedObject so = new SerializedObject(mesh);
-                inspectorModeInfo.SetValue(so, InspectorMode.Debug, null); 
-                
+                inspectorModeInfo.SetValue(so, InspectorMode.Debug, null);
+
                 SerializedProperty localIdProp = so.FindProperty("m_LocalIdentfierInFile");
 
-                int localId = localIdProp.intValue;
-                
+                localId = localIdProp.intValue;
+            }
+
+            if (string.IsNullOrEmpty(originalPath))
+            {   
                 guid = localId.ToString();
                 basename = mesh.name + "_" + localId;
             }
@@ -403,7 +406,25 @@ namespace FriedTofu
             {
                 if (guid != context.MeshTable[basename])
                 {
-                    throw new Exception("Duplicated model file name: " + newPath);
+                    string newname = basename + "_" + localId;
+                    Debug.LogWarning("Mesh name [" + basename + "] duplicated, changed name to [" + newname + "]");
+
+                    basename = newname;
+
+                    if (context.MeshTable.ContainsKey(basename))
+                    {
+                        if (guid != context.MeshTable[basename])
+                        {
+                            throw new Exception("Mesh conflict: " + basename);
+                        }
+                        else
+                        {
+                            return newPath;
+                        }
+                    }
+
+                    newPath = Path.Combine("models", basename + ".model").Replace('\\', '/');
+
                 }
                 else
                 {
@@ -530,7 +551,30 @@ namespace FriedTofu
             {
                 if (guid != context.MaterialTable[basename].GUID)
                 {
-                    throw new Exception("Duplicated material file name.");
+                    PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
+                    SerializedObject so = new SerializedObject(mat);
+                    inspectorModeInfo.SetValue(so, InspectorMode.Debug, null);
+
+                    SerializedProperty localIdProp = so.FindProperty("m_LocalIdentfierInFile");
+
+                    int localId = localIdProp.intValue;
+
+                    string newname = basename + "_" + localId;
+                    Debug.LogWarning("Material name [" + basename + "] duplicated, changed name to [" + newname + "]");
+
+                    basename = newname;
+
+                    if (context.MaterialTable.ContainsKey(basename))
+                    {
+                        if (guid != context.MaterialTable[basename].GUID)
+                        {
+                            throw new Exception("Material conflict: " + basename);
+                        }
+                        else
+                        {
+                            return basename;
+                        }
+                    }
                 }
                 else
                 {
@@ -635,7 +679,32 @@ namespace FriedTofu
             {
                 if (guid != context.TextureTable[name].GUID)
                 {
-                    throw new Exception("Duplicated texture file name: " + name);
+                    PropertyInfo inspectorModeInfo = typeof(SerializedObject).GetProperty("inspectorMode", BindingFlags.NonPublic | BindingFlags.Instance);
+                    SerializedObject so = new SerializedObject(tex);
+                    inspectorModeInfo.SetValue(so, InspectorMode.Debug, null);
+
+                    SerializedProperty localIdProp = so.FindProperty("m_LocalIdentfierInFile");
+
+                    int localId = localIdProp.intValue;
+
+                    string newname = basename + "_" + localId;
+                    Debug.LogWarning("Texture name [" + basename + "] duplicated, changed name to [" + newname + "]");
+
+                    basename = newname;
+                    newPath = Path.Combine("textures", basename);
+                    name = newPath.Replace('\\', '/');
+
+                    if (context.TextureTable.ContainsKey(name))
+                    {
+                        if (guid != context.TextureTable[name].GUID)
+                        {
+                            throw new Exception("Texture conflict: " + name);
+                        }
+                        else
+                        {
+                            return name;
+                        }
+                    }
                 }
                 else
                 {
