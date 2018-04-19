@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: M_Panel_WantedRed
+  m_Shader: {fileID: 4800000, guid: 914ff3c94f8e3ad4b81871000e7ce0e8, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DIF:
+        m_Texture: {fileID: 2800000, guid: 0ce5a8501c108406bb24ebfbe4ef14e5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Illum:
+        m_Texture: {fileID: 2800000, guid: 0ce5a8501c108406bb24ebfbe4ef14e5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _InterlacePattern:
+        m_Texture: {fileID: 2800000, guid: 8eb4c8b978071452faf2c98c2aa433e6, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 1}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 0ce5a8501c108406bb24ebfbe4ef14e5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RandomBlinkTexture:
+        m_Texture: {fileID: 2800000, guid: 28c7aad1372ff114b90d330f8a2dd938, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BlinkSpeed: 5
+    - _Cutoff: 0.5
+    - _Em_Power: 1.5
+    - _EmissionLM: 1
+    - _HardnessScanLines: 1
+    - _MaxAlphaBlink: 1
+    - _MaxAlphaScanLines: 1
+    - _MinAlphaBlink: 0.5
+    - _MinAlphaScanLines: 0.3
+    - _ScanLines: 40
+    - _Shininess: 0.7
+    - _SpeedScanLines: -0.5
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 0}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
