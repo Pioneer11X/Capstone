@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
 using System.Collections;
 using System.Collections.Generic;
+using Action = System.Action;
 
 /*This is a third person controller script built on the basis of unity's built in third person controller.
  *The script has been overhualed to work with a third person camera and act in a manner similar to most MMO
