@@ -42,6 +42,16 @@ public class ThirdPCharacter : Character
     /// </summary>
     void Update()
     {
+        if (inCombat)
+        {
+            levelMan.PlayCombatTrack();
+        }
+        else
+        {
+            levelMan.PlayMainTrack();
+        }
+
+
         UpdateState();
 
         // If character goes through the floor, pop them back up

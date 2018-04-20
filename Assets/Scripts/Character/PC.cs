@@ -22,7 +22,8 @@ public class PC : Humanoid
     [SerializeField] protected Slider lifeBar;
     [SerializeField] protected Slider staminaBar;
     [SerializeField] protected Slider specialBar;
-    
+
+    protected LevelManager levelMan;
 
     private bool specialInUse;
     private bool staminaInUse;
@@ -80,6 +81,8 @@ public class PC : Humanoid
     {
         base.Start();
 
+        levelMan = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+
         lifeBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
         staminaBar = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<Slider>();
         specialBar = GameObject.FindGameObjectWithTag("SpecialBar").GetComponent<Slider>();
@@ -98,6 +101,16 @@ public class PC : Humanoid
         {
             lifeBar.value = this.health;
         }
+
+        if(health < baseHealth * 0.4f)
+        {
+            levelMan.PlayLowHealthTrack();
+        }
+        else
+        {
+            levelMan.PlayGoodHealthTrack();
+        }
+
     }
 
 
