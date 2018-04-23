@@ -376,8 +376,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 26}
-  m_SizeDelta: {x: -455, y: -136}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -368, y: -79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &497289394
 MonoBehaviour:
@@ -460,7 +460,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fac97708d756f724ba075f7fa4596ba9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e79a21625d1c2a14e80578323fe2d288, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -476,7 +476,7 @@ Transform:
   m_GameObject: {fileID: 579169084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8217157, y: 0.8217157, z: 0.8217157}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -555,8 +555,8 @@ MonoBehaviour:
     Textures.\r\nPengfei Zhang - Design, Animation, Art Director.\r\n\nThird party
     art team:\r\nHexuan Cai - Concept Art\r\nFeitong Chen - 3D Modeler\r\nWentao Huang
     - 3D Modeler\r\nShengjie Liu  - 3D Modeler\r\nJing Lyu  - 3D modeler\r\nZhuoxin
-    Xu - UI Artist\r\nLongji Zhang  - 3D Modeler\n\nSound:\nAlexandria Murray - Music\nUnity
-    Store - SFX (Also models, textures, etc)"
+    Xu - UI Artist\r\nLongji Zhang  - 3D Modeler\n\nSound:\nAlexandria Murray - Music\nTrevor
+    Canham - Music\nUnity Store - SFX (Also models, textures, etc)"
 --- !u!222 &653947352
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -747,7 +747,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -324}
+  m_AnchoredPosition: {x: 0, y: -391}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1187384257
