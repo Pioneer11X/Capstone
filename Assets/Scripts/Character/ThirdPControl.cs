@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
 using System.Collections;
 using System.Collections.Generic;
+using Action = System.Action;
 
 /*This is a third person controller script built on the basis of unity's built in third person controller.
  *The script has been overhualed to work with a third person camera and act in a manner similar to most MMO
@@ -180,30 +181,6 @@ public class ThirdPControl : MonoBehaviour
                 specialButtonDown = false;
             }
         }
-        else if(m_aiming)
-        {
-            if(!gun.activeSelf)
-            {
-                gun.SetActive(true);
-            }
-            // Gun Attack
-            if (attackButtonDown)
-            {
-                attackButtonTimer += Time.deltaTime;
-            }
-            if (CrossPlatformInputManager.GetButtonDown("Attack")) //Button 2
-            {
-                attackButtonDown = true;
-                attackButtonTimer = 0;
-            }
-            if (CrossPlatformInputManager.GetButtonUp("Attack") && playerCharacter.SpecialBar > playerCharacter.GunShootCost)
-            {
-                //playerCharacter.UseSpecial(playerCharacter.GunShootCost);
-                m_Character.m_combat.GunShot();
-                attackButtonDown = false;
-            }
-        }
-
 
         if (CrossPlatformInputManager.GetButtonDown("Dodge") && playerCharacter.StaminaBar > playerCharacter.DodgeCost) //Button 1
         {
@@ -223,45 +200,6 @@ public class ThirdPControl : MonoBehaviour
                         playerCharacter.UseStamina(playerCharacter.DodgeCost);
                     }
                     
-                }
-            }
-            else
-            {
-                if (h < 0)  // Left
-                {
-                    if(m_Character.m_combat.Dodge(0))
-                    {
-                        // Remove stamina
-                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
-                    }
-                }
-                else if (h > 0) // Right
-                {
-                    if(m_Character.m_combat.Dodge(1))
-                    {
-                        // Remove stamina
-                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
-                    }
-                }
-                else if (v < 0)  // Back
-                {
-                    if(m_Character.m_combat.Dodge(2))
-                    {
-                        // Remove stamina
-                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
-                    }
-                }
-                else if (v > 0)  // Foward
-                {
-                    if(m_Character.m_combat.Dodge(3))
-                    {
-                        // Remove stamina
-                        playerCharacter.UseStamina(playerCharacter.DodgeCost);
-                    }
-                }
-                else
-                {
-                    Debug.Log("Why is roll / dodge falling into this else statement???");
                 }
             }
         }
@@ -312,30 +250,6 @@ public class ThirdPControl : MonoBehaviour
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             //jumpCount++;
         }
-
-        if (Input.GetKeyDown(KeyCode.B) && !m_aiming)
-        {
-            if(AimList())
-            {
-                m_Character.CurrentState = ThirdPCharacter.CharacterState.draw_Gun;
-                m_aiming = true;
-                m_Character.m_combat.IsAimming = true;
-                gun.SetActive(true);
-            }
-            
-            
-        }
-        if (Input.GetKeyUp(KeyCode.B) && m_aiming)
-        {
-            m_aiming = false;
-            m_Character.m_combat.IsAimming = false;
-            myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
-            enemies.Clear();
-            m_Character.CurrentState = ThirdPCharacter.CharacterState.holster_Gun;
-            UnHighlightEnemies();
-            StartCoroutine(GunHolsterDelay());
-        }
-
     }//end update
 
     // Fixed update is called in sync with physics
@@ -387,37 +301,6 @@ public class ThirdPControl : MonoBehaviour
             sprintCoolDown = false;
         }
 
-        lt = CrossPlatformInputManager.GetAxis("Aim");
-        if (lt != 0)    // May need a threshold
-        {
-            if (!m_aiming)
-            {
-                if (AimList())
-                {
-                    m_Character.CurrentState = ThirdPCharacter.CharacterState.draw_Gun;
-                    m_aiming = true;
-                    m_Character.m_combat.IsAimming = true;
-
-                    // TODO
-                    // Find nearest enemy in front of the player and set as aim target
-
-                    gun.SetActive(true);
-                    m_usedConAim = true;
-                }
-            }
-        }
-        else if(m_aiming && m_usedConAim) // TODO change to work better with controller and some form of error range
-        {
-            m_aiming = false;
-            m_usedConAim = false;
-            m_Character.m_combat.IsAimming = false;
-            myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
-            enemies.Clear();
-            m_Character.CurrentState = ThirdPCharacter.CharacterState.holster_Gun;
-            UnHighlightEnemies();
-            StartCoroutine(GunHolsterDelay());
-        }
-
         // D-Pad goes here
         /*
         if (CrossPlatformInputManager.GetAxis("dpX") > 0)
@@ -460,116 +343,6 @@ public class ThirdPControl : MonoBehaviour
         if (!m_aiming)
         {
             myCarmera.GetComponent<ThirdPCamera>().moveCamera(rotationX, rotationY, zoom);
-        }
-        else
-        {
-            // Change aim target if one is available based on joystick/mouse movement.
-            if (enemyArray.Length > 1)
-            {
-                // Is current target is dead, get new one
-                if (!gunTarget.activeSelf)
-                {
-                    float dist = float.MaxValue;
-                    List<GameObject> tempArray = new List<GameObject>(enemyArray.Length);
-
-                    // Adjust the array to remove the dead enemy
-                    for (int i = 0; i < enemyArray.Length; i++)
-                    {
-                        if(enemyArray[i].activeSelf)
-                        {
-                            enemyArray[i].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[i].GetComponent<Enemy>().defaultMat;
-                            tempArray.Add(enemyArray[i]);
-                        }
-                    }
-                    enemyArray = tempArray.ToArray();
-                    
-                    // Set the closet enemy as the target
-                    for (int i = 0; i < enemyArray.Length; i++)
-                    {
-                        float temp = Vector3.Distance(enemyArray[i].transform.position, transform.position);
-                        if (temp < dist)
-                        {
-                            dist = temp;
-                            gunTarget = enemyArray[i];
-                            aimTargetIndex = i;
-                        }
-                    }
-                    SetAimTarget(aimTargetIndex);
-                }
-
-                // Switch Aim Target
-                if (rotationX > 1 && aimCoolDown < 1)
-                {
-                    aimTargetIndex++;
-                    if (aimTargetIndex == enemyArray.Length)
-                    {
-                        aimTargetIndex--;
-                    }
-                    else
-                    {
-                        SetAimTarget(aimTargetIndex);
-                        enemyArray[aimTargetIndex - 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex - 1].GetComponent<Enemy>().defaultMat;
-                        aimCoolDown = 16;
-                    }
-                }
-                else if (rotationX < -1 && aimCoolDown < 1)
-                {
-                    aimTargetIndex--;
-                    if (aimTargetIndex < 0)
-                    {
-                        aimTargetIndex = 0;
-                    }
-                    else
-                    {
- 
-                        SetAimTarget(aimTargetIndex);
-                        enemyArray[aimTargetIndex + 1].GetComponentInChildren<SkinnedMeshRenderer>().material = enemyArray[aimTargetIndex + 1].GetComponent<Enemy>().defaultMat;
-                        aimCoolDown = 16;
-                    }
-                }
-
-
-            }
-            else if(enemyArray.Length == 1 && !gunTarget.activeSelf)
-            {
-                // If there are no enemies left to aim at kick the player out of aim mode
-                m_aiming = false;
-                m_usedConAim = false;
-                m_Character.m_combat.IsAimming = false;
-                myCarmera.GetComponent<ThirdPCamera>().SetAimState(false);
-                enemies.Clear();
-                m_Character.CurrentState = ThirdPCharacter.CharacterState.holster_Gun;
-                UnHighlightEnemies();
-                StartCoroutine(GunHolsterDelay());
-            }
-
-            
-            if(aimCoolDown > 0)
-            {
-                aimCoolDown--;
-            }
-
-            // Tell the animator which direction the character is moving in
-            if (h < 0)  // Left
-            {
-                m_Character.m_combat.AimMove(0);
-            }
-            else if (h > 0) // Right
-            {
-                m_Character.m_combat.AimMove(1);
-            }
-            else if (v < 0)  // Back
-            {
-                m_Character.m_combat.AimMove(2);
-            }
-            else if (v > 0)  // Foward
-            {
-                m_Character.m_combat.AimMove(3);
-            }
-            else
-            {
-                m_Character.m_combat.AimMove(-1);
-            }
         }
 
         m_Character.Move(v, h, myCarmera.GetComponent<ThirdPCamera>().transform.rotation,

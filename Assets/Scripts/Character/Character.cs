@@ -47,6 +47,8 @@ abstract public class Character : MonoBehaviour
     [SerializeField] protected AudioClip jumpFX;
     [SerializeField] protected AudioClip landFX;
 
+    protected LevelManager levelMan;
+
     [SerializeField]
     protected float m_JumpPower;
     [Range(1f, 20f)]
@@ -172,6 +174,8 @@ abstract public class Character : MonoBehaviour
         runningJump = false;
         turnAround = false;
         runTurnAround = false;
+
+        levelMan = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
     }
 	
 	// Update is called once per frame
