@@ -624,7 +624,7 @@ public class StaticBatcher
                     material = materials[matIdx],
                     subMesh = i
                 };
-                r.shaderType = r.material.shader.renderQueue >= 2450 ? 1 : 0;
+                r.shaderType = r.material.renderQueue >= 2450 ? 1 : 0;
                 
                 renderables.Add(r);
             }
