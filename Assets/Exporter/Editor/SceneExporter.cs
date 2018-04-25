@@ -600,7 +600,7 @@ namespace FriedTofu
             ResourceMap.Material material = new ResourceMap.Material();
             material.Name = basename;
             material.GUID = guid;
-            material.Type =  mat.shader.name.Contains("Transparent") ? "Transparent" : "Opaque";
+            material.Type =  mat.shader.renderQueue >= 2450 ? "Transparent" : "Opaque";
             material.AlbedoMap = null;
             material.NormalMap = null;
 

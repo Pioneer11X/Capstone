@@ -597,8 +597,11 @@ public class StaticBatcher
 
         Renderer renderer = go.GetComponent<Renderer>();
         MeshFilter meshFilter = go.GetComponent<MeshFilter>();
-
-        if (renderer && meshFilter)
+        
+        if (renderer && meshFilter && 
+            null != meshFilter.sharedMesh && 
+            null != renderer.sharedMaterials && 
+            renderer.sharedMaterials.Length > 0)
         {
             Mesh mesh = meshFilter.sharedMesh;
             Material[] materials = renderer.sharedMaterials;
@@ -621,8 +624,7 @@ public class StaticBatcher
                     material = materials[matIdx],
                     subMesh = i
                 };
-
-                r.shaderType = r.material.shader.name.Contains("Transparent") ? 1 : 0;
+                r.shaderType = r.material.shader.renderQueue >= 2450 ? 1 : 0;
                 
                 renderables.Add(r);
             }
