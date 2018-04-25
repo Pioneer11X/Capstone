@@ -11,7 +11,6 @@ Material:
   m_ShaderKeywords: _EMISSION _NORMALMAP _SPECGLOSSMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -19,7 +18,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 8029499f987ae402eaf3450c309ed624, type: 3}
+        m_Texture: {fileID: 2800000, guid: 523e0dea111165d489885641b0dd50e9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cube:
@@ -39,7 +38,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: d2555f89bcc1f4996b570cfcc30e4c79, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4cf70e1ba4fd01e438160b108615a439, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive:
@@ -51,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 692307a0c3b1246b1bc38cff69c3caf6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2ff67b5a6a821ae44acaaff70c9e4e81, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -71,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: c30e33c88fe2e47468ba102e9759fe35, type: 3}
+        m_Texture: {fileID: 2800000, guid: 964ed82e98dbd254a8dee28617abf5fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecTex:
@@ -88,15 +87,19 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EmissiveIntensity: 1.2462686
+    - _GlossMapScale: 1
     - _Glossiness: 0.5
+    - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _NormalIntensity: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Shininess: 0.037224755
+    - _SmoothnessTextureChannel: 0
     - _SpecIntensity: 3
     - _SpecPower: 3
+    - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1

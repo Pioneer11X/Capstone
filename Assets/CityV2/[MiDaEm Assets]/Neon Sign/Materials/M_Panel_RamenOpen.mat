@@ -11,7 +11,6 @@ Material:
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
@@ -19,7 +18,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _DIF:
-        m_Texture: {fileID: 2800000, guid: d3c8a873a2269244382bc8c4cdfa2c0e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9cd3d97532715b347a9b47e6c4947625, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Illum:
