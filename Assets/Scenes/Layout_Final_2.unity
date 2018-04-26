@@ -78416,7 +78416,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 425278, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -5.2655725
+      value: -5.01
       objectReference: {fileID: 0}
     - target: {fileID: 425278, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
       propertyPath: m_LocalPosition.z
@@ -78466,6 +78466,22 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 17e03de588178284894b73e396c7063a, type: 2}
+    - target: {fileID: 3395554, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
+    - target: {fileID: 3385432, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
+    - target: {fileID: 3301734, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
+    - target: {fileID: 3349500, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
   m_IsPrefabParent: 0
@@ -100222,6 +100238,22 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -106.827
       objectReference: {fileID: 0}
+    - target: {fileID: 3301734, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
+    - target: {fileID: 3385432, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
+    - target: {fileID: 3395554, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
+    - target: {fileID: 3349500, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
   m_IsPrefabParent: 0
