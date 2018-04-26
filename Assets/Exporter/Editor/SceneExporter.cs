@@ -597,13 +597,14 @@ namespace FriedTofu
 
             EditorUtility.DisplayProgressBar("Exporting Scene", "Exporting material: " + basename, 0);
 
+            ResourceMap.MaterialType matType = ResourceMap.GetMaterialType(mat);
+
             ResourceMap.Material material = new ResourceMap.Material();
             material.Name = basename;
             material.GUID = guid;
-            material.Type =  mat.renderQueue >= 2450 ? "Transparent" : "Opaque";
+            material.Type = matType.ToString();
             material.AlbedoMap = null;
             material.NormalMap = null;
-
             
 
             if (mat.HasProperty("_MainTex"))
@@ -656,14 +657,29 @@ namespace FriedTofu
                 }
             }
 
-            if (mat.HasProperty("_Color"))
+            if (matType == ResourceMap.MaterialType.Additive)
             {
-                material.TintColor = mat.GetColor("_Color");
+                if (mat.HasProperty("_TintColor"))
+                {
+                    material.TintColor = mat.GetColor("_TintColor");
+                }
+            }
+            else
+            {
+                if (mat.HasProperty("_Color"))
+                {
+                    material.TintColor = mat.GetColor("_Color");
+                }
             }
 
             if (mat.HasProperty("_EmissionColor"))
             {
                 material.EmissionColor = mat.GetColor("_EmissionColor");
+            }
+
+            if (mat.HasProperty("_Cutoff"))
+            {
+                material.Cutoff = mat.GetFloat("_Cutoff");
             }
 
             context.MaterialTable.Add(basename, material);
@@ -726,6 +742,10 @@ namespace FriedTofu
             texture.GUID = guid;
             texture.Dimension = tex.dimension.ToString().ToLower();
             TextureImporter importer = TextureImporter.GetAtPath(path) as TextureImporter;
+            if (null == importer)
+            {
+                Debug.LogError("Importer not found: " + path);
+            }
             switch (tex.dimension)
             {
                 case UnityEngine.Rendering.TextureDimension.Tex2D:

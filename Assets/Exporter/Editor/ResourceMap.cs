@@ -11,6 +11,34 @@ namespace FriedTofu
     [Serializable]
     public class ResourceMap
     {
+        public enum MaterialType
+        {
+            Opaque,
+            Cutoff,
+            Transparent,
+            Additive
+        }
+
+        public static MaterialType GetMaterialType(UnityEngine.Material mat)
+        {
+            if (mat.renderQueue < 2450)
+            {
+                return MaterialType.Opaque;
+            }
+            else if (mat.renderQueue < 3000)
+            {
+                return MaterialType.Cutoff;
+            }
+            else if (mat.shader.name.ToLower().Contains("additive"))
+            {
+                return MaterialType.Additive;
+            }
+            else
+            {
+                return MaterialType.Transparent;
+            }
+        }
+
         [Serializable]
         public class Material
         {
@@ -25,6 +53,7 @@ namespace FriedTofu
             public Color TintColor;
             public Color EmissionColor; 
             public Vector4 TextureScaleOffset;
+            public float Cutoff;
         }
 
         [Serializable]
