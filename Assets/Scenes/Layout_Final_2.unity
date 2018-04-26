@@ -60314,6 +60314,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2326436, guid: c217e540cf7b0ce4bbcdb171f16fbc1b, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 245fb05af1e2f494cbcc03a3de9dc2b3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c217e540cf7b0ce4bbcdb171f16fbc1b, type: 2}
   m_IsPrefabParent: 0
@@ -76609,6 +76613,10 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1.5989741
       objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: cbd5866251142476aac4aa556bab6146, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dfab865cffef4a44782e19c66f64957e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cbd5866251142476aac4aa556bab6146, type: 3}
   m_IsPrefabParent: 0
@@ -78663,6 +78671,42 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
+    - target: {fileID: 2386848, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2319402, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2323748, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2365132, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2375230, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2390928, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2368104, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2388448, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2357538, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
   m_IsPrefabParent: 0
@@ -100505,6 +100549,46 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 4300002, guid: 44015d164237f0248b3ec7573515e60d, type: 3}
+    - target: {fileID: 2357538, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2368104, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2390928, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2349642, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2365132, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2319402, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2388448, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2386848, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2323748, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
+    - target: {fileID: 2375230, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd77bfed94e08954f9e39adc114e522e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21bd9001b6b69e84fbccbc21119f9ace, type: 2}
   m_IsPrefabParent: 0
@@ -113138,7 +113222,7 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 6
   m_Range: 60
   m_SpotAngle: 45
   m_CookieSize: 10
