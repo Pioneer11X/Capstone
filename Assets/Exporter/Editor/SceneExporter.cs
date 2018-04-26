@@ -729,7 +729,7 @@ namespace FriedTofu
             switch (tex.dimension)
             {
                 case UnityEngine.Rendering.TextureDimension.Tex2D:
-                    if (importer.convertToNormalmap)
+                    if (importer.textureType == TextureImporterType.NormalMap)
                     {
                         if (!importer.isReadable)
                         {

@@ -95,21 +95,12 @@ public class TexConverter
         string srcBasename = Path.GetFileNameWithoutExtension(dst);
         string outPNG = Path.Combine(outDir, srcBasename + ".png");
 
-        Texture2D tex = new Texture2D(normalMap.width, normalMap.height, TextureFormat.RGB24, false, false);
+        Texture2D tex = new Texture2D(normalMap.width, normalMap.height, TextureFormat.RGBAFloat, false);
 
-        for (int y = 0; y < normalMap.height; y++)
-        {
-            for (int x = 0; x < normalMap.width; x++)
-            {
-                Color c = normalMap.GetPixel(x, y);
-                float r = c.a * 2 - 1;
-                float g = c.g * 2 - 1;
-                float b = Mathf.Sqrt(1 - r * r - g * g);
-                c = new Color((r + 1) * 0.5f, (g + 1) * 0.5f, (b + 1) * 0.5f);
-                tex.SetPixel(x, y, c);
-            }
-        }
-
+        Color[] colors = normalMap.GetPixels(0);
+        tex.SetPixels(colors, 0);
+        tex.Apply(true, false);
+        
         byte[] data = tex.EncodeToPNG();
         File.WriteAllBytes(outPNG, data);
 
@@ -133,7 +124,7 @@ public class TexConverter
         switch (tex.dimension)
         {
             case UnityEngine.Rendering.TextureDimension.Tex2D:
-                if (importer.convertToNormalmap)
+                if (importer.textureType == TextureImporterType.NormalMap)
                 {
                     if (!importer.isReadable)
                     {
