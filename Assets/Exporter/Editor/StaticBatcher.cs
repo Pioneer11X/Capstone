@@ -531,7 +531,7 @@ public class StaticBatcher
 
                 go.transform.position = light.gameObject.transform.position;
                 go.transform.rotation = light.gameObject.transform.rotation;
-                go.transform.localScale = light.gameObject.transform.lossyScale;
+                go.transform.localScale = Vector3.one;
 
                 Light comp = go.AddComponent<Light>();
                 comp.type = light.type;
