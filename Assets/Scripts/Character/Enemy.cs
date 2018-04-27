@@ -7,6 +7,7 @@ public class Enemy : Humanoid
 {
     public bool isBoss;
     public bool isTutorial;
+    public bool isTutorialBoss;
     public bool isDummy = false;
     public GameObject BossBar;
     public Slider LifeBar;
@@ -32,6 +33,10 @@ public class Enemy : Humanoid
             BossBar.transform.GetChild(0).gameObject.SetActive(true);
             BossBar.transform.GetChild(1).gameObject.SetActive(true);
             LifeBar = BossBar.GetComponentInChildren<Slider>();
+            level_Manager = GameObject.FindGameObjectWithTag("LevelManager");
+        }
+        if(isTutorialBoss)
+        {
             level_Manager = GameObject.FindGameObjectWithTag("LevelManager");
         }
         initialHealth = health;
@@ -75,6 +80,10 @@ public class Enemy : Humanoid
         {
             BossBar.SetActive(false);
             level_Manager.GetComponent<LevelManager>().End();
+        }
+        if (isTutorialBoss)
+        {
+            level_Manager.GetComponent<LevelManager>().EndTutorial();
         }
         if (!isTutorial)
         {

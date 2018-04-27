@@ -38,6 +38,11 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(WaitToEnd());
     }
 
+    public void EndTutorial()
+    {
+        StartCoroutine(WaitToEndTutorial());
+    }
+
     /// <summary>
     /// Switch to the low health BGM
     /// </summary>
@@ -115,6 +120,23 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadSceneAsync("EndLevel");
     }
 
+    /// <summary>
+    /// Call Load on MainLevel
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerator WaitToEndTutorial()
+    {
+        while (counter < 60)
+        {
+            Debug.Log("running");
+            counter++;
+            yield return null;
+        }
+
+        StopAllCoroutines();
+
+        SceneManager.LoadSceneAsync("LoadingM");
+    }
 
     public IEnumerator SpinDownAudio(AudioSource source)
     {
