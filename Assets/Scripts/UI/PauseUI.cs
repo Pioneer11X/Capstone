@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.UI;
 
 /// <summary>
 /// Pause Screen, show/hide menu items
@@ -10,6 +11,7 @@ public class PauseUI : MonoBehaviour
     [SerializeField] private GameObject HelpSprite;
     [SerializeField] private GameObject OptionsSprite;
     [SerializeField] private GameObject EventSystemObject;
+    [SerializeField] private Text       OptionsText;
 
     private Pause pause;
 
@@ -20,6 +22,7 @@ public class PauseUI : MonoBehaviour
     {
         HelpSprite.SetActive(false);
         OptionsSprite.SetActive(false);
+        OptionsText.enabled = false;
         EventSystemObject.SetActive(true);
 
         pause = Pause.Instance;
@@ -44,6 +47,7 @@ public class PauseUI : MonoBehaviour
     {
         HelpSprite.SetActive(false);
         OptionsSprite.SetActive(true);
+        OptionsText.enabled = true;
     }
 
     /// <summary>
@@ -53,6 +57,7 @@ public class PauseUI : MonoBehaviour
     {
         HelpSprite.SetActive(true);
         OptionsSprite.SetActive(false);
+        OptionsText.enabled = false;
     }
 
     /// <summary>
@@ -62,6 +67,7 @@ public class PauseUI : MonoBehaviour
     {
         HelpSprite.SetActive(false);
         OptionsSprite.SetActive(false);
+        OptionsText.enabled = false;
 
         pause.IsPaused = false;
         Cursor.lockState = CursorLockMode.Locked;

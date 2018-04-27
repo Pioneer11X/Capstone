@@ -34,6 +34,11 @@ public class CapstoneAnimation : MonoBehaviour
         float duration = 0.0f;
         int layerOverride = 0;
 
+        //animationName_0 = animationName_1 = "Death";
+        //animator.CrossFade(animationName_0, duration, 0);
+        //animator.CrossFade(animationName_1, duration, 1);
+        //return;
+
         //Debug.Log(state);
         switch (state)
         {
