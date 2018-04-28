@@ -14,6 +14,8 @@ public class LoadLevel : MonoBehaviour
     private bool loaded;
     private bool once;
 
+    private int counter;
+
     // Use this for initialization
     void Start()
     {
@@ -22,6 +24,7 @@ public class LoadLevel : MonoBehaviour
         loading = false;
         loaded = false;
         once = false;
+        counter = 0;
     }
 
     // Update is called once per frame
@@ -29,11 +32,14 @@ public class LoadLevel : MonoBehaviour
     {
         if (!loading)
         {
-            loading = true;
+            counter++;
 
-            StartCoroutine(LoadYourAsyncScene());
+            if (counter > 240)
+            {
+                loading = true;
 
-            Debug.Log("called loading");
+                StartCoroutine(LoadYourAsyncScene());
+            }
         }
 
         if(loaded && !once)
